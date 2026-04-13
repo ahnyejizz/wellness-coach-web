@@ -1,3 +1,7 @@
+import Link from "next/link";
+
+import { auth, signOut } from "@/auth";
+
 import CoachPlanner from "./components/coach-planner";
 import FocusBoard, { type FocusAreaMap } from "./components/focus-board";
 
@@ -198,7 +202,11 @@ const reportNotes = [
   "이번 주는 강도를 더 올리기보다 취침 시간을 고정하는 편이 전체 점수를 더 끌어올립니다.",
 ];
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+  const isLoggedIn = !!session?.user;
+  const userName = session?.user?.name?.trim() || "Motive Care Member";
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div
@@ -243,6 +251,47 @@ export default function Home() {
                 주간 리포트
               </a>
 
+              {isLoggedIn ? (
+                <>
+                  <span className="inline-flex items-center rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 text-[var(--foreground)]">
+                    {userName}님
+                  </span>
+                  <Link
+                    href="/coach"
+                    className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
+                  >
+                    내 코치 페이지
+                  </Link>
+                  <form
+                    action={async () => {
+                      "use server";
+                      await signOut({ redirectTo: "/" });
+                    }}
+                  >
+                    <button
+                      type="submit"
+                      className="rounded-full bg-[var(--foreground)] px-4 py-2 font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+                    >
+                      로그아웃
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
+                  >
+                    로그인
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="rounded-full bg-[var(--foreground)] px-4 py-2 font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+                  >
+                    회원가입
+                  </Link>
+                </>
+              )}
             </nav>
           </header>
 
@@ -268,6 +317,21 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row">
+                {isLoggedIn ? (
+                  <Link
+                    href="/coach"
+                    className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+                  >
+                    내 코치 페이지로 이동
+                  </Link>
+                ) : (
+                  <Link
+                    href="/signup"
+                    className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+                  >
+                    회원가입하고 시작하기
+                  </Link>
+                )}
                 <a
                   href="#report"
                   className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/70 px-6 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
@@ -548,6 +612,21 @@ export default function Home() {
                 기록을 많이 남기지 않아도 괜찮습니다. 중요한 건 지금 몸 상태에서
                 가장 효과가 큰 행동 하나를 매일 이어가게 만드는 것입니다.
               </p>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <a
+                href="/signup"
+                className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                회원가입하고 코칭 시작
+              </a>
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/70 px-6 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
+              >
+                로그인
+              </Link>
             </div>
           </div>
         </section>
