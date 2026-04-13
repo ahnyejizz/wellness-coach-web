@@ -33,7 +33,9 @@ export class DuplicateUserError extends Error {
   }
 }
 
-const usersFilePath = path.join(process.cwd(), "data", "users.json");
+const usersFilePath = process.env.VERCEL
+  ? path.join("/tmp", "motive-care-users.json")
+  : path.join(process.cwd(), "data", "users.json");
 
 function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
