@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth, signOut } from "@/auth";
+import WellnessPlanSummary from "@/app/components/wellness-plan-summary";
 import {
   getUserProfileByEmail,
   getWellnessFocusLabel,
@@ -117,6 +118,8 @@ export default async function CoachPage() {
           </p>
         </article>
       </section>
+
+      <WellnessPlanSummary />
     </main>
   );
 }

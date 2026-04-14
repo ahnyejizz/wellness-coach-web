@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
-export type FocusKey = "sleep" | "exercise" | "diet";
+import { useWellnessStore, type FocusKey } from "@/app/stores/wellness-store";
 
 type FocusMetric = {
   label: string;
@@ -37,8 +35,9 @@ export type FocusAreaMap = Record<FocusKey, FocusArea>;
 const focusOrder: FocusKey[] = ["sleep", "exercise", "diet"];
 
 export default function FocusBoard({ areas }: { areas: FocusAreaMap }) {
-  const [active, setActive] = useState<FocusKey>("sleep");
-  const current = areas[active];
+  const activeFocus = useWellnessStore((state) => state.activeFocus);
+  const setActiveFocus = useWellnessStore((state) => state.setActiveFocus);
+  const current = areas[activeFocus];
 
   return (
     <section
@@ -58,20 +57,21 @@ export default function FocusBoard({ areas }: { areas: FocusAreaMap }) {
         </h2>
         <p className="mt-4 max-w-xl text-sm leading-7 text-[var(--muted)]">
           수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번 주
-          패턴이 함께 업데이트됩니다.
+          패턴이 함께 업데이트됩니다. 플래너에서 고른 우선 코칭 축과도 실시간으로
+          동기화됩니다.
         </p>
 
         <div className="mt-8 space-y-3">
           {focusOrder.map((key) => {
             const area = areas[key];
-            const isActive = key === active;
+            const isActive = key === activeFocus;
 
             return (
               <button
                 key={area.label}
                 type="button"
                 aria-pressed={isActive}
-                onClick={() => setActive(key)}
+                onClick={() => setActiveFocus(key)}
                 className={`w-full rounded-[1.5rem] border p-5 text-left transition-all duration-200 ${
                   isActive
                     ? "border-transparent bg-[var(--foreground)] text-[#fffaf2] shadow-xl"

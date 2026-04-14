@@ -1,21 +1,16 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
-
-type GoalKey = "sleep-reset" | "fat-loss" | "muscle-tone" | "steady-energy";
-type FocusKey = "sleep" | "exercise" | "diet";
-type MealPatternKey = "balanced" | "protein-forward" | "gentle-balance";
-
-type PlannerProfile = {
-  name: string;
-  goal: GoalKey;
-  focus: FocusKey;
-  bedtime: string;
-  workoutDays: number;
-  proteinTarget: number;
-  waterTarget: number;
-  mealPattern: MealPatternKey;
-};
+import {
+  clampProteinTarget,
+  clampWaterTarget,
+  clampWorkoutDays,
+  getSavedPlanLabel,
+  type FocusKey,
+  type GoalKey,
+  type MealPatternKey,
+  type PlannerProfile,
+  useWellnessStore,
+} from "@/app/stores/wellness-store";
 
 type PlanCard = {
   label: string;
@@ -41,19 +36,6 @@ type PersonalPlan = {
   scoreLabel: string;
   cards: PlanCard[];
   actions: PlanAction[];
-};
-
-const STORAGE_KEY = "motive-care-planner-v1";
-
-const defaultProfile: PlannerProfile = {
-  name: "민지",
-  goal: "steady-energy",
-  focus: "sleep",
-  bedtime: "23:10",
-  workoutDays: 4,
-  proteinTarget: 110,
-  waterTarget: 2.1,
-  mealPattern: "balanced",
 };
 
 const goalMeta = {
@@ -121,60 +103,6 @@ const mealPatternMeta = {
   "protein-forward": "단백질 우선 배치로 포만감과 회복을 챙기는 식사",
   "gentle-balance": "부담 없는 소화와 안정적인 혈당 흐름에 맞춘 식사",
 } satisfies Record<MealPatternKey, string>;
-
-function isGoalKey(value: string): value is GoalKey {
-  return value in goalMeta;
-}
-
-function isFocusKey(value: string): value is FocusKey {
-  return value in focusMeta;
-}
-
-function isMealPatternKey(value: string): value is MealPatternKey {
-  return value in mealPatternMeta;
-}
-
-function clampWorkoutDays(value: number) {
-  return Math.min(6, Math.max(2, value));
-}
-
-function clampProteinTarget(value: number) {
-  return Math.min(180, Math.max(60, value));
-}
-
-function clampWaterTarget(value: number) {
-  return Math.min(4, Math.max(1, value));
-}
-
-function normalizeProfile(value: Partial<PlannerProfile>): PlannerProfile {
-  return {
-    name: typeof value.name === "string" ? value.name : defaultProfile.name,
-    goal:
-      typeof value.goal === "string" && isGoalKey(value.goal)
-        ? value.goal
-        : defaultProfile.goal,
-    focus:
-      typeof value.focus === "string" && isFocusKey(value.focus)
-        ? value.focus
-        : defaultProfile.focus,
-    bedtime: typeof value.bedtime === "string" ? value.bedtime : defaultProfile.bedtime,
-    workoutDays: clampWorkoutDays(
-      Number.isFinite(value.workoutDays) ? Number(value.workoutDays) : defaultProfile.workoutDays,
-    ),
-    proteinTarget: clampProteinTarget(
-      Number.isFinite(value.proteinTarget)
-        ? Number(value.proteinTarget)
-        : defaultProfile.proteinTarget,
-    ),
-    waterTarget: clampWaterTarget(
-      Number.isFinite(value.waterTarget) ? Number(value.waterTarget) : defaultProfile.waterTarget,
-    ),
-    mealPattern:
-      typeof value.mealPattern === "string" && isMealPatternKey(value.mealPattern)
-        ? value.mealPattern
-        : defaultProfile.mealPattern,
-  };
-}
 
 function buildPlan(profile: PlannerProfile): PersonalPlan {
   const goal = goalMeta[profile.goal];
@@ -256,56 +184,14 @@ function buildPlan(profile: PlannerProfile): PersonalPlan {
 }
 
 export default function CoachPlanner() {
-  const [profile, setProfile] = useState<PlannerProfile>(defaultProfile);
-  const [savedLabel, setSavedLabel] = useState("입력값을 바꾸면 플랜이 바로 반영돼요");
-  const [isPending, startPlanTransition] = useTransition();
+  const profile = useWellnessStore((state) => state.profile);
+  const hasHydrated = useWellnessStore((state) => state.hasHydrated);
+  const lastSavedAt = useWellnessStore((state) => state.lastSavedAt);
+  const updateProfile = useWellnessStore((state) => state.updateProfile);
+  const saveProfile = useWellnessStore((state) => state.saveProfile);
+  const resetProfile = useWellnessStore((state) => state.resetProfile);
   const plan: PersonalPlan = buildPlan(profile);
-
-  useEffect(() => {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return;
-    }
-
-    let frameId = 0;
-
-    try {
-      const parsed = JSON.parse(raw) as Partial<PlannerProfile>;
-      const nextProfile = normalizeProfile(parsed);
-      frameId = window.requestAnimationFrame(() => {
-        setProfile(nextProfile);
-        setSavedLabel("저장된 플랜을 불러왔어요");
-      });
-    } catch {
-      frameId = window.requestAnimationFrame(() => {
-        setSavedLabel("기본 플랜을 사용 중이에요");
-      });
-    }
-
-    return () => {
-      if (frameId) {
-        window.cancelAnimationFrame(frameId);
-      }
-    };
-  }, []);
-
-  function updateProfile<K extends keyof PlannerProfile>(key: K, value: PlannerProfile[K]) {
-    setProfile((current) => ({
-      ...current,
-      [key]: value,
-    }));
-  }
-
-  function handleGeneratePlan() {
-    startPlanTransition(() => {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
-      const timestamp = new Intl.DateTimeFormat("ko-KR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }).format(new Date());
-      setSavedLabel(`${timestamp} 기준으로 플랜을 저장했어요`);
-    });
-  }
+  const savedLabel = getSavedPlanLabel(lastSavedAt, hasHydrated);
 
   return (
     <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
@@ -438,15 +324,29 @@ export default function CoachPlanner() {
         </div>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-[var(--muted)]">{savedLabel}</p>
-          <button
-            type="button"
-            onClick={handleGeneratePlan}
-            className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-70"
-            disabled={isPending}
-          >
-            {isPending ? "플랜 저장 중..." : "플랜 저장하기"}
-          </button>
+          <div>
+            <p className="text-sm text-[var(--muted)]">{savedLabel}</p>
+            <p className="mt-1 text-xs text-[var(--muted)]">
+              입력값은 자동으로 유지되고, 저장 버튼은 현재 플랜에 기준 시각을
+              남깁니다.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <button
+              type="button"
+              onClick={resetProfile}
+              className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/72 px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
+            >
+              기본 플랜으로 초기화
+            </button>
+            <button
+              type="button"
+              onClick={saveProfile}
+              className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+            >
+              현재 플랜 저장
+            </button>
+          </div>
         </div>
       </article>
 
