@@ -286,7 +286,7 @@ export default async function Home() {
                   </Link>
                   <Link
                     href="/signup"
-                    className="rounded-full bg-[var(--foreground)] px-4 py-2 font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+                    className="rounded-full bg-[var(--foreground)] px-4 py-2 font-semibold !text-white transition-transform duration-200 hover:-translate-y-0.5"
                   >
                     회원가입
                   </Link>
@@ -327,7 +327,7 @@ export default async function Home() {
                 ) : (
                   <Link
                     href="/signup"
-                    className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+                    className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold !text-white transition-transform duration-200 hover:-translate-y-0.5"
                   >
                     회원가입하고 시작하기
                   </Link>
@@ -617,7 +617,7 @@ export default async function Home() {
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <a
                 href="/signup"
-                className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold !text-white transition-transform duration-200 hover:-translate-y-0.5"
               >
                 회원가입하고 코칭 시작
               </a>

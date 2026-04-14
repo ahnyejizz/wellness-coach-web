@@ -141,7 +141,7 @@ export default async function SignUpPage(props: {
               <p className="text-sm uppercase tracking-[0.24em] text-[var(--accent-strong)]">
                 Get started
               </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">
                 회원가입
               </h2>
             </div>
