@@ -6,6 +6,7 @@ import {
   getFocusLabel,
   getGoalLabel,
   getMealPatternLabel,
+  getPlannerDisplayName,
   getSavedPlanLabel,
   useWellnessStore,
 } from "@/app/stores/wellness-store";
@@ -54,7 +55,7 @@ export default function WellnessPlanSummary() {
         <article className="rounded-[1.5rem] border border-[var(--border)] bg-white/72 p-5">
           <p className="text-sm text-[var(--muted)]">플랜 이름</p>
           <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
-            {profile.name}
+            {getPlannerDisplayName(profile.name)}
           </h3>
           <p className="mt-2 text-sm text-[var(--muted)]">
             {getGoalLabel(profile.goal)}

@@ -44,9 +44,10 @@ type WellnessStore = WellnessPersistedState & {
 
 const STORAGE_KEY = "motive-care-planner-v1";
 const STORAGE_VERSION = 1;
+const LEGACY_SAMPLE_NAME = "예지";
 
 export const defaultPlannerProfile: PlannerProfile = {
-  name: "민지",
+  name: "",
   goal: "steady-energy",
   focus: "sleep",
   bedtime: "23:10",
@@ -108,11 +109,13 @@ export function clampWaterTarget(value: number) {
 export function normalizePlannerProfile(
   value: Partial<PlannerProfile> | null | undefined,
 ): PlannerProfile {
+  const normalizedName =
+    typeof value?.name === "string" && value.name.trim()
+      ? value.name.trim()
+      : defaultPlannerProfile.name;
+
   return {
-    name:
-      typeof value?.name === "string" && value.name.trim()
-        ? value.name
-        : defaultPlannerProfile.name,
+    name: normalizedName,
     goal: isGoalKey(value?.goal) ? value.goal : defaultPlannerProfile.goal,
     focus: isFocusKey(value?.focus) ? value.focus : defaultPlannerProfile.focus,
     bedtime:
@@ -144,6 +147,36 @@ function normalizeActiveFocus(value: unknown, fallback: FocusKey): FocusKey {
   return isFocusKey(value) ? value : fallback;
 }
 
+function isLegacySampleProfile(value: Partial<PlannerProfile> | null | undefined) {
+  return (
+    value?.name === LEGACY_SAMPLE_NAME &&
+    value.goal === "steady-energy" &&
+    value.focus === "sleep" &&
+    value.bedtime === "23:10" &&
+    value.workoutDays === 4 &&
+    value.proteinTarget === 110 &&
+    value.waterTarget === 2.1 &&
+    value.mealPattern === "balanced"
+  );
+}
+
+function sanitizeLegacySampleProfile(
+  profile: PlannerProfile,
+  lastSavedAt: string | null,
+): PlannerProfile {
+  if (
+    lastSavedAt === null &&
+    isLegacySampleProfile(profile)
+  ) {
+    return {
+      ...profile,
+      name: "",
+    };
+  }
+
+  return profile;
+}
+
 function parsePersistedValue(
   value: unknown,
 ): StorageValue<WellnessPersistedState> | null {
@@ -157,12 +190,19 @@ function parsePersistedValue(
   };
 
   if (candidate.state && typeof candidate.state === "object") {
+    const profile = sanitizeLegacySampleProfile(
+      normalizePlannerProfile(candidate.state.profile),
+      typeof candidate.state.lastSavedAt === "string"
+        ? candidate.state.lastSavedAt
+        : null,
+    );
+
     return {
       state: {
-        profile: normalizePlannerProfile(candidate.state.profile),
+        profile,
         activeFocus: normalizeActiveFocus(
           candidate.state.activeFocus,
-          normalizePlannerProfile(candidate.state.profile).focus,
+          profile.focus,
         ),
         lastSavedAt:
           typeof candidate.state.lastSavedAt === "string"
@@ -176,8 +216,9 @@ function parsePersistedValue(
     };
   }
 
-  const legacyProfile = normalizePlannerProfile(
-    candidate as Partial<PlannerProfile>,
+  const legacyProfile = sanitizeLegacySampleProfile(
+    normalizePlannerProfile(candidate as Partial<PlannerProfile>),
+    null,
   );
 
   return {
@@ -312,4 +353,8 @@ export function getSavedPlanLabel(lastSavedAt: string | null, hasHydrated: boole
   }
 
   return `${formatSavedAt(lastSavedAt)} 기준 플랜이 저장되어 있어요`;
+}
+
+export function getPlannerDisplayName(name: string) {
+  return name.trim() || "아직 이름 미설정";
 }

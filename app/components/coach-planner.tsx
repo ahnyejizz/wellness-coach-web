@@ -4,6 +4,7 @@ import {
   clampProteinTarget,
   clampWaterTarget,
   clampWorkoutDays,
+  getPlannerDisplayName,
   getSavedPlanLabel,
   type FocusKey,
   type GoalKey,
@@ -107,12 +108,14 @@ const mealPatternMeta = {
 function buildPlan(profile: PlannerProfile): PersonalPlan {
   const goal = goalMeta[profile.goal];
   const focus = focusMeta[profile.focus];
-  const displayName = profile.name.trim() || "당신";
+  const displayName = profile.name.trim();
   const weeklyLoad =
     profile.workoutDays >= 5 ? "강-중-중-가벼움 분배" : profile.workoutDays >= 4 ? "중-중-가벼움 분배" : "짧고 꾸준한 분배";
 
   return {
-    heading: `${displayName}님을 위한 ${goal.label} 코칭 플랜`,
+    heading: displayName
+      ? `${displayName}님을 위한 ${goal.label} 코칭 플랜`
+      : `당신을 위한 ${goal.label} 코칭 플랜`,
     summary: `${goal.summary} 지금 주간 우선순위는 ${focus.label}이고, 식사는 ${
       mealPatternMeta[profile.mealPattern]
     } 방향으로 맞춥니다.`,
@@ -214,7 +217,7 @@ export default function CoachPlanner() {
               className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
               value={profile.name}
               onChange={(event) => updateProfile("name", event.target.value)}
-              placeholder="이름을 입력하세요"
+              placeholder={getPlannerDisplayName(profile.name)}
             />
           </label>
 
