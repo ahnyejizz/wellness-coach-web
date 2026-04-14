@@ -56,8 +56,10 @@ body {
   background-attachment: fixed;
 }
 
-a {
-  color: inherit;
+@layer base {
+  :where(a) {
+    color: inherit;
+  }
 }
 
 button,
