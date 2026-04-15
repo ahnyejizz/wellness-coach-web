@@ -72,7 +72,7 @@ export default async function LoginPage(props: {
         <section className="panel panel-strong ui-panel-shell-lg">
           <div className="ui-brand-chip">Motive Care</div>
           <p className="ui-kicker mt-6">Login</p>
-          <h1 className="ui-title-4 mt-3">다시 돌아온 오늘의 건강 코치</h1>
+          <h1 className="ui-title-4 mt-3">다시 이어가는 나만의 건강 코칭</h1>
           <p className="ui-copy mt-4 max-w-2xl sm:text-base">
             로그인하면 수면, 운동, 식단 중심의 개인 코칭 플랜과
             <br />
@@ -86,15 +86,6 @@ export default async function LoginPage(props: {
               <br />
               등록한 정보는 로컬 개발 환경의 사용자 저장소에 보관됩니다.
             </p>
-          </div>
-
-          <div className="mt-8 space-y-3 text-sm text-[var(--muted)]">
-            <div className="ui-card-soft">로그인 후 `/coach` 페이지에서 개인 건강 코칭 플랜을 확인합니다.</div>
-            <div className="ui-card-soft">
-              이메일과 비밀번호로 로그인하며,
-              <br />
-              나중에 DB나 외부 인증으로 확장할 수 있도록 구조를 분리해두었습니다.
-            </div>
           </div>
         </section>
 

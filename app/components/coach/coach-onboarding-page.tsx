@@ -135,7 +135,7 @@ export default async function CoachOnboardingPage(props: {
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="ui-kicker tracking-[0.24em]">{mode === "edit" ? "Profile update" : "Step 1"}</p>
-              <h2 className="ui-title-3 mt-3">{mode === "edit" ? "온보딩 수정" : "가입 직후 온보딩"}</h2>
+              <h2 className="ui-title-3 mt-3">{mode === "edit" ? "온보딩 수정" : "온보딩 입력"}</h2>
             </div>
             <Link href={mode === "edit" ? callbackUrl : "/"} className="ui-pill">
               {mode === "edit" ? "돌아가기" : "홈으로"}
