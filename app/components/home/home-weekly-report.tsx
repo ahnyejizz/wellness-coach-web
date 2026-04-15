@@ -1,26 +1,38 @@
-export type HomeReportMetric = {
+type HomeReportMetric = {
   label: string;
   value: string;
   delta: string;
   accent: string;
 };
 
-export type HomeWeeklyBalanceItem = {
+type HomeWeeklyBalanceItem = {
   day: string;
   score: number;
 };
 
-type HomeWeeklyReportProps = {
-  reportMetrics: HomeReportMetric[];
-  weeklyBalance: HomeWeeklyBalanceItem[];
-  reportNotes: string[];
-};
+const reportMetrics: HomeReportMetric[] = [
+  { label: "평균 수면", value: "7h 28m", delta: "+42m", accent: "var(--sky)" },
+  { label: "운동 완수", value: "4/5", delta: "+1 session", accent: "var(--mint)" },
+  { label: "단백질 달성", value: "106g", delta: "+14g", accent: "var(--sun)" },
+];
 
-export default function HomeWeeklyReport({
-  reportMetrics,
-  weeklyBalance,
-  reportNotes,
-}: HomeWeeklyReportProps) {
+const weeklyBalance: HomeWeeklyBalanceItem[] = [
+  { day: "Mon", score: 71 },
+  { day: "Tue", score: 78 },
+  { day: "Wed", score: 74 },
+  { day: "Thu", score: 83 },
+  { day: "Fri", score: 87 },
+  { day: "Sat", score: 81 },
+  { day: "Sun", score: 90 },
+];
+
+const reportNotes = [
+  "수면이 안정되자 운동 후 피로 회복 속도도 함께 좋아졌어요.",
+  "아침 단백질 섭취가 늘면서 오후 당기는 간식 빈도가 줄었습니다.",
+  "이번 주는 강도를 더 올리기보다 취침 시간을 고정하는 편이 전체 점수를 더 끌어올립니다.",
+];
+
+export default function HomeWeeklyReport() {
   return (
     <article
       id="report"
