@@ -4,6 +4,9 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 
+/**
+ * @description 기존 사용자가 로컬 계정으로 다시 진입하는 로그인 페이지
+ */
 function normalizeCallbackUrl(value: string | string[] | undefined) {
   const normalized = Array.isArray(value) ? value[0] : value;
 

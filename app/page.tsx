@@ -9,6 +9,9 @@ import HomeDayPlan from "./components/home/home-day-plan";
 import HomeWeeklyReport from "./components/home/home-weekly-report";
 import HomeStartCoach from "./components/home/home-start-coach";
 
+/**
+ * @description 홈 랜딩 페이지
+ */
 export default async function Home() {
   const session = await auth();
   const isLoggedIn = !!session?.user;

@@ -14,6 +14,9 @@ import {
 
 const defaultCallbackUrl = "/coach";
 
+/**
+ * @description 건강 프로필을 받아 이후 코칭 개인화 기준으로 저장하는 코치 온보딩 페이지
+ */
 function getQueryValue(value: string | string[] | undefined) {
   return typeof value === "string" ? value : Array.isArray(value) ? (value[0] ?? "") : "";
 }

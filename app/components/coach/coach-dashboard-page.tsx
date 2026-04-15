@@ -12,6 +12,9 @@ import {
   hasCompletedOnboarding,
 } from "@/lib/auth/user-store";
 
+/**
+ * @description 로그인 후 개인 코칭 상태와 온보딩 요약을 보여주는 코치 대시보드 페이지
+ */
 function resolveInitial(name?: string | null, email?: string | null) {
   const source = name?.trim() || email?.trim() || "M";
   return source.charAt(0).toUpperCase();

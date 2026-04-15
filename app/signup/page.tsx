@@ -5,6 +5,9 @@ import { auth } from "@/auth";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import { type WellnessFocus } from "@/lib/auth/user-store";
 
+/**
+ * @description 계정을 만든 뒤 온보딩으로 이어지는 회원가입 페이지
+ */
 function normalizeCallbackUrl(value: string | string[] | undefined) {
   const normalized = Array.isArray(value) ? value[0] : value;
 
