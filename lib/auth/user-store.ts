@@ -34,8 +34,7 @@ export const mealStyleOptions = [
 
 export type WellnessFocus = (typeof wellnessFocusOptions)[number]["value"];
 export type SleepPattern = (typeof sleepPatternOptions)[number]["value"];
-export type ExerciseExperience =
-  (typeof exerciseExperienceOptions)[number]["value"];
+export type ExerciseExperience = (typeof exerciseExperienceOptions)[number]["value"];
 export type MealStyle = (typeof mealStyleOptions)[number]["value"];
 
 type StoredUser = {
@@ -150,9 +149,7 @@ export function getSleepPatternLabel(pattern: SleepPattern) {
 }
 
 export function getExerciseExperienceLabel(experience: ExerciseExperience) {
-  const match = exerciseExperienceOptions.find(
-    (option) => option.value === experience,
-  );
+  const match = exerciseExperienceOptions.find((option) => option.value === experience);
   return match?.label ?? exerciseExperienceOptions[0].label;
 }
 
@@ -163,14 +160,7 @@ export function getMealStyleLabel(style: MealStyle) {
 
 export function hasCompletedOnboarding(
   user:
-    | Pick<
-        StoredUser,
-        | "goalWeightKg"
-        | "sleepPattern"
-        | "exerciseExperience"
-        | "mealStyle"
-        | "completedOnboardingAt"
-      >
+    | Pick<StoredUser, "goalWeightKg" | "sleepPattern" | "exerciseExperience" | "mealStyle" | "completedOnboardingAt">
     | null
     | undefined,
 ): user is {
@@ -182,11 +172,11 @@ export function hasCompletedOnboarding(
 } {
   return Boolean(
     user &&
-      typeof user.goalWeightKg === "number" &&
-      user.sleepPattern &&
-      user.exerciseExperience &&
-      user.mealStyle &&
-      user.completedOnboardingAt,
+    typeof user.goalWeightKg === "number" &&
+    user.sleepPattern &&
+    user.exerciseExperience &&
+    user.mealStyle &&
+    user.completedOnboardingAt,
   );
 }
 
@@ -198,12 +188,7 @@ export async function getUserProfileByEmail(email: string) {
   return user ? sanitizeUser(user) : null;
 }
 
-export async function registerUser(input: {
-  name: string;
-  email: string;
-  password: string;
-  focus: WellnessFocus;
-}) {
+export async function registerUser(input: { name: string; email: string; password: string; focus: WellnessFocus }) {
   const users = await readUsers();
   const normalizedEmail = normalizeEmail(input.email);
 
