@@ -88,8 +88,8 @@ export default async function SignUpPage(props: {
       : "balance";
 
   return (
-    <main className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-5 py-8 sm:px-8">
-      <div className="grid w-full gap-6 lg:grid-cols-[1.04fr_0.96fr]">
+    <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
+      <div className="grid w-full gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <section className="panel panel-strong rounded-[2rem] px-6 py-8 sm:px-8">
           <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
             Sign up
@@ -97,7 +97,7 @@ export default async function SignUpPage(props: {
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[var(--foreground)]">
             나만의 건강 코치 계정 만들기
           </h1>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)] sm:text-base">
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--muted)] sm:text-base">
             이름, 이메일, 비밀번호만 입력하면 프로젝트 내부 계정으로 바로
             시작할 수 있습니다. 가입 후에는 수면, 운동, 식단 코칭 플로우를 개인
             기준으로 이어서 관리할 수 있습니다.

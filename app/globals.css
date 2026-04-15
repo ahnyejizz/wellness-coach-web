@@ -25,6 +25,10 @@
   --font-display-stack:
     "Iowan Old Style", "AppleMyungjo", "Nanum Myeongjo", "Palatino Linotype",
     "Book Antiqua", Georgia, serif;
+  --font-headline-stack:
+    "Avenir Next Condensed", "DIN Condensed", "Arial Narrow",
+    "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo",
+    "Noto Sans KR", sans-serif;
   --font-mono-stack: "SFMono-Regular", SFMono, Consolas, "Liberation Mono", monospace;
 }
 
@@ -75,6 +79,11 @@ select {
 
 .display-face {
   font-family: var(--font-display-stack);
+}
+
+.headline-face {
+  font-family: var(--font-headline-stack);
+  font-weight: 700;
 }
 
 .panel {

@@ -197,7 +197,7 @@ export default function CoachPlanner() {
   const savedLabel = getSavedPlanLabel(lastSavedAt, hasHydrated);
 
   return (
-    <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
+    <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
       <article className="panel rounded-[2rem] px-6 py-7 sm:px-8">
         <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
           Plan studio
@@ -205,7 +205,7 @@ export default function CoachPlanner() {
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
           내 루틴에 맞는 건강 코칭 플랜 만들기
         </h2>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)]">
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--muted)]">
           목표와 루틴을 입력하면, 수면·운동·식단 우선순위에 맞춘 개인 코칭
           플랜을 바로 만들어줍니다.
         </p>
@@ -340,14 +340,14 @@ export default function CoachPlanner() {
               onClick={resetProfile}
               className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/72 px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
             >
-              기본 플랜으로 초기화
+             초기화
             </button>
             <button
               type="button"
               onClick={saveProfile}
               className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
             >
-              현재 플랜 저장
+              저장
             </button>
           </div>
         </div>
@@ -355,7 +355,7 @@ export default function CoachPlanner() {
 
       <article className="panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] sm:px-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.24em] text-white/70">
               Personalized preview
             </p>

@@ -42,7 +42,7 @@ export default function FocusBoard({ areas }: { areas: FocusAreaMap }) {
   return (
     <section
       id="coach-board"
-      className="grid gap-6 xl:grid-cols-[0.86fr_1.14fr]"
+      className="grid gap-6 xl:grid-cols-[0.76fr_1.24fr]"
       aria-labelledby="coach-board-title"
     >
       <article className="panel rounded-[2rem] px-6 py-7 sm:px-8">
@@ -55,7 +55,7 @@ export default function FocusBoard({ areas }: { areas: FocusAreaMap }) {
         >
           오늘 가장 먼저 챙길 코칭 축을 선택하세요
         </h2>
-        <p className="mt-4 max-w-xl text-sm leading-7 text-[var(--muted)]">
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)]">
           수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번 주
           패턴이 함께 업데이트됩니다. 플래너에서 고른 우선 코칭 축과도 실시간으로
           동기화됩니다.
@@ -116,7 +116,7 @@ export default function FocusBoard({ areas }: { areas: FocusAreaMap }) {
 
       <article className="panel panel-strong rounded-[2rem] px-6 py-7 sm:px-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.28em]" style={{ color: current.accent }}>
               {current.headline}
             </p>
@@ -129,17 +129,17 @@ export default function FocusBoard({ areas }: { areas: FocusAreaMap }) {
           </div>
 
           <div
-            className="rounded-[1.5rem] border border-[var(--border)] px-5 py-4"
+            className="rounded-[1.5rem] border border-[var(--border)] px-6 py-4 sm:min-w-[7rem]"
             style={{ backgroundColor: current.softAccent }}
           >
-            <p className="text-sm text-[var(--muted)]">{current.scoreLabel}</p>
+            <p className="text-base font-medium text-[var(--muted)]">{current.scoreLabel}</p>
             <p className="mt-2 text-4xl font-semibold tracking-tight text-[var(--foreground)]">
               {current.score}
             </p>
           </div>
         </div>
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-[0.96fr_1.04fr]">
+        <div className="mt-8 grid gap-4 lg:grid-cols-[0.88fr_1.12fr]">
           <div className="rounded-[1.75rem] border border-[var(--border)] bg-white/72 p-5">
             <p className="text-sm font-medium text-[var(--muted)]">Coach note</p>
             <p className="mt-3 text-lg leading-8 text-[var(--foreground)]">

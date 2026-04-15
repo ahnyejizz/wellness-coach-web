@@ -39,7 +39,7 @@ export default async function CoachPage() {
     : "오늘";
 
   return (
-    <main className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-5 py-8 sm:px-8 lg:px-10">
+    <main className="relative mx-auto flex min-h-screen w-full max-w-[108rem] flex-col gap-6 px-5 py-8 sm:px-8 lg:px-12">
       <section className="panel panel-strong rounded-[2rem] px-6 py-8 sm:px-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex items-start gap-4">

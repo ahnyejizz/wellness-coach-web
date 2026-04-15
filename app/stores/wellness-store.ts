@@ -356,5 +356,5 @@ export function getSavedPlanLabel(lastSavedAt: string | null, hasHydrated: boole
 }
 
 export function getPlannerDisplayName(name: string) {
-  return name.trim() || "아직 이름 미설정";
+  return name.trim() || "";
 }

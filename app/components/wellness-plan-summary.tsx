@@ -21,7 +21,7 @@ export default function WellnessPlanSummary() {
   return (
     <section className="panel rounded-[2rem] px-6 py-7 sm:px-8">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
             Linked plan
           </p>

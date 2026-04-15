@@ -65,8 +65,8 @@ export default async function LoginPage(props: {
         : "";
 
   return (
-    <main className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-5 py-8 sm:px-8">
-      <div className="grid w-full gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+    <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
+      <div className="grid w-full gap-6 lg:grid-cols-[0.98fr_1.02fr]">
         <section className="panel panel-strong rounded-[2rem] px-6 py-8 sm:px-8">
           <div className="inline-flex rounded-full border border-[var(--border)] bg-white/70 px-3 py-1 text-sm font-semibold text-[var(--foreground)]">
             Motive Care
@@ -77,7 +77,7 @@ export default async function LoginPage(props: {
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[var(--foreground)]">
             다시 돌아온 오늘의 건강 코치
           </h1>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-[var(--muted)] sm:text-base">
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)] sm:text-base">
             로그인하면 수면, 운동, 식단 중심의 개인 코칭 플랜과 저장된 루틴,
             우선 코칭 축을 이어서 확인할 수 있습니다.
           </p>

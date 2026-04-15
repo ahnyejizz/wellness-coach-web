@@ -47,7 +47,7 @@ const focusAreas: FocusAreaMap = {
     kicker: "깊은 회복과 일정한 기상",
     headline: "sleep priority",
     summary:
-      "늦은 식사와 스크린 타임의 영향을 줄이고, 매일 비슷한 시간에 잠드는 패턴을 만드는 데 집중합니다.",
+      "스크린 타임의 영향을 줄이고, 매일 비슷한 시간에 잠드는 패턴을 만드는 데 집중합니다.",
     score: "89",
     scoreLabel: "회복 점수",
     target: "이번 주 목표: 23:10 취침, 07:00 기상",
@@ -219,7 +219,7 @@ export default async function Home() {
         <div className="grid-wash absolute inset-x-6 top-28 h-[32rem] rounded-[2rem] opacity-25" />
       </div>
 
-      <main className="relative mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-6 sm:px-8 lg:px-10 lg:py-10">
+      <main className="relative mx-auto flex w-full max-w-[108rem] flex-col gap-6 px-5 py-6 sm:px-8 lg:px-12 lg:py-10">
         <section className="panel panel-strong rise-in overflow-hidden rounded-[2rem] px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
           <header className="flex flex-col gap-5 border-b border-[var(--border)] pb-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-wrap items-center gap-3">
@@ -295,20 +295,20 @@ export default async function Home() {
             </nav>
           </header>
 
-          <div className="grid gap-8 pt-8 xl:grid-cols-[1.14fr_0.86fr]">
+          <div className="grid gap-8 pt-8 xl:grid-cols-[1.24fr_0.76fr]">
             <div className="space-y-7">
-              <div className="max-w-3xl space-y-5">
+              <div className="max-w-4xl space-y-5">
                 <p className="text-sm font-medium uppercase tracking-[0.28em] text-[var(--accent-strong)]">
                   Sleep, workout, diet coaching in one flow
                 </p>
-                <h1 className="display-face max-w-4xl text-5xl leading-none tracking-[-0.045em] text-[var(--foreground)] sm:text-6xl lg:text-7xl">
+                <h1 className="headline-face max-w-4xl text-4xl leading-[0.94] tracking-[-0.05em] text-[var(--foreground)] sm:text-5xl lg:text-6xl">
                   몸 상태를 읽고
                   <br />
                   오늘의 건강 행동을 제안하는
                   <br />
                   개인 코치 웹사이트
                 </h1>
-                <p className="max-w-2xl text-base leading-8 text-[var(--muted)] sm:text-lg">
+                <p className="max-w-3xl text-base leading-8 text-[var(--muted)] sm:text-lg">
                   Motive Care는 수면, 운동, 식단 데이터를 따로 흩어두지 않고
                   하나의 흐름으로 연결합니다. 회복이 부족하면 운동 강도를 낮추고,
                   식단이 흔들리면 포만감 설계부터 다시 제안하는 건강 코치형
@@ -459,7 +459,7 @@ export default async function Home() {
 
         <CoachPlanner />
 
-        <section className="grid gap-6 xl:grid-cols-[0.98fr_1.02fr]">
+        <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
           <article className="panel rounded-[2rem] px-6 py-7 sm:px-8">
             <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
               Day plan
@@ -467,8 +467,9 @@ export default async function Home() {
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
               하루를 코칭 단위로 쪼갠 플로우
             </h2>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-[var(--muted)]">
-              건강은 한 번의 의지보다 시간대별 작은 행동이 이어질 때 바뀝니다.
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)]">
+              건강은 한번의 의지보다 시간대별 작은 행동이 이어질 때 바뀝니다.
+               <br />
               기상, 식사, 움직임, 취침을 하나의 루프로 설계했습니다.
             </p>
 
@@ -501,7 +502,7 @@ export default async function Home() {
                             {item.domain}
                           </span>
                         </div>
-                        <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--muted)]">
+                        <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--muted)]">
                           {item.detail}
                         </p>
                       </div>
@@ -547,7 +548,7 @@ export default async function Home() {
               ))}
             </div>
 
-            <div className="mt-8 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr]">
               <div className="rounded-[1.75rem] border border-[var(--border)] bg-white/72 p-5">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium text-[var(--muted)]">
@@ -608,9 +609,10 @@ export default async function Home() {
                 <br />
                 진짜 개인 건강 코치를 시작해보세요.
               </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)] sm:text-base">
-                기록을 많이 남기지 않아도 괜찮습니다. 중요한 건 지금 몸 상태에서
-                가장 효과가 큰 행동 하나를 매일 이어가게 만드는 것입니다.
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--muted)] sm:text-base">
+                기록을 많이 남기지 않아도 괜찮습니다. 
+                <br />
+                중요한 건 지금 몸 상태에서 가장 효과가 큰 행동 하나를 매일 이어가게 만드는 것입니다.
               </p>
             </div>
 
