@@ -124,7 +124,7 @@ const focusAreas: FocusAreaMap = {
   },
 };
 
-export default function FocusBoard() {
+export default function HomeFocusBoard() {
   const activeFocus = useWellnessStore((state) => state.activeFocus);
   const setActiveFocus = useWellnessStore((state) => state.setActiveFocus);
   const current = focusAreas[activeFocus];

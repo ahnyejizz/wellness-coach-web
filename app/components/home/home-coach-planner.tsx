@@ -186,7 +186,7 @@ function buildPlan(profile: PlannerProfile): PersonalPlan {
   };
 }
 
-export default function CoachPlanner() {
+export default function HomeCoachPlanner() {
   const profile = useWellnessStore((state) => state.profile);
   const hasHydrated = useWellnessStore((state) => state.hasHydrated);
   const lastSavedAt = useWellnessStore((state) => state.lastSavedAt);

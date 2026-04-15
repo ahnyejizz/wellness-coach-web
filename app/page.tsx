@@ -2,20 +2,20 @@ import Link from "next/link";
 
 import { auth } from "@/auth";
 
-import HomeHeader from "./components/home-header";
-import HomeOverviewSection from "./components/home-overview-section";
+import HomeHeader from "./components/home/home-header";
+import HomeOverviewSection from "./components/home/home-overview-section";
 import HomeCoachArea, {
   type HomeCoachAreaItem,
-} from "./components/home-coach-area";
-import FocusBoard from "./components/focus-board";
-import CoachPlanner from "./components/coach-planner";
+} from "./components/home/home-coach-area";
+import HomeFocusBoard from "./components/home/home-focus-board";
+import HomeCoachPlanner from "./components/home/home-coach-planner";
 import HomeDayPlan, {
   type HomeDayPlanItem,
-} from "./components/home-day-plan";
+} from "./components/home/home-day-plan";
 import HomeWeeklyReport, {
   type HomeReportMetric,
   type HomeWeeklyBalanceItem,
-} from "./components/home-weekly-report";
+} from "./components/home/home-weekly-report";
 
 const coachAreas: HomeCoachAreaItem[] = [
   {
@@ -137,13 +137,11 @@ export default async function Home() {
 
         <HomeCoachArea coachAreas={coachAreas} />
 
-        <FocusBoard />
-
-        <CoachPlanner />
+        <HomeFocusBoard />
+        <HomeCoachPlanner />
 
         <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
           <HomeDayPlan dayPlan={dayPlan} />
-
           <HomeWeeklyReport
             reportMetrics={reportMetrics}
             weeklyBalance={weeklyBalance}
