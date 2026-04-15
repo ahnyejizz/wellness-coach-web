@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
-import AuthCredentialsForm from "@/app/components/auth-credentials-form";
+import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import { type WellnessFocus } from "@/lib/auth/user-store";
 
 function normalizeCallbackUrl(value: string | string[] | undefined) {
