@@ -5,12 +5,7 @@ import { auth } from "@/auth";
 import CoachPlanner from "./components/coach-planner";
 import FocusBoard, { type FocusAreaMap } from "./components/focus-board";
 import HomeHeader from "./components/home-header";
-
-const heroSignals = [
-  { label: "수면 회복 점수", value: "89", hint: "늦은 취침 2회만 줄여도 회복이 더 올라가요." },
-  { label: "운동 계획 달성률", value: "4/5", hint: "근력 3회, 걷기 2회 루틴 유지 중" },
-  { label: "식단 안정도", value: "91%", hint: "단백질과 수분 섭취가 꾸준해졌어요." },
-];
+import HomeOverviewSection from "./components/home-overview-section";
 
 const pillars = [
   {
@@ -132,12 +127,6 @@ const focusAreas: FocusAreaMap = {
   },
 };
 
-const todayChecklist = [
-  "22:20 디지털 셧다운으로 수면 질 확보",
-  "점심 식사에 단백질 30g 이상 채우기",
-  "퇴근 후 하체 근력 35분, 마지막 세트만 강도 상승",
-];
-
 const dayPlan = [
   {
     time: "07:00",
@@ -223,124 +212,7 @@ export default async function Home() {
       <main className="relative mx-auto flex w-full max-w-[108rem] flex-col gap-6 px-5 py-6 sm:px-8 lg:px-12 lg:py-10">
         <section className="panel panel-strong rise-in overflow-hidden rounded-[2rem] px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
           <HomeHeader isLoggedIn={isLoggedIn} userName={userName} />
-
-          <div className="grid gap-8 pt-8 xl:grid-cols-[1.24fr_0.76fr]">
-            <div className="space-y-7">
-              <div className="max-w-4xl space-y-5">
-                <p className="text-sm font-medium uppercase tracking-[0.28em] text-[var(--accent-strong)]">
-                  Sleep, workout, diet coaching in one flow
-                </p>
-                <h1 className="headline-face max-w-4xl text-4xl leading-[0.94] tracking-[-0.05em] text-[var(--foreground)] sm:text-5xl lg:text-6xl">
-                  몸 상태를 읽고
-                  <br />
-                  오늘의 건강 행동을 제안하는
-                  <br />
-                  개인 코치 웹 사이트
-                </h1>
-                <p className="max-w-3xl text-base leading-8 text-[var(--muted)] sm:text-lg">
-                  Motive Care는 수면, 운동, 식단 데이터를 따로 흩어두지 않고 하나의 흐름으로 연결합니다. 
-                  <br />
-                  회복이 부족하면 운동 강도를 낮추고, 식단이 흔들리면 포만감 설계부터 다시 제안하는
-                  <br /> 
-                  개인 건강 코치형 웹서비스 입니다.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-3 sm:flex-row">
-                {isLoggedIn ? (
-                  <Link
-                    href="/coach"
-                    className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
-                  >
-                    내 코치 페이지로 이동
-                  </Link>
-                ) : (
-                  <Link
-                    href="/signup"
-                    className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5"
-                  >
-                    회원가입하고 시작하기
-                  </Link>
-                )}
-                <a
-                  href="#report"
-                  className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/70 px-6 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
-                >
-                  주간 리포트 보기
-                </a>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-3">
-                {heroSignals.map((signal) => (
-                  <article
-                    key={signal.label}
-                    className="rounded-[1.4rem] border border-[var(--border)] bg-white/72 p-4"
-                  >
-                    <p className="text-sm text-[var(--muted)]">{signal.label}</p>
-                    <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-                      {signal.value}
-                    </p>
-                    <p className="mt-2 text-sm leading-6 text-[var(--accent-strong)]">
-                      {signal.hint}
-                    </p>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <aside className="panel-dark rise-in-delay relative rounded-[1.9rem] px-6 py-7 text-[#f6f0e6] sm:px-7">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.24em] text-white/70">
-                    Today&apos;s brief
-                  </p>
-                  <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-                    오늘의 코치 브리핑
-                  </h2>
-                </div>
-                <div className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
-                  live
-                </div>
-              </div>
-
-              <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-5">
-                <p className="text-sm text-white/70">핵심 포커스</p>
-                <p className="mt-3 text-4xl font-semibold tracking-tight">
-                  Recovery First
-                </p>
-                <p className="mt-3 text-sm leading-7 text-white/80">
-                  어제 운동량은 충분했습니다. 오늘은 수면 질을 지키고 점심 이후
-                  걷기를 더해 에너지 흐름을 매끈하게 만드는 편이 좋아요.
-                </p>
-              </div>
-
-              <div className="mt-5 grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
-                {todayChecklist.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-[1.3rem] border border-white/10 bg-white/6 px-4 py-4"
-                  >
-                    <p className="text-sm leading-7 text-white/88">{item}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 grid gap-3 sm:grid-cols-3 xl:grid-cols-3">
-                <div className="rounded-[1.3rem] bg-[var(--sky-soft)] px-4 py-4 text-[var(--foreground)]">
-                  <p className="text-sm text-[var(--muted)]">수면</p>
-                  <p className="mt-2 text-2xl font-semibold">89</p>
-                </div>
-                <div className="rounded-[1.3rem] bg-[var(--mint-soft)] px-4 py-4 text-[var(--foreground)]">
-                  <p className="text-sm text-[var(--muted)]">운동</p>
-                  <p className="mt-2 text-2xl font-semibold">4/5</p>
-                </div>
-                <div className="rounded-[1.3rem] bg-[var(--sun-soft)] px-4 py-4 text-[var(--foreground)]">
-                  <p className="text-sm text-[var(--muted)]">식단</p>
-                  <p className="mt-2 text-2xl font-semibold">91%</p>
-                </div>
-              </div>
-            </aside>
-          </div>
+          <HomeOverviewSection isLoggedIn={isLoggedIn} />
         </section>
 
         <section id="pillars" className="grid gap-5 md:grid-cols-3">
