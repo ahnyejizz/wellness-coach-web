@@ -2,13 +2,20 @@ import Link from "next/link";
 
 import { auth } from "@/auth";
 
-import CoachPlanner from "./components/coach-planner";
-import FocusBoard from "./components/focus-board";
+import HomeHeader from "./components/home-header";
+import HomeOverviewSection from "./components/home-overview-section";
 import HomeCoachArea, {
   type HomeCoachAreaItem,
 } from "./components/home-coach-area";
-import HomeHeader from "./components/home-header";
-import HomeOverviewSection from "./components/home-overview-section";
+import FocusBoard from "./components/focus-board";
+import CoachPlanner from "./components/coach-planner";
+import HomeDayPlan, {
+  type HomeDayPlanItem,
+} from "./components/home-day-plan";
+import HomeWeeklyReport, {
+  type HomeReportMetric,
+  type HomeWeeklyBalanceItem,
+} from "./components/home-weekly-report";
 
 const coachAreas: HomeCoachAreaItem[] = [
   {
@@ -40,7 +47,7 @@ const coachAreas: HomeCoachAreaItem[] = [
   },
 ];
 
-const dayPlan = [
+const dayPlan: HomeDayPlanItem[] = [
   {
     time: "07:00",
     title: "Wake + Light",
@@ -83,13 +90,13 @@ const dayPlan = [
   },
 ];
 
-const reportMetrics = [
+const reportMetrics: HomeReportMetric[] = [
   { label: "평균 수면", value: "7h 28m", delta: "+42m", accent: "var(--sky)" },
   { label: "운동 완수", value: "4/5", delta: "+1 session", accent: "var(--mint)" },
   { label: "단백질 달성", value: "106g", delta: "+14g", accent: "var(--sun)" },
 ];
 
-const weeklyBalance = [
+const weeklyBalance: HomeWeeklyBalanceItem[] = [
   { day: "Mon", score: 71 },
   { day: "Tue", score: 78 },
   { day: "Wed", score: 74 },
@@ -135,142 +142,13 @@ export default async function Home() {
         <CoachPlanner />
 
         <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
-          <article className="panel rounded-[2rem] px-6 py-7 sm:px-8">
-            <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
-              Day plan
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-              하루를 코칭 단위로 쪼갠 플로우
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)]">
-              건강은 한번의 의지보다 시간대별 작은 행동이 이어질 때 바뀝니다.
-               <br />
-              기상, 식사, 움직임, 취침을 하나의 루프로 설계했습니다.
-            </p>
+          <HomeDayPlan dayPlan={dayPlan} />
 
-            <div className="mt-8 space-y-4">
-              {dayPlan.map((item) => (
-                <article
-                  key={item.time}
-                  className="rounded-[1.5rem] border border-[var(--border)] bg-white/72 p-5"
-                >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="flex items-start gap-4">
-                      <div
-                        className="flex h-12 w-12 items-center justify-center rounded-full text-sm font-semibold"
-                        style={{ backgroundColor: item.tint, color: item.accent }}
-                      >
-                        {item.time}
-                      </div>
-                      <div>
-                        <div className="flex flex-wrap items-center gap-3">
-                          <h3 className="text-xl font-semibold tracking-tight text-[var(--foreground)]">
-                            {item.title}
-                          </h3>
-                          <span
-                            className="rounded-full px-3 py-1 text-xs font-semibold"
-                            style={{
-                              backgroundColor: item.tint,
-                              color: item.accent,
-                            }}
-                          >
-                            {item.domain}
-                          </span>
-                        </div>
-                        <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--muted)]">
-                          {item.detail}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </article>
-
-          <article
-            id="report"
-            className="panel panel-strong rounded-[2rem] px-6 py-7 sm:px-8"
-          >
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
-                  Weekly report
-                </p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-                  주간 건강 리포트
-                </h2>
-              </div>
-              <span className="rounded-full border border-[var(--border)] bg-white/70 px-4 py-2 text-sm text-[var(--muted)]">
-                지난 7일 종합 밸런스
-              </span>
-            </div>
-
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {reportMetrics.map((metric) => (
-                <article
-                  key={metric.label}
-                  className="rounded-[1.5rem] border border-[var(--border)] bg-white/72 p-4"
-                >
-                  <p className="text-sm text-[var(--muted)]">{metric.label}</p>
-                  <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-                    {metric.value}
-                  </p>
-                  <p className="mt-2 text-sm" style={{ color: metric.accent }}>
-                    {metric.delta}
-                  </p>
-                </article>
-              ))}
-            </div>
-
-            <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr]">
-              <div className="rounded-[1.75rem] border border-[var(--border)] bg-white/72 p-5">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-[var(--muted)]">
-                    Balance score trend
-                  </p>
-                  <span className="text-sm text-[var(--accent-strong)]">+19 this week</span>
-                </div>
-
-                <div className="mt-6 grid grid-cols-7 gap-3">
-                  {weeklyBalance.map((day) => (
-                    <div key={day.day} className="flex flex-col items-center gap-3">
-                      <div className="flex h-44 w-full items-end rounded-[1.1rem] bg-[rgba(22,48,43,0.08)] p-1">
-                        <div
-                          className="w-full rounded-[0.9rem] bg-[var(--foreground)]"
-                          style={{ height: `${day.score}%` }}
-                        />
-                      </div>
-                      <div className="text-center">
-                        <p className="text-xs font-medium text-[var(--foreground)]">
-                          {day.day}
-                        </p>
-                        <p className="text-xs text-[var(--muted)]">{day.score}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-[1.75rem] border border-[var(--border)] bg-white/72 p-5">
-                <p className="text-sm font-medium text-[var(--muted)]">
-                  코치가 읽은 이번 주 변화
-                </p>
-                <div className="mt-5 space-y-3">
-                  {reportNotes.map((note) => (
-                    <div
-                      key={note}
-                      className="rounded-[1.25rem] border border-[var(--border)] bg-white px-4 py-4"
-                    >
-                      <p className="text-sm leading-7 text-[var(--foreground)]">
-                        {note}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </article>
+          <HomeWeeklyReport
+            reportMetrics={reportMetrics}
+            weeklyBalance={weeklyBalance}
+            reportNotes={reportNotes}
+          />
         </section>
 
         <section className="panel panel-strong overflow-hidden rounded-[2rem] px-6 py-8 sm:px-8">
