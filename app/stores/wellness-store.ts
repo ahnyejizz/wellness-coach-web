@@ -1,11 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-import {
-  persist,
-  type PersistStorage,
-  type StorageValue,
-} from "zustand/middleware";
+import { persist, type PersistStorage, type StorageValue } from "zustand/middleware";
 
 export type GoalKey = "sleep-reset" | "fat-loss" | "muscle-tone" | "steady-energy";
 export type FocusKey = "sleep" | "exercise" | "diet";
@@ -28,10 +24,7 @@ type WellnessPersistedState = {
   lastSavedAt: string | null;
 };
 
-type UpdatePlannerProfile = <Key extends keyof PlannerProfile>(
-  key: Key,
-  value: PlannerProfile[Key],
-) => void;
+type UpdatePlannerProfile = <Key extends keyof PlannerProfile>(key: Key, value: PlannerProfile[Key]) => void;
 
 type WellnessStore = WellnessPersistedState & {
   hasHydrated: boolean;
@@ -106,40 +99,25 @@ export function clampWaterTarget(value: number) {
   return Math.min(4, Math.max(1, value));
 }
 
-export function normalizePlannerProfile(
-  value: Partial<PlannerProfile> | null | undefined,
-): PlannerProfile {
+export function normalizePlannerProfile(value: Partial<PlannerProfile> | null | undefined): PlannerProfile {
   const normalizedName =
-    typeof value?.name === "string" && value.name.trim()
-      ? value.name.trim()
-      : defaultPlannerProfile.name;
+    typeof value?.name === "string" && value.name.trim() ? value.name.trim() : defaultPlannerProfile.name;
 
   return {
     name: normalizedName,
     goal: isGoalKey(value?.goal) ? value.goal : defaultPlannerProfile.goal,
     focus: isFocusKey(value?.focus) ? value.focus : defaultPlannerProfile.focus,
-    bedtime:
-      typeof value?.bedtime === "string" && value.bedtime
-        ? value.bedtime
-        : defaultPlannerProfile.bedtime,
+    bedtime: typeof value?.bedtime === "string" && value.bedtime ? value.bedtime : defaultPlannerProfile.bedtime,
     workoutDays: clampWorkoutDays(
-      Number.isFinite(value?.workoutDays)
-        ? Number(value?.workoutDays)
-        : defaultPlannerProfile.workoutDays,
+      Number.isFinite(value?.workoutDays) ? Number(value?.workoutDays) : defaultPlannerProfile.workoutDays,
     ),
     proteinTarget: clampProteinTarget(
-      Number.isFinite(value?.proteinTarget)
-        ? Number(value?.proteinTarget)
-        : defaultPlannerProfile.proteinTarget,
+      Number.isFinite(value?.proteinTarget) ? Number(value?.proteinTarget) : defaultPlannerProfile.proteinTarget,
     ),
     waterTarget: clampWaterTarget(
-      Number.isFinite(value?.waterTarget)
-        ? Number(value?.waterTarget)
-        : defaultPlannerProfile.waterTarget,
+      Number.isFinite(value?.waterTarget) ? Number(value?.waterTarget) : defaultPlannerProfile.waterTarget,
     ),
-    mealPattern: isMealPatternKey(value?.mealPattern)
-      ? value.mealPattern
-      : defaultPlannerProfile.mealPattern,
+    mealPattern: isMealPatternKey(value?.mealPattern) ? value.mealPattern : defaultPlannerProfile.mealPattern,
   };
 }
 
@@ -160,14 +138,8 @@ function isLegacySampleProfile(value: Partial<PlannerProfile> | null | undefined
   );
 }
 
-function sanitizeLegacySampleProfile(
-  profile: PlannerProfile,
-  lastSavedAt: string | null,
-): PlannerProfile {
-  if (
-    lastSavedAt === null &&
-    isLegacySampleProfile(profile)
-  ) {
+function sanitizeLegacySampleProfile(profile: PlannerProfile, lastSavedAt: string | null): PlannerProfile {
+  if (lastSavedAt === null && isLegacySampleProfile(profile)) {
     return {
       ...profile,
       name: "",
@@ -177,9 +149,7 @@ function sanitizeLegacySampleProfile(
   return profile;
 }
 
-function parsePersistedValue(
-  value: unknown,
-): StorageValue<WellnessPersistedState> | null {
+function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedState> | null {
   if (!value || typeof value !== "object") {
     return null;
   }
@@ -192,27 +162,16 @@ function parsePersistedValue(
   if (candidate.state && typeof candidate.state === "object") {
     const profile = sanitizeLegacySampleProfile(
       normalizePlannerProfile(candidate.state.profile),
-      typeof candidate.state.lastSavedAt === "string"
-        ? candidate.state.lastSavedAt
-        : null,
+      typeof candidate.state.lastSavedAt === "string" ? candidate.state.lastSavedAt : null,
     );
 
     return {
       state: {
         profile,
-        activeFocus: normalizeActiveFocus(
-          candidate.state.activeFocus,
-          profile.focus,
-        ),
-        lastSavedAt:
-          typeof candidate.state.lastSavedAt === "string"
-            ? candidate.state.lastSavedAt
-            : null,
+        activeFocus: normalizeActiveFocus(candidate.state.activeFocus, profile.focus),
+        lastSavedAt: typeof candidate.state.lastSavedAt === "string" ? candidate.state.lastSavedAt : null,
       },
-      version:
-        typeof candidate.version === "number"
-          ? candidate.version
-          : STORAGE_VERSION,
+      version: typeof candidate.version === "number" ? candidate.version : STORAGE_VERSION,
     };
   }
 
@@ -257,10 +216,7 @@ const wellnessStorage: PersistStorage<WellnessPersistedState> | undefined =
         },
       };
 
-function mergePersistedState(
-  persistedState: unknown,
-  currentState: WellnessStore,
-): WellnessStore {
+function mergePersistedState(persistedState: unknown, currentState: WellnessStore): WellnessStore {
   const snapshot = persistedState as Partial<WellnessPersistedState> | undefined;
   const profile = normalizePlannerProfile(snapshot?.profile);
   const activeFocus = normalizeActiveFocus(snapshot?.activeFocus, profile.focus);
@@ -269,8 +225,7 @@ function mergePersistedState(
     ...currentState,
     profile,
     activeFocus,
-    lastSavedAt:
-      typeof snapshot?.lastSavedAt === "string" ? snapshot.lastSavedAt : null,
+    lastSavedAt: typeof snapshot?.lastSavedAt === "string" ? snapshot.lastSavedAt : null,
   };
 }
 
@@ -289,8 +244,7 @@ export const useWellnessStore = create<WellnessStore>()(
 
           return {
             profile: nextProfile,
-            activeFocus:
-              key === "focus" ? nextProfile.focus : state.activeFocus,
+            activeFocus: key === "focus" ? nextProfile.focus : state.activeFocus,
           };
         })) as UpdatePlannerProfile,
       setActiveFocus: (focus) =>
@@ -313,8 +267,7 @@ export const useWellnessStore = create<WellnessStore>()(
         activeFocus,
         lastSavedAt,
       }),
-      merge: (persistedState, currentState) =>
-        mergePersistedState(persistedState, currentState),
+      merge: (persistedState, currentState) => mergePersistedState(persistedState, currentState),
       onRehydrateStorage: () => (state) => {
         state?.setHydrated(true);
       },

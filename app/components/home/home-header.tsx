@@ -13,17 +13,12 @@ type HomeHeaderProps = {
   userName: string;
 };
 
-export default function HomeHeader({
-  isLoggedIn,
-  userName,
-}: HomeHeaderProps) {
+export default function HomeHeader({ isLoggedIn, userName }: HomeHeaderProps) {
   return (
     <header className="flex flex-col gap-5 border-b border-[var(--border)] pb-6 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex flex-wrap items-center gap-3">
         <span className="ui-brand-chip">Motive Care</span>
-        <span className="text-sm text-[var(--muted)]">
-          Personal Health Coach for sleep, workout, diet
-        </span>
+        <span className="text-sm text-[var(--muted)]">Personal Health Coach for sleep, workout, diet</span>
       </div>
 
       <nav className="flex flex-wrap gap-2 text-sm text-[var(--muted)]">
@@ -45,10 +40,7 @@ export default function HomeHeader({
                 await signOut({ redirectTo: "/" });
               }}
             >
-              <button
-                type="submit"
-                className="ui-button-primary ui-button-primary-compact text-[#fffaf2]"
-              >
+              <button type="submit" className="ui-button-primary ui-button-primary-compact text-[#fffaf2]">
                 로그아웃
               </button>
             </form>
@@ -58,10 +50,7 @@ export default function HomeHeader({
             <Link href="/login" className="ui-pill">
               로그인
             </Link>
-            <Link
-              href="/signup"
-              className="ui-button-primary ui-button-primary-compact text-white"
-            >
+            <Link href="/signup" className="ui-button-primary ui-button-primary-compact text-white">
               회원가입
             </Link>
           </>

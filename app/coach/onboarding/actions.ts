@@ -17,9 +17,7 @@ import {
 const defaultCallbackUrl = "/coach";
 
 const sleepPatternValues = sleepPatternOptions.map((option) => option.value);
-const exerciseExperienceValues = exerciseExperienceOptions.map(
-  (option) => option.value,
-);
+const exerciseExperienceValues = exerciseExperienceOptions.map((option) => option.value);
 const mealStyleValues = mealStyleOptions.map((option) => option.value);
 
 function getFieldValue(formData: FormData, key: string) {
@@ -32,11 +30,7 @@ function normalizeCallbackUrl(value: string) {
     return defaultCallbackUrl;
   }
 
-  if (
-    value.startsWith("/login") ||
-    value.startsWith("/signup") ||
-    value.startsWith("/coach/onboarding")
-  ) {
+  if (value.startsWith("/login") || value.startsWith("/signup") || value.startsWith("/coach/onboarding")) {
     return defaultCallbackUrl;
   }
 
@@ -87,9 +81,7 @@ export async function saveOnboardingAnswers(formData: FormData) {
     return redirect("/login?callbackUrl=/coach/onboarding");
   }
 
-  const callbackUrl = normalizeCallbackUrl(
-    getFieldValue(formData, "callbackUrl") || defaultCallbackUrl,
-  );
+  const callbackUrl = normalizeCallbackUrl(getFieldValue(formData, "callbackUrl") || defaultCallbackUrl);
   const mode = getFieldValue(formData, "mode") === "edit" ? "edit" : "";
   const goalWeightRaw = getFieldValue(formData, "goalWeightKg");
   const sleepPattern = getFieldValue(formData, "sleepPattern");
@@ -115,11 +107,7 @@ export async function saveOnboardingAnswers(formData: FormData) {
 
   const parsedGoalWeight = Number.parseFloat(goalWeightRaw);
 
-  if (
-    !Number.isFinite(parsedGoalWeight) ||
-    parsedGoalWeight < 35 ||
-    parsedGoalWeight > 250
-  ) {
+  if (!Number.isFinite(parsedGoalWeight) || parsedGoalWeight < 35 || parsedGoalWeight > 250) {
     return redirect(
       buildOnboardingRedirect({
         callbackUrl,

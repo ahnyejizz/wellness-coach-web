@@ -16,10 +16,7 @@ export default async function Home() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-80"
-      >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-80">
         <div className="float-soft absolute left-[-8rem] top-12 h-64 w-64 rounded-full bg-[var(--accent-soft)] blur-3xl" />
         <div className="pulse-glow absolute right-[-7rem] top-20 h-72 w-72 rounded-full bg-[var(--sky-soft)] blur-3xl" />
         <div className="absolute bottom-24 left-[20%] h-56 w-56 rounded-full bg-[var(--sun-soft)] blur-3xl" />

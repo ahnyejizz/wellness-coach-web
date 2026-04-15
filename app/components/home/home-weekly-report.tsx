@@ -34,34 +34,20 @@ const reportNotes = [
 
 export default function HomeWeeklyReport() {
   return (
-    <article
-      id="report"
-      className="panel panel-strong ui-panel-shell"
-    >
+    <article id="report" className="panel panel-strong ui-panel-shell">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="ui-kicker">
-            Weekly report
-          </p>
-          <h2 className="ui-title-3 mt-3">
-            주간 건강 리포트
-          </h2>
+          <p className="ui-kicker">Weekly report</p>
+          <h2 className="ui-title-3 mt-3">주간 건강 리포트</h2>
         </div>
-        <span className="ui-pill text-[var(--muted)]">
-          지난 7일 종합 밸런스
-        </span>
+        <span className="ui-pill text-[var(--muted)]">지난 7일 종합 밸런스</span>
       </div>
 
       <div className="mt-8 grid gap-3 sm:grid-cols-3">
         {reportMetrics.map((metric) => (
-          <article
-            key={metric.label}
-            className="ui-card-compact"
-          >
+          <article key={metric.label} className="ui-card-compact">
             <p className="text-sm text-[var(--muted)]">{metric.label}</p>
-            <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-              {metric.value}
-            </p>
+            <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">{metric.value}</p>
             <p className="mt-2 text-sm" style={{ color: metric.accent }}>
               {metric.delta}
             </p>
@@ -72,9 +58,7 @@ export default function HomeWeeklyReport() {
       <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr]">
         <div className="ui-card-raised">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-[var(--muted)]">
-              Balance score trend
-            </p>
+            <p className="text-sm font-medium text-[var(--muted)]">Balance score trend</p>
             <span className="text-sm text-[var(--accent-strong)]">+19 this week</span>
           </div>
 
@@ -82,15 +66,10 @@ export default function HomeWeeklyReport() {
             {weeklyBalance.map((day) => (
               <div key={day.day} className="flex flex-col items-center gap-3">
                 <div className="flex h-44 w-full items-end rounded-[1.1rem] bg-[rgba(22,48,43,0.08)] p-1">
-                  <div
-                    className="w-full rounded-[0.9rem] bg-[var(--foreground)]"
-                    style={{ height: `${day.score}%` }}
-                  />
+                  <div className="w-full rounded-[0.9rem] bg-[var(--foreground)]" style={{ height: `${day.score}%` }} />
                 </div>
                 <div className="text-center">
-                  <p className="text-xs font-medium text-[var(--foreground)]">
-                    {day.day}
-                  </p>
+                  <p className="text-xs font-medium text-[var(--foreground)]">{day.day}</p>
                   <p className="text-xs text-[var(--muted)]">{day.score}</p>
                 </div>
               </div>
@@ -99,18 +78,11 @@ export default function HomeWeeklyReport() {
         </div>
 
         <div className="ui-card-raised">
-          <p className="text-sm font-medium text-[var(--muted)]">
-            코치가 읽은 이번 주 변화
-          </p>
+          <p className="text-sm font-medium text-[var(--muted)]">코치가 읽은 이번 주 변화</p>
           <div className="mt-5 space-y-3">
             {reportNotes.map((note) => (
-              <div
-                key={note}
-                className="ui-card-note"
-              >
-                <p className="text-sm leading-7 text-[var(--foreground)]">
-                  {note}
-                </p>
+              <div key={note} className="ui-card-note">
+                <p className="text-sm leading-7 text-[var(--foreground)]">{note}</p>
               </div>
             ))}
           </div>

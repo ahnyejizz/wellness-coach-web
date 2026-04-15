@@ -39,13 +39,11 @@ const focusAreas: FocusAreaMap = {
     label: "수면 코칭",
     kicker: "깊은 회복과 일정한 기상",
     headline: "sleep priority",
-    summary:
-      "스크린 타임의 영향을 줄이고, 매일 비슷한 시간에 잠드는 패턴을 만드는 데 집중합니다.",
+    summary: "스크린 타임의 영향을 줄이고, 매일 비슷한 시간에 잠드는 패턴을 만드는 데 집중합니다.",
     score: "89",
     scoreLabel: "회복 점수",
     target: "이번 주 목표: 23:10 취침, 07:00 기상",
-    coachNote:
-      "최근 4일 중 3일은 수면 시간이 충분했어요. 이제 핵심은 잠드는 시간을 더 일정하게 고정하는 것입니다.",
+    coachNote: "최근 4일 중 3일은 수면 시간이 충분했어요. 이제 핵심은 잠드는 시간을 더 일정하게 고정하는 것입니다.",
     habits: [
       "22:20 이후 조명 낮추기와 알림 묶음 모드 켜기",
       "잠들기 2시간 전 과식 대신 따뜻한 차로 마무리하기",
@@ -68,8 +66,7 @@ const focusAreas: FocusAreaMap = {
     label: "운동 코칭",
     kicker: "강도와 회복의 균형",
     headline: "movement priority",
-    summary:
-      "근력 운동, 유산소, 회복일 배치를 함께 보면서 몸이 무너지지 않는 주간 운동 패턴을 만듭니다.",
+    summary: "근력 운동, 유산소, 회복일 배치를 함께 보면서 몸이 무너지지 않는 주간 운동 패턴을 만듭니다.",
     score: "4/5",
     scoreLabel: "주간 세션",
     target: "이번 주 목표: 근력 3회 + zone 2 유산소 2회",
@@ -97,8 +94,7 @@ const focusAreas: FocusAreaMap = {
     label: "식단 코칭",
     kicker: "포만감과 에너지 유지",
     headline: "nutrition priority",
-    summary:
-      "칼로리 숫자만 좇기보다 단백질, 수분, 식사 간격을 정리해 하루 에너지가 끊기지 않도록 관리합니다.",
+    summary: "칼로리 숫자만 좇기보다 단백질, 수분, 식사 간격을 정리해 하루 에너지가 끊기지 않도록 관리합니다.",
     score: "91%",
     scoreLabel: "식단 안정도",
     target: "이번 주 목표: 단백질 110g, 수분 2.1L 유지",
@@ -130,23 +126,14 @@ export default function HomeFocusBoard() {
   const current = focusAreas[activeFocus];
 
   return (
-    <section
-      id="coach-board"
-      className="grid gap-6 xl:grid-cols-[0.76fr_1.24fr]"
-      aria-labelledby="coach-board-title"
-    >
+    <section id="coach-board" className="grid gap-6 xl:grid-cols-[0.76fr_1.24fr]" aria-labelledby="coach-board-title">
       <article className="panel ui-panel-shell">
-        <p className="ui-kicker">
-          Focus board
-        </p>
-        <h2
-          id="coach-board-title"
-          className="ui-title-3 mt-3"
-        >
+        <p className="ui-kicker">Focus board</p>
+        <h2 id="coach-board-title" className="ui-title-3 mt-3">
           오늘 가장 먼저 챙길 코칭을 선택하세요.
         </h2>
         <p className="ui-copy mt-4 max-w-2xl">
-          수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번 주 패턴이 함께 업데이트됩니다. 
+          수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번 주 패턴이 함께 업데이트됩니다.
           <br />
           플래너에서 고른 우선 코칭 축과도 실시간으로 동기화됩니다.
         </p>
@@ -170,21 +157,9 @@ export default function HomeFocusBoard() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p
-                      className={`text-sm ${
-                        isActive ? "text-white/70" : "text-[var(--muted)]"
-                      }`}
-                    >
-                      {area.kicker}
-                    </p>
-                    <h3 className="mt-2 text-xl font-semibold tracking-tight">
-                      {area.label}
-                    </h3>
-                    <p
-                      className={`mt-3 text-sm leading-7 ${
-                        isActive ? "text-white/80" : "text-[var(--muted)]"
-                      }`}
-                    >
+                    <p className={`text-sm ${isActive ? "text-white/70" : "text-[var(--muted)]"}`}>{area.kicker}</p>
+                    <h3 className="mt-2 text-xl font-semibold tracking-tight">{area.label}</h3>
+                    <p className={`mt-3 text-sm leading-7 ${isActive ? "text-white/80" : "text-[var(--muted)]"}`}>
                       {area.summary}
                     </p>
                   </div>
@@ -210,12 +185,8 @@ export default function HomeFocusBoard() {
             <p className="text-sm uppercase tracking-[0.28em]" style={{ color: current.accent }}>
               {current.headline}
             </p>
-            <h3 className="ui-title-3 mt-3">
-              {current.target}
-            </h3>
-            <p className="ui-copy mt-4">
-              {current.summary}
-            </p>
+            <h3 className="ui-title-3 mt-3">{current.target}</h3>
+            <p className="ui-copy mt-4">{current.summary}</p>
           </div>
 
           <div
@@ -223,26 +194,19 @@ export default function HomeFocusBoard() {
             style={{ backgroundColor: current.softAccent }}
           >
             <p className="text-base font-medium text-[var(--muted)]">{current.scoreLabel}</p>
-            <p className="mt-2 text-4xl font-semibold tracking-tight text-[var(--foreground)]">
-              {current.score}
-            </p>
+            <p className="mt-2 text-4xl font-semibold tracking-tight text-[var(--foreground)]">{current.score}</p>
           </div>
         </div>
 
         <div className="mt-8 grid gap-4 lg:grid-cols-[0.88fr_1.12fr]">
           <div className="ui-card-raised">
             <p className="text-sm font-medium text-[var(--muted)]">Coach note</p>
-            <p className="mt-3 text-lg leading-8 text-[var(--foreground)]">
-              {current.coachNote}
-            </p>
+            <p className="mt-3 text-lg leading-8 text-[var(--foreground)]">{current.coachNote}</p>
 
             <div className="mt-6 space-y-3">
               {current.habits.map((habit) => (
                 <div key={habit} className="ui-card-note flex items-start gap-3">
-                  <span
-                    className="mt-1 h-2.5 w-2.5 rounded-full"
-                    style={{ backgroundColor: current.accent }}
-                  />
+                  <span className="mt-1 h-2.5 w-2.5 rounded-full" style={{ backgroundColor: current.accent }} />
                   <p className="text-sm leading-7 text-[var(--foreground)]">{habit}</p>
                 </div>
               ))}
@@ -252,14 +216,9 @@ export default function HomeFocusBoard() {
           <div className="space-y-4">
             <div className="grid gap-3 sm:grid-cols-3">
               {current.metrics.map((metric) => (
-                <article
-                  key={metric.label}
-                  className="ui-card-compact"
-                >
+                <article key={metric.label} className="ui-card-compact">
                   <p className="text-sm text-[var(--muted)]">{metric.label}</p>
-                  <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-                    {metric.value}
-                  </p>
+                  <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">{metric.value}</p>
                   <p className="mt-2 text-sm" style={{ color: current.accent }}>
                     {metric.hint}
                   </p>

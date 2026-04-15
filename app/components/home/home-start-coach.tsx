@@ -5,9 +5,7 @@ export default function HomeStartCoach() {
     <section className="panel panel-strong ui-panel-shell-lg overflow-hidden">
       <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
-          <p className="ui-kicker">
-            Start coaching
-          </p>
+          <p className="ui-kicker">Start coaching</p>
           <h2 className="ui-title-4 mt-3">
             수면, 운동, 식단이 서로 연결된
             <br />
@@ -21,16 +19,10 @@ export default function HomeStartCoach() {
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-          <a
-            href="/signup"
-            className="ui-button-primary ui-button-primary-wide"
-          >
+          <a href="/signup" className="ui-button-primary ui-button-primary-wide">
             회원가입하고 코칭 시작
           </a>
-          <Link
-            href="/login"
-            className="ui-button-secondary ui-button-secondary-wide"
-          >
+          <Link href="/login" className="ui-button-secondary ui-button-secondary-wide">
             로그인
           </Link>
         </div>

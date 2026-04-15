@@ -110,16 +110,18 @@ function buildPlan(profile: PlannerProfile): PersonalPlan {
   const focus = focusMeta[profile.focus];
   const displayName = profile.name.trim();
   const weeklyLoad =
-    profile.workoutDays >= 5 ? "강-중-중-가벼움 분배" : profile.workoutDays >= 4 ? "중-중-가벼움 분배" : "짧고 꾸준한 분배";
+    profile.workoutDays >= 5
+      ? "강-중-중-가벼움 분배"
+      : profile.workoutDays >= 4
+        ? "중-중-가벼움 분배"
+        : "짧고 꾸준한 분배";
 
   return {
-    heading: displayName
-      ? `${displayName}님을 위한 ${goal.label} 코칭 플랜`
-      : `당신을 위한 ${goal.label} 코칭 플랜`,
-    summary: `${goal.summary} 지금 주간 우선순위는 ${focus.label}이고, 식사는 ${
+    heading: displayName ? `${displayName}님을 위한 ${goal.label} 코칭 플랜` : `당신을 위한 ${goal.label} 코칭 플랜`,
+    summary: `${goal.summary} \n지금 주간 우선순위는 ${focus.label}이고, 식사는 ${
       mealPatternMeta[profile.mealPattern]
     } 방향으로 맞춥니다.`,
-    coachMessage: `${focus.summary}. 이번 주는 ${
+    coachMessage: `${focus.summary}.\n이번 주는 ${
       profile.goal === "sleep-reset"
         ? "취침 시간을 먼저 고정한 뒤 운동 볼륨을 조절하는 편이 좋습니다."
         : profile.goal === "fat-loss"
@@ -199,12 +201,8 @@ export default function HomeCoachPlanner() {
   return (
     <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
       <article className="panel ui-panel-shell">
-        <p className="ui-kicker">
-          Plan studio
-        </p>
-        <h2 className="ui-title-3 mt-3">
-          내 루틴에 맞는 건강 코칭 플랜 만들기
-        </h2>
+        <p className="ui-kicker">Plan studio</p>
+        <h2 className="ui-title-3 mt-3">내 루틴에 맞는 건강 코칭 플랜 만들기</h2>
         <p className="ui-copy mt-4 max-w-3xl">
           목표와 루틴을 입력하면, 수면·운동·식단 우선순위에 맞춘 개인 코칭 플랜을 바로 만들어줍니다.
         </p>
@@ -252,9 +250,7 @@ export default function HomeCoachPlanner() {
             <select
               className="ui-field-control-strong"
               value={profile.mealPattern}
-              onChange={(event) =>
-                updateProfile("mealPattern", event.target.value as MealPatternKey)
-              }
+              onChange={(event) => updateProfile("mealPattern", event.target.value as MealPatternKey)}
             >
               <option value="balanced">균형 식사</option>
               <option value="protein-forward">단백질 우선 식사</option>
@@ -281,10 +277,7 @@ export default function HomeCoachPlanner() {
               className="ui-field-control-strong"
               value={profile.workoutDays}
               onChange={(event) =>
-                updateProfile(
-                  "workoutDays",
-                  clampWorkoutDays(Number.parseInt(event.target.value, 10) || 2),
-                )
+                updateProfile("workoutDays", clampWorkoutDays(Number.parseInt(event.target.value, 10) || 2))
               }
             />
           </label>
@@ -298,10 +291,7 @@ export default function HomeCoachPlanner() {
               className="ui-field-control-strong"
               value={profile.proteinTarget}
               onChange={(event) =>
-                updateProfile(
-                  "proteinTarget",
-                  clampProteinTarget(Number.parseInt(event.target.value, 10) || 60),
-                )
+                updateProfile("proteinTarget", clampProteinTarget(Number.parseInt(event.target.value, 10) || 60))
               }
             />
           </label>
@@ -316,10 +306,7 @@ export default function HomeCoachPlanner() {
               className="ui-field-control-strong"
               value={profile.waterTarget}
               onChange={(event) =>
-                updateProfile(
-                  "waterTarget",
-                  clampWaterTarget(Number.parseFloat(event.target.value) || 1),
-                )
+                updateProfile("waterTarget", clampWaterTarget(Number.parseFloat(event.target.value) || 1))
               }
             />
           </label>
@@ -329,23 +316,14 @@ export default function HomeCoachPlanner() {
           <div>
             <p className="text-sm text-[var(--muted)]">{savedLabel}</p>
             <p className="mt-1 text-xs text-[var(--muted)]">
-              입력값은 자동으로 유지되고, 저장 버튼은 현재 플랜에 기준 시각을
-              남깁니다.
+              입력값은 자동으로 유지되고, 저장 버튼은 현재 플랜에 기준 시각을 남깁니다.
             </p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
-            <button
-              type="button"
-              onClick={resetProfile}
-              className="ui-button-secondary"
-            >
-             초기화
+            <button type="button" onClick={resetProfile} className="ui-button-secondary">
+              초기화
             </button>
-            <button
-              type="button"
-              onClick={saveProfile}
-              className="ui-button-primary ui-button-primary-wide"
-            >
+            <button type="button" onClick={saveProfile} className="ui-button-primary ui-button-primary-wide">
               저장
             </button>
           </div>
@@ -355,15 +333,9 @@ export default function HomeCoachPlanner() {
       <article className="panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] sm:px-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.24em] text-white/70">
-              Personalized preview
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-              {plan.heading}
-            </h2>
-            <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">
-              {plan.summary}
-            </p>
+            <p className="text-sm uppercase tracking-[0.24em] text-white/70">Personalized preview</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight">{plan.heading}</h2>
+            <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">{plan.summary}</p>
           </div>
 
           <div className="rounded-[1.5rem] bg-white/10 px-5 py-4 lg:min-w-[10rem]">
@@ -374,10 +346,7 @@ export default function HomeCoachPlanner() {
 
         <div className="mt-8 grid gap-3 sm:grid-cols-2">
           {plan.cards.map((card) => (
-            <article
-              key={card.label}
-              className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4"
-            >
+            <article key={card.label} className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4">
               <p className="text-sm text-white/70">{card.label}</p>
               <p className="mt-3 text-3xl font-semibold tracking-tight">{card.value}</p>
               <span
@@ -400,10 +369,7 @@ export default function HomeCoachPlanner() {
 
         <div className="mt-6 space-y-4">
           {plan.actions.map((action) => (
-            <article
-              key={action.slot}
-              className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5"
-            >
+            <article key={action.slot} className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                 <div
                   className="inline-flex rounded-full px-3 py-1 text-xs font-semibold"

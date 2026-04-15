@@ -24,9 +24,7 @@ export default async function CoachPage() {
     redirect("/login?callbackUrl=/coach");
   }
 
-  const localProfile = session.user.email
-    ? await getUserProfileByEmail(session.user.email)
-    : null;
+  const localProfile = session.user.email ? await getUserProfileByEmail(session.user.email) : null;
 
   if (!localProfile || !hasCompletedOnboarding(localProfile)) {
     redirect("/coach/onboarding?callbackUrl=/coach");
@@ -38,9 +36,7 @@ export default async function CoachPage() {
   const userInitial = resolveInitial(session.user.name, session.user.email);
   const focusLabel = getWellnessFocusLabel(completedProfile.focus);
   const isFirstLogin = (completedProfile.loginCount ?? 0) <= 1;
-  const heading = isFirstLogin
-    ? `${userName}님, 환영합니다!`
-    : `${userName}님, 다시 오셨네요!`;
+  const heading = isFirstLogin ? `${userName}님, 환영합니다!` : `${userName}님, 다시 오셨네요!`;
   const onboardingSummary = [
     {
       label: "목표 체중",
@@ -69,14 +65,10 @@ export default async function CoachPage() {
               {userInitial}
             </div>
             <div>
-              <p className="ui-kicker">
-                Coach workspace
-              </p>
-              <h1 className="ui-title-4 mt-3">
-                {heading}
-              </h1>
+              <p className="ui-kicker">Coach workspace</p>
+              <h1 className="ui-title-4 mt-3">{heading}</h1>
               <p className="ui-copy mt-3">
-                현재 로그인된 계정은 {userEmail} 입니다. 
+                현재 로그인된 계정은 {userEmail} 입니다.
                 <br />
                 여기서 개인 건강 플랜, 주간 리포트, 맞춤 루틴을 이어서 관리하게 됩니다.
               </p>
@@ -93,10 +85,7 @@ export default async function CoachPage() {
                 await signOut({ redirectTo: "/" });
               }}
             >
-              <button
-                type="submit"
-                className="ui-button-primary w-full"
-              >
+              <button type="submit" className="ui-button-primary w-full">
                 로그아웃
               </button>
             </form>
@@ -107,22 +96,15 @@ export default async function CoachPage() {
       <section className="grid gap-5 lg:grid-cols-3">
         <article className="panel ui-panel-card">
           <p className="text-sm text-[var(--muted)]">인증 상태</p>
-          <h2 className="ui-title-2 mt-3">
-            내부 계정 로그인 완료
-          </h2>
-          <p className="ui-copy mt-4">
-            회원가입 폼에서 만든 계정으로 로그인한 상태입니다.
-          </p>
+          <h2 className="ui-title-2 mt-3">내부 계정 로그인 완료</h2>
+          <p className="ui-copy mt-4">회원가입 폼에서 만든 계정으로 로그인한 상태입니다.</p>
         </article>
 
         <article className="panel ui-panel-card">
           <p className="text-sm text-[var(--muted)]">우선 코칭</p>
-          <h2 className="ui-title-2 mt-3">
-            {focusLabel}
-          </h2>
+          <h2 className="ui-title-2 mt-3">{focusLabel}</h2>
           <p className="ui-copy mt-4">
-            회원가입 때 선택한 건강 우선순위를 기준으로, 이후 대시보드와
-            추천 루틴을 더 구체적으로 개인화할 수 있습니다.
+            회원가입 때 선택한 건강 우선순위를 기준으로, 이후 대시보드와 추천 루틴을 더 구체적으로 개인화할 수 있습니다.
           </p>
         </article>
 
@@ -130,9 +112,7 @@ export default async function CoachPage() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-sm text-[var(--muted)]">건강 온보딩</p>
-              <h2 className="ui-title-2 mt-3">
-                가입 직후 입력한 건강 프로필
-              </h2>
+              <h2 className="ui-title-2 mt-3">가입 직후 입력한 건강 프로필</h2>
             </div>
             <Link href="/coach/onboarding?mode=edit&callbackUrl=/coach" className="ui-pill ui-pill-strong">
               수정
@@ -145,9 +125,7 @@ export default async function CoachPage() {
                 className="flex items-center justify-between gap-4 rounded-[1.2rem] border border-[var(--border)] bg-white/72 px-4 py-3"
               >
                 <span className="text-sm text-[var(--muted)]">{item.label}</span>
-                <span className="text-sm font-semibold text-[var(--foreground)]">
-                  {item.value}
-                </span>
+                <span className="text-sm font-semibold text-[var(--foreground)]">{item.value}</span>
               </div>
             ))}
           </div>

@@ -4,11 +4,7 @@ import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 
 import { signIn } from "@/auth";
-import {
-  DuplicateUserError,
-  registerUser,
-  type WellnessFocus,
-} from "@/lib/auth/user-store";
+import { DuplicateUserError, registerUser, type WellnessFocus } from "@/lib/auth/user-store";
 
 const defaultCallbackUrl = "/coach";
 const wellnessFocusValues = ["balance", "sleep", "exercise", "diet"] as const;
@@ -44,9 +40,7 @@ function buildOnboardingRedirectUrl(callbackUrl: string) {
 
   const queryString = params.toString();
 
-  return queryString
-    ? `/coach/onboarding?${queryString}`
-    : "/coach/onboarding";
+  return queryString ? `/coach/onboarding?${queryString}` : "/coach/onboarding";
 }
 
 function buildAuthRedirect(
@@ -85,9 +79,7 @@ function isStrongEnoughPassword(password: string) {
 }
 
 export async function loginWithCredentials(formData: FormData) {
-  const callbackUrl = normalizeCallbackUrl(
-    getFieldValue(formData, "callbackUrl") || defaultCallbackUrl,
-  );
+  const callbackUrl = normalizeCallbackUrl(getFieldValue(formData, "callbackUrl") || defaultCallbackUrl);
   const email = getFieldValue(formData, "email");
   const password = getPasswordValue(formData, "password");
 
@@ -123,9 +115,7 @@ export async function loginWithCredentials(formData: FormData) {
 }
 
 export async function signupWithCredentials(formData: FormData) {
-  const callbackUrl = normalizeCallbackUrl(
-    getFieldValue(formData, "callbackUrl") || defaultCallbackUrl,
-  );
+  const callbackUrl = normalizeCallbackUrl(getFieldValue(formData, "callbackUrl") || defaultCallbackUrl);
   const name = getFieldValue(formData, "name");
   const email = getFieldValue(formData, "email");
   const password = getPasswordValue(formData, "password");

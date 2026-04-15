@@ -27,35 +27,24 @@ export default function HomeCoachBrief() {
     <aside className="panel-dark rise-in-delay relative rounded-[1.9rem] px-6 py-7 text-[#f6f0e6] sm:px-7">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm uppercase tracking-[0.24em] text-white/70">
-            Today&apos;s brief
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-            오늘의 코치 브리핑
-          </h2>
+          <p className="text-sm uppercase tracking-[0.24em] text-white/70">Today&apos;s brief</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight">오늘의 코치 브리핑</h2>
         </div>
-        <div className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
-          live
-        </div>
+        <div className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">live</div>
       </div>
 
       <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-5">
         <p className="text-sm text-white/70">핵심 포커스</p>
-        <p className="mt-3 text-4xl font-semibold tracking-tight">
-          Recovery First
-        </p>
+        <p className="mt-3 text-4xl font-semibold tracking-tight">Recovery First</p>
         <p className="mt-3 text-sm leading-7 text-white/80">
-          어제 운동량은 충분했습니다. 오늘은 수면 질을 지키고 점심 이후
-          걷기를 더해 에너지 흐름을 매끈하게 만드는 편이 좋아요.
+          어제 운동량은 충분했습니다. 오늘은 수면 질을 지키고 점심 이후 걷기를 더해 에너지 흐름을 매끈하게 만드는 편이
+          좋아요.
         </p>
       </div>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
         {todayChecklist.map((item) => (
-          <div
-            key={item}
-            className="rounded-[1.3rem] border border-white/10 bg-white/6 px-4 py-4"
-          >
+          <div key={item} className="rounded-[1.3rem] border border-white/10 bg-white/6 px-4 py-4">
             <p className="text-sm leading-7 text-white/88">{item}</p>
           </div>
         ))}

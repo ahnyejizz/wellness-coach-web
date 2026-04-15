@@ -20,15 +20,12 @@
   --sun-soft: rgba(214, 163, 72, 0.18);
   --shadow-lg: 0 32px 60px rgba(24, 46, 42, 0.12);
   --font-sans-stack:
-    "Avenir Next", "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo",
-    "Noto Sans KR", sans-serif;
+    "Avenir Next", "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --font-display-stack:
-    "Iowan Old Style", "AppleMyungjo", "Nanum Myeongjo", "Palatino Linotype",
-    "Book Antiqua", Georgia, serif;
+    "Iowan Old Style", "AppleMyungjo", "Nanum Myeongjo", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   --font-headline-stack:
-    "Avenir Next Condensed", "DIN Condensed", "Arial Narrow",
-    "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo",
-    "Noto Sans KR", sans-serif;
+    "Avenir Next Condensed", "DIN Condensed", "Arial Narrow", "Pretendard Variable", "Pretendard",
+    "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --font-mono-stack: "SFMono-Regular", SFMono, Consolas, "Liberation Mono", monospace;
 }
 

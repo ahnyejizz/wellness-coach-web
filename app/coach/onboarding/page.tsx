@@ -15,11 +15,7 @@ import {
 const defaultCallbackUrl = "/coach";
 
 function getQueryValue(value: string | string[] | undefined) {
-  return typeof value === "string"
-    ? value
-    : Array.isArray(value)
-      ? value[0] ?? ""
-      : "";
+  return typeof value === "string" ? value : Array.isArray(value) ? (value[0] ?? "") : "";
 }
 
 function normalizeCallbackUrl(value: string) {
@@ -27,11 +23,7 @@ function normalizeCallbackUrl(value: string) {
     return defaultCallbackUrl;
   }
 
-  if (
-    value.startsWith("/login") ||
-    value.startsWith("/signup") ||
-    value.startsWith("/coach/onboarding")
-  ) {
+  if (value.startsWith("/login") || value.startsWith("/signup") || value.startsWith("/coach/onboarding")) {
     return defaultCallbackUrl;
   }
 
@@ -74,9 +66,7 @@ export default async function CoachOnboardingPage(props: {
   }
 
   const searchParams = await props.searchParams;
-  const callbackUrl = normalizeCallbackUrl(
-    getQueryValue(searchParams.callbackUrl) || defaultCallbackUrl,
-  );
+  const callbackUrl = normalizeCallbackUrl(getQueryValue(searchParams.callbackUrl) || defaultCallbackUrl);
   const mode = getQueryValue(searchParams.mode) === "edit" ? "edit" : "setup";
 
   if (hasCompletedOnboarding(localProfile) && mode !== "edit") {
@@ -86,37 +76,27 @@ export default async function CoachOnboardingPage(props: {
   const errorMessage = resolveErrorMessage(getQueryValue(searchParams.error));
   const goalWeightValue =
     getQueryValue(searchParams.goalWeightKg) ||
-    (typeof localProfile.goalWeightKg === "number"
-      ? localProfile.goalWeightKg.toString()
-      : "");
-  const sleepPatternValue =
-    getQueryValue(searchParams.sleepPattern) || localProfile.sleepPattern || "";
+    (typeof localProfile.goalWeightKg === "number" ? localProfile.goalWeightKg.toString() : "");
+  const sleepPatternValue = getQueryValue(searchParams.sleepPattern) || localProfile.sleepPattern || "";
   const exerciseExperienceValue =
-    getQueryValue(searchParams.exerciseExperience) ||
-    localProfile.exerciseExperience ||
-    "";
-  const mealStyleValue =
-    getQueryValue(searchParams.mealStyle) || localProfile.mealStyle || "";
+    getQueryValue(searchParams.exerciseExperience) || localProfile.exerciseExperience || "";
+  const mealStyleValue = getQueryValue(searchParams.mealStyle) || localProfile.mealStyle || "";
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
       <div className="grid w-full gap-6 xl:grid-cols-[1.04fr_0.96fr]">
         <section className="panel panel-strong ui-panel-shell-lg">
-          <p className="ui-kicker">
-            {mode === "edit" ? "Edit onboarding" : "Welcome onboarding"}
-          </p>
+          <p className="ui-kicker">{mode === "edit" ? "Edit onboarding" : "Welcome onboarding"}</p>
           <h1 className="ui-title-4 mt-3">
             {mode === "edit"
               ? "건강 프로필을 다시 조정해볼까요?"
               : `${localProfile.name}님에게 맞는 시작점을 알려주세요.`}
           </h1>
           <p className="ui-copy mt-4 max-w-3xl sm:text-base">
-            목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 먼저 확인하면 코칭 플로우를 더 개인화할 수 있습니다. 
+            목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 먼저 확인하면 코칭 플로우를 더 개인화할 수 있습니다.
             <br />
             지금 고른 우선 코칭은{" "}
-            <span className="font-semibold text-[var(--foreground)]">
-              {getWellnessFocusLabel(localProfile.focus)}
-            </span>
+            <span className="font-semibold text-[var(--foreground)]">{getWellnessFocusLabel(localProfile.focus)}</span>
             입니다.
           </p>
 
@@ -151,12 +131,8 @@ export default async function CoachOnboardingPage(props: {
         <section className="panel ui-panel-shell-lg">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="ui-kicker tracking-[0.24em]">
-                {mode === "edit" ? "Profile update" : "Step 1"}
-              </p>
-              <h2 className="ui-title-3 mt-3">
-                {mode === "edit" ? "온보딩 수정" : "가입 직후 온보딩"}
-              </h2>
+              <p className="ui-kicker tracking-[0.24em]">{mode === "edit" ? "Profile update" : "Step 1"}</p>
+              <h2 className="ui-title-3 mt-3">{mode === "edit" ? "온보딩 수정" : "가입 직후 온보딩"}</h2>
             </div>
             <Link href={mode === "edit" ? callbackUrl : "/"} className="ui-pill">
               {mode === "edit" ? "돌아가기" : "홈으로"}
@@ -165,22 +141,12 @@ export default async function CoachOnboardingPage(props: {
 
           <form action={saveOnboardingAnswers} className="mt-8 space-y-4">
             <input type="hidden" name="callbackUrl" value={callbackUrl} />
-            <input
-              type="hidden"
-              name="mode"
-              value={mode === "edit" ? "edit" : ""}
-            />
+            <input type="hidden" name="mode" value={mode === "edit" ? "edit" : ""} />
 
-            {errorMessage ? (
-              <div className="ui-alert">
-                {errorMessage}
-              </div>
-            ) : null}
+            {errorMessage ? <div className="ui-alert">{errorMessage}</div> : null}
 
             <label className="block">
-              <span className="ui-field-label">
-                목표 체중
-              </span>
+              <span className="ui-field-label">목표 체중</span>
               <div className="ui-field-shell">
                 <input
                   required
@@ -199,15 +165,8 @@ export default async function CoachOnboardingPage(props: {
             </label>
 
             <label className="block">
-              <span className="ui-field-label">
-                수면 패턴
-              </span>
-              <select
-                required
-                name="sleepPattern"
-                defaultValue={sleepPatternValue}
-                className="ui-field-control"
-              >
+              <span className="ui-field-label">수면 패턴</span>
+              <select required name="sleepPattern" defaultValue={sleepPatternValue} className="ui-field-control">
                 <option value="" disabled>
                   수면 패턴을 선택해주세요.
                 </option>
@@ -220,9 +179,7 @@ export default async function CoachOnboardingPage(props: {
             </label>
 
             <label className="block">
-              <span className="ui-field-label">
-                운동 경험
-              </span>
+              <span className="ui-field-label">운동 경험</span>
               <select
                 required
                 name="exerciseExperience"
@@ -241,15 +198,8 @@ export default async function CoachOnboardingPage(props: {
             </label>
 
             <label className="block">
-              <span className="ui-field-label">
-                식단 스타일
-              </span>
-              <select
-                required
-                name="mealStyle"
-                defaultValue={mealStyleValue}
-                className="ui-field-control"
-              >
+              <span className="ui-field-label">식단 스타일</span>
+              <select required name="mealStyle" defaultValue={mealStyleValue} className="ui-field-control">
                 <option value="" disabled>
                   식단 스타일을 선택해주세요.
                 </option>
@@ -261,10 +211,7 @@ export default async function CoachOnboardingPage(props: {
               </select>
             </label>
 
-            <button
-              type="submit"
-              className="ui-submit-button"
-            >
+            <button type="submit" className="ui-submit-button">
               {mode === "edit" ? "온보딩 저장하기" : "온보딩 완료하고 코치 시작하기"}
             </button>
           </form>
