@@ -24,7 +24,7 @@ export default function HomeHeader({
 
       <nav className="flex flex-wrap gap-2 text-sm text-[var(--muted)]">
         <a
-          href="#pillars"
+          href="#coach-areas"
           className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
         >
           코칭 영역

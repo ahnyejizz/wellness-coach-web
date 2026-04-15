@@ -4,10 +4,13 @@ import { auth } from "@/auth";
 
 import CoachPlanner from "./components/coach-planner";
 import FocusBoard, { type FocusAreaMap } from "./components/focus-board";
+import HomeCoachArea, {
+  type HomeCoachAreaItem,
+} from "./components/home-coach-area";
 import HomeHeader from "./components/home-header";
 import HomeOverviewSection from "./components/home-overview-section";
 
-const pillars = [
+const coachAreas: HomeCoachAreaItem[] = [
   {
     title: "Sleep Coach",
     subtitle: "깊게 자고 가볍게 깨는 리듬",
@@ -215,47 +218,7 @@ export default async function Home() {
           <HomeOverviewSection isLoggedIn={isLoggedIn} />
         </section>
 
-        <section id="pillars" className="grid gap-5 md:grid-cols-3">
-          {pillars.map((pillar) => (
-            <article
-              key={pillar.title}
-              className="panel rounded-[1.8rem] px-6 py-6 sm:px-7"
-            >
-              <div
-                className="mb-5 inline-flex rounded-full px-3 py-1 text-sm font-semibold"
-                style={{
-                  backgroundColor: pillar.softAccent,
-                  color: pillar.accent,
-                }}
-              >
-                {pillar.title}
-              </div>
-              <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
-                {pillar.subtitle}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
-                {pillar.summary}
-              </p>
-
-              <div className="mt-6 space-y-3">
-                {pillar.bullets.map((bullet) => (
-                  <div
-                    key={bullet}
-                    className="flex items-start gap-3 rounded-[1.25rem] border border-[var(--border)] bg-white/72 px-4 py-3"
-                  >
-                    <span
-                      className="mt-1 h-2.5 w-2.5 rounded-full"
-                      style={{ backgroundColor: pillar.accent }}
-                    />
-                    <p className="text-sm leading-7 text-[var(--foreground)]">
-                      {bullet}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </article>
-          ))}
-        </section>
+        <HomeCoachArea coachAreas={coachAreas} />
 
         <FocusBoard areas={focusAreas} />
 
