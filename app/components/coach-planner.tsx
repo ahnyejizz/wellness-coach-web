@@ -236,7 +236,7 @@ export default function CoachPlanner() {
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">우선 코칭 축</span>
+            <span className="text-sm font-medium text-[var(--foreground)]">우선 코칭</span>
             <select
               className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
               value={profile.focus}
@@ -365,7 +365,7 @@ export default function CoachPlanner() {
             <p className="mt-4 text-sm leading-7 text-white/80">{plan.summary}</p>
           </div>
 
-          <div className="rounded-[1.5rem] bg-white/10 px-5 py-4">
+          <div className="rounded-[1.5rem] bg-white/10 px-5 py-4 lg:min-w-[10rem]">
             <p className="text-sm text-white/70">{plan.scoreLabel}</p>
             <p className="mt-2 text-4xl font-semibold tracking-tight">{plan.score}</p>
           </div>

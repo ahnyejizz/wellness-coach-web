@@ -116,7 +116,7 @@ export default function AuthCredentialsForm(
 
           <label className="block">
             <span className="text-sm font-medium text-[var(--foreground)]">
-              우선 코칭 축
+              우선 코칭
             </span>
             <select
               name="focus"
@@ -137,7 +137,7 @@ export default function AuthCredentialsForm(
         type="submit"
         className="inline-flex w-full items-center justify-center rounded-[1.3rem] bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
       >
-        {props.mode === "login" ? "로그인" : "계정 만들고 시작하기"}
+        {props.mode === "login" ? "로그인" : "계정 만들고 온보딩 시작하기"}
       </button>
     </form>
   );

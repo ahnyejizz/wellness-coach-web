@@ -26,11 +26,10 @@ export default function WellnessPlanSummary() {
             Linked plan
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-            홈에서 만든 개인 플랜이 코치 공간에도 이어집니다
+            홈에서 만든 개인 플랜이 코치 공간에도 이어집니다.
           </h2>
           <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
-            Zustand로 관리하는 플랜 상태를 기반으로, 최근 저장한 목표와 루틴
-            방향을 코치 페이지에서도 바로 확인할 수 있습니다.
+            플랜 상태를 기반으로, 최근 저장한 목표와 루틴 방향을 코치 페이지에서도 바로 확인할 수 있습니다.
           </p>
         </div>
 
@@ -78,7 +77,7 @@ export default function WellnessPlanSummary() {
             {profile.proteinTarget}g / {profile.waterTarget.toFixed(1)}L
           </h3>
           <p className="mt-2 text-sm text-[var(--muted)]">
-            단백질과 수분 목표가 연결돼 있어요
+            단백질과 수분 목표가 연결돼 있어요.
           </p>
         </article>
 
@@ -88,7 +87,7 @@ export default function WellnessPlanSummary() {
             {getMealPatternLabel(profile.mealPattern)}
           </h3>
           <p className="mt-2 text-sm text-[var(--muted)]">
-            우선 코칭 축은 {getFocusLabel(profile.focus)} 기준입니다
+            우선 코칭은 {getFocusLabel(profile.focus)} 기준입니다.
           </p>
         </article>
       </div>

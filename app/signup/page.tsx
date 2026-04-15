@@ -98,9 +98,11 @@ export default async function SignUpPage(props: {
             나만의 건강 코치 계정 만들기
           </h1>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--muted)] sm:text-base">
-            이름, 이메일, 비밀번호만 입력하면 프로젝트 내부 계정으로 바로
-            시작할 수 있습니다. 가입 후에는 수면, 운동, 식단 코칭 플로우를 개인
-            기준으로 이어서 관리할 수 있습니다.
+            이름, 이메일, 비밀번호만 입력하면 프로젝트 내부 계정으로 바로 시작할 수 있습니다. 
+            <br />
+            가입 직후에는 목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 묻는 짧은 온보딩으로 이어지고, 
+            <br />
+            이후 수면, 운동, 식단 코칭 플로우를 개인 기준으로 관리할 수 있습니다.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -123,16 +125,6 @@ export default async function SignUpPage(props: {
               </p>
             </article>
           </div>
-
-          <div className="mt-8 rounded-[1.6rem] border border-[var(--border)] bg-white/72 p-5">
-            <p className="text-sm font-medium text-[var(--muted)]">
-              지금 단계의 가입 방식
-            </p>
-            <p className="mt-3 text-sm leading-7 text-[var(--foreground)]">
-              먼저 로컬 계정 가입으로 사용자 흐름을 빠르게 검증하고, 이후 필요할
-              때 DB 저장이나 외부 인증 공급자를 붙일 수 있게 구조를 분리했습니다.
-            </p>
-          </div>
         </section>
 
         <section className="panel rounded-[2rem] px-6 py-8 sm:px-8">
@@ -141,7 +133,7 @@ export default async function SignUpPage(props: {
               <p className="text-sm uppercase tracking-[0.24em] text-[var(--accent-strong)]">
                 Get started
               </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight">
                 회원가입
               </h2>
             </div>
@@ -163,9 +155,7 @@ export default async function SignUpPage(props: {
           </div>
 
           <p className="mt-6 text-sm leading-7 text-[var(--muted)]">
-            가입을 완료하면 바로{" "}
-            <span className="font-semibold text-[var(--foreground)]">/coach</span>{" "}
-            페이지로 이동해 개인 건강 코칭 흐름을 시작합니다.
+            가입을 완료하면 바로 온보딩 질문으로 넘어갑니다.
           </p>
         </section>
       </div>

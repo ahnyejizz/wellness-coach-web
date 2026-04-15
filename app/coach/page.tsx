@@ -4,8 +4,12 @@ import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import WellnessPlanSummary from "@/app/components/wellness-plan-summary";
 import {
+  getExerciseExperienceLabel,
+  getMealStyleLabel,
+  getSleepPatternLabel,
   getUserProfileByEmail,
   getWellnessFocusLabel,
+  hasCompletedOnboarding,
 } from "@/lib/auth/user-store";
 
 function resolveInitial(name?: string | null, email?: string | null) {
@@ -23,20 +27,42 @@ export default async function CoachPage() {
   const localProfile = session.user.email
     ? await getUserProfileByEmail(session.user.email)
     : null;
+
+  if (!localProfile || !hasCompletedOnboarding(localProfile)) {
+    redirect("/coach/onboarding?callbackUrl=/coach");
+  }
+
+  const completedProfile = localProfile;
   const userName = session.user.name ?? "Motive Care Member";
   const userEmail = session.user.email ?? "Local account";
   const userInitial = resolveInitial(session.user.name, session.user.email);
-  const focusLabel = getWellnessFocusLabel(localProfile?.focus ?? "balance");
-  const isFirstLogin = (localProfile?.loginCount ?? 0) <= 1;
+  const focusLabel = getWellnessFocusLabel(completedProfile.focus);
+  const isFirstLogin = (completedProfile.loginCount ?? 0) <= 1;
   const heading = isFirstLogin
     ? `${userName}님, 환영합니다!`
     : `${userName}님, 다시 오셨네요!`;
-  const joinedAt = localProfile
-    ? new Intl.DateTimeFormat("ko-KR", {
-        month: "long",
-        day: "numeric",
-      }).format(new Date(localProfile.createdAt))
-    : "오늘";
+  const joinedAt = new Intl.DateTimeFormat("ko-KR", {
+    month: "long",
+    day: "numeric",
+  }).format(new Date(completedProfile.createdAt));
+  const onboardingSummary = [
+    {
+      label: "목표 체중",
+      value: `${completedProfile.goalWeightKg}kg`,
+    },
+    {
+      label: "수면 패턴",
+      value: getSleepPatternLabel(completedProfile.sleepPattern),
+    },
+    {
+      label: "운동 경험",
+      value: getExerciseExperienceLabel(completedProfile.exerciseExperience),
+    },
+    {
+      label: "식단 스타일",
+      value: getMealStyleLabel(completedProfile.mealStyle),
+    },
+  ];
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[108rem] flex-col gap-6 px-5 py-8 sm:px-8 lg:px-12">
@@ -54,8 +80,9 @@ export default async function CoachPage() {
                 {heading}
               </h1>
               <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-                현재 로그인된 계정은 {userEmail} 입니다. 여기서 개인 건강 플랜,
-                주간 리포트, 맞춤 루틴을 이어서 관리하게 됩니다.
+                현재 로그인된 계정은 {userEmail} 입니다. 
+                <br />
+                여기서 개인 건강 플랜, 주간 리포트, 맞춤 루틴을 이어서 관리하게 됩니다.
               </p>
             </div>
           </div>
@@ -91,13 +118,12 @@ export default async function CoachPage() {
             내부 계정 로그인 완료
           </h2>
           <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
-            회원가입 폼에서 만든 계정으로 로그인했고, 보호된 코치 페이지까지
-            정상적으로 연결된 상태입니다.
+            회원가입 폼에서 만든 계정으로 로그인한 상태입니다.
           </p>
         </article>
 
         <article className="panel rounded-[1.8rem] px-6 py-6">
-          <p className="text-sm text-[var(--muted)]">우선 코칭 축</p>
+          <p className="text-sm text-[var(--muted)]">우선 코칭</p>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
             {focusLabel}
           </h2>
@@ -108,14 +134,33 @@ export default async function CoachPage() {
         </article>
 
         <article className="panel rounded-[1.8rem] px-6 py-6">
-          <p className="text-sm text-[var(--muted)]">가입 시점</p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
-            {joinedAt}부터 함께한 코칭
-          </h2>
-          <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
-            다음 단계에서는 목표 체중, 수면 패턴, 운동 경험, 식단 스타일 질문을
-            붙여 가입 직후 온보딩까지 이어지게 확장하면 좋습니다.
-          </p>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-sm text-[var(--muted)]">건강 온보딩</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+                가입 직후 입력한 건강 프로필
+              </h2>
+            </div>
+            <Link
+              href="/coach/onboarding?mode=edit&callbackUrl=/coach"
+              className="rounded-full border border-[var(--border)] bg-white/72 px-4 py-2 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
+            >
+              수정
+            </Link>
+          </div>
+          <div className="mt-4 space-y-3">
+            {onboardingSummary.map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center justify-between gap-4 rounded-[1.2rem] border border-[var(--border)] bg-white/72 px-4 py-3"
+              >
+                <span className="text-sm text-[var(--muted)]">{item.label}</span>
+                <span className="text-sm font-semibold text-[var(--foreground)]">
+                  {item.value}
+                </span>
+              </div>
+            ))}
+          </div>
         </article>
       </section>
 

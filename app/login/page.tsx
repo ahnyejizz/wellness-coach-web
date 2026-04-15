@@ -78,8 +78,9 @@ export default async function LoginPage(props: {
             다시 돌아온 오늘의 건강 코치
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)] sm:text-base">
-            로그인하면 수면, 운동, 식단 중심의 개인 코칭 플랜과 저장된 루틴,
-            우선 코칭 축을 이어서 확인할 수 있습니다.
+            로그인하면 수면, 운동, 식단 중심의 개인 코칭 플랜과
+            <br />
+            저장된 루틴, 우선 코칭을 이어서 확인할 수 있습니다.
           </p>
 
           <div className="mt-8 rounded-[1.6rem] border border-[var(--border)] bg-white/72 p-5">
@@ -87,9 +88,9 @@ export default async function LoginPage(props: {
               로컬 계정 안내
             </p>
             <p className="mt-3 text-sm leading-7 text-[var(--foreground)]">
-              지금은 이 프로젝트 안에서 바로 회원가입하고 로그인하는 초기 버전
-              흐름으로 구성했습니다. 등록한 정보는 로컬 개발 환경의 사용자
-              저장소에 보관됩니다.
+              지금은 이 프로젝트 안에서 바로 회원가입하고 로그인하는 초기 버전 흐름으로 구성했습니다. 
+              <br />
+              등록한 정보는 로컬 개발 환경의 사용자 저장소에 보관됩니다.
             </p>
           </div>
 
@@ -98,8 +99,9 @@ export default async function LoginPage(props: {
               로그인 후 `/coach` 페이지에서 개인 건강 코칭 플랜을 확인합니다.
             </div>
             <div className="rounded-[1.3rem] border border-[var(--border)] bg-white/65 px-4 py-3">
-              이메일과 비밀번호로 로그인하며, 나중에 DB나 외부 인증으로 확장할 수
-              있도록 구조를 분리해두었습니다.
+              이메일과 비밀번호로 로그인하며, 
+              <br />
+              나중에 DB나 외부 인증으로 확장할 수 있도록 구조를 분리해두었습니다.
             </div>
           </div>
         </section>

@@ -6,9 +6,9 @@ import CoachPlanner from "./components/coach-planner";
 import FocusBoard, { type FocusAreaMap } from "./components/focus-board";
 
 const heroSignals = [
-  { label: "수면 회복 점수", value: "89", hint: "늦은 취침 2회만 줄여도 회복이 더 올라가요" },
+  { label: "수면 회복 점수", value: "89", hint: "늦은 취침 2회만 줄여도 회복이 더 올라가요." },
   { label: "운동 계획 달성률", value: "4/5", hint: "근력 3회, 걷기 2회 루틴 유지 중" },
-  { label: "식단 안정도", value: "91%", hint: "단백질과 수분 섭취가 꾸준해졌어요" },
+  { label: "식단 안정도", value: "91%", hint: "단백질과 수분 섭취가 꾸준해졌어요." },
 ];
 
 const pillars = [
@@ -309,10 +309,11 @@ export default async function Home() {
                   개인 코치 웹사이트
                 </h1>
                 <p className="max-w-3xl text-base leading-8 text-[var(--muted)] sm:text-lg">
-                  Motive Care는 수면, 운동, 식단 데이터를 따로 흩어두지 않고
-                  하나의 흐름으로 연결합니다. 회복이 부족하면 운동 강도를 낮추고,
-                  식단이 흔들리면 포만감 설계부터 다시 제안하는 건강 코치형
-                  웹서비스입니다.
+                  Motive Care는 수면, 운동, 식단 데이터를 따로 흩어두지 않고 하나의 흐름으로 연결합니다. 
+                  <br />
+                  회복이 부족하면 운동 강도를 낮추고, 식단이 흔들리면 포만감 설계부터 다시 제안하는
+                  <br /> 
+                  개인 건강 코치형 웹서비스 입니다.
                 </p>
               </div>
 

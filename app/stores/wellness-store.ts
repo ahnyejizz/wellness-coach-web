@@ -345,14 +345,14 @@ export function formatSavedAt(value: string) {
 
 export function getSavedPlanLabel(lastSavedAt: string | null, hasHydrated: boolean) {
   if (!hasHydrated) {
-    return "저장된 플랜을 불러오는 중이에요";
+    return "저장된 플랜을 불러오는 중이에요.";
   }
 
   if (!lastSavedAt) {
-    return "입력값은 브라우저에 자동으로 보관돼요";
+    return "입력값은 브라우저에 자동으로 보관돼요.";
   }
 
-  return `${formatSavedAt(lastSavedAt)} 기준 플랜이 저장되어 있어요`;
+  return `${formatSavedAt(lastSavedAt)} 기준 플랜이 저장되어 있어요.`;
 }
 
 export function getPlannerDisplayName(name: string) {

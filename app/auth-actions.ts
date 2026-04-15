@@ -35,6 +35,20 @@ function normalizeCallbackUrl(value: string) {
   return value;
 }
 
+function buildOnboardingRedirectUrl(callbackUrl: string) {
+  const params = new URLSearchParams();
+
+  if (callbackUrl !== defaultCallbackUrl) {
+    params.set("callbackUrl", callbackUrl);
+  }
+
+  const queryString = params.toString();
+
+  return queryString
+    ? `/coach/onboarding?${queryString}`
+    : "/coach/onboarding";
+}
+
 function buildAuthRedirect(
   pathname: "/login" | "/signup",
   options: {
@@ -208,7 +222,7 @@ export async function signupWithCredentials(formData: FormData) {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: callbackUrl,
+      redirectTo: buildOnboardingRedirectUrl(callbackUrl),
     });
   } catch (error) {
     if (error instanceof AuthError) {

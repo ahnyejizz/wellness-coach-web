@@ -53,12 +53,12 @@ export default function FocusBoard({ areas }: { areas: FocusAreaMap }) {
           id="coach-board-title"
           className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]"
         >
-          오늘 가장 먼저 챙길 코칭 축을 선택하세요
+          오늘 가장 먼저 챙길 코칭을 선택하세요.
         </h2>
         <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)]">
-          수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번 주
-          패턴이 함께 업데이트됩니다. 플래너에서 고른 우선 코칭 축과도 실시간으로
-          동기화됩니다.
+          수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번 주 패턴이 함께 업데이트됩니다. 
+          <br />
+          플래너에서 고른 우선 코칭 축과도 실시간으로 동기화됩니다.
         </p>
 
         <div className="mt-8 space-y-3">

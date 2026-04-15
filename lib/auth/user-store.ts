@@ -11,7 +11,32 @@ export const wellnessFocusOptions = [
   { value: "diet", label: "식단 안정 우선" },
 ] as const;
 
+export const sleepPatternOptions = [
+  { value: "early-rhythm", label: "일찍 자고 일찍 일어나는 편" },
+  { value: "steady-rhythm", label: "평일과 주말이 비교적 일정한 편" },
+  { value: "night-owl", label: "늦게 자는 편" },
+  { value: "irregular", label: "수면 시간이 자주 흔들리는 편" },
+] as const;
+
+export const exerciseExperienceOptions = [
+  { value: "beginner", label: "운동이 거의 처음이에요" },
+  { value: "returning", label: "예전에 하다가 다시 시작해요" },
+  { value: "consistent", label: "주 2~4회 꾸준히 운동해요" },
+  { value: "advanced", label: "운동 루틴이 이미 익숙해요" },
+] as const;
+
+export const mealStyleOptions = [
+  { value: "balanced", label: "균형 식사를 가장 선호해요" },
+  { value: "protein-forward", label: "단백질 중심으로 챙기는 편이에요" },
+  { value: "comfort-first", label: "간편하고 부담 없는 식사가 좋아요" },
+  { value: "plant-forward", label: "채소와 가벼운 식사를 선호해요" },
+] as const;
+
 export type WellnessFocus = (typeof wellnessFocusOptions)[number]["value"];
+export type SleepPattern = (typeof sleepPatternOptions)[number]["value"];
+export type ExerciseExperience =
+  (typeof exerciseExperienceOptions)[number]["value"];
+export type MealStyle = (typeof mealStyleOptions)[number]["value"];
 
 type StoredUser = {
   id: string;
@@ -19,6 +44,11 @@ type StoredUser = {
   email: string;
   passwordHash: string;
   focus: WellnessFocus;
+  goalWeightKg?: number;
+  sleepPattern?: SleepPattern;
+  exerciseExperience?: ExerciseExperience;
+  mealStyle?: MealStyle;
+  completedOnboardingAt?: string;
   createdAt: string;
   loginCount?: number;
   lastLoginAt?: string;
@@ -30,6 +60,13 @@ export class DuplicateUserError extends Error {
   constructor() {
     super("A user with this email already exists.");
     this.name = "DuplicateUserError";
+  }
+}
+
+export class UserNotFoundError extends Error {
+  constructor() {
+    super("No user found for the provided email.");
+    this.name = "UserNotFoundError";
   }
 }
 
@@ -47,6 +84,11 @@ function sanitizeUser(user: StoredUser): LocalUserProfile {
     name: user.name,
     email: user.email,
     focus: user.focus,
+    goalWeightKg: user.goalWeightKg,
+    sleepPattern: user.sleepPattern,
+    exerciseExperience: user.exerciseExperience,
+    mealStyle: user.mealStyle,
+    completedOnboardingAt: user.completedOnboardingAt,
     createdAt: user.createdAt,
     loginCount: user.loginCount ?? 0,
     lastLoginAt: user.lastLoginAt,
@@ -102,6 +144,52 @@ export function getWellnessFocusLabel(focus: WellnessFocus) {
   return match?.label ?? wellnessFocusOptions[0].label;
 }
 
+export function getSleepPatternLabel(pattern: SleepPattern) {
+  const match = sleepPatternOptions.find((option) => option.value === pattern);
+  return match?.label ?? sleepPatternOptions[0].label;
+}
+
+export function getExerciseExperienceLabel(experience: ExerciseExperience) {
+  const match = exerciseExperienceOptions.find(
+    (option) => option.value === experience,
+  );
+  return match?.label ?? exerciseExperienceOptions[0].label;
+}
+
+export function getMealStyleLabel(style: MealStyle) {
+  const match = mealStyleOptions.find((option) => option.value === style);
+  return match?.label ?? mealStyleOptions[0].label;
+}
+
+export function hasCompletedOnboarding(
+  user:
+    | Pick<
+        StoredUser,
+        | "goalWeightKg"
+        | "sleepPattern"
+        | "exerciseExperience"
+        | "mealStyle"
+        | "completedOnboardingAt"
+      >
+    | null
+    | undefined,
+): user is {
+  goalWeightKg: number;
+  sleepPattern: SleepPattern;
+  exerciseExperience: ExerciseExperience;
+  mealStyle: MealStyle;
+  completedOnboardingAt: string;
+} {
+  return Boolean(
+    user &&
+      typeof user.goalWeightKg === "number" &&
+      user.sleepPattern &&
+      user.exerciseExperience &&
+      user.mealStyle &&
+      user.completedOnboardingAt,
+  );
+}
+
 export async function getUserProfileByEmail(email: string) {
   const normalizedEmail = normalizeEmail(email);
   const users = await readUsers();
@@ -134,6 +222,36 @@ export async function registerUser(input: {
   };
 
   users.push(nextUser);
+  await writeUsers(users);
+
+  return sanitizeUser(nextUser);
+}
+
+export async function updateUserOnboarding(input: {
+  email: string;
+  goalWeightKg: number;
+  sleepPattern: SleepPattern;
+  exerciseExperience: ExerciseExperience;
+  mealStyle: MealStyle;
+}) {
+  const normalizedEmail = normalizeEmail(input.email);
+  const users = await readUsers();
+  const userIndex = users.findIndex((candidate) => candidate.email === normalizedEmail);
+
+  if (userIndex < 0) {
+    throw new UserNotFoundError();
+  }
+
+  const nextUser: StoredUser = {
+    ...users[userIndex],
+    goalWeightKg: input.goalWeightKg,
+    sleepPattern: input.sleepPattern,
+    exerciseExperience: input.exerciseExperience,
+    mealStyle: input.mealStyle,
+    completedOnboardingAt: new Date().toISOString(),
+  };
+
+  users[userIndex] = nextUser;
   await writeUsers(users);
 
   return sanitizeUser(nextUser);
