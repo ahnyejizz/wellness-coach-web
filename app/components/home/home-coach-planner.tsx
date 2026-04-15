@@ -198,23 +198,22 @@ export default function HomeCoachPlanner() {
 
   return (
     <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
-      <article className="panel rounded-[2rem] px-6 py-7 sm:px-8">
-        <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
+      <article className="panel ui-panel-shell">
+        <p className="ui-kicker">
           Plan studio
         </p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
+        <h2 className="ui-title-3 mt-3">
           내 루틴에 맞는 건강 코칭 플랜 만들기
         </h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--muted)]">
-          목표와 루틴을 입력하면, 수면·운동·식단 우선순위에 맞춘 개인 코칭
-          플랜을 바로 만들어줍니다.
+        <p className="ui-copy mt-4 max-w-3xl">
+          목표와 루틴을 입력하면, 수면·운동·식단 우선순위에 맞춘 개인 코칭 플랜을 바로 만들어줍니다.
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">이름</span>
+            <span className="ui-field-label">이름</span>
             <input
-              className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
+              className="ui-field-control-strong"
               value={profile.name}
               onChange={(event) => updateProfile("name", event.target.value)}
               placeholder={getPlannerDisplayName(profile.name)}
@@ -222,9 +221,9 @@ export default function HomeCoachPlanner() {
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">핵심 목표</span>
+            <span className="ui-field-label">핵심 목표</span>
             <select
-              className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
+              className="ui-field-control-strong"
               value={profile.goal}
               onChange={(event) => updateProfile("goal", event.target.value as GoalKey)}
             >
@@ -236,9 +235,9 @@ export default function HomeCoachPlanner() {
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">우선 코칭</span>
+            <span className="ui-field-label">우선 코칭</span>
             <select
-              className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
+              className="ui-field-control-strong"
               value={profile.focus}
               onChange={(event) => updateProfile("focus", event.target.value as FocusKey)}
             >
@@ -249,9 +248,9 @@ export default function HomeCoachPlanner() {
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">기본 식사 스타일</span>
+            <span className="ui-field-label">기본 식사 스타일</span>
             <select
-              className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
+              className="ui-field-control-strong"
               value={profile.mealPattern}
               onChange={(event) =>
                 updateProfile("mealPattern", event.target.value as MealPatternKey)
@@ -264,22 +263,22 @@ export default function HomeCoachPlanner() {
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">목표 취침 시간</span>
+            <span className="ui-field-label">목표 취침 시간</span>
             <input
               type="time"
-              className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
+              className="ui-field-control-strong"
               value={profile.bedtime}
               onChange={(event) => updateProfile("bedtime", event.target.value)}
             />
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">주간 운동 횟수</span>
+            <span className="ui-field-label">주간 운동 횟수</span>
             <input
               type="number"
               min={2}
               max={6}
-              className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
+              className="ui-field-control-strong"
               value={profile.workoutDays}
               onChange={(event) =>
                 updateProfile(
@@ -291,12 +290,12 @@ export default function HomeCoachPlanner() {
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">하루 단백질 목표</span>
+            <span className="ui-field-label">하루 단백질 목표</span>
             <input
               type="number"
               min={60}
               max={180}
-              className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
+              className="ui-field-control-strong"
               value={profile.proteinTarget}
               onChange={(event) =>
                 updateProfile(
@@ -308,13 +307,13 @@ export default function HomeCoachPlanner() {
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">하루 수분 목표 (L)</span>
+            <span className="ui-field-label">하루 수분 목표 (L)</span>
             <input
               type="number"
               min={1}
               max={4}
               step={0.1}
-              className="mt-2 w-full rounded-[1.2rem] border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] outline-none transition-colors duration-200 focus:border-[var(--foreground)]"
+              className="ui-field-control-strong"
               value={profile.waterTarget}
               onChange={(event) =>
                 updateProfile(
@@ -338,14 +337,14 @@ export default function HomeCoachPlanner() {
             <button
               type="button"
               onClick={resetProfile}
-              className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/72 px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
+              className="ui-button-secondary"
             >
              초기화
             </button>
             <button
               type="button"
               onClick={saveProfile}
-              className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+              className="ui-button-primary ui-button-primary-wide"
             >
               저장
             </button>
@@ -362,7 +361,9 @@ export default function HomeCoachPlanner() {
             <h2 className="mt-3 text-3xl font-semibold tracking-tight">
               {plan.heading}
             </h2>
-            <p className="mt-4 text-sm leading-7 text-white/80">{plan.summary}</p>
+            <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">
+              {plan.summary}
+            </p>
           </div>
 
           <div className="rounded-[1.5rem] bg-white/10 px-5 py-4 lg:min-w-[10rem]">
@@ -394,7 +395,7 @@ export default function HomeCoachPlanner() {
 
         <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
           <p className="text-sm text-white/70">Coach message</p>
-          <p className="mt-3 text-lg leading-8">{plan.coachMessage}</p>
+          <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
         </div>
 
         <div className="mt-6 space-y-4">

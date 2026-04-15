@@ -62,20 +62,20 @@ export default async function CoachPage() {
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[108rem] flex-col gap-6 px-5 py-8 sm:px-8 lg:px-12">
-      <section className="panel panel-strong rounded-[2rem] px-6 py-8 sm:px-8">
+      <section className="panel panel-strong ui-panel-shell-lg">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex items-start gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)] text-2xl font-semibold text-[#fffaf2]">
               {userInitial}
             </div>
             <div>
-              <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
+              <p className="ui-kicker">
                 Coach workspace
               </p>
-              <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[var(--foreground)]">
+              <h1 className="ui-title-4 mt-3">
                 {heading}
               </h1>
-              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
+              <p className="ui-copy mt-3">
                 현재 로그인된 계정은 {userEmail} 입니다. 
                 <br />
                 여기서 개인 건강 플랜, 주간 리포트, 맞춤 루틴을 이어서 관리하게 됩니다.
@@ -84,10 +84,7 @@ export default async function CoachPage() {
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/"
-              className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/72 px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
-            >
+            <Link href="/" className="ui-button-secondary">
               홈으로
             </Link>
             <form
@@ -98,7 +95,7 @@ export default async function CoachPage() {
             >
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center rounded-full bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+                className="ui-button-primary w-full"
               >
                 로그아웃
               </button>
@@ -108,39 +105,36 @@ export default async function CoachPage() {
       </section>
 
       <section className="grid gap-5 lg:grid-cols-3">
-        <article className="panel rounded-[1.8rem] px-6 py-6">
+        <article className="panel ui-panel-card">
           <p className="text-sm text-[var(--muted)]">인증 상태</p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+          <h2 className="ui-title-2 mt-3">
             내부 계정 로그인 완료
           </h2>
-          <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
+          <p className="ui-copy mt-4">
             회원가입 폼에서 만든 계정으로 로그인한 상태입니다.
           </p>
         </article>
 
-        <article className="panel rounded-[1.8rem] px-6 py-6">
+        <article className="panel ui-panel-card">
           <p className="text-sm text-[var(--muted)]">우선 코칭</p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+          <h2 className="ui-title-2 mt-3">
             {focusLabel}
           </h2>
-          <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
+          <p className="ui-copy mt-4">
             회원가입 때 선택한 건강 우선순위를 기준으로, 이후 대시보드와
             추천 루틴을 더 구체적으로 개인화할 수 있습니다.
           </p>
         </article>
 
-        <article className="panel rounded-[1.8rem] px-6 py-6">
+        <article className="panel ui-panel-card">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-sm text-[var(--muted)]">건강 온보딩</p>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+              <h2 className="ui-title-2 mt-3">
                 가입 직후 입력한 건강 프로필
               </h2>
             </div>
-            <Link
-              href="/coach/onboarding?mode=edit&callbackUrl=/coach"
-              className="rounded-full border border-[var(--border)] bg-white/72 px-4 py-2 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
-            >
+            <Link href="/coach/onboarding?mode=edit&callbackUrl=/coach" className="ui-pill ui-pill-strong">
               수정
             </Link>
           </div>

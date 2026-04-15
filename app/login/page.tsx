@@ -67,23 +67,23 @@ export default async function LoginPage(props: {
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
       <div className="grid w-full gap-6 lg:grid-cols-[0.98fr_1.02fr]">
-        <section className="panel panel-strong rounded-[2rem] px-6 py-8 sm:px-8">
-          <div className="inline-flex rounded-full border border-[var(--border)] bg-white/70 px-3 py-1 text-sm font-semibold text-[var(--foreground)]">
+        <section className="panel panel-strong ui-panel-shell-lg">
+          <div className="ui-brand-chip">
             Motive Care
           </div>
-          <p className="mt-6 text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
+          <p className="ui-kicker mt-6">
             Login
           </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[var(--foreground)]">
+          <h1 className="ui-title-4 mt-3">
             다시 돌아온 오늘의 건강 코치
           </h1>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)] sm:text-base">
+          <p className="ui-copy mt-4 max-w-2xl sm:text-base">
             로그인하면 수면, 운동, 식단 중심의 개인 코칭 플랜과
             <br />
             저장된 루틴, 우선 코칭을 이어서 확인할 수 있습니다.
           </p>
 
-          <div className="mt-8 rounded-[1.6rem] border border-[var(--border)] bg-white/72 p-5">
+          <div className="ui-card mt-8 rounded-[1.6rem]">
             <p className="text-sm font-medium text-[var(--muted)]">
               로컬 계정 안내
             </p>
@@ -95,10 +95,10 @@ export default async function LoginPage(props: {
           </div>
 
           <div className="mt-8 space-y-3 text-sm text-[var(--muted)]">
-            <div className="rounded-[1.3rem] border border-[var(--border)] bg-white/65 px-4 py-3">
+            <div className="ui-card-soft">
               로그인 후 `/coach` 페이지에서 개인 건강 코칭 플랜을 확인합니다.
             </div>
-            <div className="rounded-[1.3rem] border border-[var(--border)] bg-white/65 px-4 py-3">
+            <div className="ui-card-soft">
               이메일과 비밀번호로 로그인하며, 
               <br />
               나중에 DB나 외부 인증으로 확장할 수 있도록 구조를 분리해두었습니다.
@@ -106,20 +106,17 @@ export default async function LoginPage(props: {
           </div>
         </section>
 
-        <section className="panel rounded-[2rem] px-6 py-8 sm:px-8">
+        <section className="panel ui-panel-shell-lg">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-[var(--accent-strong)]">
+              <p className="ui-kicker tracking-[0.24em]">
                 Sign in
               </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
+              <h2 className="ui-title-3 mt-3">
                 계정 로그인
               </h2>
             </div>
-            <Link
-              href="/"
-              className="rounded-full border border-[var(--border)] bg-white/70 px-4 py-2 text-sm font-medium text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
-            >
+            <Link href="/" className="ui-pill">
               홈으로
             </Link>
           </div>
@@ -133,7 +130,7 @@ export default async function LoginPage(props: {
             />
           </div>
 
-          <p className="mt-6 text-sm leading-7 text-[var(--muted)]">
+          <p className="ui-copy mt-6">
             처음 오셨다면{" "}
             <Link
               href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`}

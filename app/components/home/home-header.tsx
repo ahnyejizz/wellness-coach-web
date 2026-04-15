@@ -2,6 +2,12 @@ import Link from "next/link";
 
 import { signOut } from "@/auth";
 
+const homeSectionLinks = [
+  { href: "#coach-areas", label: "코칭 영역" },
+  { href: "#coach-board", label: "코치 보드" },
+  { href: "#report", label: "주간 리포트" },
+] as const;
+
 type HomeHeaderProps = {
   isLoggedIn: boolean;
   userName: string;
@@ -14,44 +20,24 @@ export default function HomeHeader({
   return (
     <header className="flex flex-col gap-5 border-b border-[var(--border)] pb-6 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex flex-wrap items-center gap-3">
-        <span className="rounded-full border border-[var(--border)] bg-white/70 px-3 py-1 text-sm font-semibold text-[var(--foreground)]">
-          Motive Care
-        </span>
+        <span className="ui-brand-chip">Motive Care</span>
         <span className="text-sm text-[var(--muted)]">
           Personal Health Coach for sleep, workout, diet
         </span>
       </div>
 
       <nav className="flex flex-wrap gap-2 text-sm text-[var(--muted)]">
-        <a
-          href="#coach-areas"
-          className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-        >
-          코칭 영역
-        </a>
-        <a
-          href="#coach-board"
-          className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-        >
-          코치 보드
-        </a>
-        <a
-          href="#report"
-          className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-        >
-          주간 리포트
-        </a>
+        {homeSectionLinks.map((link) => (
+          <a key={link.href} href={link.href} className="ui-pill">
+            {link.label}
+          </a>
+        ))}
 
         {isLoggedIn ? (
           <>
-            <span className="inline-flex items-center rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 text-[var(--foreground)]">
-              {userName}님
-            </span>
-            <Link
-              href="/coach"
-              className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-            >
-              내 코치 페이지
+            <span className="ui-pill-static">{userName}님</span>
+            <Link href="/coach" className="ui-pill">
+              마이페이지
             </Link>
             <form
               action={async () => {
@@ -61,7 +47,7 @@ export default function HomeHeader({
             >
               <button
                 type="submit"
-                className="rounded-full bg-[var(--foreground)] px-4 py-2 font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+                className="ui-button-primary ui-button-primary-compact text-[#fffaf2]"
               >
                 로그아웃
               </button>
@@ -69,15 +55,12 @@ export default function HomeHeader({
           </>
         ) : (
           <>
-            <Link
-              href="/login"
-              className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-            >
+            <Link href="/login" className="ui-pill">
               로그인
             </Link>
             <Link
               href="/signup"
-              className="rounded-full bg-[var(--foreground)] px-4 py-2 font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5"
+              className="ui-button-primary ui-button-primary-compact text-white"
             >
               회원가입
             </Link>

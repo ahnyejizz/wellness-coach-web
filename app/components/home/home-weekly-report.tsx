@@ -36,18 +36,18 @@ export default function HomeWeeklyReport() {
   return (
     <article
       id="report"
-      className="panel panel-strong rounded-[2rem] px-6 py-7 sm:px-8"
+      className="panel panel-strong ui-panel-shell"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
+          <p className="ui-kicker">
             Weekly report
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
+          <h2 className="ui-title-3 mt-3">
             주간 건강 리포트
           </h2>
         </div>
-        <span className="rounded-full border border-[var(--border)] bg-white/70 px-4 py-2 text-sm text-[var(--muted)]">
+        <span className="ui-pill text-[var(--muted)]">
           지난 7일 종합 밸런스
         </span>
       </div>
@@ -56,7 +56,7 @@ export default function HomeWeeklyReport() {
         {reportMetrics.map((metric) => (
           <article
             key={metric.label}
-            className="rounded-[1.5rem] border border-[var(--border)] bg-white/72 p-4"
+            className="ui-card-compact"
           >
             <p className="text-sm text-[var(--muted)]">{metric.label}</p>
             <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
@@ -70,7 +70,7 @@ export default function HomeWeeklyReport() {
       </div>
 
       <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr]">
-        <div className="rounded-[1.75rem] border border-[var(--border)] bg-white/72 p-5">
+        <div className="ui-card-raised">
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-[var(--muted)]">
               Balance score trend
@@ -98,7 +98,7 @@ export default function HomeWeeklyReport() {
           </div>
         </div>
 
-        <div className="rounded-[1.75rem] border border-[var(--border)] bg-white/72 p-5">
+        <div className="ui-card-raised">
           <p className="text-sm font-medium text-[var(--muted)]">
             코치가 읽은 이번 주 변화
           </p>
@@ -106,7 +106,7 @@ export default function HomeWeeklyReport() {
             {reportNotes.map((note) => (
               <div
                 key={note}
-                className="rounded-[1.25rem] border border-[var(--border)] bg-white px-4 py-4"
+                className="ui-card-note"
               >
                 <p className="text-sm leading-7 text-[var(--foreground)]">
                   {note}

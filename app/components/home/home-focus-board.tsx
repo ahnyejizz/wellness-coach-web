@@ -135,17 +135,17 @@ export default function HomeFocusBoard() {
       className="grid gap-6 xl:grid-cols-[0.76fr_1.24fr]"
       aria-labelledby="coach-board-title"
     >
-      <article className="panel rounded-[2rem] px-6 py-7 sm:px-8">
-        <p className="text-sm uppercase tracking-[0.28em] text-[var(--accent-strong)]">
+      <article className="panel ui-panel-shell">
+        <p className="ui-kicker">
           Focus board
         </p>
         <h2
           id="coach-board-title"
-          className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]"
+          className="ui-title-3 mt-3"
         >
           오늘 가장 먼저 챙길 코칭을 선택하세요.
         </h2>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)]">
+        <p className="ui-copy mt-4 max-w-2xl">
           수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번 주 패턴이 함께 업데이트됩니다. 
           <br />
           플래너에서 고른 우선 코칭 축과도 실시간으로 동기화됩니다.
@@ -204,16 +204,16 @@ export default function HomeFocusBoard() {
         </div>
       </article>
 
-      <article className="panel panel-strong rounded-[2rem] px-6 py-7 sm:px-8">
+      <article className="panel panel-strong ui-panel-shell">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.28em]" style={{ color: current.accent }}>
               {current.headline}
             </p>
-            <h3 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
+            <h3 className="ui-title-3 mt-3">
               {current.target}
             </h3>
-            <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
+            <p className="ui-copy mt-4">
               {current.summary}
             </p>
           </div>
@@ -230,7 +230,7 @@ export default function HomeFocusBoard() {
         </div>
 
         <div className="mt-8 grid gap-4 lg:grid-cols-[0.88fr_1.12fr]">
-          <div className="rounded-[1.75rem] border border-[var(--border)] bg-white/72 p-5">
+          <div className="ui-card-raised">
             <p className="text-sm font-medium text-[var(--muted)]">Coach note</p>
             <p className="mt-3 text-lg leading-8 text-[var(--foreground)]">
               {current.coachNote}
@@ -238,10 +238,7 @@ export default function HomeFocusBoard() {
 
             <div className="mt-6 space-y-3">
               {current.habits.map((habit) => (
-                <div
-                  key={habit}
-                  className="flex items-start gap-3 rounded-[1.25rem] border border-[var(--border)] bg-white px-4 py-3"
-                >
+                <div key={habit} className="ui-card-note flex items-start gap-3">
                   <span
                     className="mt-1 h-2.5 w-2.5 rounded-full"
                     style={{ backgroundColor: current.accent }}
@@ -257,7 +254,7 @@ export default function HomeFocusBoard() {
               {current.metrics.map((metric) => (
                 <article
                   key={metric.label}
-                  className="rounded-[1.5rem] border border-[var(--border)] bg-white/72 p-4"
+                  className="ui-card-compact"
                 >
                   <p className="text-sm text-[var(--muted)]">{metric.label}</p>
                   <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
@@ -270,7 +267,7 @@ export default function HomeFocusBoard() {
               ))}
             </div>
 
-            <div className="rounded-[1.75rem] border border-[var(--border)] bg-white/72 p-5">
+            <div className="ui-card-raised">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-[var(--muted)]">이번 주 패턴</p>
                 <span

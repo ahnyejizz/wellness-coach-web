@@ -31,9 +31,6 @@ type AuthCredentialsFormProps =
       initialValues: SignupValues;
     };
 
-const fieldClassName =
-  "mt-2 w-full rounded-[1.1rem] border border-[var(--border)] bg-white px-4 py-3 text-sm text-[var(--foreground)] outline-none transition-shadow duration-200 placeholder:text-[var(--muted)] focus:ring-2 focus:ring-[var(--accent-soft)]";
-
 export default function AuthCredentialsForm(
   props: AuthCredentialsFormProps,
 ) {
@@ -45,30 +42,30 @@ export default function AuthCredentialsForm(
       <input type="hidden" name="callbackUrl" value={props.callbackUrl} />
 
       {props.errorMessage ? (
-        <div className="rounded-[1.3rem] border border-[rgba(220,95,62,0.22)] bg-[var(--accent-soft)] px-4 py-3 text-sm text-[var(--foreground)]">
+        <div className="ui-alert">
           {props.errorMessage}
         </div>
       ) : null}
 
       {props.mode === "signup" ? (
         <label className="block">
-          <span className="text-sm font-medium text-[var(--foreground)]">
+          <span className="ui-field-label">
             이름
           </span>
           <input
             required
-            name="name"
-            type="text"
-            autoComplete="name"
-            defaultValue={props.initialValues.name}
-            className={fieldClassName}
-            placeholder="이름을 입력하세요."
-          />
-        </label>
+          name="name"
+          type="text"
+          autoComplete="name"
+          defaultValue={props.initialValues.name}
+          className="ui-field-control"
+          placeholder="이름을 입력하세요."
+        />
+      </label>
       ) : null}
 
       <label className="block">
-        <span className="text-sm font-medium text-[var(--foreground)]">
+        <span className="ui-field-label">
           이메일
         </span>
         <input
@@ -77,13 +74,13 @@ export default function AuthCredentialsForm(
           type="email"
           autoComplete="email"
           defaultValue={props.initialValues.email}
-          className={fieldClassName}
+          className="ui-field-control"
           placeholder="name@example.com"
         />
       </label>
 
       <label className="block">
-        <span className="text-sm font-medium text-[var(--foreground)]">
+        <span className="ui-field-label">
           비밀번호
         </span>
         <input
@@ -92,7 +89,7 @@ export default function AuthCredentialsForm(
           type="password"
           autoComplete={props.mode === "login" ? "current-password" : "new-password"}
           minLength={8}
-          className={fieldClassName}
+          className="ui-field-control"
           placeholder="영문+숫자 포함 8자 이상이어야 합니다."
         />
       </label>
@@ -100,7 +97,7 @@ export default function AuthCredentialsForm(
       {props.mode === "signup" ? (
         <>
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">
+            <span className="ui-field-label">
               비밀번호 확인
             </span>
             <input
@@ -109,19 +106,19 @@ export default function AuthCredentialsForm(
               type="password"
               autoComplete="new-password"
               minLength={8}
-              className={fieldClassName}
+              className="ui-field-control"
               placeholder="비밀번호를 한번 더 입력해주세요."
             />
           </label>
 
           <label className="block">
-            <span className="text-sm font-medium text-[var(--foreground)]">
+            <span className="ui-field-label">
               우선 코칭
             </span>
             <select
               name="focus"
               defaultValue={props.initialValues.focus}
-              className={fieldClassName}
+              className="ui-field-control"
             >
               {wellnessFocusOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -135,7 +132,7 @@ export default function AuthCredentialsForm(
 
       <button
         type="submit"
-        className="inline-flex w-full items-center justify-center rounded-[1.3rem] bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+        className="ui-submit-button"
       >
         {props.mode === "login" ? "로그인" : "계정 만들고 온보딩 시작하기"}
       </button>

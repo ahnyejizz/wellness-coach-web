@@ -43,7 +43,7 @@ export default function HomeCoachArea() {
       {coachAreas.map((coachArea) => (
         <article
           key={coachArea.title}
-          className="panel rounded-[1.8rem] px-6 py-6 sm:px-7"
+          className="panel ui-panel-card"
         >
           <div
             className="mb-5 inline-flex rounded-full px-3 py-1 text-sm font-semibold"
@@ -54,10 +54,10 @@ export default function HomeCoachArea() {
           >
             {coachArea.title}
           </div>
-          <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+          <h2 className="ui-title-2">
             {coachArea.subtitle}
           </h2>
-          <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
+          <p className="ui-copy mt-4">
             {coachArea.summary}
           </p>
 

@@ -19,7 +19,7 @@ export default function HomeOverviewSection({
     <div className="grid gap-8 pt-8 xl:grid-cols-[1.24fr_0.76fr]">
       <div className="space-y-7">
         <div className="max-w-4xl space-y-5">
-          <p className="text-sm font-medium uppercase tracking-[0.28em] text-[var(--accent-strong)]">
+          <p className="ui-kicker font-medium">
             Sleep, workout, diet coaching in one flow
           </p>
           <h1 className="headline-face max-w-4xl text-4xl leading-[0.94] tracking-[-0.05em] text-[var(--foreground)] sm:text-5xl lg:text-6xl">
@@ -42,21 +42,21 @@ export default function HomeOverviewSection({
           {isLoggedIn ? (
             <Link
               href="/coach"
-              className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
+              className="ui-button-primary ui-button-primary-wide"
             >
               내 코치 페이지로 이동
             </Link>
           ) : (
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5"
+              className="ui-button-primary ui-button-primary-wide"
             >
               회원가입하고 시작하기
             </Link>
           )}
           <a
             href="#report"
-            className="inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/70 px-6 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:bg-white"
+            className="ui-button-secondary ui-button-secondary-wide"
           >
             주간 리포트 보기
           </a>
@@ -66,7 +66,7 @@ export default function HomeOverviewSection({
           {heroSignals.map((signal) => (
             <article
               key={signal.label}
-              className="rounded-[1.4rem] border border-[var(--border)] bg-white/72 p-4"
+              className="ui-card-compact rounded-[1.4rem]"
             >
               <p className="text-sm text-[var(--muted)]">{signal.label}</p>
               <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
