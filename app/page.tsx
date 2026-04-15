@@ -1,9 +1,10 @@
 import Link from "next/link";
 
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
 
 import CoachPlanner from "./components/coach-planner";
 import FocusBoard, { type FocusAreaMap } from "./components/focus-board";
+import HomeHeader from "./components/home-header";
 
 const heroSignals = [
   { label: "수면 회복 점수", value: "89", hint: "늦은 취침 2회만 줄여도 회복이 더 올라가요." },
@@ -221,79 +222,7 @@ export default async function Home() {
 
       <main className="relative mx-auto flex w-full max-w-[108rem] flex-col gap-6 px-5 py-6 sm:px-8 lg:px-12 lg:py-10">
         <section className="panel panel-strong rise-in overflow-hidden rounded-[2rem] px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
-          <header className="flex flex-col gap-5 border-b border-[var(--border)] pb-6 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="rounded-full border border-[var(--border)] bg-white/70 px-3 py-1 text-sm font-semibold text-[var(--foreground)]">
-                Motive Care
-              </span>
-              <span className="text-sm text-[var(--muted)]">
-                Personal Health Coach for sleep, workout, diet
-              </span>
-            </div>
-
-            <nav className="flex flex-wrap gap-2 text-sm text-[var(--muted)]">
-              <a
-                href="#pillars"
-                className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-              >
-                코칭 영역
-              </a>
-              <a
-                href="#coach-board"
-                className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-              >
-                코치 보드
-              </a>
-              <a
-                href="#report"
-                className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-              >
-                주간 리포트
-              </a>
-
-              {isLoggedIn ? (
-                <>
-                  <span className="inline-flex items-center rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 text-[var(--foreground)]">
-                    {userName}님
-                  </span>
-                  <Link
-                    href="/coach"
-                    className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-                  >
-                    내 코치 페이지
-                  </Link>
-                  <form
-                    action={async () => {
-                      "use server";
-                      await signOut({ redirectTo: "/" });
-                    }}
-                  >
-                    <button
-                      type="submit"
-                      className="rounded-full bg-[var(--foreground)] px-4 py-2 font-semibold text-[#fffaf2] transition-transform duration-200 hover:-translate-y-0.5"
-                    >
-                      로그아웃
-                    </button>
-                  </form>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/login"
-                    className="rounded-full border border-[var(--border)] bg-white/60 px-4 py-2 transition-colors duration-200 hover:bg-white"
-                  >
-                    로그인
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="rounded-full bg-[var(--foreground)] px-4 py-2 font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5"
-                  >
-                    회원가입
-                  </Link>
-                </>
-              )}
-            </nav>
-          </header>
+          <HomeHeader isLoggedIn={isLoggedIn} userName={userName} />
 
           <div className="grid gap-8 pt-8 xl:grid-cols-[1.24fr_0.76fr]">
             <div className="space-y-7">
@@ -306,7 +235,7 @@ export default async function Home() {
                   <br />
                   오늘의 건강 행동을 제안하는
                   <br />
-                  개인 코치 웹사이트
+                  개인 코치 웹 사이트
                 </h1>
                 <p className="max-w-3xl text-base leading-8 text-[var(--muted)] sm:text-lg">
                   Motive Care는 수면, 운동, 식단 데이터를 따로 흩어두지 않고 하나의 흐름으로 연결합니다. 

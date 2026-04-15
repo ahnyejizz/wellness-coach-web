@@ -41,10 +41,6 @@ export default async function CoachPage() {
   const heading = isFirstLogin
     ? `${userName}님, 환영합니다!`
     : `${userName}님, 다시 오셨네요!`;
-  const joinedAt = new Intl.DateTimeFormat("ko-KR", {
-    month: "long",
-    day: "numeric",
-  }).format(new Date(completedProfile.createdAt));
   const onboardingSummary = [
     {
       label: "목표 체중",
