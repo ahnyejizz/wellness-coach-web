@@ -109,6 +109,9 @@ function buildPlan(profile: PlannerProfile): PersonalPlan {
   const goal = goalMeta[profile.goal];
   const focus = focusMeta[profile.focus];
   const displayName = profile.name.trim();
+
+  const headingSubject = displayName ? `${displayName}님` : "당신";
+
   const weeklyLoad =
     profile.workoutDays >= 5
       ? "강-중-중-가벼움 분배"
@@ -117,21 +120,31 @@ function buildPlan(profile: PlannerProfile): PersonalPlan {
         : "짧고 꾸준한 분배";
 
   return {
-    heading: displayName ? `${displayName}님을 위한 ${goal.label} 코칭 플랜` : `당신을 위한 ${goal.label} 코칭 플랜`,
-    summary: `${goal.summary} \n지금 주간 우선순위는 ${focus.label}이고, 식사는 ${
-      mealPatternMeta[profile.mealPattern]
-    } 방향으로 맞춥니다.`,
-    coachMessage: `${focus.summary}.\n이번 주는 ${
+    heading: `${headingSubject}을 위한 ${goal.label} 코칭 플랜`,
+
+    summary: `${goal.summary}
+    지금 주간 우선순위는 ${focus.label}이고, 
+    식사는 ${mealPatternMeta[profile.mealPattern]} 방향으로 맞춥니다.`,
+
+    coachMessage: `${focus.summary}.
+    이번 주는 ${
       profile.goal === "sleep-reset"
-        ? "취침 시간을 먼저 고정한 뒤 운동 볼륨을 조절하는 편이 좋습니다."
+        ? // 수면 리셋
+          "취침 시간을 먼저 고정한 뒤 운동 볼륨을 조절하는 편이 좋습니다."
         : profile.goal === "fat-loss"
-          ? "식단 제한보다 식사 간격과 활동량을 정돈하는 쪽이 오래 갑니다."
+          ? // 체지방 감량
+            "식단 제한보다 식사 간격과 활동량을 정돈하는 쪽이 오래 갑니다."
           : profile.goal === "muscle-tone"
-            ? "운동 세션 수보다 회복과 단백질 타이밍을 더 엄격하게 챙겨야 합니다."
-            : "수면, 식사, 움직임 중 하나가 흔들리면 전체 에너지가 무너지니 앵커 행동을 먼저 지켜볼게요."
+            ? // 탄탄한 몸 만들기
+              "운동 세션 수보다 회복과 단백질 타이밍을 더 엄격하게 챙겨야 합니다."
+            : // 하루 에너지 안정화
+              "수면, 식사, 움직임 중 하나가 흔들리면 전체 에너지가 무너지니 루틴을 먼저 지켜볼게요."
     }`,
+
     score: `${78 + profile.workoutDays * 3}`,
-    scoreLabel: "이번 주 코칭 적합도",
+
+    scoreLabel: "이번주 코칭 적합도",
+
     cards: [
       {
         label: "취침 목표",
@@ -162,10 +175,11 @@ function buildPlan(profile: PlannerProfile): PersonalPlan {
         softAccent: "var(--accent-soft)",
       },
     ],
+
     actions: [
       {
         slot: "Morning",
-        title: `${focus.label} 앵커 시작`,
+        title: `${focus.label} 루틴 시작`,
         detail: focus.morning,
         accent: focus.accent,
         softAccent: focus.softAccent,

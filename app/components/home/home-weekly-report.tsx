@@ -78,7 +78,7 @@ export default function HomeWeeklyReport() {
         </div>
 
         <div className="ui-card-raised">
-          <p className="text-sm font-medium text-[var(--muted)]">코치가 읽은 이번 주 변화</p>
+          <p className="text-sm font-medium text-[var(--muted)]">코치가 읽은 이번주 변화</p>
           <div className="mt-5 space-y-3">
             {reportNotes.map((note) => (
               <div key={note} className="ui-card-note">

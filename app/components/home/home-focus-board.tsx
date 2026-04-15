@@ -42,7 +42,7 @@ const focusAreas: FocusAreaMap = {
     summary: "스크린 타임의 영향을 줄이고, 매일 비슷한 시간에 잠드는 패턴을 만드는 데 집중합니다.",
     score: "89",
     scoreLabel: "회복 점수",
-    target: "이번 주 목표: 23:10 취침, 07:00 기상",
+    target: "이번주 목표: 23:10 취침, 07:00 기상",
     coachNote: "최근 4일 중 3일은 수면 시간이 충분했어요. 이제 핵심은 잠드는 시간을 더 일정하게 고정하는 것입니다.",
     habits: [
       "22:20 이후 조명 낮추기와 알림 묶음 모드 켜기",
@@ -69,7 +69,7 @@ const focusAreas: FocusAreaMap = {
     summary: "근력 운동, 유산소, 회복일 배치를 함께 보면서 몸이 무너지지 않는 주간 운동 패턴을 만듭니다.",
     score: "4/5",
     scoreLabel: "주간 세션",
-    target: "이번 주 목표: 근력 3회 + zone 2 유산소 2회",
+    target: "이번주 목표: 근력 3회 + zone 2 유산소 2회",
     coachNote:
       "하체 세션 다음 날 피로도가 높게 나타나고 있어요. 볼륨을 조금 낮추고 회복 산책을 끼워 넣는 편이 좋습니다.",
     habits: [
@@ -94,10 +94,10 @@ const focusAreas: FocusAreaMap = {
     label: "식단 코칭",
     kicker: "포만감과 에너지 유지",
     headline: "nutrition priority",
-    summary: "칼로리 숫자만 좇기보다 단백질, 수분, 식사 간격을 정리해 하루 에너지가 끊기지 않도록 관리합니다.",
+    summary: "칼로리 숫자만 쫓기보다 단백질, 수분, 식사 간격을 정리해 하루 에너지가 끊기지 않도록 관리합니다.",
     score: "91%",
     scoreLabel: "식단 안정도",
-    target: "이번 주 목표: 단백질 110g, 수분 2.1L 유지",
+    target: "이번주 목표: 단백질 110g, 수분 2.1L 유지",
     coachNote:
       "아침 단백질만 조금 더 보강하면 오후 군것질 빈도가 더 내려갈 가능성이 큽니다. 포만감의 시작점을 먼저 바꿔볼게요.",
     habits: [
@@ -133,9 +133,9 @@ export default function HomeFocusBoard() {
           오늘 가장 먼저 챙길 코칭을 선택하세요.
         </h2>
         <p className="ui-copy mt-4 max-w-2xl">
-          수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번 주 패턴이 함께 업데이트됩니다.
+          수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번주 패턴이 함께 업데이트됩니다.
           <br />
-          플래너에서 고른 우선 코칭 축과도 실시간으로 동기화됩니다.
+          플래너에서 고른 우선 코칭과 실시간으로 동기화됩니다.
         </p>
 
         <div className="mt-8 space-y-3">
@@ -228,7 +228,7 @@ export default function HomeFocusBoard() {
 
             <div className="ui-card-raised">
               <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-[var(--muted)]">이번 주 패턴</p>
+                <p className="text-sm font-medium text-[var(--muted)]">이번주 패턴</p>
                 <span
                   className="rounded-full px-3 py-1 text-xs font-semibold"
                   style={{ backgroundColor: current.softAccent, color: current.accent }}
