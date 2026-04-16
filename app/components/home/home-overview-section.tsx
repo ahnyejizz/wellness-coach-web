@@ -18,12 +18,12 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
       <div className="space-y-7">
         <div className="max-w-4xl space-y-5">
           <p className="ui-kicker font-medium">Sleep, workout, diet coaching in one flow</p>
-          <h1 className="headline-face max-w-4xl text-4xl leading-[0.94] tracking-[-0.05em] text-[var(--foreground)] sm:text-5xl lg:text-6xl">
+          <h1 className="headline-face max-w-4xl text-4xl leading-[1.12] tracking-[-0.025em] text-[var(--foreground)] sm:text-5xl lg:text-6xl">
             몸 상태를 읽고
             <br />
             오늘의 건강 행동을 제안하는
             <br />
-            개인 코치 웹 사이트
+            개인 코치 웹사이트
           </h1>
           <p className="max-w-3xl text-base leading-8 text-[var(--muted)] sm:text-lg">
             Motive Care는 수면, 운동, 식단 데이터를 따로 흩어두지 않고 하나의 흐름으로 연결합니다.
