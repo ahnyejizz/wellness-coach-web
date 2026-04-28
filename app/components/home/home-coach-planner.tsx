@@ -216,7 +216,7 @@ export default function HomeCoachPlanner() {
     <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
       <article className="panel ui-panel-shell">
         <p className="ui-kicker">Plan studio</p>
-        <h2 className="ui-title-3 mt-3">내 루틴에 맞는 건강 코칭 플랜 만들기</h2>
+        <h2 className="ui-title-3 mt-3">내 루틴에 맞는 웰니스 코칭 플랜 만들기</h2>
         <p className="ui-copy mt-4 max-w-3xl">
           목표와 루틴을 입력하면, 수면·운동·식단 우선순위에 맞춘 개인 코칭 플랜을 바로 만들어줍니다.
         </p>

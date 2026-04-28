@@ -72,7 +72,7 @@ export default async function LoginPage(props: {
         <section className="panel panel-strong ui-panel-shell-lg">
           <div className="ui-brand-chip">Motive Care</div>
           <p className="ui-kicker mt-6">Login</p>
-          <h1 className="ui-title-4 mt-3">다시 이어가는 나만의 건강 코칭</h1>
+          <h1 className="ui-title-4 mt-3">다시 이어가는 나만의 웰니스 코칭</h1>
           <p className="ui-copy mt-4 max-w-2xl sm:text-base">
             로그인하면 수면, 운동, 식단 중심의 개인 코칭 플랜과
             <br />

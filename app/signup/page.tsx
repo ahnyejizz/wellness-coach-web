@@ -91,7 +91,7 @@ export default async function SignUpPage(props: {
       <div className="grid w-full gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <section className="panel panel-strong ui-panel-shell-lg">
           <p className="ui-kicker">Sign up</p>
-          <h1 className="ui-title-4 mt-3">나만의 건강 코치 계정 만들기</h1>
+          <h1 className="ui-title-4 mt-3">나만의 웰니스 코치 계정 만들기</h1>
           <p className="ui-copy mt-4 max-w-3xl sm:text-base">
             이름, 이메일, 비밀번호만 입력하면 프로젝트 내부 계정으로 바로 시작할 수 있습니다.
             <br />

@@ -21,7 +21,7 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
           <h1 className="headline-face max-w-4xl text-4xl leading-[1.12] tracking-[-0.025em] text-[var(--foreground)] sm:text-5xl lg:text-6xl">
             몸 상태를 읽고
             <br />
-            오늘의 건강 행동을 제안하는
+            오늘의 웰니스 행동을 제안하는
             <br />
             개인 코치 웹사이트
           </h1>
@@ -30,7 +30,7 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
             <br />
             회복이 부족하면 운동 강도를 낮추고, 식단이 흔들리면 포만감 설계부터 다시 제안하는
             <br />
-            개인 건강 코치형 웹서비스 입니다.
+            개인 웰니스 코치형 웹서비스 입니다.
           </p>
         </div>
 

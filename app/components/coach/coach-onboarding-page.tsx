@@ -15,7 +15,7 @@ import {
 const defaultCallbackUrl = "/coach";
 
 /**
- * @description 건강 프로필을 받아 이후 코칭 개인화 기준으로 저장하는 코치 온보딩 페이지
+ * @description 웰니스 프로필을 받아 이후 코칭 개인화 기준으로 저장하는 코치 온보딩 페이지
  */
 function getQueryValue(value: string | string[] | undefined) {
   return typeof value === "string" ? value : Array.isArray(value) ? (value[0] ?? "") : "";
@@ -92,7 +92,7 @@ export default async function CoachOnboardingPage(props: {
           <p className="ui-kicker">{mode === "edit" ? "Edit onboarding" : "Welcome onboarding"}</p>
           <h1 className="ui-title-4 mt-3">
             {mode === "edit"
-              ? "건강 프로필을 다시 조정해볼까요?"
+              ? "웰니스 프로필을 다시 조정해볼까요?"
               : `${localProfile.name}님에게 맞는 시작점을 알려주세요.`}
           </h1>
           <p className="ui-copy mt-4 max-w-3xl sm:text-base">

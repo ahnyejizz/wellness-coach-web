@@ -38,7 +38,7 @@ export default function HomeWeeklyReport() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="ui-kicker">Weekly report</p>
-          <h2 className="ui-title-3 mt-3">주간 건강 리포트</h2>
+          <h2 className="ui-title-3 mt-3">주간 웰니스 리포트</h2>
         </div>
         <span className="ui-pill text-[var(--muted)]">지난 7일 종합 밸런스</span>
       </div>

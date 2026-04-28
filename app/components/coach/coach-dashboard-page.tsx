@@ -74,7 +74,7 @@ export default async function CoachDashboardPage() {
               <p className="ui-copy mt-3">
                 현재 로그인된 계정은 {userEmail} 입니다.
                 <br />
-                여기서 개인 건강 플랜, 주간 리포트, 맞춤 루틴을 이어서 관리하게 됩니다.
+                여기서 개인 웰니스 플랜, 주간 리포트, 맞춤 루틴을 이어서 관리하게 됩니다.
               </p>
             </div>
           </div>
@@ -108,15 +108,16 @@ export default async function CoachDashboardPage() {
           <p className="text-sm text-[var(--muted)]">우선 코칭</p>
           <h2 className="ui-title-2 mt-3">{focusLabel}</h2>
           <p className="ui-copy mt-4">
-            회원가입 때 선택한 건강 우선순위를 기준으로, 이후 대시보드와 추천 루틴을 더 구체적으로 개인화할 수 있습니다.
+            회원가입 때 선택한 웰니스 우선순위를 기준으로, 이후 대시보드와 추천 루틴을 더 구체적으로 개인화할 수
+            있습니다.
           </p>
         </article>
 
         <article className="panel ui-panel-card">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-sm text-[var(--muted)]">건강 온보딩</p>
-              <h2 className="ui-title-2 mt-3">가입 직후 입력한 건강 프로필</h2>
+              <p className="text-sm text-[var(--muted)]">웰니스 온보딩</p>
+              <h2 className="ui-title-2 mt-3">가입 직후 입력한 웰니스 프로필</h2>
             </div>
             <Link href="/coach/onboarding?mode=edit&callbackUrl=/coach" className="ui-pill ui-pill-strong">
               수정

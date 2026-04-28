@@ -9,7 +9,7 @@ export default function HomeStartCoach() {
           <h2 className="ui-title-4 mt-3">
             수면, 운동, 식단이 서로 연결된
             <br />
-            진짜 개인 건강 코치를 시작해보세요.
+            진짜 개인 웰니스 코치를 시작해보세요.
           </h2>
           <p className="ui-copy mt-4 max-w-3xl sm:text-base">
             기록을 많이 남기지 않아도 괜찮습니다.

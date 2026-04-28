@@ -73,7 +73,7 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
       const payload = (await response.json()) as HealthChatResponse;
 
       if (!response.ok) {
-        throw new Error(payload.error || "건강 코치 응답을 불러오지 못했습니다.");
+        throw new Error(payload.error || "웰니스 코치 응답을 불러오지 못했습니다.");
       }
 
       setAnswer(payload.answer?.trim() || "");
@@ -83,7 +83,7 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
       setAnswer("");
       setModel("");
       setAnswerDisclaimer(healthAssistantDisclaimer);
-      setError(submitError instanceof Error ? submitError.message : "건강 코치 응답을 불러오지 못했습니다.");
+      setError(submitError instanceof Error ? submitError.message : "웰니스 코치 응답을 불러오지 못했습니다.");
     } finally {
       setIsSubmitting(false);
     }
@@ -94,7 +94,7 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
           <p className="ui-kicker">Health Q&A</p>
-          <h2 className="ui-title-3 mt-3">{userName}님을 위한 건강 질문 코치</h2>
+          <h2 className="ui-title-3 mt-3">{userName}님을 위한 웰니스 질문 코치</h2>
           <p className="ui-copy mt-4">
             현재 우선 코칭은 {focusLabel} 기준으로 보고 있습니다.
             <br />
@@ -104,7 +104,7 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
 
         <div className="flex flex-wrap gap-2">
           <span className="ui-pill-static">로그인 사용자 전용</span>
-          <span className="ui-pill">일반 건강 정보</span>
+          <span className="ui-pill">일반 웰니스 정보</span>
         </div>
       </div>
 
@@ -131,7 +131,7 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
 
           <form onSubmit={handleSubmit} className="mt-5">
             <label htmlFor="health-question" className="ui-field-label">
-              건강 질문
+              웰니스 질문
             </label>
             <textarea
               id="health-question"
@@ -184,7 +184,7 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
               </>
             ) : (
               <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
-                질문을 보내면 여기에서 요약된 건강 가이드와 주의 포인트를 확인할 수 있습니다.
+                질문을 보내면 여기에서 요약된 웰니스 가이드와 주의 포인트를 확인할 수 있습니다.
               </p>
             )}
           </div>
@@ -192,9 +192,9 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
 
         <aside className="panel-dark rounded-[1.8rem] p-6 text-[#f7f1e8]">
           <p className="ui-kicker text-[#ffb297]">Useful summaries</p>
-          <h3 className="mt-3 text-2xl font-semibold tracking-tight">자주 보는 건강 Q&A 요약</h3>
+          <h3 className="mt-3 text-2xl font-semibold tracking-tight">자주 보는 웰니스 Q&A 요약</h3>
           <p className="mt-4 text-sm leading-7 text-[#d6ddd7]">
-            아직 질문을 입력하지 않아도 바로 읽을 수 있도록, 생활 건강에서 자주 나오는 질문들을 짧게 정리해두었습니다.
+            아직 질문을 입력하지 않아도 바로 읽을 수 있도록, 생활 웰니스에서 자주 나오는 질문들을 짧게 정리해두었습니다.
           </p>
 
           <div className="mt-5 space-y-3">
