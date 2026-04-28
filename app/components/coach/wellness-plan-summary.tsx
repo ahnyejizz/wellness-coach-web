@@ -27,6 +27,7 @@ export default function WellnessPlanSummary() {
           <p className="ui-copy mt-4">
             플랜 상태를 기반으로, 최근 저장한 목표와 루틴 방향을 코치 페이지에서도 바로 확인할 수 있습니다.
           </p>
+          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{summaryLabel}</p>
         </div>
 
         <div className="flex flex-col items-start gap-3">
@@ -35,10 +36,6 @@ export default function WellnessPlanSummary() {
             홈에서 플랜 수정하기
           </Link>
         </div>
-      </div>
-
-      <div className="ui-card mt-6 px-5 py-4">
-        <p className="text-sm text-[var(--muted)]">{summaryLabel}</p>
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">

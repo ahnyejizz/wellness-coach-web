@@ -30,7 +30,6 @@ export default function HomeHeader({ isLoggedIn, userName }: HomeHeaderProps) {
 
         {isLoggedIn ? (
           <>
-            <span className="ui-pill-static">{userName}님</span>
             <Link href="/coach" className="ui-pill">
               마이페이지
             </Link>

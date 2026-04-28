@@ -193,11 +193,24 @@ select {
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--foreground);
-  transition: background-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.ui-pill:hover {
+a.ui-pill,
+button.ui-pill,
+[role="button"].ui-pill {
+  cursor: pointer;
+}
+
+a.ui-pill:hover,
+button.ui-pill:hover,
+[role="button"].ui-pill:hover {
   background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(21, 42, 36, 0.1);
 }
 
 .ui-pill-strong {
@@ -221,17 +234,21 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   border-radius: 999px;
   background: var(--foreground);
   padding: 0.75rem 1.25rem;
   font-size: 0.875rem;
   font-weight: 600;
   color: #fffaf2;
-  transition: transform 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .ui-button-primary:hover {
   transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(21, 42, 36, 0.16);
 }
 
 .ui-button-primary-compact {
@@ -247,6 +264,7 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
@@ -254,11 +272,16 @@ select {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--foreground);
-  transition: background-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .ui-button-secondary:hover {
   background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(21, 42, 36, 0.1);
 }
 
 .ui-button-secondary-wide {
@@ -271,17 +294,21 @@ select {
   width: 100%;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   border-radius: 1.3rem;
   background: var(--foreground);
   padding: 0.75rem 1.25rem;
   font-size: 0.875rem;
   font-weight: 600;
   color: #fffaf2;
-  transition: transform 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .ui-submit-button:hover {
   transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(21, 42, 36, 0.16);
 }
 
 .ui-alert {

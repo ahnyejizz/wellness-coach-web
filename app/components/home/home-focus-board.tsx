@@ -149,7 +149,7 @@ export default function HomeFocusBoard() {
                 type="button"
                 aria-pressed={isActive}
                 onClick={() => setActiveFocus(key)}
-                className={`w-full rounded-[1.5rem] border p-5 text-left transition-all duration-200 ${
+                className={`w-full rounded-[1.5rem] border p-5 text-left transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(21,42,36,0.12)] ${
                   isActive
                     ? "border-transparent bg-[var(--foreground)] text-[#fffaf2] shadow-xl"
                     : "border-[var(--border)] bg-white/65 text-[var(--foreground)] hover:bg-white"
