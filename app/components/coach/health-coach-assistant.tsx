@@ -90,18 +90,35 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
   }
 
   return (
-    <section className="panel ui-panel-shell">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-3xl">
-          <p className="ui-kicker">Health Q&A</p>
-          <h2 className="ui-title-3 mt-3">{userName}님을 위한 웰니스 질문 코치</h2>
-          <p className="ui-copy mt-4">
-            현재 우선 코칭은 {focusLabel} 기준으로 보고 있습니다.
-            <br />
-            수면, 운동, 식단, 생활 습관 관련 질문을 입력하면 Next 서버 안에서 안전하게 Gemini AI 응답을 받아옵니다.
-          </p>
+    <>
+      {isSubmitting ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(247,241,232,0.8)] px-6 backdrop-blur-sm">
+          <div
+            role="status"
+            aria-live="polite"
+            className="panel panel-strong flex w-full max-w-sm flex-col items-center rounded-[2rem] px-8 py-9 text-center shadow-[0_28px_64px_rgba(21,42,36,0.18)]"
+          >
+            <div className="h-12 w-12 animate-spin rounded-full border-[3px] border-[rgba(21,42,36,0.18)] border-t-[var(--foreground)]" />
+            <p className="mt-5 text-lg font-semibold tracking-tight text-[var(--foreground)]">답변 생성 중...</p>
+            <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+              생활 습관과 웰니스 기준으로 답변을 정리하고 있습니다. 잠시만 기다려 주세요.
+            </p>
+          </div>
         </div>
-      </div>
+      ) : null}
+
+      <section className="panel ui-panel-shell">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <p className="ui-kicker">Health Q&A</p>
+            <h2 className="ui-title-3 mt-3">{userName}님을 위한 웰니스 질문 코치</h2>
+            <p className="ui-copy mt-4">
+              현재 우선 코칭은 {focusLabel} 기준으로 보고 있습니다.
+              <br />
+              수면, 운동, 식단, 생활 습관 관련 질문을 입력하면 Next 서버 안에서 안전하게 Gemini AI 응답을 받아옵니다.
+            </p>
+          </div>
+        </div>
 
       <div className="mt-6 grid gap-5 xl:grid-cols-[1.12fr_0.88fr]">
         <div className="ui-card-raised">
@@ -239,6 +256,7 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
           );
         })}
       </div>
-    </section>
+      </section>
+    </>
   );
 }
