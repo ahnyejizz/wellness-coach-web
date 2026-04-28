@@ -208,6 +208,7 @@ button.ui-pill,
 a.ui-pill:hover,
 button.ui-pill:hover,
 [role="button"].ui-pill:hover {
+  cursor: pointer;
   background: white;
   transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(21, 42, 36, 0.1);
@@ -247,6 +248,7 @@ button.ui-pill:hover,
 }
 
 .ui-button-primary:hover {
+  cursor: pointer;
   transform: translateY(-2px);
   box-shadow: 0 16px 30px rgba(21, 42, 36, 0.16);
 }
@@ -279,6 +281,7 @@ button.ui-pill:hover,
 }
 
 .ui-button-secondary:hover {
+  cursor: pointer;
   background: white;
   transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(21, 42, 36, 0.1);
@@ -307,6 +310,7 @@ button.ui-pill:hover,
 }
 
 .ui-submit-button:hover {
+  cursor: pointer;
   transform: translateY(-2px);
   box-shadow: 0 16px 30px rgba(21, 42, 36, 0.16);
 }
