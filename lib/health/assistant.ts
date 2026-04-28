@@ -1,7 +1,7 @@
 import { healthAssistantDisclaimer } from "@/lib/health/content";
 
-const openAIEndpoint = "https://api.openai.com/v1/responses";
-const fallbackModel = "gpt-4.1-mini";
+const geminiApiBaseUrl = "https://generativelanguage.googleapis.com/v1beta/models";
+const fallbackModel = "gemini-2.5-flash-lite";
 const maxQuestionLength = 500;
 
 const systemPrompt = `
@@ -45,48 +45,59 @@ type HealthAssistantResult = {
   model: string;
 };
 
-type OpenAIContentItem = {
-  type?: string;
+type GeminiTextPart = {
   text?: string;
 };
 
-type OpenAIOutputItem = {
-  type?: string;
-  content?: OpenAIContentItem[];
+type GeminiContent = {
+  parts?: GeminiTextPart[];
 };
 
-type OpenAIResponsePayload = {
-  output_text?: string;
-  output?: OpenAIOutputItem[];
+type GeminiCandidate = {
+  content?: GeminiContent;
+};
+
+type GeminiResponsePayload = {
+  candidates?: GeminiCandidate[];
   error?: {
     message?: string;
   };
 };
 
 function resolveModel() {
-  return process.env.OPENAI_MODEL?.trim() || fallbackModel;
+  return process.env.GEMINI_MODEL?.trim() || fallbackModel;
 }
 
-function extractResponseText(payload: OpenAIResponsePayload) {
-  if (typeof payload.output_text === "string" && payload.output_text.trim()) {
-    return payload.output_text.trim();
-  }
-
+function extractResponseText(payload: GeminiResponsePayload) {
   const messageParts =
-    payload.output
-      ?.flatMap((item) => item.content ?? [])
-      .map((content) => (typeof content.text === "string" ? content.text.trim() : ""))
+    payload.candidates
+      ?.flatMap((candidate) => candidate.content?.parts ?? [])
+      .map((part) => (typeof part.text === "string" ? part.text.trim() : ""))
       .filter(Boolean) ?? [];
 
   return messageParts.join("\n\n").trim();
 }
 
-async function readOpenAIError(response: Response) {
+function normalizeProviderError(message: string, status: number) {
+  if (status === 401 || status === 403) {
+    return "Gemini API 키를 확인해 주세요. 키가 잘못되었거나 현재 프로젝트에서 사용할 수 없는 상태일 수 있습니다.";
+  }
+
+  if (status === 429) {
+    return "Gemini 무료 사용 한도에 도달했습니다. 잠시 후 다시 시도하거나 Google AI Studio에서 사용량을 확인해 주세요.";
+  }
+
+  return message;
+}
+
+async function readGeminiError(response: Response) {
   try {
-    const payload = (await response.json()) as OpenAIResponsePayload;
-    return payload.error?.message?.trim() || "OpenAI API 호출 중 오류가 발생했습니다.";
+    const payload = (await response.json()) as GeminiResponsePayload;
+    const message = payload.error?.message?.trim() || "Gemini API 호출 중 오류가 발생했습니다.";
+
+    return normalizeProviderError(message, response.status);
   } catch {
-    return "OpenAI API 호출 중 오류가 발생했습니다.";
+    return normalizeProviderError("Gemini API 호출 중 오류가 발생했습니다.", response.status);
   }
 }
 
@@ -105,45 +116,53 @@ export function validateHealthQuestion(question: string) {
 }
 
 export async function askHealthCoach(question: string): Promise<HealthAssistantResult> {
-  const apiKey = process.env.OPENAI_API_KEY?.trim();
+  const apiKey = process.env.GEMINI_API_KEY?.trim() || process.env.GOOGLE_API_KEY?.trim();
 
   if (!apiKey) {
-    throw new HealthAssistantConfigError("OPENAI_API_KEY가 설정되지 않았습니다.");
+    throw new HealthAssistantConfigError("GEMINI_API_KEY 또는 GOOGLE_API_KEY가 설정되지 않았습니다.");
   }
 
   const validatedQuestion = validateHealthQuestion(question);
   const model = resolveModel();
 
-  const response = await fetch(openAIEndpoint, {
+  const response = await fetch(`${geminiApiBaseUrl}/${encodeURIComponent(model)}:generateContent`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
+      "x-goog-api-key": apiKey,
     },
     body: JSON.stringify({
-      model,
-      instructions: systemPrompt,
-      input: [
+      system_instruction: {
+        parts: [
+          {
+            text: systemPrompt,
+          },
+        ],
+      },
+      contents: [
         {
           role: "user",
-          content: [
+          parts: [
             {
-              type: "input_text",
               text: `질문: ${validatedQuestion}`,
             },
           ],
         },
       ],
+      generationConfig: {
+        maxOutputTokens: 1024,
+        temperature: 0.8,
+      },
     }),
     cache: "no-store",
   });
 
   if (!response.ok) {
-    const message = await readOpenAIError(response);
+    const message = await readGeminiError(response);
     throw new HealthAssistantRequestError(message, response.status);
   }
 
-  const payload = (await response.json()) as OpenAIResponsePayload;
+  const payload = (await response.json()) as GeminiResponsePayload;
   const answer = extractResponseText(payload);
 
   if (!answer) {

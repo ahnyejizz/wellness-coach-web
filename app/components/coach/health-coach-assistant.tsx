@@ -98,7 +98,7 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
           <p className="ui-copy mt-4">
             현재 우선 코칭은 {focusLabel} 기준으로 보고 있습니다.
             <br />
-            수면, 운동, 식단, 생활 습관 관련 질문을 입력하면 Next 서버 안에서 안전하게 AI 응답을 받아옵니다.
+            수면, 운동, 식단, 생활 습관 관련 질문을 입력하면 Next 서버 안에서 안전하게 Gemini AI 응답을 받아옵니다.
           </p>
         </div>
 
