@@ -101,11 +101,6 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
             수면, 운동, 식단, 생활 습관 관련 질문을 입력하면 Next 서버 안에서 안전하게 Gemini AI 응답을 받아옵니다.
           </p>
         </div>
-
-        <div className="flex flex-wrap gap-2">
-          <span className="ui-pill-static">로그인 사용자 전용</span>
-          <span className="ui-pill">일반 웰니스 정보</span>
-        </div>
       </div>
 
       <div className="mt-6 grid gap-5 xl:grid-cols-[1.12fr_0.88fr]">
@@ -121,7 +116,11 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
                   aria-pressed={isActive}
                   onMouseDown={(event) => event.preventDefault()}
                   onClick={() => fillSuggestedQuestion(suggestedQuestion)}
-                  className={isActive ? "ui-pill bg-[var(--foreground)] text-[#fffaf2]" : "ui-pill bg-white/80"}
+                  className={
+                    isActive
+                      ? "ui-pill bg-[var(--foreground)] text-[#fffaf2] shadow-[0_12px_24px_rgba(21,42,36,0.18)] transition hover:bg-[color-mix(in_srgb,var(--foreground)_92%,white)] hover:shadow-[0_16px_32px_rgba(21,42,36,0.24)]"
+                      : "ui-pill bg-white/80 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_30px_rgba(21,42,36,0.12)]"
+                  }
                 >
                   {suggestedQuestion}
                 </button>
@@ -215,21 +214,30 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {healthQuestionSummaries.map((item) => (
-          <article key={`${item.id}-seek-care`} className="ui-card">
-            <p className="text-sm text-[var(--muted)]">{item.category} 체크 포인트</p>
-            <h3 className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">{item.question}</h3>
-            <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.seekCare}</p>
-            <button
-              type="button"
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => fillSuggestedQuestion(item.question)}
-              className="mt-4 ui-button-secondary w-full"
-            >
-              이 질문으로 바로 물어보기
-            </button>
-          </article>
-        ))}
+        {healthQuestionSummaries.map((item) => {
+          const isActive = question.trim() === item.question;
+
+          return (
+            <article key={`${item.id}-seek-care`} className="ui-card">
+              <p className="text-sm text-[var(--muted)]">{item.category} 체크 포인트</p>
+              <h3 className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">{item.question}</h3>
+              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.seekCare}</p>
+              <button
+                type="button"
+                aria-pressed={isActive}
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => fillSuggestedQuestion(item.question)}
+                className={
+                  isActive
+                    ? "mt-4 ui-button-secondary w-full border-[var(--foreground)] bg-[var(--foreground)] text-[#fffaf2] shadow-[0_12px_24px_rgba(21,42,36,0.18)] transition hover:bg-[color-mix(in_srgb,var(--foreground)_92%,white)] hover:shadow-[0_16px_32px_rgba(21,42,36,0.24)]"
+                    : "mt-4 ui-button-secondary w-full transition hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_30px_rgba(21,42,36,0.12)]"
+                }
+              >
+                이 질문으로 바로 물어보기
+              </button>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
