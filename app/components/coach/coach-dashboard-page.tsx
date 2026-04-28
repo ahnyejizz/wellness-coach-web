@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth, signOut } from "@/auth";
+import HealthCoachAssistant from "@/app/components/coach/health-coach-assistant";
 import WellnessPlanSummary from "@/app/components/coach/wellness-plan-summary";
 import {
   getExerciseExperienceLabel,
@@ -134,6 +135,8 @@ export default async function CoachDashboardPage() {
           </div>
         </article>
       </section>
+
+      <HealthCoachAssistant userName={userName} focusLabel={focusLabel} />
 
       <WellnessPlanSummary />
     </main>

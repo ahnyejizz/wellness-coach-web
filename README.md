@@ -19,6 +19,22 @@ npm run dev
 
 - 권장 Node 버전: `20.20.2`
 - 로컬 계정 데이터는 `data/users.json`에 저장됩니다.
+- 건강 질문 기능을 쓰려면 `.env.local` 또는 배포 환경에 `OPENAI_API_KEY`가 필요합니다.
+- `OPENAI_API_KEY`는 `https://platform.openai.com/overview`에서 발급 가능합니다.
+
+## Health Q&A Feature
+
+- `/coach` 대시보드에서 로그인 사용자 전용 건강 질문 위젯을 사용할 수 있습니다.
+- OpenAI 호출은 `app/api/health-chat/route.ts`에서 처리하므로 API 키가 브라우저로 노출되지 않습니다.
+- 추천 건강 Q&A 요약 카드는 `lib/health/content.ts`에 정적으로 정의되어 있어, 나중에 DB나 CMS 기반으로 바꾸기 쉽습니다.
+
+필요한 환경 변수:
+
+```bash
+AUTH_SECRET="replace-with-a-random-secret-before-deploy"
+OPENAI_API_KEY="replace-with-your-openai-api-key"
+OPENAI_MODEL="gpt-4.1-mini"
+```
 
 ## Auth Storage Note
 
