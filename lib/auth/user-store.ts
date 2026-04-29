@@ -77,6 +77,16 @@ function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
 }
 
+function resolveDisplayName(name: string | null | undefined, email: string) {
+  const normalizedName = name?.trim();
+
+  if (normalizedName) {
+    return normalizedName;
+  }
+
+  return email.split("@")[0] || "Motive Care Member";
+}
+
 function sanitizeUser(user: StoredUser): LocalUserProfile {
   return {
     id: user.id,
@@ -212,6 +222,49 @@ export async function registerUser(input: { name: string; email: string; passwor
   return sanitizeUser(nextUser);
 }
 
+export async function ensureSocialUser(input: {
+  name?: string | null;
+  email: string;
+  focus?: WellnessFocus;
+}) {
+  const users = await readUsers();
+  const normalizedEmail = normalizeEmail(input.email);
+  const userIndex = users.findIndex((candidate) => candidate.email === normalizedEmail);
+  const timestamp = new Date().toISOString();
+  const displayName = resolveDisplayName(input.name, normalizedEmail);
+
+  if (userIndex >= 0) {
+    const existingUser = users[userIndex];
+    const nextUser: StoredUser = {
+      ...existingUser,
+      name: displayName || existingUser.name,
+      loginCount: (existingUser.loginCount ?? 0) + 1,
+      lastLoginAt: timestamp,
+    };
+
+    users[userIndex] = nextUser;
+    await writeUsers(users);
+
+    return sanitizeUser(nextUser);
+  }
+
+  const nextUser: StoredUser = {
+    id: randomUUID(),
+    name: displayName,
+    email: normalizedEmail,
+    passwordHash: "",
+    focus: input.focus ?? "balance",
+    createdAt: timestamp,
+    loginCount: 1,
+    lastLoginAt: timestamp,
+  };
+
+  users.push(nextUser);
+  await writeUsers(users);
+
+  return sanitizeUser(nextUser);
+}
+
 export async function updateUserOnboarding(input: {
   email: string;
   goalWeightKg: number;
@@ -249,6 +302,10 @@ export async function verifyUserCredentials(email: string, password: string) {
   const user = userIndex >= 0 ? users[userIndex] : undefined;
 
   if (!user) {
+    return null;
+  }
+
+  if (!user.passwordHash) {
     return null;
   }
 

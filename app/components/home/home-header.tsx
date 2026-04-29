@@ -10,10 +10,9 @@ const homeSectionLinks = [
 
 type HomeHeaderProps = {
   isLoggedIn: boolean;
-  userName: string;
 };
 
-export default function HomeHeader({ isLoggedIn, userName }: HomeHeaderProps) {
+export default function HomeHeader({ isLoggedIn }: HomeHeaderProps) {
   return (
     <header className="flex flex-col gap-5 border-b border-[var(--border)] pb-6 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex flex-wrap items-center gap-3">

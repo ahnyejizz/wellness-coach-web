@@ -15,7 +15,6 @@ import HomeStartCoach from "./components/home/home-start-coach";
 export default async function Home() {
   const session = await auth();
   const isLoggedIn = !!session?.user;
-  const userName = session?.user?.name?.trim() || "Motive Care Member";
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -28,7 +27,7 @@ export default async function Home() {
 
       <main className="relative mx-auto flex w-full max-w-[108rem] flex-col gap-6 px-5 py-6 sm:px-8 lg:px-12 lg:py-10">
         <section className="panel panel-strong rise-in overflow-hidden rounded-[2rem] px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
-          <HomeHeader isLoggedIn={isLoggedIn} userName={userName} />
+          <HomeHeader isLoggedIn={isLoggedIn} />
           <HomeOverviewSection isLoggedIn={isLoggedIn} />
         </section>
 

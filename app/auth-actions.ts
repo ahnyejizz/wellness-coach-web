@@ -8,6 +8,9 @@ import { DuplicateUserError, registerUser, type WellnessFocus } from "@/lib/auth
 
 const defaultCallbackUrl = "/coach";
 const wellnessFocusValues = ["balance", "sleep", "exercise", "diet"] as const;
+const socialProviderValues = ["google", "kakao", "naver"] as const;
+
+type SocialProvider = (typeof socialProviderValues)[number];
 
 function getFieldValue(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -70,12 +73,28 @@ function isWellnessFocus(value: string): value is WellnessFocus {
   return wellnessFocusValues.includes(value as WellnessFocus);
 }
 
+function isSocialProvider(value: string): value is SocialProvider {
+  return socialProviderValues.includes(value as SocialProvider);
+}
+
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function isStrongEnoughPassword(password: string) {
   return password.length >= 8 && /[A-Za-z]/.test(password) && /\d/.test(password);
+}
+
+export async function signInWithSocial(provider: SocialProvider, callbackUrl: string) {
+  const normalizedCallbackUrl = normalizeCallbackUrl(callbackUrl || defaultCallbackUrl);
+
+  if (!isSocialProvider(provider)) {
+    return redirect(buildAuthRedirect("/login", { callbackUrl: normalizedCallbackUrl, error: "invalid_provider" }));
+  }
+
+  await signIn(provider, {
+    redirectTo: normalizedCallbackUrl,
+  });
 }
 
 export async function loginWithCredentials(formData: FormData) {

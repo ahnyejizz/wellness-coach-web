@@ -100,8 +100,8 @@ export default async function CoachDashboardPage() {
       <section className="grid gap-5 lg:grid-cols-3">
         <article className="panel ui-panel-card">
           <p className="text-sm text-[var(--muted)]">인증 상태</p>
-          <h2 className="ui-title-2 mt-3">내부 계정 로그인 완료</h2>
-          <p className="ui-copy mt-4">회원가입 폼에서 만든 계정으로 로그인한 상태입니다.</p>
+          <h2 className="ui-title-2 mt-3">계정 로그인 완료</h2>
+          <p className="ui-copy mt-4">이메일 또는 소셜 계정으로 로그인한 상태입니다.</p>
         </article>
 
         <article className="panel ui-panel-card">

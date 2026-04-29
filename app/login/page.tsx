@@ -3,9 +3,10 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
+import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
 
 /**
- * @description 기존 사용자가 로컬 계정으로 다시 진입하는 로그인 페이지
+ * @description 기존 사용자가 이메일 또는 소셜 계정으로 다시 진입하는 로그인 페이지
  */
 function normalizeCallbackUrl(value: string | string[] | undefined) {
   const normalized = Array.isArray(value) ? value[0] : value;
@@ -33,11 +34,21 @@ function resolveErrorMessage(value: string | string[] | undefined) {
     return "";
   }
 
+  if (error === "social_email_required") {
+    return "";
+  }
+
   const messageMap: Record<string, string> = {
     missing_credentials: "이메일과 비밀번호를 모두 입력해주세요.",
     invalid_credentials: "이메일 또는 비밀번호가 올바르지 않아요.",
     CredentialsSignin: "이메일 또는 비밀번호가 올바르지 않아요.",
     account_created_sign_in: "회원가입은 완료됐지만 자동 로그인에 실패했어요. 방금 만든 계정으로 다시 로그인해주세요.",
+    invalid_provider: "지원하지 않는 로그인 방식이에요. 다시 시도해주세요.",
+    OAuthSignin: "소셜 로그인 연결 중 문제가 발생했어요. 잠시 후 다시 시도해주세요.",
+    OAuthCallback: "소셜 로그인 응답을 처리하는 중 문제가 발생했어요. 다시 시도해주세요.",
+    AccessDenied: "소셜 로그인 권한이 거부되었어요. 다시 시도해주세요.",
+    OAuthAccountNotLinked: "같은 이메일로 이미 다른 로그인 방식이 연결되어 있어요. 기존 방식으로 로그인해주세요.",
+    Configuration: "소셜 로그인 설정이 아직 완료되지 않았어요. 환경 변수를 확인해주세요.",
   };
 
   return messageMap[error] ?? "로그인 중 문제가 발생했어요.";
@@ -80,11 +91,11 @@ export default async function LoginPage(props: {
           </p>
 
           <div className="ui-card mt-8 rounded-[1.6rem]">
-            <p className="text-sm font-medium text-[var(--muted)]">로컬 계정 안내</p>
+            <p className="text-sm font-medium text-[var(--muted)]">로그인 안내</p>
             <p className="mt-3 text-sm leading-7 text-[var(--foreground)]">
-              지금은 이 프로젝트 안에서 바로 회원가입하고 로그인하는 초기 버전 흐름으로 구성했습니다.
+              지금은 Google, Kakao, Naver 소셜 로그인과 이메일 기반 계정 로그인을 함께 지원합니다.
               <br />
-              등록한 정보는 로컬 개발 환경의 사용자 저장소에 보관됩니다.
+              로그인 후에는 온보딩과 코치 대시보드가 같은 흐름으로 이어집니다.
             </p>
           </div>
         </section>
@@ -101,6 +112,16 @@ export default async function LoginPage(props: {
           </div>
 
           <div className="mt-8">
+            <SocialAuthButtons callbackUrl={callbackUrl} mode="login" />
+
+            <div className="my-6 flex items-center gap-3">
+              <div className="h-px flex-1 bg-[var(--border)]" />
+              <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]">
+                또는 이메일로 계속하기
+              </span>
+              <div className="h-px flex-1 bg-[var(--border)]" />
+            </div>
+
             <AuthCredentialsForm
               mode="login"
               callbackUrl={callbackUrl}

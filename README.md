@@ -9,6 +9,7 @@
 현재 주요 사용자 흐름:
 
 - 회원가입 후 목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 입력하는 온보딩을 거쳐 `/coach` 개인화 화면으로 이어집니다.
+- Google, Kakao, Naver 소셜 로그인과 이메일 기반 계정 로그인을 모두 지원합니다.
 
 ## Local Dev
 
@@ -20,6 +21,7 @@ npm run dev
 
 - 권장 Node 버전: `20.20.2`
 - 로컬 계정 데이터는 `data/users.json`에 저장됩니다.
+- 소셜 로그인으로 처음 들어온 사용자도 같은 저장소에 자동 등록되고, 온보딩 전이라면 `/coach/onboarding`으로 이어집니다.
 - 웰니스 질문 기능을 쓰려면 `.env.local` 또는 배포 환경에 `GEMINI_API_KEY`가 필요합니다.
 - `GEMINI_API_KEY`는 Google AI Studio(`https://aistudio.google.com/app/apikey`)에서 무료로 발급받아 테스트할 수 있습니다.
 
@@ -33,9 +35,26 @@ npm run dev
 
 ```bash
 AUTH_SECRET="replace-with-a-random-secret-before-deploy"
+
+AUTH_GOOGLE_ID="replace-with-your-google-client-id"
+AUTH_GOOGLE_SECRET="replace-with-your-google-client-secret"
+
+AUTH_KAKAO_ID="replace-with-your-kakao-rest-api-key"
+AUTH_KAKAO_SECRET="replace-with-your-kakao-client-secret"
+
+AUTH_NAVER_ID="replace-with-your-naver-client-id"
+AUTH_NAVER_SECRET="replace-with-your-naver-client-secret"
+
 GEMINI_API_KEY="replace-with-your-google-ai-studio-api-key"
 GEMINI_MODEL="gemini-2.5-flash-lite"
 ```
+
+소셜 로그인 준비:
+
+- `Google`: Google Cloud Console에서 OAuth 클라이언트를 만들고 승인된 Redirect URI에 `/api/auth/callback/google` 추가
+- `Kakao`: Kakao Developers에서 REST API 키와 Client Secret을 발급하고 Redirect URI에 `/api/auth/callback/kakao` 추가
+- `Naver`: Naver Developers에서 Client ID/Secret을 발급하고 Callback URL에 `/api/auth/callback/naver` 추가
+- 로컬 개발 기준 기본 주소가 `http://localhost:3000`이면 provider 콘솔에도 같은 기준으로 등록해야 합니다.
 
 무료 테스트 참고:
 
@@ -52,7 +71,7 @@ GEMINI_MODEL="gemini-2.5-flash-lite"
 
 - `app/`: Next.js 앱 라우트와 UI
 - `app/coach/onboarding/`: 회원가입 직후 웰니스 온보딩 화면과 저장 액션
-- `auth.ts`: Credentials 기반 인증 설정
+- `auth.ts`: Credentials + Google/Kakao/Naver 인증 설정
 - `lib/auth/user-store.ts`: 로컬 사용자 저장소
 - `github-pages/`: GitHub Pages용 정적 랜딩 페이지
 - `.github/workflows/deploy-pages.yml`: GitHub Pages 배포 워크플로우

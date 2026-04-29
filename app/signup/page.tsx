@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
+import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
 import { type WellnessFocus } from "@/lib/auth/user-store";
 
 /**
@@ -42,6 +43,12 @@ function resolveErrorMessage(value: string | string[] | undefined) {
     weak_password: "비밀번호는 영문과 숫자를 포함해 8자 이상이어야 해요.",
     password_mismatch: "비밀번호 확인이 일치하지 않아요.",
     email_in_use: "이미 가입된 이메일이에요. 로그인하거나 다른 이메일을 사용해주세요.",
+    invalid_provider: "지원하지 않는 회원가입 방식이에요. 다시 시도해주세요.",
+    AccessDenied: "소셜 회원가입 권한이 거부되었어요. 다시 시도해주세요.",
+    OAuthSignin: "소셜 회원가입 연결 중 문제가 발생했어요. 잠시 후 다시 시도해주세요.",
+    OAuthCallback: "소셜 회원가입 응답을 처리하는 중 문제가 발생했어요. 다시 시도해주세요.",
+    OAuthAccountNotLinked: "같은 이메일로 이미 다른 로그인 방식이 연결되어 있어요. 기존 방식으로 로그인해주세요.",
+    Configuration: "소셜 회원가입 설정이 아직 완료되지 않았어요. 환경 변수를 확인해주세요.",
   };
 
   return messageMap[error] ?? "회원가입 중 문제가 발생했어요.";
@@ -93,7 +100,7 @@ export default async function SignUpPage(props: {
           <p className="ui-kicker">Sign up</p>
           <h1 className="ui-title-4 mt-3">나만의 웰니스 코치 계정 만들기</h1>
           <p className="ui-copy mt-4 max-w-3xl sm:text-base">
-            이름, 이메일, 비밀번호만 입력하면 프로젝트 내부 계정으로 바로 시작할 수 있습니다.
+            Google, Kakao, Naver 계정으로 빠르게 시작하거나 이메일 회원가입으로 바로 시작할 수 있습니다.
             <br />
             가입 직후에는 목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 묻는 짧은 온보딩으로 이어지고,
             <br />
@@ -128,12 +135,22 @@ export default async function SignUpPage(props: {
               <p className="ui-kicker tracking-[0.24em]">Get started</p>
               <h2 className="ui-title-3 mt-3">회원가입</h2>
             </div>
-            <Link href="/login" className="ui-pill">
+            <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="ui-pill">
               로그인
             </Link>
           </div>
 
           <div className="mt-8">
+            <SocialAuthButtons callbackUrl={callbackUrl} mode="signup" />
+
+            <div className="my-6 flex items-center gap-3">
+              <div className="h-px flex-1 bg-[var(--border)]" />
+              <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]">
+                또는 이메일로 가입하기
+              </span>
+              <div className="h-px flex-1 bg-[var(--border)]" />
+            </div>
+
             <AuthCredentialsForm
               mode="signup"
               callbackUrl={callbackUrl}
