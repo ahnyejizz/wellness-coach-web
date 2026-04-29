@@ -8,23 +8,23 @@ const briefScores = [
   {
     label: "수면",
     value: "89",
-    tint: "var(--sky-soft)",
+    tint: "#e5f2fb",
   },
   {
     label: "운동",
     value: "4/5",
-    tint: "var(--mint-soft)",
+    tint: "#dbecea",
   },
   {
     label: "식단",
     value: "91%",
-    tint: "var(--sun-soft)",
+    tint: "#f8eede",
   },
 ];
 
 export default function HomeCoachBrief() {
   return (
-    <aside className="panel-dark rise-in-delay relative rounded-[1.9rem] px-6 py-7 text-[#f6f0e6] sm:px-7">
+    <aside className="panel-dark rise-in-delay relative rounded-[1.9rem] px-6 py-7 text-[#f6f0e6] transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_54px_rgba(14,26,24,0.28)] sm:px-7">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm uppercase tracking-[0.24em] text-white/70">Today&apos;s brief</p>
@@ -33,7 +33,7 @@ export default function HomeCoachBrief() {
         <div className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">live</div>
       </div>
 
-      <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-5">
+      <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]">
         <p className="text-sm text-white/70">핵심 포커스</p>
         <p className="mt-3 text-4xl font-semibold tracking-tight">Recovery First</p>
         <p className="mt-3 text-sm leading-7 text-white/80">
@@ -44,7 +44,10 @@ export default function HomeCoachBrief() {
 
       <div className="mt-5 grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
         {todayChecklist.map((item) => (
-          <div key={item} className="rounded-[1.3rem] border border-white/10 bg-white/6 px-4 py-4">
+          <div
+            key={item}
+            className="rounded-[1.3rem] border border-white/10 bg-white/6 px-4 py-4 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_16px_28px_rgba(14,26,24,0.16)]"
+          >
             <p className="text-sm leading-7 text-white/88">{item}</p>
           </div>
         ))}
@@ -54,7 +57,7 @@ export default function HomeCoachBrief() {
         {briefScores.map((score) => (
           <div
             key={score.label}
-            className="rounded-[1.3rem] px-4 py-4 text-[var(--foreground)]"
+            className="rounded-[1.3rem] px-4 py-4 text-[var(--foreground)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(14,26,24,0.16)]"
             style={{ backgroundColor: score.tint }}
           >
             <p className="text-sm text-[var(--muted)]">{score.label}</p>

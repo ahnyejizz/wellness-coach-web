@@ -45,7 +45,10 @@ export default function HomeWeeklyReport() {
 
       <div className="mt-8 grid gap-3 sm:grid-cols-3">
         {reportMetrics.map((metric) => (
-          <article key={metric.label} className="ui-card-compact">
+          <article
+            key={metric.label}
+            className="ui-card-compact transition duration-200 hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(21,42,36,0.12)]"
+          >
             <p className="text-sm text-[var(--muted)]">{metric.label}</p>
             <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">{metric.value}</p>
             <p className="mt-2 text-sm" style={{ color: metric.accent }}>
@@ -56,7 +59,7 @@ export default function HomeWeeklyReport() {
       </div>
 
       <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr]">
-        <div className="ui-card-raised">
+        <div className="ui-card-raised transition duration-200 hover:-translate-y-1 hover:shadow-[0_22px_40px_rgba(21,42,36,0.12)]">
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-[var(--muted)]">Balance score trend</p>
             <span className="text-sm text-[var(--accent-strong)]">+19 this week</span>
@@ -77,11 +80,14 @@ export default function HomeWeeklyReport() {
           </div>
         </div>
 
-        <div className="ui-card-raised">
+        <div className="ui-card-raised transition duration-200 hover:-translate-y-1 hover:shadow-[0_22px_40px_rgba(21,42,36,0.12)]">
           <p className="text-sm font-medium text-[var(--muted)]">코치가 읽은 이번주 변화</p>
           <div className="mt-5 space-y-3">
             {reportNotes.map((note) => (
-              <div key={note} className="ui-card-note">
+              <div
+                key={note}
+                className="ui-card-note transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(21,42,36,0.1)]"
+              >
                 <p className="text-sm leading-7 text-[var(--foreground)]">{note}</p>
               </div>
             ))}

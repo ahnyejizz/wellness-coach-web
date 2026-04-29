@@ -38,7 +38,10 @@ export default function HomeCoachArea() {
   return (
     <section id="coach-areas" className="grid gap-5 md:grid-cols-3">
       {coachAreas.map((coachArea) => (
-        <article key={coachArea.title} className="panel ui-panel-card">
+        <article
+          key={coachArea.title}
+          className="panel ui-panel-card transition duration-200 hover:-translate-y-1 hover:shadow-[0_22px_40px_rgba(21,42,36,0.12)]"
+        >
           <div
             className="mb-5 inline-flex rounded-full px-3 py-1 text-sm font-semibold"
             style={{
@@ -55,7 +58,7 @@ export default function HomeCoachArea() {
             {coachArea.bullets.map((bullet) => (
               <div
                 key={bullet}
-                className="flex items-start gap-3 rounded-[1.25rem] border border-[var(--border)] bg-white/72 px-4 py-3"
+                className="flex items-start gap-3 rounded-[1.25rem] border border-[var(--border)] bg-white/72 px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_28px_rgba(21,42,36,0.1)]"
               >
                 <span className="mt-1 h-2.5 w-2.5 rounded-full" style={{ backgroundColor: coachArea.accent }} />
                 <p className="text-sm leading-7 text-[var(--foreground)]">{bullet}</p>

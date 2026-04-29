@@ -214,7 +214,7 @@ export default function HomeCoachPlanner() {
 
   return (
     <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
-      <article className="panel ui-panel-shell">
+      <article className="panel ui-panel-shell transition duration-200 hover:-translate-y-1 hover:shadow-[0_22px_40px_rgba(21,42,36,0.12)]">
         <p className="ui-kicker">Plan studio</p>
         <h2 className="ui-title-3 mt-3">내 루틴에 맞는 웰니스 코칭 플랜 만들기</h2>
         <p className="ui-copy mt-4 max-w-3xl">
@@ -344,7 +344,7 @@ export default function HomeCoachPlanner() {
         </div>
       </article>
 
-      <article className="panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] sm:px-8">
+      <article className="panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_54px_rgba(14,26,24,0.28)] sm:px-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.24em] text-white/70">Personalized preview</p>
@@ -360,7 +360,10 @@ export default function HomeCoachPlanner() {
 
         <div className="mt-8 grid gap-3 sm:grid-cols-2">
           {plan.cards.map((card) => (
-            <article key={card.label} className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4">
+            <article
+              key={card.label}
+              className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_16px_28px_rgba(14,26,24,0.18)]"
+            >
               <p className="text-sm text-white/70">{card.label}</p>
               <p className="mt-3 text-3xl font-semibold tracking-tight">{card.value}</p>
               <span
@@ -376,14 +379,17 @@ export default function HomeCoachPlanner() {
           ))}
         </div>
 
-        <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
+        <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]">
           <p className="text-sm text-white/70">Coach message</p>
           <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
         </div>
 
         <div className="mt-6 space-y-4">
           {plan.actions.map((action) => (
-            <article key={action.slot} className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5">
+            <article
+              key={action.slot}
+              className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]"
+            >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                 <div
                   className="inline-flex rounded-full px-3 py-1 text-xs font-semibold"

@@ -63,7 +63,10 @@ export default function HomeDayPlan() {
 
       <div className="mt-8 space-y-4">
         {dayPlan.map((item) => (
-          <article key={item.time} className="ui-card">
+          <article
+            key={item.time}
+            className="ui-card transition duration-200 hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(21,42,36,0.12)]"
+          >
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex items-start gap-4">
                 <div
