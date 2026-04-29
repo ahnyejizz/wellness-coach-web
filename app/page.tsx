@@ -50,7 +50,7 @@ export default async function Home(props: {
           <HomeWeeklyReport />
         </section>
 
-        <HomeStartCoach />
+        <HomeStartCoach isLoggedIn={isLoggedIn} />
       </main>
     </div>
   );
