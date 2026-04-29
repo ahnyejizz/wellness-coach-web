@@ -86,7 +86,7 @@ export default async function CoachDashboardPage() {
             <form
               action={async () => {
                 "use server";
-                await signOut({ redirectTo: "/" });
+                await signOut({ redirectTo: "/?loggedOut=1" });
               }}
             >
               <button type="submit" className="ui-button-primary w-full">

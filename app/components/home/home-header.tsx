@@ -35,7 +35,7 @@ export default function HomeHeader({ isLoggedIn }: HomeHeaderProps) {
             <form
               action={async () => {
                 "use server";
-                await signOut({ redirectTo: "/" });
+                await signOut({ redirectTo: "/?loggedOut=1" });
               }}
             >
               <button type="submit" className="ui-button-primary ui-button-primary-compact text-[#fffaf2]">

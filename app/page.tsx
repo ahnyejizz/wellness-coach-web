@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 
+import LogoutAlert from "./components/common/logout-alert";
 import HomeHeader from "./components/home/home-header";
 import HomeOverviewSection from "./components/home/home-overview-section";
 import HomeCoachArea from "./components/home/home-coach-area";
@@ -12,12 +13,20 @@ import HomeStartCoach from "./components/home/home-start-coach";
 /**
  * @description 홈 랜딩 페이지
  */
-export default async function Home() {
+export default async function Home(props: {
+  searchParams: Promise<{
+    loggedOut?: string | string[];
+  }>;
+}) {
   const session = await auth();
   const isLoggedIn = !!session?.user;
+  const searchParams = await props.searchParams;
+  const loggedOutValue = Array.isArray(searchParams.loggedOut) ? searchParams.loggedOut[0] : searchParams.loggedOut;
+  const showLoggedOutAlert = loggedOutValue === "1";
 
   return (
     <div className="relative min-h-screen overflow-hidden">
+      <LogoutAlert show={showLoggedOutAlert} />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-80">
         <div className="float-soft absolute left-[-8rem] top-12 h-64 w-64 rounded-full bg-[var(--accent-soft)] blur-3xl" />
         <div className="pulse-glow absolute right-[-7rem] top-20 h-72 w-72 rounded-full bg-[var(--sky-soft)] blur-3xl" />
