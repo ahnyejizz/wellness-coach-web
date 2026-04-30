@@ -40,7 +40,6 @@ export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
 
       {!isLoggedIn ? (
         <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-6">
-          <p className="text-sm text-white/70">브리핑 안내</p>
           <p className="mt-3 text-2xl font-semibold tracking-tight">로그인하면 오늘 브리핑을 볼 수 있어요.</p>
           <p className="mt-3 text-sm leading-7 text-white/80">
             회원가입 후 기본 정보와 온보딩을 입력하면
@@ -52,7 +51,11 @@ export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
             <Link href="/signup" className="ui-button-primary ui-button-primary-wide">
               회원가입
             </Link>
-            <Link href="/login" className="ui-button-secondary ui-button-secondary-wide" style={{ backgroundColor: "#fff" }}>
+            <Link
+              href="/login"
+              className="ui-button-secondary ui-button-secondary-wide"
+              style={{ backgroundColor: "#fff" }}
+            >
               로그인
             </Link>
           </div>

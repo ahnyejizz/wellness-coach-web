@@ -17,7 +17,6 @@ export default function HomeHeader({ isLoggedIn }: HomeHeaderProps) {
     <header className="flex flex-col gap-5 border-b border-[var(--border)] pb-6 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex flex-wrap items-center gap-3">
         <span className="ui-brand-chip">Motive Care</span>
-        <span className="text-sm text-[var(--muted)]">Personal Health Coach for sleep, workout, diet</span>
       </div>
 
       <nav className="flex flex-wrap gap-2 text-sm text-[var(--muted)]">
