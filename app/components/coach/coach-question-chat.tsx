@@ -6,7 +6,7 @@ import CoachQuestionSummaryPanel from "./coach-question-summary-panel";
 
 import { healthAssistantDisclaimer, healthQuestionSummaries, suggestedHealthQuestions } from "@/lib/health/content";
 
-type HealthCoachAssistantProps = {
+type CoachQuestionChatProps = {
   focusLabel: string;
   userName: string;
 };
@@ -18,7 +18,7 @@ type HealthChatResponse = {
   model?: string;
 };
 
-export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoachAssistantProps) {
+export default function CoachQuestionChat({ focusLabel, userName }: CoachQuestionChatProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [question, setQuestion] = useState<string>(suggestedHealthQuestions[0]);
   const [submittedQuestion, setSubmittedQuestion] = useState("");

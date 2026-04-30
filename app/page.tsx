@@ -35,7 +35,7 @@ export default async function Home(props: {
           <HomeOverviewSection isLoggedIn={isLoggedIn} />
         </section>
 
-        {/* Plan Studio, Weekly Report */}
+        {/* Coach Plan Studio, Weekly Report */}
         {isLoggedIn ? (
           <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
             <HomeCoachPlanStudio />
