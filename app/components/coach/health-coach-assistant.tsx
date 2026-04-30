@@ -101,7 +101,9 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
             <div className="h-12 w-12 animate-spin rounded-full border-[3px] border-[rgba(21,42,36,0.18)] border-t-[var(--foreground)]" />
             <p className="mt-5 text-lg font-semibold tracking-tight text-[var(--foreground)]">답변 생성 중...</p>
             <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-              생활 습관과 웰니스 기준으로 답변을 정리하고 있습니다. 잠시만 기다려 주세요.
+              생활 습관과 웰니스 기준으로 답변을 정리하고 있습니다.
+              <br />
+              잠시만 기다려 주세요.
             </p>
           </div>
         </div>
