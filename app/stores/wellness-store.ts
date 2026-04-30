@@ -7,7 +7,7 @@ export type GoalKey = "sleep-reset" | "fat-loss" | "muscle-tone" | "steady-energ
 export type FocusKey = "sleep" | "exercise" | "diet";
 export type MealPatternKey = "balanced" | "protein-forward" | "gentle-balance";
 
-export type PlannerProfile = {
+export type PlanProfile = {
   name: string;
   goal: GoalKey;
   focus: FocusKey;
@@ -19,17 +19,17 @@ export type PlannerProfile = {
 };
 
 type WellnessPersistedState = {
-  profile: PlannerProfile;
+  profile: PlanProfile;
   activeFocus: FocusKey;
   lastSavedAt: string | null;
 };
 
-type UpdatePlannerProfile = <Key extends keyof PlannerProfile>(key: Key, value: PlannerProfile[Key]) => void;
+type UpdatePlanProfile = <Key extends keyof PlanProfile>(key: Key, value: PlanProfile[Key]) => void;
 
 type WellnessStore = WellnessPersistedState & {
   hasHydrated: boolean;
   setHydrated: (value: boolean) => void;
-  updateProfile: UpdatePlannerProfile;
+  updateProfile: UpdatePlanProfile;
   setActiveFocus: (focus: FocusKey) => void;
   saveProfile: () => void;
   resetProfile: () => void;
@@ -39,7 +39,7 @@ const STORAGE_KEY = "motive-care-planner-v1";
 const STORAGE_VERSION = 1;
 const LEGACY_SAMPLE_NAME = "예지";
 
-export const defaultPlannerProfile: PlannerProfile = {
+export const defaultPlanProfile: PlanProfile = {
   name: "",
   goal: "steady-energy",
   focus: "sleep",
@@ -51,8 +51,8 @@ export const defaultPlannerProfile: PlannerProfile = {
 };
 
 const defaultPersistedState: WellnessPersistedState = {
-  profile: defaultPlannerProfile,
-  activeFocus: defaultPlannerProfile.focus,
+  profile: defaultPlanProfile,
+  activeFocus: defaultPlanProfile.focus,
   lastSavedAt: null,
 };
 
@@ -99,25 +99,25 @@ export function clampWaterTarget(value: number) {
   return Math.min(4, Math.max(1, value));
 }
 
-export function normalizePlannerProfile(value: Partial<PlannerProfile> | null | undefined): PlannerProfile {
+export function normalizePlanProfile(value: Partial<PlanProfile> | null | undefined): PlanProfile {
   const normalizedName =
-    typeof value?.name === "string" && value.name.trim() ? value.name.trim() : defaultPlannerProfile.name;
+    typeof value?.name === "string" && value.name.trim() ? value.name.trim() : defaultPlanProfile.name;
 
   return {
     name: normalizedName,
-    goal: isGoalKey(value?.goal) ? value.goal : defaultPlannerProfile.goal,
-    focus: isFocusKey(value?.focus) ? value.focus : defaultPlannerProfile.focus,
-    bedtime: typeof value?.bedtime === "string" && value.bedtime ? value.bedtime : defaultPlannerProfile.bedtime,
+    goal: isGoalKey(value?.goal) ? value.goal : defaultPlanProfile.goal,
+    focus: isFocusKey(value?.focus) ? value.focus : defaultPlanProfile.focus,
+    bedtime: typeof value?.bedtime === "string" && value.bedtime ? value.bedtime : defaultPlanProfile.bedtime,
     workoutDays: clampWorkoutDays(
-      Number.isFinite(value?.workoutDays) ? Number(value?.workoutDays) : defaultPlannerProfile.workoutDays,
+      Number.isFinite(value?.workoutDays) ? Number(value?.workoutDays) : defaultPlanProfile.workoutDays,
     ),
     proteinTarget: clampProteinTarget(
-      Number.isFinite(value?.proteinTarget) ? Number(value?.proteinTarget) : defaultPlannerProfile.proteinTarget,
+      Number.isFinite(value?.proteinTarget) ? Number(value?.proteinTarget) : defaultPlanProfile.proteinTarget,
     ),
     waterTarget: clampWaterTarget(
-      Number.isFinite(value?.waterTarget) ? Number(value?.waterTarget) : defaultPlannerProfile.waterTarget,
+      Number.isFinite(value?.waterTarget) ? Number(value?.waterTarget) : defaultPlanProfile.waterTarget,
     ),
-    mealPattern: isMealPatternKey(value?.mealPattern) ? value.mealPattern : defaultPlannerProfile.mealPattern,
+    mealPattern: isMealPatternKey(value?.mealPattern) ? value.mealPattern : defaultPlanProfile.mealPattern,
   };
 }
 
@@ -125,7 +125,7 @@ function normalizeActiveFocus(value: unknown, fallback: FocusKey): FocusKey {
   return isFocusKey(value) ? value : fallback;
 }
 
-function isLegacySampleProfile(value: Partial<PlannerProfile> | null | undefined) {
+function isLegacySampleProfile(value: Partial<PlanProfile> | null | undefined) {
   return (
     value?.name === LEGACY_SAMPLE_NAME &&
     value.goal === "steady-energy" &&
@@ -138,7 +138,7 @@ function isLegacySampleProfile(value: Partial<PlannerProfile> | null | undefined
   );
 }
 
-function sanitizeLegacySampleProfile(profile: PlannerProfile, lastSavedAt: string | null): PlannerProfile {
+function sanitizeLegacySampleProfile(profile: PlanProfile, lastSavedAt: string | null): PlanProfile {
   if (lastSavedAt === null && isLegacySampleProfile(profile)) {
     return {
       ...profile,
@@ -161,7 +161,7 @@ function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedStat
 
   if (candidate.state && typeof candidate.state === "object") {
     const profile = sanitizeLegacySampleProfile(
-      normalizePlannerProfile(candidate.state.profile),
+      normalizePlanProfile(candidate.state.profile),
       typeof candidate.state.lastSavedAt === "string" ? candidate.state.lastSavedAt : null,
     );
 
@@ -176,7 +176,7 @@ function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedStat
   }
 
   const legacyProfile = sanitizeLegacySampleProfile(
-    normalizePlannerProfile(candidate as Partial<PlannerProfile>),
+    normalizePlanProfile(candidate as Partial<PlanProfile>),
     null,
   );
 
@@ -218,7 +218,7 @@ const wellnessStorage: PersistStorage<WellnessPersistedState> | undefined =
 
 function mergePersistedState(persistedState: unknown, currentState: WellnessStore): WellnessStore {
   const snapshot = persistedState as Partial<WellnessPersistedState> | undefined;
-  const profile = normalizePlannerProfile(snapshot?.profile);
+  const profile = normalizePlanProfile(snapshot?.profile);
   const activeFocus = normalizeActiveFocus(snapshot?.activeFocus, profile.focus);
 
   return {
@@ -237,7 +237,7 @@ export const useWellnessStore = create<WellnessStore>()(
       setHydrated: (value) => set({ hasHydrated: value }),
       updateProfile: ((key, value) =>
         set((state) => {
-          const nextProfile = normalizePlannerProfile({
+          const nextProfile = normalizePlanProfile({
             ...state.profile,
             [key]: value,
           });
@@ -246,7 +246,7 @@ export const useWellnessStore = create<WellnessStore>()(
             profile: nextProfile,
             activeFocus: key === "focus" ? nextProfile.focus : state.activeFocus,
           };
-        })) as UpdatePlannerProfile,
+        })) as UpdatePlanProfile,
       setActiveFocus: (focus) =>
         set((state) => ({
           activeFocus: focus,
@@ -308,6 +308,6 @@ export function getSavedPlanLabel(lastSavedAt: string | null, hasHydrated: boole
   return `${formatSavedAt(lastSavedAt)} 기준 플랜이 저장되어 있어요.`;
 }
 
-export function getPlannerDisplayName(name: string) {
+export function getPlanDisplayName(name: string) {
   return name.trim() || "";
 }

@@ -5,7 +5,8 @@ import HomeHeader from "./components/home/home-header";
 import HomeOverviewSection from "./components/home/home-overview-section";
 import HomeCoachArea from "./components/home/home-coach-area";
 import HomeFocusBoard from "./components/home/home-focus-board";
-import HomeCoachPlanner from "./components/home/home-coach-planner";
+import HomeCoachPlanStudio from "./components/home/home-coach-plan-studio";
+import HomeCoachPlanPreview from "./components/home/home-coach-plan-preview";
 import HomeDayPlan from "./components/home/home-day-plan";
 import HomeWeeklyReport from "./components/home/home-weekly-report";
 import HomeStartCoach from "./components/home/home-start-coach";
@@ -40,16 +41,23 @@ export default async function Home(props: {
           <HomeOverviewSection isLoggedIn={isLoggedIn} />
         </section>
 
+        {/* Sleep Coach, Workout Coach, Nutrition Coach */}
         <HomeCoachArea />
 
+        {/* Focus Board */}
         <HomeFocusBoard isLoggedIn={isLoggedIn} />
-        <HomeCoachPlanner isLoggedIn={isLoggedIn} />
+
+        <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
+          <HomeCoachPlanStudio />
+          <HomeCoachPlanPreview isLoggedIn={isLoggedIn} />
+        </section>
 
         <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
           <HomeDayPlan />
           <HomeWeeklyReport />
         </section>
 
+        {/* Start Coaching */}
         <HomeStartCoach isLoggedIn={isLoggedIn} />
       </main>
     </div>
