@@ -200,7 +200,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
   로그인하면 입력한 루틴과 목표를 바탕으로 개인 맞춤형 플랜이 이어집니다.`;
 
   return (
-    <article className="panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_54px_rgba(14,26,24,0.28)] sm:px-8">
+    <article className="panel-dark ui-hover-panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] sm:px-8">
       {isLoggedIn ? (
         <>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -220,7 +220,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
             {plan.cards.map((card) => (
               <article
                 key={card.label}
-                className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_16px_28px_rgba(14,26,24,0.18)]"
+                className="ui-hover-card-dark-soft rounded-[1.4rem] border border-white/10 bg-white/6 p-4"
               >
                 <p className="text-sm text-white/70">{card.label}</p>
                 <p className="mt-3 text-3xl font-semibold tracking-tight">{card.value}</p>
@@ -237,7 +237,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
             ))}
           </div>
 
-          <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]">
+          <div className="ui-hover-card-dark mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
             <p className="text-sm text-white/70">Coach message</p>
             <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
           </div>
@@ -246,7 +246,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
             {plan.actions.map((action) => (
               <article
                 key={action.slot}
-                className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]"
+                className="ui-hover-card-dark rounded-[1.5rem] border border-white/10 bg-white/6 p-5"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <div
@@ -313,7 +313,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
             ))}
           </div>
 
-          <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]">
+          <div className="ui-hover-card-dark mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
             <p className="text-sm text-white/70">Coach message</p>
             <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
           </div>
@@ -322,7 +322,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
             {plan.actions.map((action) => (
               <article
                 key={action.slot}
-                className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]"
+                className="ui-hover-card-dark rounded-[1.5rem] border border-white/10 bg-white/6 p-5"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <div

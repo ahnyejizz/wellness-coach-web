@@ -61,7 +61,7 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
             ? heroSignals.map((signal) => (
                 <article
                   key={signal.label}
-                  className="ui-card-compact rounded-[1.4rem] transition duration-200 hover:-translate-y-1 hover:bg-white/90 hover:shadow-[0_20px_38px_rgba(21,42,36,0.12)]"
+                  className="ui-card-compact ui-hover-card rounded-[1.4rem]"
                 >
                   <p className="text-sm text-[var(--muted)]">{signal.label}</p>
                   <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">{signal.value}</p>
@@ -71,7 +71,7 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
             : guestSignalPreviews.map((signal) => (
                 <article
                   key={signal.label}
-                  className="ui-card-compact rounded-[1.4rem] transition duration-200 hover:-translate-y-1 hover:bg-white/90 hover:shadow-[0_20px_38px_rgba(21,42,36,0.12)]"
+                  className="ui-card-compact ui-hover-card rounded-[1.4rem]"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-sm text-[var(--muted)]">{signal.label}</p>

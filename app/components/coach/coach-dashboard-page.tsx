@@ -40,7 +40,7 @@ export default async function CoachDashboardPage() {
   const userInitial = resolveInitial(session.user.name, session.user.email);
   const focusLabel = getWellnessFocusLabel(completedProfile.focus);
   const isFirstLogin = (completedProfile.loginCount ?? 0) <= 1;
-  const heading = isFirstLogin ? `${userName}님, 환영합니다!` : `${userName}님, 다시 오셨네요!`;
+  const heading = isFirstLogin ? `${userName}님, 환영합니다!` : `${userName}님, 환영합니다!`;
   const onboardingSummary = [
     {
       label: "목표 체중",
@@ -97,37 +97,23 @@ export default async function CoachDashboardPage() {
         </div>
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-3">
-        <article className="panel ui-panel-card">
-          <p className="text-sm text-[var(--muted)]">인증 상태</p>
-          <h2 className="ui-title-2 mt-3">계정 로그인 완료</h2>
-          <p className="ui-copy mt-4">이메일 또는 소셜 계정으로 로그인한 상태입니다.</p>
-        </article>
-
-        <article className="panel ui-panel-card">
-          <p className="text-sm text-[var(--muted)]">우선 코칭</p>
-          <h2 className="ui-title-2 mt-3">{focusLabel}</h2>
-          <p className="ui-copy mt-4">
-            회원가입 때 선택한 웰니스 우선순위를 기준으로, 이후 대시보드와 추천 루틴을 더 구체적으로 개인화할 수
-            있습니다.
-          </p>
-        </article>
-
-        <article className="panel ui-panel-card">
+      <section className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
+        <article className="panel ui-panel-card ui-hover-panel h-full">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-sm text-[var(--muted)]">웰니스 온보딩</p>
-              <h2 className="ui-title-2 mt-3">가입 직후 입력한 웰니스 프로필</h2>
+              <p className="ui-kicker">Wellness onboarding</p>
+              <h2 className="ui-title-3 mt-3">가입 직후 입력한 웰니스 프로필</h2>
             </div>
             <Link href="/coach/onboarding?mode=edit&callbackUrl=/coach" className="ui-pill ui-pill-strong">
               수정
             </Link>
           </div>
+
           <div className="mt-4 space-y-3">
             {onboardingSummary.map((item) => (
               <div
                 key={item.label}
-                className="flex items-center justify-between gap-4 rounded-[1.2rem] border border-[var(--border)] bg-white/72 px-4 py-3"
+                className="ui-hover-note flex items-center justify-between gap-4 rounded-[1.2rem] border border-[var(--border)] bg-white/72 px-4 py-3"
               >
                 <span className="text-sm text-[var(--muted)]">{item.label}</span>
                 <span className="text-sm font-semibold text-[var(--foreground)]">{item.value}</span>
@@ -135,11 +121,10 @@ export default async function CoachDashboardPage() {
             ))}
           </div>
         </article>
+        <WellnessPlanSummary />
       </section>
 
       <HealthCoachAssistant userName={userName} focusLabel={focusLabel} />
-
-      <WellnessPlanSummary />
     </main>
   );
 }

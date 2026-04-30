@@ -22,7 +22,7 @@ export default function HomeCoachPlanStudio() {
   const savedLabel = getSavedPlanLabel(lastSavedAt, hasHydrated);
 
   return (
-    <article className="panel ui-panel-shell transition duration-200 hover:-translate-y-1 hover:shadow-[0_22px_40px_rgba(21,42,36,0.12)]">
+    <article className="panel ui-panel-shell ui-hover-panel">
       <p className="ui-kicker">Plan studio</p>
       <h2 className="ui-title-3 mt-3">내 루틴에 맞는 웰니스 코칭 플랜 만들기</h2>
       <p className="ui-copy mt-4 max-w-3xl">
