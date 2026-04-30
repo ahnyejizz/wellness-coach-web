@@ -23,7 +23,7 @@ export default async function Home(props: {
   const isLoggedIn = !!session?.user;
   const searchParams = await props.searchParams;
   const loggedOutValue = Array.isArray(searchParams.loggedOut) ? searchParams.loggedOut[0] : searchParams.loggedOut;
-  const showLoggedOutAlert = loggedOutValue === "1";
+  const showLoggedOutAlert = loggedOutValue === "true";
 
   return (
     <div className="relative min-h-screen overflow-hidden">
