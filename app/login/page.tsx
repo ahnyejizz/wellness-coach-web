@@ -79,28 +79,8 @@ export default async function LoginPage(props: {
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
-      <div className="grid w-full gap-6 lg:grid-cols-[0.98fr_1.02fr]">
-        <section className="panel panel-strong ui-panel-shell-lg">
-          <div className="ui-brand-chip">Motive Care</div>
-          <p className="ui-kicker mt-6">Login</p>
-          <h1 className="ui-title-4 mt-3">다시 이어가는 나만의 웰니스 코칭</h1>
-          <p className="ui-copy mt-4 max-w-2xl sm:text-base">
-            로그인하면 수면, 운동, 식단 중심의 개인 코칭 플랜과
-            <br />
-            저장된 루틴, 우선 코칭을 이어서 확인할 수 있습니다.
-          </p>
-
-          <div className="ui-card mt-8 rounded-[1.6rem]">
-            <p className="text-sm font-medium text-[var(--muted)]">로그인 안내</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--foreground)]">
-              지금은 Google, Kakao, Naver 소셜 로그인과 이메일 기반 계정 로그인을 함께 지원합니다.
-              <br />
-              로그인 후에는 온보딩과 코치 대시보드가 같은 흐름으로 이어집니다.
-            </p>
-          </div>
-        </section>
-
-        <section className="panel ui-panel-shell-lg">
+      <div className="flex w-full justify-center">
+        <section className="panel ui-panel-shell-lg w-full max-w-[42rem]">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="ui-kicker tracking-[0.24em]">Sign in</p>

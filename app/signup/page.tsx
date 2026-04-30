@@ -95,41 +95,8 @@ export default async function SignUpPage(props: {
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
-      <div className="grid w-full gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <section className="panel panel-strong ui-panel-shell-lg">
-          <p className="ui-kicker">Sign up</p>
-          <h1 className="ui-title-4 mt-3">나만의 웰니스 코치 계정 만들기</h1>
-          <p className="ui-copy mt-4 max-w-3xl sm:text-base">
-            Google, Kakao, Naver 계정으로 빠르게 시작하거나 이메일 회원가입으로 바로 시작할 수 있습니다.
-            <br />
-            가입 직후에는 목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 묻는 짧은 온보딩으로 이어지고,
-            <br />
-            이후 수면, 운동, 식단 코칭 플로우를 개인 기준으로 관리할 수 있습니다.
-          </p>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            <article className="ui-card-compact">
-              <p className="text-sm text-[var(--muted)]">Sleep</p>
-              <p className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
-                취침 리듬과 회복 점수 추적
-              </p>
-            </article>
-            <article className="ui-card-compact">
-              <p className="text-sm text-[var(--muted)]">Workout</p>
-              <p className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
-                주간 운동 빈도와 강도 조절
-              </p>
-            </article>
-            <article className="ui-card-compact">
-              <p className="text-sm text-[var(--muted)]">Nutrition</p>
-              <p className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
-                단백질, 수분, 식사 패턴 관리
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section className="panel ui-panel-shell-lg">
+      <div className="flex w-full justify-center">
+        <section className="panel ui-panel-shell-lg w-full max-w-[42rem]">
           <div className="flex flex-wrap items-start justify-between gap-4 sm:items-center">
             <div>
               <p className="ui-kicker tracking-[0.24em]">Get started</p>
