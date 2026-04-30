@@ -41,6 +41,7 @@ export default async function Home(props: {
           <HomeOverviewSection isLoggedIn={isLoggedIn} />
         </section>
 
+        {/* Plan Studio, Weekly Report */}
         {isLoggedIn ? (
           <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
             <HomeCoachPlanStudio />
@@ -48,12 +49,13 @@ export default async function Home(props: {
           </section>
         ) : null}
 
-        {/* Sleep Coach, Workout Coach, Nutrition Coach */}
+        {/* [Sleep / Workout / Nutrition] Coach */}
         <HomeCoachArea />
 
-        {/* Focus Board */}
+        {/* Focus Board, [Sleep / Workout / Nutrition] Priority */}
         <HomeFocusBoard isLoggedIn={isLoggedIn} />
 
+        {/* Day Plan, Personalized Preview */}
         <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
           <HomeDayPlan />
           <HomeCoachPlanPreview isLoggedIn={isLoggedIn} />

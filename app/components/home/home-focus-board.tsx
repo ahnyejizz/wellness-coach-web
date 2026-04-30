@@ -66,7 +66,7 @@ const focusAreas: FocusAreaMap = {
   exercise: {
     label: "운동 코칭",
     kicker: "강도와 회복의 균형",
-    headline: "movement priority",
+    headline: "workout priority",
     summary: "근력 운동, 유산소, 회복일 배치를 함께 보면서 몸이 무너지지 않는 주간 운동 패턴을 만듭니다.",
     score: "4/5",
     scoreLabel: "주간 세션",
