@@ -58,7 +58,7 @@ export default async function Home(props: {
         </section>
 
         {/* Start Coaching */}
-        <HomeStartCoach isLoggedIn={isLoggedIn} />
+        {!isLoggedIn ? <HomeStartCoach /> : null}
       </main>
     </div>
   );

@@ -1,10 +1,6 @@
 import Link from "next/link";
 
-type HomeStartCoachProps = {
-  isLoggedIn: boolean;
-};
-
-export default function HomeStartCoach({ isLoggedIn }: HomeStartCoachProps) {
+export default function HomeStartCoach() {
   return (
     <section className="panel panel-strong ui-panel-shell-lg overflow-hidden">
       <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -23,25 +19,12 @@ export default function HomeStartCoach({ isLoggedIn }: HomeStartCoachProps) {
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-          {isLoggedIn ? (
-            <>
-              <Link href="/coach" className="ui-button-primary ui-button-primary-wide">
-                내 코치 페이지로 이동
-              </Link>
-              <a href="#report" className="ui-button-secondary ui-button-secondary-wide">
-                주간 리포트 보기
-              </a>
-            </>
-          ) : (
-            <>
-              <Link href="/signup" className="ui-button-primary ui-button-primary-wide">
-                회원가입하고 코칭 시작
-              </Link>
-              <Link href="/login" className="ui-button-secondary ui-button-secondary-wide">
-                로그인
-              </Link>
-            </>
-          )}
+          <Link href="/signup" className="ui-button-primary ui-button-primary-wide">
+            회원가입하고 코칭 시작
+          </Link>
+          <Link href="/login" className="ui-button-secondary ui-button-secondary-wide">
+            로그인
+          </Link>
         </div>
       </div>
     </section>
