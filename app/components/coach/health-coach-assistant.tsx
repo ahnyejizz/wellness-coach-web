@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 
+import CoachQuestionSummaryPanel from "./coach-question-summary-panel";
+
 import { healthAssistantDisclaimer, healthQuestionSummaries, suggestedHealthQuestions } from "@/lib/health/content";
 
 type HealthCoachAssistantProps = {
@@ -122,142 +124,121 @@ export default function HealthCoachAssistant({ focusLabel, userName }: HealthCoa
           </div>
         </div>
 
-      <div className="mt-6 grid gap-5 xl:grid-cols-[1.12fr_0.88fr]">
-        <div className="ui-card-raised">
-          <div className="flex flex-wrap gap-2">
-            {suggestedHealthQuestions.map((suggestedQuestion) => {
-              const isActive = question.trim() === suggestedQuestion;
+        <div className="mt-6 grid gap-5 xl:grid-cols-[1.12fr_0.88fr]">
+          <div className="ui-card-raised">
+            <div className="flex flex-wrap gap-2">
+              {suggestedHealthQuestions.map((suggestedQuestion) => {
+                const isActive = question.trim() === suggestedQuestion;
 
-              return (
+                return (
+                  <button
+                    key={suggestedQuestion}
+                    type="button"
+                    aria-pressed={isActive}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={() => fillSuggestedQuestion(suggestedQuestion)}
+                    className={
+                      isActive
+                        ? "ui-pill bg-[var(--foreground)] text-[#fffaf2] shadow-[0_12px_24px_rgba(21,42,36,0.18)] transition hover:bg-[color-mix(in_srgb,var(--foreground)_92%,white)] hover:shadow-[0_16px_32px_rgba(21,42,36,0.24)]"
+                        : "ui-pill bg-white/80 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_30px_rgba(21,42,36,0.12)]"
+                    }
+                  >
+                    {suggestedQuestion}
+                  </button>
+                );
+              })}
+            </div>
+
+            <form onSubmit={handleSubmit} className="mt-5">
+              <label htmlFor="health-question" className="ui-field-label">
+                웰니스 질문
+              </label>
+              <textarea
+                id="health-question"
+                ref={textareaRef}
+                value={question}
+                onChange={(event) => setQuestion(event.target.value)}
+                placeholder="예: 야근이 길어지면 수면과 식단이 같이 무너지는데, 회복 루틴을 어떻게 잡으면 좋을까요?"
+                className="ui-field-control-strong mt-3 min-h-36 resize-y"
+                maxLength={500}
+              />
+
+              <div className="mt-3 flex items-center justify-between gap-3 text-sm text-[var(--muted)]">
+                <span>최대 500자</span>
+                <span>{question.trim().length}/500</span>
+              </div>
+
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm leading-6 text-[var(--muted)]">
+                  증상이 심하거나 빠르게 악화되면 온라인 답변보다 직접 진료가 우선입니다.
+                </p>
+                <button type="submit" className="ui-button-primary w-full sm:w-auto" disabled={isSubmitting}>
+                  {isSubmitting ? "답변 생성 중..." : "질문하기"}
+                </button>
+              </div>
+            </form>
+
+            {error ? (
+              <div aria-live="polite" className="ui-alert mt-5">
+                {error}
+              </div>
+            ) : null}
+
+            <div aria-live="polite" className="ui-card mt-5">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-sm text-[var(--muted)]">최근 질문</p>
+                  <p className="mt-2 text-base font-semibold text-[var(--foreground)]">
+                    {submittedQuestion || "아직 질문을 보내지 않았습니다."}
+                  </p>
+                </div>
+                {model ? <span className="ui-pill-static">응답 모델: {model}</span> : null}
+              </div>
+
+              {answer ? (
+                <>
+                  <div className="mt-5 whitespace-pre-wrap text-sm leading-7 text-[var(--foreground)]">{answer}</div>
+                  <div className="mt-5 rounded-[1.2rem] border border-[var(--border)] bg-white/80 px-4 py-3 text-sm leading-6 text-[var(--muted)]">
+                    {answerDisclaimer}
+                  </div>
+                </>
+              ) : (
+                <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
+                  질문을 보내면 여기에서 요약된 웰니스 가이드와 주의 포인트를 확인할 수 있습니다.
+                </p>
+              )}
+            </div>
+          </div>
+
+          <CoachQuestionSummaryPanel />
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {healthQuestionSummaries.map((item) => {
+            const isActive = question.trim() === item.question;
+
+            return (
+              <article key={`${item.id}-seek-care`} className="ui-card">
+                <p className="text-sm text-[var(--muted)]">{item.category} 체크 포인트</p>
+                <h3 className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">{item.question}</h3>
+                <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.seekCare}</p>
                 <button
-                  key={suggestedQuestion}
                   type="button"
                   aria-pressed={isActive}
                   onMouseDown={(event) => event.preventDefault()}
-                  onClick={() => fillSuggestedQuestion(suggestedQuestion)}
+                  onClick={() => fillSuggestedQuestion(item.question)}
                   className={
                     isActive
-                      ? "ui-pill bg-[var(--foreground)] text-[#fffaf2] shadow-[0_12px_24px_rgba(21,42,36,0.18)] transition hover:bg-[color-mix(in_srgb,var(--foreground)_92%,white)] hover:shadow-[0_16px_32px_rgba(21,42,36,0.24)]"
-                      : "ui-pill bg-white/80 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_30px_rgba(21,42,36,0.12)]"
+                      ? "mt-4 ui-button-secondary w-full border-[var(--foreground)] bg-[var(--foreground)] text-[#fffaf2] shadow-[0_12px_24px_rgba(21,42,36,0.18)] transition hover:bg-[color-mix(in_srgb,var(--foreground)_92%,white)] hover:shadow-[0_16px_32px_rgba(21,42,36,0.24)]"
+                      : "mt-4 ui-button-secondary w-full transition hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_30px_rgba(21,42,36,0.12)]"
                   }
                 >
-                  {suggestedQuestion}
+                  이 질문으로 바로 물어보기
                 </button>
-              );
-            })}
-          </div>
-
-          <form onSubmit={handleSubmit} className="mt-5">
-            <label htmlFor="health-question" className="ui-field-label">
-              웰니스 질문
-            </label>
-            <textarea
-              id="health-question"
-              ref={textareaRef}
-              value={question}
-              onChange={(event) => setQuestion(event.target.value)}
-              placeholder="예: 야근이 길어지면 수면과 식단이 같이 무너지는데, 회복 루틴을 어떻게 잡으면 좋을까요?"
-              className="ui-field-control-strong mt-3 min-h-36 resize-y"
-              maxLength={500}
-            />
-
-            <div className="mt-3 flex items-center justify-between gap-3 text-sm text-[var(--muted)]">
-              <span>최대 500자</span>
-              <span>{question.trim().length}/500</span>
-            </div>
-
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm leading-6 text-[var(--muted)]">
-                증상이 심하거나 빠르게 악화되면 온라인 답변보다 직접 진료가 우선입니다.
-              </p>
-              <button type="submit" className="ui-button-primary w-full sm:w-auto" disabled={isSubmitting}>
-                {isSubmitting ? "답변 생성 중..." : "질문하기"}
-              </button>
-            </div>
-          </form>
-
-          {error ? (
-            <div aria-live="polite" className="ui-alert mt-5">
-              {error}
-            </div>
-          ) : null}
-
-          <div aria-live="polite" className="ui-card mt-5">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm text-[var(--muted)]">최근 질문</p>
-                <p className="mt-2 text-base font-semibold text-[var(--foreground)]">
-                  {submittedQuestion || "아직 질문을 보내지 않았습니다."}
-                </p>
-              </div>
-              {model ? <span className="ui-pill-static">응답 모델: {model}</span> : null}
-            </div>
-
-            {answer ? (
-              <>
-                <div className="mt-5 whitespace-pre-wrap text-sm leading-7 text-[var(--foreground)]">{answer}</div>
-                <div className="mt-5 rounded-[1.2rem] border border-[var(--border)] bg-white/80 px-4 py-3 text-sm leading-6 text-[var(--muted)]">
-                  {answerDisclaimer}
-                </div>
-              </>
-            ) : (
-              <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
-                질문을 보내면 여기에서 요약된 웰니스 가이드와 주의 포인트를 확인할 수 있습니다.
-              </p>
-            )}
-          </div>
-        </div>
-
-        <aside className="panel-dark rounded-[1.8rem] p-6 text-[#f7f1e8]">
-          <p className="ui-kicker text-[#ffb297]">Useful summaries</p>
-          <h3 className="mt-3 text-2xl font-semibold tracking-tight">자주 보는 웰니스 Q&A 요약</h3>
-          <p className="mt-4 text-sm leading-7 text-[#d6ddd7]">
-            아직 질문을 입력하지 않아도 바로 읽을 수 있도록, 생활 웰니스에서 자주 나오는 질문들을 짧게 정리해두었습니다.
-          </p>
-
-          <div className="mt-5 space-y-3">
-            {healthQuestionSummaries.map((item) => (
-              <article key={item.id} className="rounded-[1.4rem] border border-white/12 bg-white/8 p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <span className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold tracking-[0.16em] text-[#ffd6c8]">
-                    {item.category}
-                  </span>
-                </div>
-                <h4 className="mt-3 text-lg font-semibold leading-7">{item.question}</h4>
-                <p className="mt-3 text-sm leading-7 text-[#e7ece8]">{item.summary}</p>
-                <p className="mt-3 text-sm leading-6 text-[#b9c9c2]">바로 적용: {item.actionTip}</p>
               </article>
-            ))}
-          </div>
-        </aside>
-      </div>
-
-      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {healthQuestionSummaries.map((item) => {
-          const isActive = question.trim() === item.question;
-
-          return (
-            <article key={`${item.id}-seek-care`} className="ui-card">
-              <p className="text-sm text-[var(--muted)]">{item.category} 체크 포인트</p>
-              <h3 className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">{item.question}</h3>
-              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.seekCare}</p>
-              <button
-                type="button"
-                aria-pressed={isActive}
-                onMouseDown={(event) => event.preventDefault()}
-                onClick={() => fillSuggestedQuestion(item.question)}
-                className={
-                  isActive
-                    ? "mt-4 ui-button-secondary w-full border-[var(--foreground)] bg-[var(--foreground)] text-[#fffaf2] shadow-[0_12px_24px_rgba(21,42,36,0.18)] transition hover:bg-[color-mix(in_srgb,var(--foreground)_92%,white)] hover:shadow-[0_16px_32px_rgba(21,42,36,0.24)]"
-                    : "mt-4 ui-button-secondary w-full transition hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_30px_rgba(21,42,36,0.12)]"
-                }
-              >
-                이 질문으로 바로 물어보기
-              </button>
-            </article>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
       </section>
     </>
   );
