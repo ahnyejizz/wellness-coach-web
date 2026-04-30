@@ -130,14 +130,19 @@ export default async function SignUpPage(props: {
         </section>
 
         <section className="panel ui-panel-shell-lg">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-wrap items-start justify-between gap-4 sm:items-center">
             <div>
               <p className="ui-kicker tracking-[0.24em]">Get started</p>
               <h2 className="ui-title-3 mt-3">회원가입</h2>
             </div>
-            <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="ui-pill">
-              로그인
-            </Link>
+            <div className="flex items-center gap-3 sm:justify-end">
+              <Link href="/" className="ui-button-secondary">
+                홈으로
+              </Link>
+              <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="ui-pill">
+                로그인
+              </Link>
+            </div>
           </div>
 
           <div className="mt-8">
