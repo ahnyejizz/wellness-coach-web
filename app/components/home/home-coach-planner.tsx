@@ -334,10 +334,10 @@ export default function HomeCoachPlanner() {
             </p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
-            <button type="button" onClick={resetProfile} className="ui-button-secondary">
+            <button type="button" onClick={resetProfile} className="ui-button-secondary ui-button-secondary-wide sm:min-w-[7.5rem]">
               초기화
             </button>
-            <button type="button" onClick={saveProfile} className="ui-button-primary ui-button-primary-wide">
+            <button type="button" onClick={saveProfile} className="ui-button-primary ui-button-primary-wide sm:min-w-[7.5rem]">
               저장
             </button>
           </div>
