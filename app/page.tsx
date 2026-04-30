@@ -42,8 +42,8 @@ export default async function Home(props: {
 
         <HomeCoachArea />
 
-        <HomeFocusBoard />
-        <HomeCoachPlanner />
+        <HomeFocusBoard isLoggedIn={isLoggedIn} />
+        <HomeCoachPlanner isLoggedIn={isLoggedIn} />
 
         <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
           <HomeDayPlan />

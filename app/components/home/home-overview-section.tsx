@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import HomeCoachBrief from "./home-coach-brief";
+import { LockGlyph } from "../common/Icon";
 
 const heroSignals = [
   { label: "수면 루틴", value: "회복 흐름 정리", hint: "취침 시간과 회복 패턴을 함께 봅니다." },
@@ -69,15 +70,6 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
                 <article key={signal.label} className="ui-card-compact rounded-[1.4rem]">
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-sm text-[var(--muted)]">{signal.label}</p>
-                    <span className="inline-flex items-center gap-1 rounded-full border border-[var(--border)] bg-white/80 px-2.5 py-1 text-xs text-[var(--muted)]">
-                      <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden="true">
-                        <path
-                          fill="currentColor"
-                          d="M5.5 6V4.75a2.5 2.5 0 1 1 5 0V6h.75c.41 0 .75.34.75.75v4.5c0 .41-.34.75-.75.75h-6.5A.75.75 0 0 1 4 11.25v-4.5c0-.41.34-.75.75-.75h.75Zm1.5 0h2V4.75a1 1 0 1 0-2 0V6Z"
-                        />
-                      </svg>
-                      프리뷰
-                    </span>
                   </div>
                   <div className="relative mt-5 rounded-[1.3rem] border border-[var(--border)] bg-white/68 p-4">
                     <div className="space-y-3 opacity-55 blur-[0.5px]">
@@ -90,16 +82,11 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
                         className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 shadow-[0_10px_24px_rgba(21,42,36,0.08)]"
                         style={{ backgroundColor: signal.accent }}
                       >
-                        <svg viewBox="0 0 16 16" className="h-4 w-4 text-white" aria-hidden="true">
-                          <path
-                            fill="currentColor"
-                            d="M5.5 6V4.75a2.5 2.5 0 1 1 5 0V6h.75c.41 0 .75.34.75.75v4.5c0 .41-.34.75-.75.75h-6.5A.75.75 0 0 1 4 11.25v-4.5c0-.41.34-.75.75-.75h.75Zm1.5 0h2V4.75a1 1 0 1 0-2 0V6Z"
-                          />
-                        </svg>
+                        <LockGlyph className="h-4 w-4 text-white" />
                       </div>
                     </div>
                   </div>
-                  <p className="mt-4 text-sm text-[var(--muted)]">로그인 후 개인 브리핑에서 확인할 수 있어요.</p>
+                  <p className="mt-4 text-sm text-[var(--muted)]">로그인 후 확인할 수 있어요.</p>
                 </article>
               ))}
         </div>

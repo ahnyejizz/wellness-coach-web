@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import {
   clampProteinTarget,
   clampWaterTarget,
@@ -12,6 +14,7 @@ import {
   type PlannerProfile,
   useWellnessStore,
 } from "@/app/stores/wellness-store";
+import { LockGlyph } from "@/app/components/common/Icon";
 
 type PlanCard = {
   label: string;
@@ -37,6 +40,21 @@ type PersonalPlan = {
   scoreLabel: string;
   cards: PlanCard[];
   actions: PlanAction[];
+};
+
+function PreviewLockIcon({ accent, softAccent }: { accent: string; softAccent: string }) {
+  return (
+    <div
+      className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 shadow-[0_12px_24px_rgba(14,26,24,0.18)]"
+      style={{ backgroundColor: accent, boxShadow: `0 0 0 10px ${softAccent}` }}
+    >
+      <LockGlyph className="h-4 w-4 text-white" />
+    </div>
+  );
+}
+
+type HomeCoachPlannerProps = {
+  isLoggedIn: boolean;
 };
 
 const goalMeta = {
@@ -202,7 +220,7 @@ function buildPlan(profile: PlannerProfile): PersonalPlan {
   };
 }
 
-export default function HomeCoachPlanner() {
+export default function HomeCoachPlanner({ isLoggedIn }: HomeCoachPlannerProps) {
   const profile = useWellnessStore((state) => state.profile);
   const hasHydrated = useWellnessStore((state) => state.hasHydrated);
   const lastSavedAt = useWellnessStore((state) => state.lastSavedAt);
@@ -211,6 +229,8 @@ export default function HomeCoachPlanner() {
   const resetProfile = useWellnessStore((state) => state.resetProfile);
   const plan: PersonalPlan = buildPlan(profile);
   const savedLabel = getSavedPlanLabel(lastSavedAt, hasHydrated);
+  const guestPlanSummary = `수면, 식사, 움직임 흐름을 함께 보면서 일상에 맞는 코칭 방향을 정리합니다.
+  로그인하면 입력한 루틴과 목표를 바탕으로 개인 맞춤형 플랜이 이어집니다.`;
 
   return (
     <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
@@ -334,10 +354,18 @@ export default function HomeCoachPlanner() {
             </p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
-            <button type="button" onClick={resetProfile} className="ui-button-secondary ui-button-secondary-wide sm:min-w-[7.5rem]">
+            <button
+              type="button"
+              onClick={resetProfile}
+              className="ui-button-secondary ui-button-secondary-wide sm:min-w-[7.5rem]"
+            >
               초기화
             </button>
-            <button type="button" onClick={saveProfile} className="ui-button-primary ui-button-primary-wide sm:min-w-[7.5rem]">
+            <button
+              type="button"
+              onClick={saveProfile}
+              className="ui-button-primary ui-button-primary-wide sm:min-w-[7.5rem]"
+            >
               저장
             </button>
           </div>
@@ -345,69 +373,145 @@ export default function HomeCoachPlanner() {
       </article>
 
       <article className="panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_54px_rgba(14,26,24,0.28)] sm:px-8">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.24em] text-white/70">Personalized preview</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight">{plan.heading}</h2>
-            <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">{plan.summary}</p>
-          </div>
+        {isLoggedIn ? (
+          <>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="max-w-3xl">
+                <p className="text-sm uppercase tracking-[0.24em] text-white/70">Personalized preview</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight">{plan.heading}</h2>
+                <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">{plan.summary}</p>
+              </div>
 
-          <div className="rounded-[1.5rem] bg-white/10 px-5 py-4 lg:min-w-[10rem]">
-            <p className="text-sm text-white/70">{plan.scoreLabel}</p>
-            <p className="mt-2 text-4xl font-semibold tracking-tight">{plan.score}</p>
-          </div>
-        </div>
+              <div className="rounded-[1.5rem] bg-white/10 px-5 py-4 lg:min-w-[10rem]">
+                <p className="text-sm text-white/70">{plan.scoreLabel}</p>
+                <p className="mt-2 text-4xl font-semibold tracking-tight">{plan.score}</p>
+              </div>
+            </div>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
-          {plan.cards.map((card) => (
-            <article
-              key={card.label}
-              className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_16px_28px_rgba(14,26,24,0.18)]"
-            >
-              <p className="text-sm text-white/70">{card.label}</p>
-              <p className="mt-3 text-3xl font-semibold tracking-tight">{card.value}</p>
-              <span
-                className="mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
-                style={{
-                  backgroundColor: card.softAccent,
-                  color: card.accent,
-                }}
-              >
-                {card.detail}
-              </span>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]">
-          <p className="text-sm text-white/70">Coach message</p>
-          <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
-        </div>
-
-        <div className="mt-6 space-y-4">
-          {plan.actions.map((action) => (
-            <article
-              key={action.slot}
-              className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]"
-            >
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-                <div
-                  className="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
-                  style={{
-                    backgroundColor: action.softAccent,
-                    color: action.accent,
-                  }}
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {plan.cards.map((card) => (
+                <article
+                  key={card.label}
+                  className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_16px_28px_rgba(14,26,24,0.18)]"
                 >
-                  {action.slot}
+                  <p className="text-sm text-white/70">{card.label}</p>
+                  <p className="mt-3 text-3xl font-semibold tracking-tight">{card.value}</p>
+                  <span
+                    className="mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                    style={{
+                      backgroundColor: card.softAccent,
+                      color: card.accent,
+                    }}
+                  >
+                    {card.detail}
+                  </span>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]">
+              <p className="text-sm text-white/70">Coach message</p>
+              <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
+            </div>
+
+            <div className="mt-6 space-y-4">
+              {plan.actions.map((action) => (
+                <article
+                  key={action.slot}
+                  className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]"
+                >
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                    <div
+                      className="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                      style={{
+                        backgroundColor: action.softAccent,
+                        color: action.accent,
+                      }}
+                    >
+                      {action.slot}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold tracking-tight">{action.title}</h3>
+                      <p className="mt-2 text-sm leading-7 text-white/80">{action.detail}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="max-w-3xl flex-1">
+                <p className="text-sm uppercase tracking-[0.24em] text-white/70">Personalized preview</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight">{plan.heading}</h2>
+                <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">{guestPlanSummary}</p>
+              </div>
+
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/6 px-5 py-4 sm:min-w-[12rem]">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm text-white/70">이번주 코칭 적합도</p>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight">{action.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-white/80">{action.detail}</p>
+                <div className="relative mt-4 flex h-[5.5rem] items-center justify-center rounded-[1.2rem] border border-white/10 bg-white/6">
+                  <div className="opacity-55 blur-[0.5px]">
+                    <div className="h-4 w-14 rounded-full bg-white/20" />
+                  </div>
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                    <PreviewLockIcon accent="var(--accent-strong)" softAccent="rgba(255,255,255,0.08)" />
+                  </div>
                 </div>
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {["취침 목표", "운동 빈도", "단백질 목표", "수분 목표"].map((label) => (
+                <article key={label} className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm text-white/70">{label}</p>
+                  </div>
+                  <div className="relative mt-4 flex h-20 items-center justify-center rounded-[1.2rem] border border-white/10 bg-white/6">
+                    <div className="opacity-55 blur-[0.5px]">
+                      <div className="h-3 w-24 rounded-full bg-white/20" />
+                    </div>
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                      <PreviewLockIcon accent="var(--accent-strong)" softAccent="rgba(255,255,255,0.08)" />
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]">
+              <p className="text-sm text-white/70">Coach message</p>
+              <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
+            </div>
+
+            <div className="mt-6 space-y-4">
+              {plan.actions.map((action) => (
+                <article
+                  key={action.slot}
+                  className="rounded-[1.5rem] border border-white/10 bg-white/6 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]"
+                >
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                    <div
+                      className="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                      style={{
+                        backgroundColor: action.softAccent,
+                        color: action.accent,
+                      }}
+                    >
+                      {action.slot}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold tracking-tight">{action.title}</h3>
+                      <p className="mt-2 text-sm leading-7 text-white/80">{action.detail}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </>
+        )}
       </article>
     </section>
   );
