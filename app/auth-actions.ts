@@ -4,7 +4,13 @@ import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 
 import { signIn } from "@/auth";
-import { DuplicateUserError, registerUser, type WellnessFocus } from "@/lib/auth/user-store";
+import {
+  DuplicateUserError,
+  getUserProfileByEmail,
+  hasCompletedOnboarding,
+  registerUser,
+  type WellnessFocus,
+} from "@/lib/auth/user-store";
 
 const defaultCallbackUrl = "/coach";
 const wellnessFocusValues = ["balance", "sleep", "exercise", "diet"] as const;
@@ -112,11 +118,15 @@ export async function loginWithCredentials(formData: FormData) {
     );
   }
 
+  const localProfile = await getUserProfileByEmail(email);
+  const redirectTarget =
+    localProfile && hasCompletedOnboarding(localProfile) ? callbackUrl : buildOnboardingRedirectUrl(callbackUrl);
+
   try {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: callbackUrl,
+      redirectTo: redirectTarget,
     });
   } catch (error) {
     if (error instanceof AuthError) {

@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
+import { getUserProfileByEmail, hasCompletedOnboarding } from "@/lib/auth/user-store";
 
 /**
  * @description 기존 사용자가 이메일 또는 소셜 계정으로 다시 진입하는 로그인 페이지
@@ -63,8 +64,11 @@ export default async function LoginPage(props: {
 }) {
   const session = await auth();
 
-  if (session?.user) {
-    redirect("/coach");
+  if (session?.user?.email) {
+    const localProfile = await getUserProfileByEmail(session.user.email);
+    const redirectTarget =
+      localProfile && hasCompletedOnboarding(localProfile) ? "/coach" : "/coach/onboarding?callbackUrl=/coach";
+    redirect(redirectTarget);
   }
 
   const searchParams = await props.searchParams;
