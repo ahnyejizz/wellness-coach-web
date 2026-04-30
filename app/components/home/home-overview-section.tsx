@@ -1,7 +1,6 @@
 import Link from "next/link";
-
 import HomeCoachBrief from "./home-coach-brief";
-import { LockGlyph } from "../common/Icon";
+import LockPreview from "../common/lock-preview";
 
 const heroSignals = [
   { label: "수면 루틴", value: "회복 흐름 정리", hint: "취침 시간과 회복 패턴을 함께 봅니다." },
@@ -71,22 +70,12 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-sm text-[var(--muted)]">{signal.label}</p>
                   </div>
-                  <div className="relative mt-5 rounded-[1.3rem] border border-[var(--border)] bg-white/68 p-4">
-                    <div className="space-y-3 opacity-55 blur-[0.5px]">
-                      <div className="h-3 rounded-full" style={{ width: "74%", backgroundColor: signal.softAccent }} />
-                      <div className="h-3 rounded-full" style={{ width: "88%", backgroundColor: signal.softAccent }} />
-                      <div className="h-3 rounded-full" style={{ width: "61%", backgroundColor: signal.softAccent }} />
-                    </div>
-                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                      <div
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 shadow-[0_10px_24px_rgba(21,42,36,0.08)]"
-                        style={{ backgroundColor: signal.accent }}
-                      >
-                        <LockGlyph className="h-4 w-4 text-white" />
-                      </div>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-sm text-[var(--muted)]">로그인 후 확인할 수 있어요.</p>
+                  <LockPreview
+                    className="mt-5"
+                    accent={signal.accent}
+                    softAccent={signal.softAccent}
+                    lineWidths={["74%", "88%", "61%"]}
+                  />
                 </article>
               ))}
         </div>

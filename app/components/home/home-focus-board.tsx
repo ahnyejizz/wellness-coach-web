@@ -1,7 +1,7 @@
 "use client";
 
 import { useWellnessStore, type FocusKey } from "@/app/stores/wellness-store";
-import { LockGlyph } from "../common/Icon";
+import LockPreview from "../common/lock-preview";
 
 type FocusMetric = {
   label: string;
@@ -120,17 +120,6 @@ const focusAreas: FocusAreaMap = {
     softAccent: "var(--sun-soft)",
   },
 };
-
-function LockIcon({ accent }: { accent: string }) {
-  return (
-    <div
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/80 shadow-[0_10px_24px_rgba(21,42,36,0.08)]"
-      style={{ backgroundColor: accent }}
-    >
-      <LockGlyph className="h-4 w-4 text-white" />
-    </div>
-  );
-}
 
 type HomeFocusBoardProps = {
   isLoggedIn: boolean;
@@ -296,25 +285,18 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
                 </p>
                 <div className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-center">
                   <h3 className="ui-title-3 shrink-0">이번주 목표:</h3>
-                  <div className="relative flex-1 rounded-[1.2rem] border border-[var(--border)] bg-white/68 px-4 py-1">
-                    <div className="flex min-h-[7rem] items-center justify-center">
-                      <div className="relative w-full max-w-[44rem]">
-                        <div className="space-y-2 opacity-55 blur-[0.5px]">
-                          <div
-                            className="mx-auto h-2.5 rounded-full"
-                            style={{ width: "79%", backgroundColor: current.softAccent }}
-                          />
-                          <div
-                            className="mx-auto h-2.5 rounded-full"
-                            style={{ width: "66%", backgroundColor: current.softAccent }}
-                          />
-                        </div>
-                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                          <LockIcon accent={current.accent} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <LockPreview
+                    className="flex-1"
+                    accent={current.accent}
+                    softAccent={current.softAccent}
+                    lineWidths={["79%", "66%"]}
+                    lineAlign="center"
+                    boxClassName="px-4 py-3"
+                    previewAreaClassName="flex min-h-[5rem] items-center justify-center"
+                    lineClassName="h-2.5 rounded-full"
+                    messageInside
+                    messageClassName="mt-1 text-sm text-[var(--muted)]"
+                  />
                 </div>
               </div>
 
@@ -322,14 +304,14 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-base font-medium text-[var(--muted)]">{current.scoreLabel}</p>
                 </div>
-                <div className="relative mt-4 flex h-[5.5rem] items-center justify-center rounded-[1.2rem] border border-[var(--border)] bg-white/70">
-                  <div className="opacity-50 blur-[0.5px]">
-                    <div className="h-3 w-16 rounded-full" style={{ backgroundColor: current.softAccent }} />
-                  </div>
-                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                    <LockIcon accent={current.accent} />
-                  </div>
-                </div>
+                <LockPreview
+                  className="mt-4"
+                  accent={current.accent}
+                  softAccent={current.softAccent}
+                  lineWidths={["4rem"]}
+                  boxClassName="flex h-[4rem] items-center justify-center bg-white/70"
+                  messageClassName="mt-3 text-xs leading-5 text-[var(--muted)]"
+                />
               </div>
             </div>
 
@@ -338,16 +320,14 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-medium text-[var(--muted)]">Coach note</p>
                 </div>
-                <div className="relative mt-4 rounded-[1.3rem] border border-[var(--border)] bg-white/68 p-4">
-                  <div className="space-y-3 opacity-55 blur-[0.5px]">
-                    <div className="h-3 rounded-full" style={{ width: "92%", backgroundColor: current.softAccent }} />
-                    <div className="h-3 rounded-full" style={{ width: "85%", backgroundColor: current.softAccent }} />
-                    <div className="h-3 rounded-full" style={{ width: "68%", backgroundColor: current.softAccent }} />
-                  </div>
-                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                    <LockIcon accent={current.accent} />
-                  </div>
-                </div>
+                <LockPreview
+                  className="mt-4"
+                  accent={current.accent}
+                  softAccent={current.softAccent}
+                  lineWidths={["92%", "85%", "68%"]}
+                  boxClassName="p-4 rounded-[1.3rem]"
+                  messageClassName="mt-3 text-sm text-[var(--muted)]"
+                />
 
                 <div className="mt-6 space-y-3">
                   {current.habits.map((habit) => (
@@ -375,14 +355,14 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
                       <div className="flex items-center justify-between gap-2">
                         <p className="text-sm text-[var(--muted)]">{metric.label}</p>
                       </div>
-                      <div className="relative mt-4 flex h-20 items-center justify-center rounded-[1.2rem] border border-[var(--border)] bg-white/68">
-                        <div className="opacity-55 blur-[0.5px]">
-                          <div className="h-3 w-20 rounded-full" style={{ backgroundColor: current.softAccent }} />
-                        </div>
-                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                          <LockIcon accent={current.accent} />
-                        </div>
-                      </div>
+                      <LockPreview
+                        className="mt-4"
+                        accent={current.accent}
+                        softAccent={current.softAccent}
+                        lineWidths={["5rem"]}
+                        boxClassName="flex h-20 items-center justify-center"
+                        messageClassName="mt-3 text-xs leading-5 text-[var(--muted)]"
+                      />
                     </article>
                   ))}
                 </div>

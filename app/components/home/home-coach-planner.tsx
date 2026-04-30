@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-
+import LockPreview from "../common/lock-preview";
 import {
   clampProteinTarget,
   clampWaterTarget,
@@ -14,7 +13,6 @@ import {
   type PlannerProfile,
   useWellnessStore,
 } from "@/app/stores/wellness-store";
-import { LockGlyph } from "@/app/components/common/Icon";
 
 type PlanCard = {
   label: string;
@@ -41,17 +39,6 @@ type PersonalPlan = {
   cards: PlanCard[];
   actions: PlanAction[];
 };
-
-function PreviewLockIcon({ accent, softAccent }: { accent: string; softAccent: string }) {
-  return (
-    <div
-      className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 shadow-[0_12px_24px_rgba(14,26,24,0.18)]"
-      style={{ backgroundColor: accent, boxShadow: `0 0 0 10px ${softAccent}` }}
-    >
-      <LockGlyph className="h-4 w-4 text-white" />
-    </div>
-  );
-}
 
 type HomeCoachPlannerProps = {
   isLoggedIn: boolean;
@@ -452,14 +439,16 @@ export default function HomeCoachPlanner({ isLoggedIn }: HomeCoachPlannerProps) 
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm text-white/70">이번주 코칭 적합도</p>
                 </div>
-                <div className="relative mt-4 flex h-[5.5rem] items-center justify-center rounded-[1.2rem] border border-white/10 bg-white/6">
-                  <div className="opacity-55 blur-[0.5px]">
-                    <div className="h-4 w-14 rounded-full bg-white/20" />
-                  </div>
-                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                    <PreviewLockIcon accent="var(--accent-strong)" softAccent="rgba(255,255,255,0.08)" />
-                  </div>
-                </div>
+                <LockPreview
+                  className="mt-4"
+                  accent="var(--accent-strong)"
+                  softAccent="rgba(255,255,255,0.08)"
+                  theme="dark"
+                  lineWidths={["3.5rem"]}
+                  lineColor="rgba(255,255,255,0.2)"
+                  boxClassName="flex h-[5.5rem] items-center justify-center"
+                  messageClassName="mt-3 text-xs leading-5 text-white/72"
+                />
               </div>
             </div>
 
@@ -469,14 +458,16 @@ export default function HomeCoachPlanner({ isLoggedIn }: HomeCoachPlannerProps) 
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-sm text-white/70">{label}</p>
                   </div>
-                  <div className="relative mt-4 flex h-20 items-center justify-center rounded-[1.2rem] border border-white/10 bg-white/6">
-                    <div className="opacity-55 blur-[0.5px]">
-                      <div className="h-3 w-24 rounded-full bg-white/20" />
-                    </div>
-                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                      <PreviewLockIcon accent="var(--accent-strong)" softAccent="rgba(255,255,255,0.08)" />
-                    </div>
-                  </div>
+                  <LockPreview
+                    className="mt-4"
+                    accent="var(--accent-strong)"
+                    softAccent="rgba(255,255,255,0.08)"
+                    theme="dark"
+                    lineWidths={["6rem"]}
+                    lineColor="rgba(255,255,255,0.2)"
+                    boxClassName="flex h-20 items-center justify-center"
+                    messageClassName="mt-3 text-xs leading-5 text-white/72"
+                  />
                 </article>
               ))}
             </div>
