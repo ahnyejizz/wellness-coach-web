@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const todayChecklist = [
   "22:20 디지털 셧다운으로 수면 질 확보",
   "점심 식사에 단백질 30g 이상 채우기",
@@ -22,49 +24,75 @@ const briefScores = [
   },
 ];
 
-export default function HomeCoachBrief() {
+type HomeCoachBriefProps = {
+  isLoggedIn: boolean;
+};
+
+export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
   return (
     <aside className="panel-dark rise-in-delay relative rounded-[1.9rem] px-6 py-7 text-[#f6f0e6] transition duration-200 hover:-translate-y-1 hover:shadow-[0_28px_54px_rgba(14,26,24,0.28)] sm:px-7">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-sm uppercase tracking-[0.24em] text-white/70">Today&apos;s brief</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight">오늘의 코치 브리핑</h2>
         </div>
-        <div className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">live</div>
       </div>
 
-      <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]">
-        <p className="text-sm text-white/70">핵심 포커스</p>
-        <p className="mt-3 text-4xl font-semibold tracking-tight">Recovery First</p>
-        <p className="mt-3 text-sm leading-7 text-white/80">
-          어제 운동량은 충분했습니다. 오늘은 수면 질을 지키고 점심 이후 걷기를 더해 에너지 흐름을 매끈하게 만드는 편이
-          좋아요.
-        </p>
-      </div>
+      {!isLoggedIn ? (
+        <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-6">
+          <p className="text-sm text-white/70">브리핑 안내</p>
+          <p className="mt-3 text-2xl font-semibold tracking-tight">로그인하면 오늘 브리핑을 볼 수 있어요.</p>
+          <p className="mt-3 text-sm leading-7 text-white/80">
+            회원가입 후 기본 정보와 온보딩을 입력하면
+            <br />
+            수면, 운동, 식단 흐름에 맞춘 개인 브리핑이 홈에서 바로 이어집니다.
+          </p>
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
-        {todayChecklist.map((item) => (
-          <div
-            key={item}
-            className="rounded-[1.3rem] border border-white/10 bg-white/6 px-4 py-4 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_16px_28px_rgba(14,26,24,0.16)]"
-          >
-            <p className="text-sm leading-7 text-white/88">{item}</p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Link href="/signup" className="ui-button-primary ui-button-primary-wide">
+              회원가입
+            </Link>
+            <Link href="/login" className="ui-button-secondary ui-button-secondary-wide" style={{ backgroundColor: "#fff" }}>
+              로그인
+            </Link>
           </div>
-        ))}
-      </div>
-
-      <div className="mt-6 grid gap-3 sm:grid-cols-3 xl:grid-cols-3">
-        {briefScores.map((score) => (
-          <div
-            key={score.label}
-            className="rounded-[1.3rem] px-4 py-4 text-[var(--foreground)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(14,26,24,0.16)]"
-            style={{ backgroundColor: score.tint }}
-          >
-            <p className="text-sm text-[var(--muted)]">{score.label}</p>
-            <p className="mt-2 text-2xl font-semibold">{score.value}</p>
+        </div>
+      ) : (
+        <>
+          <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-5 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)]">
+            <p className="text-sm text-white/70">핵심 포커스</p>
+            <p className="mt-3 text-4xl font-semibold tracking-tight">Recovery First</p>
+            <p className="mt-3 text-sm leading-7 text-white/80">
+              어제 운동량은 충분했습니다. 오늘은 수면 질을 지키고 점심 이후 걷기를 더해 에너지 흐름을 매끈하게 만드는
+              편이 좋아요.
+            </p>
           </div>
-        ))}
-      </div>
+
+          <div className="mt-5 grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
+            {todayChecklist.map((item) => (
+              <div
+                key={item}
+                className="rounded-[1.3rem] border border-white/10 bg-white/6 px-4 py-4 transition duration-200 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_16px_28px_rgba(14,26,24,0.16)]"
+              >
+                <p className="text-sm leading-7 text-white/88">{item}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-3 xl:grid-cols-3">
+            {briefScores.map((score) => (
+              <div
+                key={score.label}
+                className="rounded-[1.3rem] px-4 py-4 text-[var(--foreground)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(14,26,24,0.16)]"
+                style={{ backgroundColor: score.tint }}
+              >
+                <p className="text-sm text-[var(--muted)]">{score.label}</p>
+                <p className="mt-2 text-2xl font-semibold">{score.value}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </aside>
   );
 }

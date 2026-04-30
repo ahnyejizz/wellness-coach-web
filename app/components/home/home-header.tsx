@@ -43,16 +43,7 @@ export default function HomeHeader({ isLoggedIn }: HomeHeaderProps) {
               </button>
             </form>
           </>
-        ) : (
-          <>
-            <Link href="/login" className="ui-pill">
-              로그인
-            </Link>
-            <Link href="/signup" className="ui-button-primary ui-button-primary-compact text-white">
-              회원가입
-            </Link>
-          </>
-        )}
+        ) : null}
       </nav>
     </header>
   );

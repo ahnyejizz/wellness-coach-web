@@ -61,7 +61,7 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
       </div>
 
       {/* 오늘의 코치 브리핑 */}
-      <HomeCoachBrief />
+      <HomeCoachBrief isLoggedIn={isLoggedIn} />
     </div>
   );
 }
