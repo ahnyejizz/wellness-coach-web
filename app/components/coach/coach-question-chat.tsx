@@ -7,7 +7,6 @@ import CoachQuestionSummaryPanel from "./coach-question-summary-panel";
 import { healthAssistantDisclaimer, healthQuestionSummaries, suggestedHealthQuestions } from "@/lib/health/content";
 
 type CoachQuestionChatProps = {
-  focusLabel: string;
   userName: string;
 };
 
@@ -18,7 +17,7 @@ type HealthChatResponse = {
   model?: string;
 };
 
-export default function CoachQuestionChat({ focusLabel, userName }: CoachQuestionChatProps) {
+export default function CoachQuestionChat({ userName }: CoachQuestionChatProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [question, setQuestion] = useState<string>(suggestedHealthQuestions[0]);
   const [submittedQuestion, setSubmittedQuestion] = useState("");
@@ -117,9 +116,6 @@ export default function CoachQuestionChat({ focusLabel, userName }: CoachQuestio
             <p className="ui-kicker">Health Q&A</p>
             <h2 className="ui-title-3 mt-3">{userName}님을 위한 웰니스 Q&A</h2>
             <p className="ui-copy mt-4">
-              가입 시 선택하신 코칭 방향은 <span className="font-semibold text-[var(--foreground)]">{focusLabel}</span>
-              입니다.
-              <br />
               관련 질문을 입력하면 Next 서버 안에서 안전하게 Gemini AI 응답을 받아옵니다.
             </p>
           </div>

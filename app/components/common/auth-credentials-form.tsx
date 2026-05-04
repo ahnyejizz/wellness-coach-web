@@ -1,5 +1,4 @@
 import { loginWithCredentials, signupWithCredentials } from "@/app/auth-actions";
-import { wellnessFocusOptions, type WellnessFocus } from "@/lib/auth/user-store";
 
 type LoginValues = {
   email: string;
@@ -8,7 +7,6 @@ type LoginValues = {
 type SignupValues = {
   name: string;
   email: string;
-  focus: WellnessFocus;
 };
 
 type AuthCredentialsFormProps =
@@ -88,17 +86,6 @@ export default function AuthCredentialsForm(props: AuthCredentialsFormProps) {
               className="ui-field-control"
               placeholder="비밀번호를 한번 더 입력해주세요."
             />
-          </label>
-
-          <label className="block">
-            <span className="ui-field-label">코칭 방향</span>
-            <select name="focus" defaultValue={props.initialValues.focus} className="ui-field-control">
-              {wellnessFocusOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
           </label>
         </>
       ) : null}

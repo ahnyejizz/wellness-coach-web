@@ -10,7 +10,6 @@ import {
   getExerciseExperienceLabel,
   getMealStyleLabel,
   getSleepPatternLabel,
-  getWellnessFocusLabel,
   hasCompletedOnboarding,
 } from "@/lib/auth/user-store";
 
@@ -39,7 +38,6 @@ export default async function CoachDashboardPage() {
   const userName = session.user.name ?? "Motive Care Member";
   const userEmail = session.user.email ?? "Local account";
   const userInitial = resolveInitial(session.user.name, session.user.email);
-  const focusLabel = getWellnessFocusLabel(completedProfile.focus);
   const isFirstLogin = (completedProfile.loginCount ?? 0) <= 1;
   const heading = isFirstLogin ? `${userName}님, 환영합니다!` : `${userName}님, 환영합니다!`;
   const onboardingSummary = [
@@ -126,7 +124,7 @@ export default async function CoachDashboardPage() {
           <WellnessPlanSummary />
         </section>
 
-        <CoachQuestionChat userName={userName} focusLabel={focusLabel} />
+        <CoachQuestionChat userName={userName} />
       </main>
     </HomeFocusThemeWrapper>
   );

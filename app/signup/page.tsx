@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
-import { hasCompletedOnboarding, type WellnessFocus } from "@/lib/auth/user-store";
+import { hasCompletedOnboarding } from "@/lib/auth/user-store";
 
 /**
  * @description 계정을 만든 뒤 온보딩으로 이어지는 회원가입 페이지
@@ -40,7 +40,6 @@ function resolveErrorMessage(value: string | string[] | undefined) {
     missing_fields: "이름, 이메일, 비밀번호를 모두 입력해주세요.",
     name_too_short: "이름은 2글자 이상 입력해주세요.",
     invalid_email: "올바른 이메일 형식으로 입력해주세요.",
-    invalid_focus: "코칭 축을 다시 선택해주세요.",
     weak_password: "비밀번호는 영문과 숫자를 포함해 8자 이상이어야 해요.",
     password_mismatch: "비밀번호 확인이 일치하지 않아요.",
     email_in_use: "이미 가입된 이메일이에요. 로그인하거나 다른 이메일을 사용해주세요.",
@@ -61,7 +60,6 @@ export default async function SignUpPage(props: {
     error?: string | string[];
     name?: string | string[];
     email?: string | string[];
-    focus?: string | string[];
   }>;
 }) {
   const session = await auth();
@@ -88,14 +86,6 @@ export default async function SignUpPage(props: {
       : Array.isArray(searchParams.email)
         ? (searchParams.email[0] ?? "")
         : "";
-  const focusValue =
-    typeof searchParams.focus === "string"
-      ? searchParams.focus
-      : Array.isArray(searchParams.focus)
-        ? (searchParams.focus[0] ?? "")
-        : "";
-  const focus: WellnessFocus =
-    focusValue === "sleep" || focusValue === "exercise" || focusValue === "diet" ? focusValue : "balance";
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
@@ -131,7 +121,7 @@ export default async function SignUpPage(props: {
               mode="signup"
               callbackUrl={callbackUrl}
               errorMessage={errorMessage}
-              initialValues={{ name, email, focus }}
+              initialValues={{ name, email }}
             />
           </div>
 

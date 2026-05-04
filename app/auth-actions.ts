@@ -5,15 +5,9 @@ import { redirect } from "next/navigation";
 
 import { signIn } from "@/auth";
 import { getFinalUserProfileByEmail, savePersistedOnboardingProfile } from "@/lib/auth/onboarding-cookie-store";
-import {
-  DuplicateUserError,
-  hasCompletedOnboarding,
-  registerUser,
-  type WellnessFocus,
-} from "@/lib/auth/user-store";
+import { DuplicateUserError, hasCompletedOnboarding, registerUser } from "@/lib/auth/user-store";
 
 const defaultCallbackUrl = "/coach";
-const wellnessFocusValues = ["balance", "sleep", "exercise", "diet"] as const;
 const socialProviderValues = ["google", "kakao", "naver"] as const;
 
 type SocialProvider = (typeof socialProviderValues)[number];
@@ -73,10 +67,6 @@ function buildAuthRedirect(
   }
 
   return `${pathname}?${params.toString()}`;
-}
-
-function isWellnessFocus(value: string): value is WellnessFocus {
-  return wellnessFocusValues.includes(value as WellnessFocus);
 }
 
 function isSocialProvider(value: string): value is SocialProvider {
@@ -160,11 +150,9 @@ export async function signupWithCredentials(formData: FormData) {
   const email = getFieldValue(formData, "email");
   const password = getPasswordValue(formData, "password");
   const confirmPassword = getPasswordValue(formData, "confirmPassword");
-  const focus = getFieldValue(formData, "focus");
   const persistedValues = {
     name,
     email,
-    focus: isWellnessFocus(focus) ? focus : "balance",
   };
 
   if (!name || !email || !password || !confirmPassword) {
@@ -197,16 +185,6 @@ export async function signupWithCredentials(formData: FormData) {
     );
   }
 
-  if (!isWellnessFocus(focus)) {
-    return redirect(
-      buildAuthRedirect("/signup", {
-        callbackUrl,
-        error: "invalid_focus",
-        values: persistedValues,
-      }),
-    );
-  }
-
   if (!isStrongEnoughPassword(password)) {
     return redirect(
       buildAuthRedirect("/signup", {
@@ -232,7 +210,6 @@ export async function signupWithCredentials(formData: FormData) {
       name,
       email,
       password,
-      focus,
     });
   } catch (error) {
     if (error instanceof DuplicateUserError) {

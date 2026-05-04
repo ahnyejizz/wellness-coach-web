@@ -4,13 +4,6 @@ import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from "node:crypt
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-export const wellnessFocusOptions = [
-  { value: "balance", label: "수면 · 운동 · 식단 균형" },
-  { value: "sleep", label: "수면 회복 우선" },
-  { value: "exercise", label: "운동 루틴 우선" },
-  { value: "diet", label: "식단 안정 우선" },
-] as const;
-
 export const sleepPatternOptions = [
   { value: "early-rhythm", label: "일찍 자고 일찍 일어나는 편" },
   { value: "steady-rhythm", label: "평일과 주말이 비교적 일정한 편" },
@@ -32,7 +25,6 @@ export const mealStyleOptions = [
   { value: "plant-forward", label: "채소와 가벼운 식사를 선호해요" },
 ] as const;
 
-export type WellnessFocus = (typeof wellnessFocusOptions)[number]["value"];
 export type SleepPattern = (typeof sleepPatternOptions)[number]["value"];
 export type ExerciseExperience = (typeof exerciseExperienceOptions)[number]["value"];
 export type MealStyle = (typeof mealStyleOptions)[number]["value"];
@@ -42,7 +34,6 @@ type StoredUser = {
   name: string;
   email: string;
   passwordHash: string;
-  focus: WellnessFocus;
   goalWeightKg?: number;
   sleepPattern?: SleepPattern;
   exerciseExperience?: ExerciseExperience;
@@ -87,12 +78,48 @@ function resolveDisplayName(name: string | null | undefined, email: string) {
   return email.split("@")[0] || "Motive Care Member";
 }
 
+function normalizeStoredUserRecord(value: unknown): StoredUser | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+
+  const candidate = value as Partial<StoredUser>;
+
+  if (
+    typeof candidate.id !== "string" ||
+    typeof candidate.name !== "string" ||
+    typeof candidate.email !== "string" ||
+    typeof candidate.passwordHash !== "string" ||
+    typeof candidate.createdAt !== "string"
+  ) {
+    return null;
+  }
+
+  return {
+    id: candidate.id,
+    name: candidate.name,
+    email: normalizeEmail(candidate.email),
+    passwordHash: candidate.passwordHash,
+    goalWeightKg: typeof candidate.goalWeightKg === "number" ? candidate.goalWeightKg : undefined,
+    sleepPattern: typeof candidate.sleepPattern === "string" ? (candidate.sleepPattern as SleepPattern) : undefined,
+    exerciseExperience:
+      typeof candidate.exerciseExperience === "string"
+        ? (candidate.exerciseExperience as ExerciseExperience)
+        : undefined,
+    mealStyle: typeof candidate.mealStyle === "string" ? (candidate.mealStyle as MealStyle) : undefined,
+    completedOnboardingAt:
+      typeof candidate.completedOnboardingAt === "string" ? candidate.completedOnboardingAt : undefined,
+    createdAt: candidate.createdAt,
+    loginCount: typeof candidate.loginCount === "number" ? candidate.loginCount : 0,
+    lastLoginAt: typeof candidate.lastLoginAt === "string" ? candidate.lastLoginAt : undefined,
+  };
+}
+
 function sanitizeUser(user: StoredUser): LocalUserProfile {
   return {
     id: user.id,
     name: user.name,
     email: user.email,
-    focus: user.focus,
     goalWeightKg: user.goalWeightKg,
     sleepPattern: user.sleepPattern,
     exerciseExperience: user.exerciseExperience,
@@ -131,7 +158,12 @@ async function readUsers() {
   try {
     const raw = await readFile(usersFilePath, "utf8");
     const parsed = JSON.parse(raw) as unknown;
-    return Array.isArray(parsed) ? (parsed as StoredUser[]) : [];
+    return Array.isArray(parsed)
+      ? parsed.flatMap((entry) => {
+          const user = normalizeStoredUserRecord(entry);
+          return user ? [user] : [];
+        })
+      : [];
   } catch (error) {
     const candidate = error as NodeJS.ErrnoException;
 
@@ -146,11 +178,6 @@ async function readUsers() {
 async function writeUsers(users: StoredUser[]) {
   await mkdir(path.dirname(usersFilePath), { recursive: true });
   await writeFile(usersFilePath, `${JSON.stringify(users, null, 2)}\n`, "utf8");
-}
-
-export function getWellnessFocusLabel(focus: WellnessFocus) {
-  const match = wellnessFocusOptions.find((option) => option.value === focus);
-  return match?.label ?? wellnessFocusOptions[0].label;
 }
 
 export function getSleepPatternLabel(pattern: SleepPattern) {
@@ -198,7 +225,7 @@ export async function getUserProfileByEmail(email: string) {
   return user ? sanitizeUser(user) : null;
 }
 
-export async function registerUser(input: { name: string; email: string; password: string; focus: WellnessFocus }) {
+export async function registerUser(input: { name: string; email: string; password: string }) {
   const users = await readUsers();
   const normalizedEmail = normalizeEmail(input.email);
 
@@ -211,7 +238,6 @@ export async function registerUser(input: { name: string; email: string; passwor
     name: input.name.trim(),
     email: normalizedEmail,
     passwordHash: hashPassword(input.password),
-    focus: input.focus,
     createdAt: new Date().toISOString(),
     loginCount: 0,
   };
@@ -222,11 +248,7 @@ export async function registerUser(input: { name: string; email: string; passwor
   return sanitizeUser(nextUser);
 }
 
-export async function ensureSocialUser(input: {
-  name?: string | null;
-  email: string;
-  focus?: WellnessFocus;
-}) {
+export async function ensureSocialUser(input: { name?: string | null; email: string }) {
   const users = await readUsers();
   const normalizedEmail = normalizeEmail(input.email);
   const userIndex = users.findIndex((candidate) => candidate.email === normalizedEmail);
@@ -253,7 +275,6 @@ export async function ensureSocialUser(input: {
     name: displayName,
     email: normalizedEmail,
     passwordHash: "",
-    focus: input.focus ?? "balance",
     createdAt: timestamp,
     loginCount: 1,
     lastLoginAt: timestamp,
