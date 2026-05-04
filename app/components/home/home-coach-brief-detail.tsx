@@ -245,7 +245,7 @@ export default function HomeCoachBriefDetail({ focus, details, onClose, onSave }
           {focus === "diet" ? (
             <>
               <label className="block">
-                <span className="ui-field-label">하루 단백질 섭취량</span>
+                <span className="ui-field-label">단백질 섭취량</span>
                 <div className="ui-field-shell mt-3">
                   <input
                     type="number"

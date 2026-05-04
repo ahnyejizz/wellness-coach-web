@@ -204,20 +204,21 @@ function getEmptyPriorityContent(focus: BriefMetricKey): PriorityContent {
     score: "--",
     coachNote: "식단 팝업에서 입력한 지표가 저장되면 이 영역에 식사 안정도 요약과 이번 주 패턴이 표시됩니다.",
     habits: [
-      "하루 단백질 섭취량을 먼저 입력해 식사 기준선을 잡아보세요.",
+      "단백질 섭취량을 먼저 입력해 식사 기준선을 잡아보세요.",
       "수분 섭취량을 입력하면 에너지 흐름과 함께 볼 수 있어요.",
       "군것질 횟수를 기록하면 낮 시간 식사 패턴을 더 자연스럽게 해석할 수 있어요.",
       "야식 빈도를 기록하면 밤 식사 패턴을 더 자연스럽게 해석할 수 있어요.",
     ],
     metrics: [
-      { label: "단백질 평균", value: "--", hint: EMPTY_MSG },
-      { label: "수분 섭취", value: "--", hint: EMPTY_MSG },
+      { label: "수분 섭취량", value: "--", hint: EMPTY_MSG },
+      { label: "군것질 횟수", value: "--", hint: EMPTY_MSG },
       { label: "야식 빈도", value: "--", hint: EMPTY_MSG },
     ],
     patterns: [
-      { label: "단백질 섭취 유지", value: 18, caption: EMPTY_MSG },
-      { label: "수분 섭취 유지", value: 18, caption: EMPTY_MSG },
-      { label: "야간 식사 안정", value: 18, caption: EMPTY_MSG },
+      { label: "단백질 섭취량", value: 18, caption: EMPTY_MSG },
+      { label: "수분 섭취량", value: 18, caption: EMPTY_MSG },
+      { label: "군것질 횟수", value: 18, caption: EMPTY_MSG },
+      { label: "야식 빈도", value: 18, caption: EMPTY_MSG },
     ],
   };
 }
@@ -407,15 +408,15 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
   return {
     hasData: true,
     target: targetParts.join(", ") || "식단 기록이 저장되었어요.",
-    summary: "입력한 단백질, 수분, 야식 빈도를 기준으로 이번 주 식사 흐름을 정리합니다.",
+    summary: "입력한 단백질 섭취량, 수분 섭취량, 군것질 횟수, 야식 빈도를 기준으로 이번 주 식사 흐름을 정리합니다.",
     scoreLabel: "단백질 섭취량",
     score: dietDetails.proteinIntake ? `${dietDetails.proteinIntake}g` : "--",
     coachNote: [
       dietDetails.proteinIntake
-        ? `하루 단백질 섭취량은 ${dietDetails.proteinIntake}g로 기록됐어요.`
+        ? `단백질 섭취량은 ${dietDetails.proteinIntake}g로 기록됐어요.`
         : "단백질 섭취량 기록이 아직 없어요.",
       dietDetails.waterIntake
-        ? `수분은 ${dietDetails.waterIntake}L 기준으로 보고 있어요.`
+        ? `수분 섭취량은 ${dietDetails.waterIntake}L 기준으로 보고 있어요.`
         : "수분 섭취량도 함께 입력하면 식사 흐름을 더 잘 볼 수 있어요.",
       dietDetails.snackFrequency
         ? `군것질 횟수는 ${dietDetails.snackFrequency}회로 기록됐어요.`
@@ -426,8 +427,8 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
     ].join(" "),
     habits: [
       dietDetails.proteinIntake
-        ? `하루 단백질 섭취량: ${dietDetails.proteinIntake}g`
-        : "하루 단백질 섭취량을 아직 입력하지 않았어요.",
+        ? `단백질 섭취량: ${dietDetails.proteinIntake}g`
+        : "단백질 섭취량을 아직 입력하지 않았어요.",
       dietDetails.waterIntake ? `수분 섭취량: ${dietDetails.waterIntake}L` : "수분 섭취량을 아직 입력하지 않았어요.",
       dietDetails.snackFrequency
         ? `군것질 횟수: ${dietDetails.snackFrequency}회`
@@ -438,14 +439,14 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
     ],
     metrics: [
       {
-        label: "단백질 평균",
-        value: dietDetails.proteinIntake ? `${dietDetails.proteinIntake}g` : "--",
-        hint: dietDetails.proteinIntake ? "이번 기록 기준" : EMPTY_MSG,
-      },
-      {
-        label: "수분 섭취",
+        label: "수분 섭취량",
         value: dietDetails.waterIntake ? `${dietDetails.waterIntake}L` : "--",
         hint: dietDetails.waterIntake ? "이번 기록 기준" : EMPTY_MSG,
+      },
+      {
+        label: "군것질 횟수",
+        value: dietDetails.snackFrequency ? `${dietDetails.snackFrequency}회` : "--",
+        hint: dietDetails.snackFrequency ? "이번 기록 기준" : EMPTY_MSG,
       },
       {
         label: "야식 빈도",
@@ -455,24 +456,26 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
     ],
     patterns: [
       {
-        label: "단백질 섭취 유지",
+        label: "단백질 섭취량",
         value: getCountProgress(dietDetails.proteinIntake, 0.8),
         caption: dietDetails.proteinIntake ? `${dietDetails.proteinIntake}g 기록` : EMPTY_MSG,
       },
       {
-        label: "수분 섭취 유지",
+        label: "수분 섭취량",
         value: getCountProgress(dietDetails.waterIntake, 34),
         caption: dietDetails.waterIntake ? `${dietDetails.waterIntake}L 기록` : EMPTY_MSG,
       },
       {
-        label: "야간 식사 안정",
+        label: "군것질 횟수",
+        value: dietDetails.snackFrequency ? Math.max(28, 92 - Number.parseFloat(dietDetails.snackFrequency) * 16) : 18,
+        caption: dietDetails.snackFrequency ? `${dietDetails.snackFrequency}회 기록` : EMPTY_MSG,
+      },
+      {
+        label: "야식 빈도",
         value: dietDetails.lateNightSnackFrequency
           ? Math.max(28, 92 - Number.parseFloat(dietDetails.lateNightSnackFrequency) * 18)
           : 18,
-        caption:
-          dietDetails.snackFrequency || dietDetails.lateNightSnackFrequency
-            ? `군것질 ${dietDetails.snackFrequency || "0"}회 · 야식 ${dietDetails.lateNightSnackFrequency || "0"}회`
-            : EMPTY_MSG,
+        caption: dietDetails.lateNightSnackFrequency ? `${dietDetails.lateNightSnackFrequency}회 기록` : EMPTY_MSG,
       },
     ],
   };

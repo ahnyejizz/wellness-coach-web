@@ -107,13 +107,13 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
     ],
     metrics: [
       { label: "단백질 평균", value: "106g", hint: "목표 근접" },
-      { label: "수분 섭취", value: "2.0L", hint: "3일 연속 유지" },
+      { label: "수분 섭취량", value: "2.0L", hint: "3일 연속 유지" },
       { label: "야식 빈도", value: "1회", hint: "지난주 대비 -3회" },
     ],
     patterns: [
       { label: "아침 단백질 달성", value: 84, caption: "주 6회 기록" },
-      { label: "수분 섭취 유지", value: 76, caption: "평균 2.0L" },
-      { label: "야간 식사 안정", value: 91, caption: "주중 거의 유지" },
+      { label: "수분 섭취량", value: 76, caption: "평균 2.0L" },
+      { label: "야식 빈도", value: 91, caption: "주중 거의 유지" },
     ],
     icon: MealIcon,
     accent: "var(--sun)",
