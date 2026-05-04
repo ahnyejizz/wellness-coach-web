@@ -1,7 +1,6 @@
 "use client";
 
 import { useWellnessStore, type FocusKey } from "@/app/stores/wellness-store";
-import LockPreview from "../common/lock-preview";
 
 type FocusMetric = {
   label: string;
@@ -31,11 +30,9 @@ export type FocusArea = {
   softAccent: string;
 };
 
-export type FocusAreaMap = Record<FocusKey, FocusArea>;
+export const focusOrder: FocusKey[] = ["sleep", "exercise", "diet"];
 
-const focusOrder: FocusKey[] = ["sleep", "exercise", "diet"];
-
-const focusAreas: FocusAreaMap = {
+export const focusAreas: Record<FocusKey, FocusArea> = {
   sleep: {
     label: "수면 코칭",
     kicker: "깊은 회복과 일정한 기상",
@@ -128,271 +125,60 @@ type HomeFocusBoardProps = {
 export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
   const activeFocus = useWellnessStore((state) => state.activeFocus);
   const setActiveFocus = useWellnessStore((state) => state.setActiveFocus);
-  const current = focusAreas[activeFocus];
 
   return (
-    <section id="coach-board" className="grid gap-6 xl:grid-cols-[0.76fr_1.24fr]" aria-labelledby="coach-board-title">
-      <article className="panel ui-panel-shell">
-        <p className="ui-kicker">Focus board</p>
-        <h2 id="coach-board-title" className="ui-title-3 mt-3">
-          오늘의 플랜 우선순위를 선택하세요.
-        </h2>
-        <p className="ui-copy mt-4 max-w-2xl">
-          수면, 운동, 식단 중 현재 우선순위를 바꾸면
-          <br />
-          해당 플랜에 대한 코치의 제안과 이번주 패턴이 함께 업데이트됩니다.
-        </p>
+    <article className="panel ui-panel-shell">
+      <p className="ui-kicker">Focus board</p>
+      <h2 id="coach-board-title" className="ui-title-3 mt-3">
+        오늘의 플랜 우선순위를 선택하세요.
+      </h2>
+      <p className="ui-copy mt-4 max-w-2xl">
+        수면, 운동, 식단 중 현재 우선순위를 바꾸면
+        <br />
+        해당 플랜에 대한 코치의 제안과 이번주 패턴이 함께 업데이트됩니다.
+      </p>
 
-        <div className="mt-8 space-y-3">
-          {focusOrder.map((key) => {
-            const area = focusAreas[key];
-            const isActive = key === activeFocus;
+      <div className="mt-8 space-y-3">
+        {focusOrder.map((key) => {
+          const area = focusAreas[key];
+          const isActive = key === activeFocus;
 
-            return (
-              <button
-                key={area.label}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => setActiveFocus(key)}
-                className={`w-full rounded-[1.5rem] border p-5 text-left transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(21,42,36,0.12)] ${
-                  isActive
-                    ? "border-transparent bg-[var(--foreground)] text-[#fffaf2] shadow-xl"
-                    : "border-[var(--border)] bg-white/65 text-[var(--foreground)] hover:bg-white"
-                }`}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className={`text-sm ${isActive ? "text-white/70" : "text-[var(--muted)]"}`}>{area.kicker}</p>
-                    <h3 className="mt-2 text-xl font-semibold tracking-tight">{area.label}</h3>
-                    <p className={`mt-3 text-sm leading-7 ${isActive ? "text-white/80" : "text-[var(--muted)]"}`}>
-                      {area.summary}
-                    </p>
-                  </div>
-                  {isLoggedIn ? (
-                    <div
-                      className="rounded-full px-3 py-1 text-sm font-semibold"
-                      style={{
-                        backgroundColor: isActive ? "rgba(255,255,255,0.16)" : area.softAccent,
-                        color: isActive ? "#fffaf2" : area.accent,
-                      }}
-                    >
-                      {area.score}
-                    </div>
-                  ) : null}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </article>
-
-      <article className="panel panel-strong ui-panel-shell">
-        {isLoggedIn ? (
-          <>
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div className="max-w-3xl">
-                <p className="ui-kicker">{current.headline}</p>
-                <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
-                  <h3 className="ui-title-3 shrink-0">이번주 목표:</h3>
-                  <p className="text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl">
-                    {current.target}
+          return (
+            <button
+              key={area.label}
+              type="button"
+              aria-pressed={isActive}
+              onClick={() => setActiveFocus(key)}
+              className={`w-full rounded-[1.5rem] border p-5 text-left transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(21,42,36,0.12)] ${
+                isActive
+                  ? "border-transparent bg-[var(--foreground)] text-[#fffaf2] shadow-xl"
+                  : "border-[var(--border)] bg-white/65 text-[var(--foreground)] hover:bg-white"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className={`text-sm ${isActive ? "text-white/70" : "text-[var(--muted)]"}`}>{area.kicker}</p>
+                  <h3 className="mt-2 text-xl font-semibold tracking-tight">{area.label}</h3>
+                  <p className={`mt-3 text-sm leading-7 ${isActive ? "text-white/80" : "text-[var(--muted)]"}`}>
+                    {area.summary}
                   </p>
                 </div>
-                <p className="ui-copy mt-4">{current.summary}</p>
-              </div>
-
-              <div
-                className="rounded-[1.5rem] border border-[var(--border)] px-6 py-4 sm:min-w-[7rem]"
-                style={{ backgroundColor: current.softAccent }}
-              >
-                <p className="text-base font-medium text-[var(--muted)]">{current.scoreLabel}</p>
-                <p className="mt-2 text-4xl font-semibold tracking-tight text-[var(--foreground)]">{current.score}</p>
-              </div>
-            </div>
-
-            <div className="mt-8 grid gap-4 lg:grid-cols-[0.88fr_1.12fr]">
-              <div className="ui-card-raised">
-                <p className="text-sm font-medium text-[var(--muted)]">Coach note</p>
-                <p className="mt-3 text-lg leading-8 text-[var(--foreground)]">{current.coachNote}</p>
-
-                <div className="mt-6 space-y-3">
-                  {current.habits.map((habit) => (
-                    <div key={habit} className="ui-card-note flex items-start gap-3">
-                      <span className="mt-1 h-2.5 w-2.5 rounded-full" style={{ backgroundColor: current.accent }} />
-                      <p className="text-sm leading-7 text-[var(--foreground)]">{habit}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {current.metrics.map((metric) => (
-                    <article key={metric.label} className="ui-card-compact">
-                      <p className="text-sm text-[var(--muted)]">{metric.label}</p>
-                      <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-                        {metric.value}
-                      </p>
-                      <p className="mt-2 text-sm" style={{ color: current.accent }}>
-                        {metric.hint}
-                      </p>
-                    </article>
-                  ))}
-                </div>
-
-                <div className="ui-card-raised">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-[var(--muted)]">이번주 패턴</p>
-                    <span
-                      className="rounded-full px-3 py-1 text-xs font-semibold"
-                      style={{ backgroundColor: current.softAccent, color: current.accent }}
-                    >
-                      live coach
-                    </span>
+                {isLoggedIn ? (
+                  <div
+                    className="rounded-full px-3 py-1 text-sm font-semibold"
+                    style={{
+                      backgroundColor: isActive ? "rgba(255,255,255,0.16)" : area.softAccent,
+                      color: isActive ? "#fffaf2" : area.accent,
+                    }}
+                  >
+                    {area.score}
                   </div>
-
-                  <div className="mt-5 space-y-4">
-                    {current.patterns.map((pattern) => (
-                      <div key={pattern.label}>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-[var(--foreground)]">{pattern.label}</span>
-                          <span className="text-[var(--muted)]">{pattern.caption}</span>
-                        </div>
-                        <div className="mt-2 h-2 rounded-full bg-[rgba(22,48,43,0.08)]">
-                          <div
-                            className="h-2 rounded-full"
-                            style={{
-                              width: `${pattern.value}%`,
-                              backgroundColor: current.accent,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                ) : null}
               </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div className="max-w-3xl flex-1">
-                <p className="ui-kicker">{current.headline}</p>
-                <div className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-center">
-                  <h3 className="ui-title-3 shrink-0">이번주 목표:</h3>
-                  <LockPreview
-                    className="flex-1"
-                    accent={current.accent}
-                    softAccent={current.softAccent}
-                    lineWidths={["79%", "66%"]}
-                    lineAlign="center"
-                    boxClassName="px-4 py-3"
-                    previewAreaClassName="flex min-h-[5rem] items-center justify-center"
-                    lineClassName="h-2.5 rounded-full"
-                    messageInside
-                    messageClassName="mt-1 text-sm text-[var(--muted)]"
-                  />
-                </div>
-              </div>
-
-              <div className="rounded-[1.5rem] border border-[var(--border)] bg-white/76 px-6 py-4 sm:min-w-[7rem]">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-base font-medium text-[var(--muted)]">{current.scoreLabel}</p>
-                </div>
-                <LockPreview
-                  className="mt-4"
-                  accent={current.accent}
-                  softAccent={current.softAccent}
-                  lineWidths={["4rem"]}
-                  boxClassName="flex h-[4rem] items-center justify-center bg-white/70"
-                  messageClassName="mt-3 text-xs leading-5 text-[var(--muted)]"
-                />
-              </div>
-            </div>
-
-            <div className="mt-8 grid gap-4 lg:grid-cols-[0.88fr_1.12fr]">
-              <div className="ui-card-raised">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm font-medium text-[var(--muted)]">Coach note</p>
-                </div>
-                <LockPreview
-                  className="mt-4"
-                  accent={current.accent}
-                  softAccent={current.softAccent}
-                  lineWidths={["92%", "85%", "68%"]}
-                  boxClassName="p-4 rounded-[1.3rem]"
-                  messageClassName="mt-3 text-sm text-[var(--muted)]"
-                />
-
-                <div className="mt-6 space-y-3">
-                  {current.habits.map((habit) => (
-                    <div key={habit} className="ui-card-note flex items-start gap-3 opacity-70">
-                      <span className="mt-1 h-2.5 w-2.5 rounded-full" style={{ backgroundColor: current.accent }} />
-                      <div className="flex-1 space-y-2">
-                        <div
-                          className="h-3 rounded-full"
-                          style={{ width: "82%", backgroundColor: current.softAccent }}
-                        />
-                        <div
-                          className="h-3 rounded-full"
-                          style={{ width: "58%", backgroundColor: current.softAccent }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {current.metrics.map((metric) => (
-                    <article key={metric.label} className="ui-card-compact">
-                      <div className="flex items-center justify-between gap-2">
-                        <p className="text-sm text-[var(--muted)]">{metric.label}</p>
-                      </div>
-                      <LockPreview
-                        className="mt-4"
-                        accent={current.accent}
-                        softAccent={current.softAccent}
-                        lineWidths={["5rem"]}
-                        boxClassName="flex h-20 items-center justify-center"
-                        messageClassName="mt-3 text-xs leading-5 text-[var(--muted)]"
-                      />
-                    </article>
-                  ))}
-                </div>
-
-                <div className="ui-card-raised min-h-[18rem]">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-[var(--muted)]">이번주 패턴</p>
-                  </div>
-
-                  <div className="mt-5 space-y-4">
-                    {current.patterns.map((pattern) => (
-                      <div key={pattern.label} className="opacity-72">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-[var(--foreground)]">{pattern.label}</span>
-                          <span className="text-[var(--muted)]">로그인 후 확인</span>
-                        </div>
-                        <div className="mt-2 h-2 rounded-full bg-[rgba(22,48,43,0.08)]">
-                          <div
-                            className="h-2 rounded-full"
-                            style={{
-                              width: `${Math.max(28, Math.round(pattern.value * 0.55))}%`,
-                              backgroundColor: current.softAccent,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-      </article>
-    </section>
+            </button>
+          );
+        })}
+      </div>
+    </article>
   );
 }
