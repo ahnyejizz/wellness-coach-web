@@ -18,19 +18,19 @@ const briefScoreCards = [
     key: "sleep",
     label: "수면",
     tint: "#e5f2fb",
-    emptyHint: "눌러서 입력하기",
+    emptyHint: "클릭해서 더 보기",
   },
   {
     key: "exercise",
     label: "운동",
     tint: "#dbecea",
-    emptyHint: "눌러서 입력하기",
+    emptyHint: "클릭해서 더 보기",
   },
   {
     key: "diet",
     label: "식단",
     tint: "#f8eede",
-    emptyHint: "눌러서 입력하기",
+    emptyHint: "클릭해서 더 보기",
   },
 ] as const satisfies ReadonlyArray<{
   key: BriefMetricKey;
@@ -131,7 +131,7 @@ function getCardContent(key: BriefMetricKey, details: BriefDetails) {
   }
 
   return {
-    primary: details.diet.proteinIntake ? `${details.diet.proteinIntake}g` : "식단 기록 입력됨",
+    primary: details.diet.proteinIntake ? `단백질 ${details.diet.proteinIntake}g` : "식단 기록 입력됨",
     secondary: details.diet.waterIntake
       ? `수분 ${details.diet.waterIntake}L${details.diet.snackFrequency ? ` · 군것질 ${details.diet.snackFrequency}회` : ""}`
       : details.diet.snackFrequency
@@ -151,8 +151,8 @@ export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
   const statusLabel = !hasHydrated
     ? "저장된 브리핑 지표를 불러오는 중이에요."
     : hasAnyDetails
-      ? "카드를 눌러 브리핑 지표를 수정할 수 있어요."
-      : "카드를 눌러 브리핑 지표를 입력해보세요.";
+      ? "카드를 클릭하면 브리핑 지표를 수정할 수 있어요."
+      : "카드를 클릭해서 브리핑 지표를 입력해보세요.";
 
   function handleCardClick(key: BriefMetricKey) {
     setActiveFocus(key);
@@ -248,7 +248,7 @@ export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
                     {summary ? (
                       <>
                         <p className="mt-2 text-base font-normal">{summary.primary}</p>
-                        <p className="mt-2 text-xs leading-5 text-[var(--muted)]">{summary.secondary}</p>
+                        <p className="mt-2 text-xs leading-5 text-[var(--muted)]">{card.emptyHint}</p>
                       </>
                     ) : (
                       <>
