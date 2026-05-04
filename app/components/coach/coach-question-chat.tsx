@@ -17,6 +17,21 @@ type HealthChatResponse = {
   model?: string;
 };
 
+function normalizeHealthChatErrorMessage(message: string) {
+  const normalizedMessage = message.trim();
+  const lowerCaseMessage = normalizedMessage.toLowerCase();
+
+  if (
+    lowerCaseMessage.includes("currently experiencing high demand") ||
+    lowerCaseMessage.includes("spikes in demand") ||
+    lowerCaseMessage.includes("please try again later")
+  ) {
+    return "AI 답변 요청이 잠시 몰리고 있어요. 잠시 후 다시 질문해 주세요.";
+  }
+
+  return normalizedMessage;
+}
+
 export default function CoachQuestionChat({ userName }: CoachQuestionChatProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [question, setQuestion] = useState<string>(suggestedHealthQuestions[0]);
@@ -74,7 +89,7 @@ export default function CoachQuestionChat({ userName }: CoachQuestionChatProps) 
       const payload = (await response.json()) as HealthChatResponse;
 
       if (!response.ok) {
-        throw new Error(payload.error || "웰니스 코치 응답을 불러오지 못했습니다.");
+        throw new Error(normalizeHealthChatErrorMessage(payload.error || "웰니스 코치 응답을 불러오지 못했습니다."));
       }
 
       setAnswer(payload.answer?.trim() || "");
@@ -84,7 +99,11 @@ export default function CoachQuestionChat({ userName }: CoachQuestionChatProps) 
       setAnswer("");
       setModel("");
       setAnswerDisclaimer(healthAssistantDisclaimer);
-      setError(submitError instanceof Error ? submitError.message : "웰니스 코치 응답을 불러오지 못했습니다.");
+      setError(
+        submitError instanceof Error
+          ? normalizeHealthChatErrorMessage(submitError.message)
+          : "웰니스 코치 응답을 불러오지 못했습니다.",
+      );
     } finally {
       setIsSubmitting(false);
     }

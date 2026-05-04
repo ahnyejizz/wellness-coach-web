@@ -3,6 +3,8 @@ import { healthAssistantDisclaimer } from "@/lib/health/content";
 const geminiApiBaseUrl = "https://generativelanguage.googleapis.com/v1beta/models";
 const fallbackModel = "gemini-2.5-flash-lite";
 const maxQuestionLength = 500;
+const retryableProviderStatuses = new Set([429, 500, 502, 503, 504]);
+const retryDelayMs = 700;
 
 const systemPrompt = `
 You are the health Q&A assistant for a Korean wellness coaching service.
@@ -68,6 +70,10 @@ function resolveModel() {
   return process.env.GEMINI_MODEL?.trim() || fallbackModel;
 }
 
+function resolveFallbackModel() {
+  return process.env.GEMINI_FALLBACK_MODEL?.trim() || "";
+}
+
 function extractResponseText(payload: GeminiResponsePayload) {
   const messageParts =
     payload.candidates
@@ -78,16 +84,55 @@ function extractResponseText(payload: GeminiResponsePayload) {
   return messageParts.join("\n\n").trim();
 }
 
+function isQuotaErrorMessage(message: string) {
+  const normalizedMessage = message.toLowerCase();
+
+  return (
+    normalizedMessage.includes("quota") ||
+    normalizedMessage.includes("resource has been exhausted") ||
+    normalizedMessage.includes("rate limit")
+  );
+}
+
+function isTemporaryOverloadMessage(message: string) {
+  const normalizedMessage = message.toLowerCase();
+
+  return (
+    normalizedMessage.includes("high demand") ||
+    normalizedMessage.includes("temporarily unavailable") ||
+    normalizedMessage.includes("service unavailable") ||
+    normalizedMessage.includes("try again later") ||
+    normalizedMessage.includes("overloaded") ||
+    normalizedMessage.includes("unavailable")
+  );
+}
+
 function normalizeProviderError(message: string, status: number) {
   if (status === 401 || status === 403) {
     return "Gemini API 키를 확인해 주세요. 키가 잘못되었거나 현재 프로젝트에서 사용할 수 없는 상태일 수 있습니다.";
   }
 
-  if (status === 429) {
+  if (status === 429 && isQuotaErrorMessage(message)) {
     return "Gemini 무료 사용 한도에 도달했습니다. 잠시 후 다시 시도하거나 Google AI Studio에서 사용량을 확인해 주세요.";
   }
 
+  if (retryableProviderStatuses.has(status) && isTemporaryOverloadMessage(message)) {
+    return "AI 답변 요청이 잠시 몰리고 있어요. 잠시 후 다시 질문해 주세요.";
+  }
+
   return message;
+}
+
+function shouldRetryProviderRequest(message: string, status: number) {
+  if (!retryableProviderStatuses.has(status)) {
+    return false;
+  }
+
+  if (status !== 429) {
+    return true;
+  }
+
+  return !isQuotaErrorMessage(message);
 }
 
 async function readGeminiError(response: Response) {
@@ -101,30 +146,13 @@ async function readGeminiError(response: Response) {
   }
 }
 
-export function validateHealthQuestion(question: string) {
-  const normalizedQuestion = question.trim();
-
-  if (!normalizedQuestion) {
-    throw new HealthAssistantRequestError("질문을 입력해 주세요.", 400);
-  }
-
-  if (normalizedQuestion.length > maxQuestionLength) {
-    throw new HealthAssistantRequestError(`질문은 ${maxQuestionLength}자 이하로 입력해 주세요.`, 400);
-  }
-
-  return normalizedQuestion;
+function waitForRetry() {
+  return new Promise((resolve) => {
+    setTimeout(resolve, retryDelayMs);
+  });
 }
 
-export async function askHealthCoach(question: string): Promise<HealthAssistantResult> {
-  const apiKey = process.env.GEMINI_API_KEY?.trim() || process.env.GOOGLE_API_KEY?.trim();
-
-  if (!apiKey) {
-    throw new HealthAssistantConfigError("GEMINI_API_KEY 또는 GOOGLE_API_KEY가 설정되지 않았습니다.");
-  }
-
-  const validatedQuestion = validateHealthQuestion(question);
-  const model = resolveModel();
-
+async function requestGeminiAnswer(model: string, apiKey: string, validatedQuestion: string) {
   const response = await fetch(`${geminiApiBaseUrl}/${encodeURIComponent(model)}:generateContent`, {
     method: "POST",
     headers: {
@@ -159,19 +187,82 @@ export async function askHealthCoach(question: string): Promise<HealthAssistantR
 
   if (!response.ok) {
     const message = await readGeminiError(response);
-    throw new HealthAssistantRequestError(message, response.status);
+
+    return {
+      ok: false as const,
+      message,
+      status: response.status,
+    };
   }
 
   const payload = (await response.json()) as GeminiResponsePayload;
   const answer = extractResponseText(payload);
 
   if (!answer) {
-    throw new HealthAssistantRequestError("응답을 생성하지 못했습니다. 잠시 후 다시 시도해 주세요.", 502);
+    return {
+      ok: false as const,
+      message: "응답을 생성하지 못했습니다. 잠시 후 다시 시도해 주세요.",
+      status: 502,
+    };
   }
 
   return {
+    ok: true as const,
     answer,
-    disclaimer: healthAssistantDisclaimer,
-    model,
   };
+}
+
+export function validateHealthQuestion(question: string) {
+  const normalizedQuestion = question.trim();
+
+  if (!normalizedQuestion) {
+    throw new HealthAssistantRequestError("질문을 입력해 주세요.", 400);
+  }
+
+  if (normalizedQuestion.length > maxQuestionLength) {
+    throw new HealthAssistantRequestError(`질문은 ${maxQuestionLength}자 이하로 입력해 주세요.`, 400);
+  }
+
+  return normalizedQuestion;
+}
+
+export async function askHealthCoach(question: string): Promise<HealthAssistantResult> {
+  const apiKey = process.env.GEMINI_API_KEY?.trim() || process.env.GOOGLE_API_KEY?.trim();
+
+  if (!apiKey) {
+    throw new HealthAssistantConfigError("GEMINI_API_KEY 또는 GOOGLE_API_KEY가 설정되지 않았습니다.");
+  }
+
+  const validatedQuestion = validateHealthQuestion(question);
+  const modelCandidates = Array.from(new Set([resolveModel(), resolveFallbackModel()].filter(Boolean)));
+  let lastError: HealthAssistantRequestError | null = null;
+
+  for (const model of modelCandidates) {
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      const result = await requestGeminiAnswer(model, apiKey, validatedQuestion);
+
+      if (result.ok) {
+        return {
+          answer: result.answer,
+          disclaimer: healthAssistantDisclaimer,
+          model,
+        };
+      }
+
+      lastError = new HealthAssistantRequestError(result.message, result.status);
+
+      if (attempt === 0 && shouldRetryProviderRequest(result.message, result.status)) {
+        await waitForRetry();
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  if (lastError) {
+    throw lastError;
+  }
+
+  throw new HealthAssistantRequestError("웰니스 코치 응답을 가져오지 못했습니다.", 500);
 }
