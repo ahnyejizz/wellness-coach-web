@@ -69,8 +69,6 @@ type WellnessStore = WellnessPersistedState & {
 };
 
 const STORAGE_KEY = "motive-care-planner-v1";
-const STORAGE_VERSION = 1;
-const LEGACY_SAMPLE_NAME = "예지";
 const MAX_BRIEF_TEXT_LENGTH = 24;
 
 export const defaultPlanProfile: PlanProfile = {
@@ -253,30 +251,6 @@ function normalizeLegacyBriefMetrics(value: Partial<Record<BriefMetricKey, unkno
   };
 }
 
-function isLegacySampleProfile(value: Partial<PlanProfile> | null | undefined) {
-  return (
-    value?.name === LEGACY_SAMPLE_NAME &&
-    value.goal === "steady-energy" &&
-    value.focus === "sleep" &&
-    value.bedtime === "23:10" &&
-    value.workoutDays === 4 &&
-    value.proteinTarget === 110 &&
-    value.waterTarget === 2.1 &&
-    value.mealPattern === "balanced"
-  );
-}
-
-function sanitizeLegacySampleProfile(profile: PlanProfile, lastSavedAt: string | null): PlanProfile {
-  if (lastSavedAt === null && isLegacySampleProfile(profile)) {
-    return {
-      ...profile,
-      name: "",
-    };
-  }
-
-  return profile;
-}
-
 function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedState> | null {
   if (!value || typeof value !== "object") {
     return null;
@@ -286,14 +260,10 @@ function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedStat
     state?: Partial<WellnessPersistedState> & {
       briefMetrics?: Partial<Record<BriefMetricKey, unknown>>;
     };
-    version?: number;
   };
 
   if (candidate.state && typeof candidate.state === "object") {
-    const profile = sanitizeLegacySampleProfile(
-      normalizePlanProfile(candidate.state.profile),
-      typeof candidate.state.lastSavedAt === "string" ? candidate.state.lastSavedAt : null,
-    );
+    const profile = normalizePlanProfile(candidate.state.profile);
 
     return {
       state: {
@@ -304,11 +274,10 @@ function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedStat
         activeFocus: normalizeActiveFocus(candidate.state.activeFocus, profile.focus),
         lastSavedAt: typeof candidate.state.lastSavedAt === "string" ? candidate.state.lastSavedAt : null,
       },
-      version: typeof candidate.version === "number" ? candidate.version : STORAGE_VERSION,
     };
   }
 
-  const legacyProfile = sanitizeLegacySampleProfile(normalizePlanProfile(candidate as Partial<PlanProfile>), null);
+  const legacyProfile = normalizePlanProfile(candidate as Partial<PlanProfile>);
 
   return {
     state: {
@@ -317,7 +286,6 @@ function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedStat
       activeFocus: legacyProfile.focus,
       lastSavedAt: null,
     },
-    version: STORAGE_VERSION,
   };
 }
 
@@ -411,7 +379,6 @@ export const useWellnessStore = create<WellnessStore>()(
     }),
     {
       name: STORAGE_KEY,
-      version: STORAGE_VERSION,
       storage: wellnessStorage,
       partialize: ({ profile, briefDetails, activeFocus, lastSavedAt }) => ({
         profile,
