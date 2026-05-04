@@ -40,16 +40,20 @@ export default async function Home(props: {
         {/* [Sleep / Workout / Nutrition] Coach */}
         <HomeCoachArea />
 
-        {/* Focus Board, [Sleep / Workout / Nutrition] Priority */}
-        <section id="coach-board" className="grid gap-6 xl:grid-cols-[0.76fr_1.24fr]" aria-labelledby="coach-board-title">
+        {/* Focus Board, Coach Plan Studio */}
+        <section
+          id="coach-board"
+          className="grid gap-6 xl:grid-cols-[0.9fr_1.12fr]"
+          aria-labelledby="coach-board-title"
+        >
           <HomeFocusBoard isLoggedIn={isLoggedIn} />
-          <HomePriority isLoggedIn={isLoggedIn} />
+          <HomeCoachPlanStudio />
         </section>
 
-        {/* Coach Plan Studio, Weekly Report */}
+        {/* [Sleep / Workout / Nutrition] Priority, Weekly Report */}
         {isLoggedIn ? (
-          <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
-            <HomeCoachPlanStudio />
+          <section className="grid gap-6 xl:grid-cols-[1.1fr_0.92fr]">
+            <HomePriority isLoggedIn={isLoggedIn} />
             <HomeWeeklyReport />
           </section>
         ) : null}

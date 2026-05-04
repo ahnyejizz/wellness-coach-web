@@ -32,7 +32,7 @@ export default function HomeCoachPlanStudio() {
   return (
     <article className="panel ui-panel-shell ui-hover-panel">
       <p className="ui-kicker">Coach Plan Studio</p>
-      <h2 className="ui-title-3 mt-3">내 루틴에 맞는 웰니스 코칭 플랜 만들기</h2>
+      <h2 className="ui-title-3 mt-3">우선순위에 따른 웰니스 코칭 플랜 만들기</h2>
       <p className="ui-copy mt-4 max-w-3xl">
         목표와 루틴을 입력하면, 수면·운동·식단 우선순위에 맞춘 개인 코칭 플랜을 바로 만들어줍니다.
       </p>
@@ -132,9 +132,6 @@ export default function HomeCoachPlanStudio() {
       <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-[var(--muted)]">{savedLabel}</p>
-          <p className="mt-1 text-xs text-[var(--muted)]">
-            입력값은 자동으로 유지되고, 저장 버튼은 현재 플랜에 기준 시각을 남깁니다.
-          </p>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">
           <button

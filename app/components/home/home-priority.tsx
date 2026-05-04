@@ -39,7 +39,7 @@ export default function HomePriority({ isLoggedIn }: HomePriorityProps) {
             </div>
           </div>
 
-          <div className="mt-8 grid gap-4 lg:grid-cols-[0.88fr_1.12fr]">
+          <div className="mt-8 grid gap-4 lg:grid-cols-[1.0fr_1.12fr]">
             <div className="ui-card-raised">
               <p className="text-sm font-medium text-[var(--muted)]">Coach note</p>
               <p className="mt-3 text-lg leading-8 text-[var(--foreground)]">{current.coachNote}</p>
