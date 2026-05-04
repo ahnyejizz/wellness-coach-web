@@ -20,11 +20,11 @@ export default function HomeHeader({ isLoggedIn }: HomeHeaderProps) {
       </div>
 
       <nav className="flex flex-wrap gap-2 text-sm text-[var(--muted)]">
-        {homeSectionLinks.map((link) => (
+        {/* {homeSectionLinks.map((link) => (
           <a key={link.href} href={link.href} className="ui-pill">
             {link.label}
           </a>
-        ))}
+        ))} */}
 
         {isLoggedIn ? (
           <>
