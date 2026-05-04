@@ -65,9 +65,7 @@ function OnboardingFieldHeading({
 }) {
   const { accent, softAccent, icon: Icon, label } = onboardingFieldMeta[field];
   const labelClassName =
-    variant === "card"
-      ? "text-xl font-semibold tracking-tight text-[var(--foreground)]"
-      : "ui-field-label";
+    variant === "card" ? "text-xl font-semibold tracking-tight text-[var(--foreground)]" : "ui-field-label";
 
   return (
     <div className="flex items-center gap-3">

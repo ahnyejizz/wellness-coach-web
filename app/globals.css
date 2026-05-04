@@ -57,6 +57,53 @@ body {
   background-attachment: fixed;
 }
 
+.home-focus-theme-wrapper {
+  --home-focus-bg-top: #f7f3ea;
+  --home-focus-bg-bottom: #f0ece3;
+  --home-focus-glow-1: rgba(249, 115, 82, 0.18);
+  --home-focus-glow-2: rgba(82, 165, 228, 0.16);
+  --home-focus-glow-3: rgba(214, 163, 72, 0.14);
+}
+
+.home-focus-theme-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 12% 10%, var(--home-focus-glow-1), transparent 28%),
+    radial-gradient(circle at 85% 12%, var(--home-focus-glow-2), transparent 24%),
+    radial-gradient(circle at 50% 100%, var(--home-focus-glow-3), transparent 34%),
+    linear-gradient(180deg, var(--home-focus-bg-top) 0%, var(--home-focus-bg-bottom) 100%);
+  transition:
+    background 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.home-focus-theme-wrapper[data-focus-theme="sleep"] {
+  --home-focus-bg-top: #f8f3fb;
+  --home-focus-bg-bottom: #e8f3fb;
+  --home-focus-glow-1: rgba(244, 141, 126, 0.16);
+  --home-focus-glow-2: rgba(104, 177, 227, 0.24);
+  --home-focus-glow-3: rgba(186, 221, 244, 0.36);
+}
+
+.home-focus-theme-wrapper[data-focus-theme="exercise"] {
+  --home-focus-bg-top: #f7f3ee;
+  --home-focus-bg-bottom: #ebe9d7;
+  --home-focus-glow-1: rgba(242, 145, 118, 0.15);
+  --home-focus-glow-2: rgba(136, 146, 92, 0.2);
+  --home-focus-glow-3: rgba(202, 205, 163, 0.34);
+}
+
+.home-focus-theme-wrapper[data-focus-theme="diet"] {
+  --home-focus-bg-top: #fff6ec;
+  --home-focus-bg-bottom: #fff1cd;
+  --home-focus-glow-1: rgba(246, 145, 120, 0.16);
+  --home-focus-glow-2: rgba(229, 182, 63, 0.2);
+  --home-focus-glow-3: rgba(255, 230, 155, 0.34);
+}
+
 @layer base {
   :where(a) {
     color: inherit;

@@ -8,8 +8,24 @@ import {
   getMealPatternLabel,
   getPlanDisplayName,
   getSavedPlanLabel,
+  type FocusKey,
   useWellnessStore,
 } from "@/app/stores/wellness-store";
+
+const focusBadgeTone = {
+  sleep: {
+    accent: "var(--sky)",
+    softAccent: "var(--sky-soft)",
+  },
+  exercise: {
+    accent: "var(--mint)",
+    softAccent: "var(--mint-soft)",
+  },
+  diet: {
+    accent: "var(--sun)",
+    softAccent: "var(--sun-soft)",
+  },
+} satisfies Record<FocusKey, { accent: string; softAccent: string }>;
 
 export default function WellnessPlanSummary() {
   const profile = useWellnessStore((state) => state.profile);
@@ -19,21 +35,34 @@ export default function WellnessPlanSummary() {
   const summaryLabel = getSavedPlanLabel(lastSavedAt, hasHydrated);
   const displayName = getPlanDisplayName(profile.name);
   const planTitle = displayName || getGoalLabel(profile.goal);
+  const activeFocusTone = focusBadgeTone[activeFocus];
 
   return (
     <section className="panel ui-panel-shell ui-hover-panel h-full">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-3xl">
           <p className="ui-kicker">Linked plan</p>
-          <h2 className="ui-title-3 mt-3">홈에서 만든 개인 플랜이 코치 공간에도 이어집니다.</h2>
-          <p className="ui-copy mt-4">
-            플랜 상태를 기반으로, 최근 저장한 목표와 루틴 방향을 코치 페이지에서도 바로 확인할 수 있습니다.
-          </p>
+          <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <h2 className="ui-title-3">홈에서 선택한 플랜 우선순위</h2>
+            <span
+              className="inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-sm font-semibold"
+              style={{
+                backgroundColor: activeFocusTone.softAccent,
+                color: activeFocusTone.accent,
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: activeFocusTone.accent }}
+              />
+              {getFocusLabel(activeFocus)}
+            </span>
+          </div>
           <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{summaryLabel}</p>
         </div>
 
         <div className="flex flex-col items-start gap-3">
-          <span className="ui-pill-static">현재 포커스: {getFocusLabel(activeFocus)}</span>
           <Link href="/#coach-board" className="ui-button-primary ui-button-primary-compact">
             홈에서 플랜 수정하기
           </Link>
@@ -43,9 +72,7 @@ export default function WellnessPlanSummary() {
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <article className="ui-card ui-hover-card">
           <p className="text-sm text-[var(--muted)]">플랜 이름</p>
-          <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
-            {planTitle}
-          </h3>
+          <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">{planTitle}</h3>
           {displayName ? <p className="mt-2 text-sm text-[var(--muted)]">{getGoalLabel(profile.goal)}</p> : null}
         </article>
 
@@ -68,7 +95,9 @@ export default function WellnessPlanSummary() {
           <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
             {getMealPatternLabel(profile.mealPattern)}
           </h3>
-          <p className="mt-2 text-sm text-[var(--muted)]">우선 코칭은 {getFocusLabel(profile.focus)} 기준입니다.</p>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            이 플랜은 {getFocusLabel(profile.focus)} 우선순위로 맞춰져 있습니다.
+          </p>
         </article>
       </div>
     </section>

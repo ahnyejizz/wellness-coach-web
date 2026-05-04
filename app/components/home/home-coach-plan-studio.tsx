@@ -4,13 +4,19 @@ import {
   clampProteinTarget,
   clampWaterTarget,
   clampWorkoutDays,
-  getPlanDisplayName,
+  getFocusLabel,
   getSavedPlanLabel,
   type FocusKey,
   type GoalKey,
   type MealPatternKey,
   useWellnessStore,
 } from "@/app/stores/wellness-store";
+
+const planNamePlaceholders = {
+  sleep: "예: 깊게 잠드는 수면 루틴",
+  exercise: "예: 퇴근 후 35분 근력 루틴",
+  diet: "예: 오후까지 든든한 식사 루틴",
+} satisfies Record<FocusKey, string>;
 
 export default function HomeCoachPlanStudio() {
   const profile = useWellnessStore((state) => state.profile);
@@ -20,6 +26,8 @@ export default function HomeCoachPlanStudio() {
   const saveProfile = useWellnessStore((state) => state.saveProfile);
   const resetProfile = useWellnessStore((state) => state.resetProfile);
   const savedLabel = getSavedPlanLabel(lastSavedAt, hasHydrated);
+  const planNameLabel = `${getFocusLabel(profile.focus)} 플랜 이름`;
+  const planNamePlaceholder = planNamePlaceholders[profile.focus];
 
   return (
     <article className="panel ui-panel-shell ui-hover-panel">
@@ -31,12 +39,12 @@ export default function HomeCoachPlanStudio() {
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="ui-field-label">이름</span>
+          <span className="ui-field-label">{planNameLabel}</span>
           <input
             className="ui-field-control-strong"
             value={profile.name}
             onChange={(event) => updateProfile("name", event.target.value)}
-            placeholder={getPlanDisplayName(profile.name)}
+            placeholder={planNamePlaceholder}
           />
         </label>
 
@@ -51,19 +59,6 @@ export default function HomeCoachPlanStudio() {
             <option value="sleep-reset">수면 리셋</option>
             <option value="fat-loss">체지방 감량</option>
             <option value="muscle-tone">탄탄한 몸 만들기</option>
-          </select>
-        </label>
-
-        <label className="block">
-          <span className="ui-field-label">우선 코칭</span>
-          <select
-            className="ui-field-control-strong"
-            value={profile.focus}
-            onChange={(event) => updateProfile("focus", event.target.value as FocusKey)}
-          >
-            <option value="sleep">수면</option>
-            <option value="exercise">운동</option>
-            <option value="diet">식단</option>
           </select>
         </label>
 

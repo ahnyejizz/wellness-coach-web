@@ -5,6 +5,7 @@ import HomeHeader from "./components/home/home-header";
 import HomeOverviewSection from "./components/home/home-overview-section";
 import HomeCoachArea from "./components/home/home-coach-area";
 import HomeFocusBoard from "./components/home/home-focus-board";
+import HomeFocusThemeWrapper from "./components/home/home-focus-theme-wrapper";
 import HomeCoachPlanStudio from "./components/home/home-coach-plan-studio";
 import HomeCoachPlanPreview from "./components/home/home-coach-plan-preview";
 import HomeDayPlan from "./components/home/home-day-plan";
@@ -26,7 +27,7 @@ export default async function Home(props: {
   const showLoggedOutAlert = loggedOutValue === "true";
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <HomeFocusThemeWrapper>
       <LogoutAlert show={showLoggedOutAlert} />
 
       <main className="relative mx-auto flex w-full max-w-[108rem] flex-col gap-6 px-5 py-6 sm:px-8 lg:px-12 lg:py-10">
@@ -35,6 +36,12 @@ export default async function Home(props: {
           <HomeOverviewSection isLoggedIn={isLoggedIn} />
         </section>
 
+        {/* [Sleep / Workout / Nutrition] Coach */}
+        <HomeCoachArea />
+
+        {/* Focus Board, [Sleep / Workout / Nutrition] Priority */}
+        <HomeFocusBoard isLoggedIn={isLoggedIn} />
+
         {/* Coach Plan Studio, Weekly Report */}
         {isLoggedIn ? (
           <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
@@ -42,12 +49,6 @@ export default async function Home(props: {
             <HomeWeeklyReport />
           </section>
         ) : null}
-
-        {/* [Sleep / Workout / Nutrition] Coach */}
-        <HomeCoachArea />
-
-        {/* Focus Board, [Sleep / Workout / Nutrition] Priority */}
-        <HomeFocusBoard isLoggedIn={isLoggedIn} />
 
         {/* Day Plan, Personalized Preview */}
         <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
@@ -58,6 +59,6 @@ export default async function Home(props: {
         {/* Start Coaching */}
         {!isLoggedIn ? <HomeStartCoach /> : null}
       </main>
-    </div>
+    </HomeFocusThemeWrapper>
   );
 }

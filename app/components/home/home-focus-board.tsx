@@ -135,12 +135,12 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
       <article className="panel ui-panel-shell">
         <p className="ui-kicker">Focus board</p>
         <h2 id="coach-board-title" className="ui-title-3 mt-3">
-          오늘 가장 먼저 챙길 코칭을 선택하세요.
+          오늘의 플랜 우선순위를 선택하세요.
         </h2>
         <p className="ui-copy mt-4 max-w-2xl">
-          수면, 운동, 식단 중 현재 우선순위를 바꾸면 코치의 제안과 이번주 패턴이 함께 업데이트됩니다.
+          수면, 운동, 식단 중 현재 우선순위를 바꾸면
           <br />
-          플래너에서 고른 우선 코칭과 실시간으로 동기화됩니다.
+          해당 플랜에 대한 코치의 제안과 이번주 패턴이 함께 업데이트됩니다.
         </p>
 
         <div className="mt-8 space-y-3">
@@ -191,9 +191,7 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
           <>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div className="max-w-3xl">
-                <p className="text-sm uppercase tracking-[0.28em]" style={{ color: current.accent }}>
-                  {current.headline}
-                </p>
+                <p className="ui-kicker">{current.headline}</p>
                 <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
                   <h3 className="ui-title-3 shrink-0">이번주 목표:</h3>
                   <p className="text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl">
@@ -280,9 +278,7 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
           <>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div className="max-w-3xl flex-1">
-                <p className="text-sm uppercase tracking-[0.28em]" style={{ color: current.accent }}>
-                  {current.headline}
-                </p>
+                <p className="ui-kicker">{current.headline}</p>
                 <div className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-center">
                   <h3 className="ui-title-3 shrink-0">이번주 목표:</h3>
                   <LockPreview
