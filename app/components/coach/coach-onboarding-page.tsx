@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import { saveOnboardingAnswers } from "@/app/coach/onboarding/actions";
+import { WeightIcon, SleepIcon, WorkoutIcon, MealIcon, type IconProps } from "@/app/components/common/Icon";
 import {
   exerciseExperienceOptions,
   getWellnessFocusLabel,
@@ -13,6 +14,79 @@ import {
 } from "@/lib/auth/user-store";
 
 const defaultCallbackUrl = "/coach";
+type OnboardingFieldKey = "goalWeightKg" | "sleepPattern" | "exerciseExperience" | "mealStyle";
+type OnboardingFieldMeta = {
+  label: string;
+  summary: string;
+  accent: string;
+  softAccent: string;
+  icon: (props: IconProps) => JSX.Element;
+};
+
+const onboardingFieldOrder: OnboardingFieldKey[] = ["goalWeightKg", "sleepPattern", "exerciseExperience", "mealStyle"];
+
+const onboardingFieldMeta = {
+  goalWeightKg: {
+    label: "목표 체중",
+    summary: "감량, 유지, 증량 방향의 기준점",
+    accent: "var(--accent-strong)",
+    softAccent: "var(--accent-soft)",
+    icon: WeightIcon,
+  },
+  sleepPattern: {
+    label: "수면 패턴",
+    summary: "루틴 설계와 회복 우선순위 반영",
+    accent: "var(--sky)",
+    softAccent: "var(--sky-soft)",
+    icon: SleepIcon,
+  },
+  exerciseExperience: {
+    label: "운동 경험",
+    summary: "강도와 빈도를 무리 없이 시작",
+    accent: "var(--mint)",
+    softAccent: "var(--mint-soft)",
+    icon: WorkoutIcon,
+  },
+  mealStyle: {
+    label: "식단 스타일",
+    summary: "식사 제안의 톤과 현실성 맞춤",
+    accent: "var(--sun)",
+    softAccent: "var(--sun-soft)",
+    icon: MealIcon,
+  },
+} satisfies Record<OnboardingFieldKey, OnboardingFieldMeta>;
+
+function OnboardingFieldHeading({
+  field,
+  variant = "field",
+}: {
+  field: OnboardingFieldKey;
+  variant?: "field" | "muted" | "card";
+}) {
+  const { accent, softAccent, icon: Icon, label } = onboardingFieldMeta[field];
+  const labelClassName =
+    variant === "muted"
+      ? "text-sm text-[var(--muted)]"
+      : variant === "card"
+        ? "text-xl font-semibold tracking-tight text-[var(--foreground)]"
+        : "ui-field-label";
+
+  return (
+    <div className="flex items-center gap-3">
+      <span
+        aria-hidden="true"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[var(--border)]"
+        style={{
+          backgroundColor: softAccent,
+          color: accent,
+        }}
+      >
+        <Icon className="h-5 w-5" />
+      </span>
+      <span className={labelClassName}>{label}</span>
+    </div>
+  );
+}
 
 /**
  * @description 웰니스 프로필을 받아 이후 코칭 개인화 기준으로 저장하는 코치 온보딩 페이지
@@ -104,30 +178,16 @@ export default async function CoachOnboardingPage(props: {
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <article className="ui-card">
-              <p className="text-sm text-[var(--muted)]">목표 체중</p>
-              <p className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
-                감량, 유지, 증량 방향의 기준점
-              </p>
-            </article>
-            <article className="ui-card">
-              <p className="text-sm text-[var(--muted)]">수면 패턴</p>
-              <p className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
-                루틴 설계와 회복 우선순위 반영
-              </p>
-            </article>
-            <article className="ui-card">
-              <p className="text-sm text-[var(--muted)]">운동 경험</p>
-              <p className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
-                강도와 빈도를 무리 없이 시작
-              </p>
-            </article>
-            <article className="ui-card">
-              <p className="text-sm text-[var(--muted)]">식단 스타일</p>
-              <p className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
-                식사 제안의 톤과 현실성 맞춤
-              </p>
-            </article>
+            {onboardingFieldOrder.map((field) => {
+              const meta = onboardingFieldMeta[field];
+
+              return (
+                <article key={field} className="ui-card">
+                  <OnboardingFieldHeading field={field} variant="card" />
+                  <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{meta.summary}</p>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -149,7 +209,7 @@ export default async function CoachOnboardingPage(props: {
             {errorMessage ? <div className="ui-alert">{errorMessage}</div> : null}
 
             <label className="block">
-              <span className="ui-field-label">목표 체중</span>
+              <OnboardingFieldHeading field="goalWeightKg" />
               <div className="ui-field-shell">
                 <input
                   required
@@ -168,7 +228,7 @@ export default async function CoachOnboardingPage(props: {
             </label>
 
             <label className="block">
-              <span className="ui-field-label">수면 패턴</span>
+              <OnboardingFieldHeading field="sleepPattern" />
               <select required name="sleepPattern" defaultValue={sleepPatternValue} className="ui-field-control">
                 <option value="" disabled>
                   수면 패턴을 선택해주세요.
@@ -182,7 +242,7 @@ export default async function CoachOnboardingPage(props: {
             </label>
 
             <label className="block">
-              <span className="ui-field-label">운동 경험</span>
+              <OnboardingFieldHeading field="exerciseExperience" />
               <select
                 required
                 name="exerciseExperience"
@@ -201,7 +261,7 @@ export default async function CoachOnboardingPage(props: {
             </label>
 
             <label className="block">
-              <span className="ui-field-label">식단 스타일</span>
+              <OnboardingFieldHeading field="mealStyle" />
               <select required name="mealStyle" defaultValue={mealStyleValue} className="ui-field-control">
                 <option value="" disabled>
                   식단 스타일을 선택해주세요.
