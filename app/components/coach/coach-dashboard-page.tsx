@@ -97,6 +97,7 @@ export default async function CoachDashboardPage() {
           </div>
         </section>
 
+        {/* 
         <section className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
           <article className="panel ui-panel-card ui-hover-panel h-full">
             <div className="flex items-start justify-between gap-4">
@@ -122,7 +123,8 @@ export default async function CoachDashboardPage() {
             </div>
           </article>
           <WellnessPlanSummary />
-        </section>
+        </section> 
+        */}
 
         <CoachQuestionChat userName={userName} />
       </main>
