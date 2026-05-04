@@ -6,6 +6,36 @@ import { persist, type PersistStorage, type StorageValue } from "zustand/middlew
 export type GoalKey = "sleep-reset" | "fat-loss" | "muscle-tone" | "steady-energy";
 export type FocusKey = "sleep" | "exercise" | "diet";
 export type MealPatternKey = "balanced" | "protein-forward" | "gentle-balance";
+export type BriefMetricKey = "sleep" | "exercise" | "diet";
+export type BriefCompletionState = "" | "done" | "not-yet";
+export type BriefRecoveryState = "" | "good" | "steady" | "low";
+
+export type SleepBriefDetails = {
+  sleepPrepRoutine: BriefCompletionState;
+  screenOffTime: string;
+  morningSunlight: BriefCompletionState;
+  totalSleepDuration: string;
+};
+
+export type ExerciseBriefDetails = {
+  strengthSessions: string;
+  activeCalories: string;
+  recoveryStatus: BriefRecoveryState;
+  walkSessions: string;
+};
+
+export type DietBriefDetails = {
+  proteinIntake: string;
+  waterIntake: string;
+  snackFrequency: string;
+  lateNightSnackFrequency: string;
+};
+
+export type BriefDetails = {
+  sleep: SleepBriefDetails;
+  exercise: ExerciseBriefDetails;
+  diet: DietBriefDetails;
+};
 
 export type PlanProfile = {
   name: string;
@@ -20,16 +50,19 @@ export type PlanProfile = {
 
 type WellnessPersistedState = {
   profile: PlanProfile;
+  briefDetails: BriefDetails;
   activeFocus: FocusKey;
   lastSavedAt: string | null;
 };
 
 type UpdatePlanProfile = <Key extends keyof PlanProfile>(key: Key, value: PlanProfile[Key]) => void;
+type UpdateBriefDetails = <Key extends BriefMetricKey>(key: Key, value: BriefDetails[Key]) => void;
 
 type WellnessStore = WellnessPersistedState & {
   hasHydrated: boolean;
   setHydrated: (value: boolean) => void;
   updateProfile: UpdatePlanProfile;
+  saveBriefDetails: UpdateBriefDetails;
   setActiveFocus: (focus: FocusKey) => void;
   saveProfile: () => void;
   resetProfile: () => void;
@@ -38,6 +71,7 @@ type WellnessStore = WellnessPersistedState & {
 const STORAGE_KEY = "motive-care-planner-v1";
 const STORAGE_VERSION = 1;
 const LEGACY_SAMPLE_NAME = "예지";
+const MAX_BRIEF_TEXT_LENGTH = 24;
 
 export const defaultPlanProfile: PlanProfile = {
   name: "",
@@ -50,8 +84,30 @@ export const defaultPlanProfile: PlanProfile = {
   mealPattern: "balanced",
 };
 
+export const defaultBriefDetails: BriefDetails = {
+  sleep: {
+    sleepPrepRoutine: "",
+    screenOffTime: "",
+    morningSunlight: "",
+    totalSleepDuration: "",
+  },
+  exercise: {
+    strengthSessions: "",
+    activeCalories: "",
+    recoveryStatus: "",
+    walkSessions: "",
+  },
+  diet: {
+    proteinIntake: "",
+    waterIntake: "",
+    snackFrequency: "",
+    lateNightSnackFrequency: "",
+  },
+};
+
 const defaultPersistedState: WellnessPersistedState = {
   profile: defaultPlanProfile,
+  briefDetails: defaultBriefDetails,
   activeFocus: defaultPlanProfile.focus,
   lastSavedAt: null,
 };
@@ -125,6 +181,78 @@ function normalizeActiveFocus(value: unknown, fallback: FocusKey): FocusKey {
   return isFocusKey(value) ? value : fallback;
 }
 
+function normalizeBriefText(value: unknown) {
+  if (typeof value !== "string") {
+    return "";
+  }
+
+  return value.trim().slice(0, MAX_BRIEF_TEXT_LENGTH);
+}
+
+function normalizeBriefCompletionState(value: unknown): BriefCompletionState {
+  return value === "done" || value === "not-yet" ? value : "";
+}
+
+function normalizeBriefRecoveryState(value: unknown): BriefRecoveryState {
+  return value === "good" || value === "steady" || value === "low" ? value : "";
+}
+
+function normalizeSleepBriefDetails(value: Partial<Record<keyof SleepBriefDetails, unknown>> | null | undefined): SleepBriefDetails {
+  return {
+    sleepPrepRoutine: normalizeBriefCompletionState(value?.sleepPrepRoutine),
+    screenOffTime: normalizeBriefText(value?.screenOffTime),
+    morningSunlight: normalizeBriefCompletionState(value?.morningSunlight),
+    totalSleepDuration: normalizeBriefText(value?.totalSleepDuration),
+  };
+}
+
+function normalizeExerciseBriefDetails(
+  value: Partial<Record<keyof ExerciseBriefDetails, unknown>> | null | undefined,
+): ExerciseBriefDetails {
+  return {
+    strengthSessions: normalizeBriefText(value?.strengthSessions),
+    activeCalories: normalizeBriefText(value?.activeCalories),
+    recoveryStatus: normalizeBriefRecoveryState(value?.recoveryStatus),
+    walkSessions: normalizeBriefText(value?.walkSessions),
+  };
+}
+
+function normalizeDietBriefDetails(value: Partial<Record<keyof DietBriefDetails, unknown>> | null | undefined): DietBriefDetails {
+  return {
+    proteinIntake: normalizeBriefText(value?.proteinIntake),
+    waterIntake: normalizeBriefText(value?.waterIntake),
+    snackFrequency: normalizeBriefText(value?.snackFrequency),
+    lateNightSnackFrequency: normalizeBriefText(value?.lateNightSnackFrequency),
+  };
+}
+
+function normalizeBriefDetails(value: Partial<Record<BriefMetricKey, unknown>> | null | undefined): BriefDetails {
+  return {
+    sleep: normalizeSleepBriefDetails(value?.sleep as Partial<Record<keyof SleepBriefDetails, unknown>> | null | undefined),
+    exercise: normalizeExerciseBriefDetails(
+      value?.exercise as Partial<Record<keyof ExerciseBriefDetails, unknown>> | null | undefined,
+    ),
+    diet: normalizeDietBriefDetails(value?.diet as Partial<Record<keyof DietBriefDetails, unknown>> | null | undefined),
+  };
+}
+
+function normalizeLegacyBriefMetrics(value: Partial<Record<BriefMetricKey, unknown>> | null | undefined): BriefDetails {
+  return {
+    sleep: {
+      ...defaultBriefDetails.sleep,
+      totalSleepDuration: normalizeBriefText(value?.sleep),
+    },
+    exercise: {
+      ...defaultBriefDetails.exercise,
+      strengthSessions: normalizeBriefText(value?.exercise),
+    },
+    diet: {
+      ...defaultBriefDetails.diet,
+      proteinIntake: normalizeBriefText(value?.diet),
+    },
+  };
+}
+
 function isLegacySampleProfile(value: Partial<PlanProfile> | null | undefined) {
   return (
     value?.name === LEGACY_SAMPLE_NAME &&
@@ -155,7 +283,9 @@ function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedStat
   }
 
   const candidate = value as {
-    state?: Partial<WellnessPersistedState>;
+    state?: Partial<WellnessPersistedState> & {
+      briefMetrics?: Partial<Record<BriefMetricKey, unknown>>;
+    };
     version?: number;
   };
 
@@ -168,6 +298,9 @@ function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedStat
     return {
       state: {
         profile,
+        briefDetails: candidate.state.briefDetails
+          ? normalizeBriefDetails(candidate.state.briefDetails as Partial<Record<BriefMetricKey, unknown>> | null | undefined)
+          : normalizeLegacyBriefMetrics(candidate.state.briefMetrics),
         activeFocus: normalizeActiveFocus(candidate.state.activeFocus, profile.focus),
         lastSavedAt: typeof candidate.state.lastSavedAt === "string" ? candidate.state.lastSavedAt : null,
       },
@@ -175,14 +308,12 @@ function parsePersistedValue(value: unknown): StorageValue<WellnessPersistedStat
     };
   }
 
-  const legacyProfile = sanitizeLegacySampleProfile(
-    normalizePlanProfile(candidate as Partial<PlanProfile>),
-    null,
-  );
+  const legacyProfile = sanitizeLegacySampleProfile(normalizePlanProfile(candidate as Partial<PlanProfile>), null);
 
   return {
     state: {
       profile: legacyProfile,
+      briefDetails: defaultBriefDetails,
       activeFocus: legacyProfile.focus,
       lastSavedAt: null,
     },
@@ -217,13 +348,21 @@ const wellnessStorage: PersistStorage<WellnessPersistedState> | undefined =
       };
 
 function mergePersistedState(persistedState: unknown, currentState: WellnessStore): WellnessStore {
-  const snapshot = persistedState as Partial<WellnessPersistedState> | undefined;
+  const snapshot = persistedState as
+    | (Partial<WellnessPersistedState> & {
+        briefMetrics?: Partial<Record<BriefMetricKey, unknown>>;
+      })
+    | undefined;
   const profile = normalizePlanProfile(snapshot?.profile);
   const activeFocus = normalizeActiveFocus(snapshot?.activeFocus, profile.focus);
+  const briefDetails = snapshot?.briefDetails
+    ? normalizeBriefDetails(snapshot.briefDetails as Partial<Record<BriefMetricKey, unknown>> | null | undefined)
+    : normalizeLegacyBriefMetrics(snapshot?.briefMetrics);
 
   return {
     ...currentState,
     profile,
+    briefDetails,
     activeFocus,
     lastSavedAt: typeof snapshot?.lastSavedAt === "string" ? snapshot.lastSavedAt : null,
   };
@@ -247,6 +386,18 @@ export const useWellnessStore = create<WellnessStore>()(
             activeFocus: key === "focus" ? nextProfile.focus : state.activeFocus,
           };
         })) as UpdatePlanProfile,
+      saveBriefDetails: ((key, value) =>
+        set((state) => ({
+          briefDetails: {
+            ...state.briefDetails,
+            [key]:
+              key === "sleep"
+                ? normalizeSleepBriefDetails(value as SleepBriefDetails)
+                : key === "exercise"
+                  ? normalizeExerciseBriefDetails(value as ExerciseBriefDetails)
+                  : normalizeDietBriefDetails(value as DietBriefDetails),
+          },
+        }))) as UpdateBriefDetails,
       setActiveFocus: (focus) =>
         set((state) => ({
           activeFocus: focus,
@@ -262,8 +413,9 @@ export const useWellnessStore = create<WellnessStore>()(
       name: STORAGE_KEY,
       version: STORAGE_VERSION,
       storage: wellnessStorage,
-      partialize: ({ profile, activeFocus, lastSavedAt }) => ({
+      partialize: ({ profile, briefDetails, activeFocus, lastSavedAt }) => ({
         profile,
+        briefDetails,
         activeFocus,
         lastSavedAt,
       }),

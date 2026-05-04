@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 
-import LogoutAlert from "./components/common/logout-alert";
+import LogoutAlert from "./components/common/alert/logout-alert";
 import HomeHeader from "./components/home/home-header";
 import HomeOverviewSection from "./components/home/home-overview-section";
 import HomeCoachArea from "./components/home/home-coach-area";
