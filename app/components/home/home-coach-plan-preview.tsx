@@ -30,8 +30,6 @@ type PersonalPlan = {
   heading: string;
   summary: string;
   coachMessage: string;
-  score: string;
-  scoreLabel: string;
   cards: PlanCard[];
   actions: PlanAction[];
 };
@@ -131,8 +129,6 @@ function buildPlan(profile: PlanProfile): PersonalPlan {
             ? "운동 세션 수보다 회복과 단백질 타이밍을 더 엄격하게 챙겨야 합니다."
             : "수면, 식사, 움직임 중 하나가 흔들리면 전체 에너지가 무너지니 루틴을 먼저 지켜볼게요."
     }`,
-    score: `${78 + profile.workoutDays * 3}`,
-    scoreLabel: "이번주 코칭 적합도",
     cards: [
       {
         label: "취침 목표",
@@ -208,11 +204,6 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
               <p className="text-sm uppercase tracking-[0.24em] text-white/70">Personalized preview</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight">{plan.heading}</h2>
               <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">{plan.summary}</p>
-            </div>
-
-            <div className="rounded-[1.5rem] bg-white/10 px-5 py-4 lg:min-w-[10rem]">
-              <p className="text-sm text-white/70">{plan.scoreLabel}</p>
-              <p className="mt-2 text-4xl font-semibold tracking-tight">{plan.score}</p>
             </div>
           </div>
 
