@@ -51,11 +51,7 @@ export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
             <Link href="/signup" className="ui-button-primary ui-button-primary-wide">
               회원가입
             </Link>
-            <Link
-              href="/login"
-              className="ui-button-secondary ui-button-secondary-wide"
-              style={{ backgroundColor: "#fff" }}
-            >
+            <Link href="/login" className="ui-pill" style={{ backgroundColor: "#fff" }}>
               로그인
             </Link>
           </div>

@@ -106,7 +106,7 @@ export default async function SignUpPage(props: {
               <h2 className="ui-title-3 mt-3">회원가입</h2>
             </div>
             <div className="flex items-center gap-3 sm:justify-end">
-              <Link href="/" className="ui-button-secondary">
+              <Link href="/" className="ui-pill">
                 홈으로
               </Link>
               <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="ui-pill">
