@@ -159,7 +159,7 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
                   <div className="max-w-lg">
                     <p className="ui-kicker">Quick Brief Input</p>
                     <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)]">
-                      지표를 바로 입력하세요.
+                      지표를 바로 기록해보세요!
                     </h3>
                     <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
                       각 버튼을 누르면 해당 브리핑 팝업이 바로 열리고

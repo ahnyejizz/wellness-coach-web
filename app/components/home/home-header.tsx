@@ -29,7 +29,7 @@ export default function HomeHeader({ isLoggedIn }: HomeHeaderProps) {
         {isLoggedIn ? (
           <>
             <Link href="/coach" className="ui-pill">
-              마이페이지
+              AI Chat
             </Link>
             <form
               action={async () => {

@@ -71,11 +71,7 @@ export default async function CoachDashboardPage() {
               <div>
                 <p className="ui-kicker">Coach workspace</p>
                 <h1 className="ui-title-4 mt-3">{heading}</h1>
-                <p className="ui-copy mt-3">
-                  현재 로그인된 계정은 {userEmail} 입니다.
-                  <br />
-                  여기서 개인 웰니스 플랜, 주간 리포트, 맞춤 루틴을 이어서 관리하게 됩니다.
-                </p>
+                <p className="ui-copy mt-3">현재 로그인된 계정은 {userEmail} 입니다.</p>
               </div>
             </div>
 
