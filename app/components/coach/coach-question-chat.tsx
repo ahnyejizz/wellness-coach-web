@@ -115,11 +115,12 @@ export default function CoachQuestionChat({ focusLabel, userName }: CoachQuestio
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <p className="ui-kicker">Health Q&A</p>
-            <h2 className="ui-title-3 mt-3">{userName}님을 위한 웰니스 질문 코치</h2>
+            <h2 className="ui-title-3 mt-3">{userName}님을 위한 웰니스 Q&A</h2>
             <p className="ui-copy mt-4">
-              현재 우선 코칭은 {focusLabel} 기준으로 보고 있습니다.
+              가입 시 선택하신 코칭 방향은 <span className="font-semibold text-[var(--foreground)]">{focusLabel}</span>
+              입니다.
               <br />
-              수면, 운동, 식단, 생활 습관 관련 질문을 입력하면 Next 서버 안에서 안전하게 Gemini AI 응답을 받아옵니다.
+              관련 질문을 입력하면 Next 서버 안에서 안전하게 Gemini AI 응답을 받아옵니다.
             </p>
           </div>
         </div>

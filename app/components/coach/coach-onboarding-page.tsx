@@ -168,7 +168,7 @@ export default async function CoachOnboardingPage(props: {
           <p className="ui-copy mt-4 max-w-3xl sm:text-base">
             목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 먼저 확인하면 코칭 플로우를 더 개인화할 수 있습니다.
             <br />
-            지금 고른 우선 코칭은{" "}
+            가입 시 선택하신 코칭 방향은{" "}
             <span className="font-semibold text-[var(--foreground)]">{getWellnessFocusLabel(localProfile.focus)}</span>
             입니다.
           </p>

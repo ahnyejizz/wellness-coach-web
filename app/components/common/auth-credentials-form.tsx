@@ -91,7 +91,7 @@ export default function AuthCredentialsForm(props: AuthCredentialsFormProps) {
           </label>
 
           <label className="block">
-            <span className="ui-field-label">우선 코칭</span>
+            <span className="ui-field-label">코칭 방향</span>
             <select name="focus" defaultValue={props.initialValues.focus} className="ui-field-control">
               {wellnessFocusOptions.map((option) => (
                 <option key={option.value} value={option.value}>
