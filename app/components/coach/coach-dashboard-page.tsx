@@ -4,11 +4,11 @@ import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import CoachQuestionChat from "@/app/components/coach/coach-question-chat";
 import WellnessPlanSummary from "@/app/components/coach/wellness-plan-summary";
+import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import {
   getExerciseExperienceLabel,
   getMealStyleLabel,
   getSleepPatternLabel,
-  getUserProfileByEmail,
   getWellnessFocusLabel,
   hasCompletedOnboarding,
 } from "@/lib/auth/user-store";
@@ -28,7 +28,7 @@ export default async function CoachDashboardPage() {
     redirect("/login?callbackUrl=/coach");
   }
 
-  const localProfile = session.user.email ? await getUserProfileByEmail(session.user.email) : null;
+  const localProfile = session.user.email ? await getFinalUserProfileByEmail(session.user.email) : null;
 
   if (!localProfile || !hasCompletedOnboarding(localProfile)) {
     redirect("/coach/onboarding?callbackUrl=/coach");

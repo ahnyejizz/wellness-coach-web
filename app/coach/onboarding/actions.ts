@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { savePersistedOnboardingProfile } from "@/lib/auth/onboarding-cookie-store";
 import {
   exerciseExperienceOptions,
   mealStyleOptions,
@@ -152,12 +153,21 @@ export async function saveOnboardingAnswers(formData: FormData) {
   }
 
   try {
-    await updateUserOnboarding({
+    const updatedProfile = await updateUserOnboarding({
       email: session.user.email,
       goalWeightKg: Math.round(parsedGoalWeight * 10) / 10,
       sleepPattern,
       exerciseExperience,
       mealStyle,
+    });
+
+    await savePersistedOnboardingProfile({
+      email: updatedProfile.email,
+      goalWeightKg: updatedProfile.goalWeightKg ?? Math.round(parsedGoalWeight * 10) / 10,
+      sleepPattern,
+      exerciseExperience,
+      mealStyle,
+      completedOnboardingAt: updatedProfile.completedOnboardingAt,
     });
   } catch (error) {
     if (error instanceof UserNotFoundError) {

@@ -4,9 +4,9 @@ import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 
 import { signIn } from "@/auth";
+import { getFinalUserProfileByEmail, savePersistedOnboardingProfile } from "@/lib/auth/onboarding-cookie-store";
 import {
   DuplicateUserError,
-  getUserProfileByEmail,
   hasCompletedOnboarding,
   registerUser,
   type WellnessFocus,
@@ -118,9 +118,20 @@ export async function loginWithCredentials(formData: FormData) {
     );
   }
 
-  const localProfile = await getUserProfileByEmail(email);
+  const localProfile = await getFinalUserProfileByEmail(email);
   const redirectTarget =
     localProfile && hasCompletedOnboarding(localProfile) ? callbackUrl : buildOnboardingRedirectUrl(callbackUrl);
+
+  if (localProfile && hasCompletedOnboarding(localProfile)) {
+    await savePersistedOnboardingProfile({
+      email,
+      goalWeightKg: localProfile.goalWeightKg,
+      sleepPattern: localProfile.sleepPattern,
+      exerciseExperience: localProfile.exerciseExperience,
+      mealStyle: localProfile.mealStyle,
+      completedOnboardingAt: localProfile.completedOnboardingAt,
+    });
+  }
 
   try {
     await signIn("credentials", {

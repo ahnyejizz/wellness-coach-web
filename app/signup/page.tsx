@@ -4,7 +4,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
-import { getUserProfileByEmail, hasCompletedOnboarding, type WellnessFocus } from "@/lib/auth/user-store";
+import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
+import { hasCompletedOnboarding, type WellnessFocus } from "@/lib/auth/user-store";
 
 /**
  * @description 계정을 만든 뒤 온보딩으로 이어지는 회원가입 페이지
@@ -66,7 +67,7 @@ export default async function SignUpPage(props: {
   const session = await auth();
 
   if (session?.user?.email) {
-    const localProfile = await getUserProfileByEmail(session.user.email);
+    const localProfile = await getFinalUserProfileByEmail(session.user.email);
     const redirectTarget =
       localProfile && hasCompletedOnboarding(localProfile) ? "/coach" : "/coach/onboarding?callbackUrl=/coach";
     redirect(redirectTarget);

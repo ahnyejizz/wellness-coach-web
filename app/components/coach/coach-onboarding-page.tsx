@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
+import type { ComponentType } from "react";
 import { auth } from "@/auth";
 import { saveOnboardingAnswers } from "@/app/coach/onboarding/actions";
 import { WeightIcon, SleepIcon, WorkoutIcon, MealIcon, type IconProps } from "@/app/components/common/Icon";
+import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import {
   exerciseExperienceOptions,
   getWellnessFocusLabel,
-  getUserProfileByEmail,
   hasCompletedOnboarding,
   mealStyleOptions,
   sleepPatternOptions,
@@ -20,7 +20,7 @@ type OnboardingFieldMeta = {
   summary: string;
   accent: string;
   softAccent: string;
-  icon: (props: IconProps) => JSX.Element;
+  icon: ComponentType<IconProps>;
 };
 
 const onboardingFieldOrder: OnboardingFieldKey[] = ["goalWeightKg", "sleepPattern", "exerciseExperience", "mealStyle"];
@@ -61,15 +61,13 @@ function OnboardingFieldHeading({
   variant = "field",
 }: {
   field: OnboardingFieldKey;
-  variant?: "field" | "muted" | "card";
+  variant?: "field" | "card";
 }) {
   const { accent, softAccent, icon: Icon, label } = onboardingFieldMeta[field];
   const labelClassName =
-    variant === "muted"
-      ? "text-sm text-[var(--muted)]"
-      : variant === "card"
-        ? "text-xl font-semibold tracking-tight text-[var(--foreground)]"
-        : "ui-field-label";
+    variant === "card"
+      ? "text-xl font-semibold tracking-tight text-[var(--foreground)]"
+      : "ui-field-label";
 
   return (
     <div className="flex items-center gap-3">
@@ -136,7 +134,7 @@ export default async function CoachOnboardingPage(props: {
     redirect("/login?callbackUrl=/coach/onboarding");
   }
 
-  const localProfile = await getUserProfileByEmail(session.user.email);
+  const localProfile = await getFinalUserProfileByEmail(session.user.email);
 
   if (!localProfile) {
     redirect("/signup");
@@ -163,7 +161,7 @@ export default async function CoachOnboardingPage(props: {
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
       <div className="grid w-full gap-6 xl:grid-cols-[1.04fr_0.96fr]">
         <section className="panel panel-strong ui-panel-shell-lg">
-          <p className="ui-kicker">{mode === "edit" ? "Edit onboarding" : "Welcome onboarding"}</p>
+          <p className="ui-kicker">{mode === "edit" ? "Edit Wellness Profile" : "Welcome Wellness Profile"}</p>
           <h1 className="ui-title-4 mt-3">
             {mode === "edit"
               ? "웰니스 프로필을 다시 조정해볼까요?"
@@ -194,7 +192,9 @@ export default async function CoachOnboardingPage(props: {
         <section className="panel ui-panel-shell-lg">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="ui-kicker tracking-[0.24em]">{mode === "edit" ? "Profile update" : "Step 1"}</p>
+              <p className="ui-kicker tracking-[0.24em]">
+                {mode === "edit" ? "Onboarding Update" : "Onboarding Create"}
+              </p>
               <h2 className="ui-title-3 mt-3">{mode === "edit" ? "온보딩 수정" : "온보딩 입력"}</h2>
             </div>
             <Link href={mode === "edit" ? callbackUrl : "/"} className="ui-pill">
