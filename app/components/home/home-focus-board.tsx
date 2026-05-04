@@ -1,5 +1,8 @@
 "use client";
 
+import type { ComponentType } from "react";
+
+import { MealIcon, SleepIcon, type IconProps, WorkoutIcon } from "@/app/components/common/Icon";
 import { useWellnessStore, type FocusKey } from "@/app/stores/wellness-store";
 
 type FocusMetric = {
@@ -19,13 +22,13 @@ export type FocusArea = {
   kicker: string;
   headline: string;
   summary: string;
-  score: string;
   scoreLabel: string;
   target: string;
   coachNote: string;
   habits: string[];
   metrics: FocusMetric[];
   patterns: FocusPattern[];
+  icon: ComponentType<IconProps>;
   accent: string;
   softAccent: string;
 };
@@ -35,10 +38,9 @@ export const focusOrder: FocusKey[] = ["sleep", "exercise", "diet"];
 export const focusAreas: Record<FocusKey, FocusArea> = {
   sleep: {
     label: "수면 코칭",
-    kicker: "깊은 회복과 일정한 기상",
+    kicker: "깊은 수면과 일정한 기상",
     headline: "sleep priority",
     summary: "스크린 타임의 영향을 줄이고, 매일 비슷한 시간에 잠드는 패턴을 만드는 데 집중합니다.",
-    score: "89",
     scoreLabel: "회복 점수",
     target: "23:10 취침, 07:00 기상",
     coachNote: "최근 4일 중 3일은 수면 시간이 충분했어요. 이제 핵심은 잠드는 시간을 더 일정하게 고정하는 것입니다.",
@@ -57,15 +59,15 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
       { label: "스크린 오프 성공", value: 68, caption: "평균 28분 단축" },
       { label: "기상 후 햇빛 노출", value: 74, caption: "주 5회 달성" },
     ],
+    icon: SleepIcon,
     accent: "var(--sky)",
     softAccent: "var(--sky-soft)",
   },
   exercise: {
     label: "운동 코칭",
-    kicker: "강도와 회복의 균형",
+    kicker: "운동 강도와 회복의 균형",
     headline: "workout priority",
-    summary: "근력 운동, 유산소, 회복일 배치를 함께 보면서 몸이 무너지지 않는 주간 운동 패턴을 만듭니다.",
-    score: "4/5",
+    summary: "근력, 유산소, 회복일 주기를 함께 보면서 몸이 무너지지 않는 주간 운동 패턴을 만듭니다.",
     scoreLabel: "주간 세션",
     target: "근력 3회 + zone 2 유산소 2회",
     coachNote:
@@ -85,6 +87,7 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
       { label: "걷기 누적", value: 72, caption: "일 평균 8.1k 보" },
       { label: "회복일 준수", value: 79, caption: "주 2회 확보" },
     ],
+    icon: WorkoutIcon,
     accent: "var(--mint)",
     softAccent: "var(--mint-soft)",
   },
@@ -92,8 +95,7 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
     label: "식단 코칭",
     kicker: "포만감과 에너지 유지",
     headline: "nutrition priority",
-    summary: "칼로리 숫자만 쫓기보다 단백질, 수분, 식사 간격을 정리해 하루 에너지가 끊기지 않도록 관리합니다.",
-    score: "91%",
+    summary: "단백질, 수분, 식사 간격을 정리해 하루 에너지가 끊기지 않도록 관리합니다.",
     scoreLabel: "식단 안정도",
     target: "단백질 110g, 수분 2.1L 유지",
     coachNote:
@@ -113,6 +115,7 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
       { label: "수분 섭취 유지", value: 76, caption: "평균 2.0L" },
       { label: "야간 식사 안정", value: 91, caption: "주중 거의 유지" },
     ],
+    icon: MealIcon,
     accent: "var(--sun)",
     softAccent: "var(--sun-soft)",
   },
@@ -142,6 +145,7 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
         {focusOrder.map((key) => {
           const area = focusAreas[key];
           const isActive = key === activeFocus;
+          const Icon = area.icon;
 
           return (
             <button
@@ -165,13 +169,14 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
                 </div>
                 {isLoggedIn ? (
                   <div
-                    className="rounded-full px-3 py-1 text-sm font-semibold"
+                    className="flex h-14 w-14 items-center justify-center rounded-full border"
                     style={{
-                      backgroundColor: isActive ? "rgba(255,255,255,0.16)" : area.softAccent,
+                      backgroundColor: isActive ? "rgba(255,255,255,0.12)" : area.softAccent,
+                      borderColor: isActive ? "rgba(255,255,255,0.18)" : "var(--border)",
                       color: isActive ? "#fffaf2" : area.accent,
                     }}
                   >
-                    {area.score}
+                    <Icon className="h-6 w-6" />
                   </div>
                 ) : null}
               </div>
