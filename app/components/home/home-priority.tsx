@@ -41,6 +41,7 @@ type PriorityContent = {
 };
 
 const EMPTY_MSG = "아직 기록 전";
+const EMPTY_BAR_WIDTH = 18;
 
 function getCompletionCopy(value: BriefCompletionState) {
   if (value === "done") {
@@ -79,7 +80,7 @@ function getCompletionProgress(value: BriefCompletionState) {
     return 34;
   }
 
-  return 18;
+  return EMPTY_BAR_WIDTH;
 }
 
 function getRecoveryProgress(value: BriefRecoveryState) {
@@ -95,14 +96,22 @@ function getRecoveryProgress(value: BriefRecoveryState) {
     return 36;
   }
 
-  return 18;
+  return EMPTY_BAR_WIDTH;
 }
 
 function getCountProgress(value: string, multiplier: number, max = 92) {
   const numericValue = Number.parseFloat(value);
 
-  if (!Number.isFinite(numericValue) || numericValue <= 0) {
-    return 18;
+  if (!Number.isFinite(numericValue)) {
+    return EMPTY_BAR_WIDTH;
+  }
+
+  if (numericValue === 0) {
+    return 0;
+  }
+
+  if (numericValue < 0) {
+    return EMPTY_BAR_WIDTH;
   }
 
   return Math.min(max, Math.max(24, Math.round(numericValue * multiplier)));
@@ -117,7 +126,7 @@ function getSleepDurationProgress(value: string) {
   const totalHours = Number.isFinite(hours) ? hours + minutes / 60 : NaN;
 
   if (!Number.isFinite(totalHours) || totalHours <= 0) {
-    return 18;
+    return EMPTY_BAR_WIDTH;
   }
 
   return Math.min(92, Math.max(24, Math.round((totalHours / 8) * 92)));
@@ -160,10 +169,10 @@ function getEmptyPriorityContent(focus: BriefMetricKey): PriorityContent {
         { label: "햇빛 노출", value: "--", hint: EMPTY_MSG },
       ],
       patterns: [
-        { label: "총 수면 시간", value: 18, caption: EMPTY_MSG },
-        { label: "스크린 오프", value: 18, caption: EMPTY_MSG },
-        { label: "취침 준비 루틴", value: 18, caption: EMPTY_MSG },
-        { label: "햇빛 노출", value: 18, caption: EMPTY_MSG },
+        { label: "총 수면 시간", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
+        { label: "스크린 오프", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
+        { label: "취침 준비 루틴", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
+        { label: "햇빛 노출", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
       ],
     };
   }
@@ -188,10 +197,10 @@ function getEmptyPriorityContent(focus: BriefMetricKey): PriorityContent {
         { label: "회복 상태", value: "--", hint: EMPTY_MSG },
       ],
       patterns: [
-        { label: "근력 계획 유지", value: 18, caption: EMPTY_MSG },
-        { label: "유산소 루틴 유지", value: 18, caption: EMPTY_MSG },
-        { label: "활동 칼로리", value: 18, caption: EMPTY_MSG },
-        { label: "회복 상태", value: 18, caption: EMPTY_MSG },
+        { label: "근력 계획 유지", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
+        { label: "유산소 루틴 유지", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
+        { label: "활동 칼로리", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
+        { label: "회복 상태", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
       ],
     };
   }
@@ -215,10 +224,10 @@ function getEmptyPriorityContent(focus: BriefMetricKey): PriorityContent {
       { label: "야식 빈도", value: "--", hint: EMPTY_MSG },
     ],
     patterns: [
-      { label: "단백질 섭취량", value: 18, caption: EMPTY_MSG },
-      { label: "수분 섭취량", value: 18, caption: EMPTY_MSG },
-      { label: "군것질 횟수", value: 18, caption: EMPTY_MSG },
-      { label: "야식 빈도", value: 18, caption: EMPTY_MSG },
+      { label: "단백질 섭취량", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
+      { label: "수분 섭취량", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
+      { label: "군것질 횟수", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
+      { label: "야식 빈도", value: EMPTY_BAR_WIDTH, caption: EMPTY_MSG },
     ],
   };
 }
@@ -291,7 +300,7 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
         },
         {
           label: "스크린 오프 시간대",
-          value: sleepDetails.screenOffTime ? 74 : 18,
+          value: sleepDetails.screenOffTime ? 74 : EMPTY_BAR_WIDTH,
           caption: sleepDetails.screenOffTime ? `${sleepDetails.screenOffTime} 설정` : "시간대 미설정",
         },
         {
@@ -467,14 +476,12 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
       },
       {
         label: "군것질 횟수",
-        value: dietDetails.snackFrequency ? Math.max(28, 92 - Number.parseFloat(dietDetails.snackFrequency) * 16) : 18,
+        value: getCountProgress(dietDetails.snackFrequency, 18),
         caption: dietDetails.snackFrequency ? `${dietDetails.snackFrequency}회 기록` : EMPTY_MSG,
       },
       {
         label: "야식 빈도",
-        value: dietDetails.lateNightSnackFrequency
-          ? Math.max(28, 92 - Number.parseFloat(dietDetails.lateNightSnackFrequency) * 18)
-          : 18,
+        value: getCountProgress(dietDetails.lateNightSnackFrequency, 18),
         caption: dietDetails.lateNightSnackFrequency ? `${dietDetails.lateNightSnackFrequency}회 기록` : EMPTY_MSG,
       },
     ],
