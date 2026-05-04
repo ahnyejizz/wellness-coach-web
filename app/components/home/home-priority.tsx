@@ -178,18 +178,20 @@ function getEmptyPriorityContent(focus: BriefMetricKey): PriorityContent {
       coachNote: "운동 팝업에서 입력한 근력, 활동 칼로리, 회복 상태가 저장되면 이 영역에 요약이 표시됩니다.",
       habits: [
         "주간 근력 횟수를 입력해 현재 루틴 강도를 기록해보세요.",
-        "활동 칼로리와 걷기 횟수를 함께 넣으면 움직임 흐름을 볼 수 있어요.",
-        "회복 상태를 입력하면 이번 주 운동 톤을 더 자연스럽게 정리할 수 있어요.",
+        "주간 유산소 횟수를 입력하면 이번 주 활동 흐름을 함께 볼 수 있어요.",
+        "활동 칼로리를 입력하면 움직임 강도를 더 자연스럽게 해석할 수 있어요.",
+        "회복 패턴을 입력하면 이번 주 운동 톤을 더 자연스럽게 정리할 수 있어요.",
       ],
       metrics: [
-        { label: "근력 세션", value: "--", hint: EMPTY_MSG },
+        { label: "유산소 세션", value: "--", hint: EMPTY_MSG },
         { label: "활동 칼로리", value: "--", hint: EMPTY_MSG },
         { label: "회복 상태", value: "--", hint: EMPTY_MSG },
       ],
       patterns: [
         { label: "근력 계획 유지", value: 18, caption: EMPTY_MSG },
-        { label: "걷기 루틴 유지", value: 18, caption: EMPTY_MSG },
-        { label: "회복 흐름", value: 18, caption: EMPTY_MSG },
+        { label: "유산소 루틴 유지", value: 18, caption: EMPTY_MSG },
+        { label: "활동 칼로리", value: 18, caption: EMPTY_MSG },
+        { label: "회복 상태", value: 18, caption: EMPTY_MSG },
       ],
     };
   }
@@ -314,7 +316,7 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
 
     const targetParts = [
       exerciseDetails.strengthSessions ? `근력 ${exerciseDetails.strengthSessions}회` : "",
-      exerciseDetails.walkSessions ? `걷기 ${exerciseDetails.walkSessions}회` : "",
+      exerciseDetails.walkSessions ? `유산소 ${exerciseDetails.walkSessions}회` : "",
     ].filter(Boolean);
 
     return {
@@ -327,27 +329,33 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
         exerciseDetails.strengthSessions
           ? `이번 주 근력 세션은 ${exerciseDetails.strengthSessions}회로 기록됐어요.`
           : "근력 세션 기록이 아직 비어 있어요.",
+        exerciseDetails.walkSessions
+          ? `유산소 세션은 ${exerciseDetails.walkSessions}회로 기록됐어요.`
+          : "유산소 세션 기록을 함께 입력하면 주간 활동 흐름이 더 잘 보여요.",
         exerciseDetails.activeCalories
           ? `활동 칼로리 ${exerciseDetails.activeCalories}kcal 흐름도 함께 보고 있어요.`
           : "활동 칼로리도 함께 입력하면 움직임 해석이 더 쉬워집니다.",
-        `회복 상태는 ${getRecoveryCopy(exerciseDetails.recoveryStatus)} 수준으로 보고 있어요.`,
+        `회복 패턴은 ${getRecoveryCopy(exerciseDetails.recoveryStatus)} 수준으로 보고 있어요.`,
       ].join(" "),
       habits: [
         exerciseDetails.strengthSessions
           ? `주간 근력 횟수: ${exerciseDetails.strengthSessions}회`
           : "주간 근력 횟수를 아직 입력하지 않았어요.",
+        exerciseDetails.walkSessions
+          ? `주간 유산소 횟수: ${exerciseDetails.walkSessions}회`
+          : "주간 유산소 횟수를 아직 입력하지 않았어요.",
         exerciseDetails.activeCalories
           ? `활동 칼로리: ${exerciseDetails.activeCalories} kcal`
           : "활동 칼로리 기록이 아직 없어요.",
-        exerciseDetails.walkSessions
-          ? `걷기 횟수: ${exerciseDetails.walkSessions}회`
-          : "걷기 횟수를 아직 입력하지 않았어요.",
+        exerciseDetails.recoveryStatus
+          ? `회복 패턴: ${getRecoveryCopy(exerciseDetails.recoveryStatus)}`
+          : "회복 패턴을 아직 입력하지 않았어요.",
       ],
       metrics: [
         {
-          label: "근력 세션",
-          value: exerciseDetails.strengthSessions ? `${exerciseDetails.strengthSessions}회` : "--",
-          hint: exerciseDetails.strengthSessions ? "이번 기록 기준" : EMPTY_MSG,
+          label: "유산소 세션",
+          value: exerciseDetails.walkSessions ? `${exerciseDetails.walkSessions}회` : "--",
+          hint: exerciseDetails.walkSessions ? "이번 기록 기준" : EMPTY_MSG,
         },
         {
           label: "활동 칼로리",
@@ -367,12 +375,17 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
           caption: exerciseDetails.strengthSessions ? `${exerciseDetails.strengthSessions}회 기록` : EMPTY_MSG,
         },
         {
-          label: "걷기 루틴 유지",
+          label: "유산소 루틴 유지",
           value: getCountProgress(exerciseDetails.walkSessions, 18),
           caption: exerciseDetails.walkSessions ? `${exerciseDetails.walkSessions}회 기록` : EMPTY_MSG,
         },
         {
-          label: "회복 흐름",
+          label: "활동 칼로리",
+          value: getCountProgress(exerciseDetails.activeCalories, 0.04),
+          caption: exerciseDetails.activeCalories ? `${exerciseDetails.activeCalories} kcal` : EMPTY_MSG,
+        },
+        {
+          label: "회복 상태",
           value: getRecoveryProgress(exerciseDetails.recoveryStatus),
           caption: getRecoveryCopy(exerciseDetails.recoveryStatus),
         },

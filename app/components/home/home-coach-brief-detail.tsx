@@ -195,6 +195,21 @@ export default function HomeCoachBriefDetail({ focus, details, onClose, onSave }
               </label>
 
               <label className="block">
+                <span className="ui-field-label">주간 유산소 횟수</span>
+                <div className="ui-field-shell mt-3">
+                  <input
+                    type="number"
+                    min="0"
+                    value={draft.exercise.walkSessions}
+                    onChange={(event) => updateExerciseDetail("walkSessions", event.target.value)}
+                    className="w-full bg-transparent text-sm text-[var(--foreground)] outline-none"
+                    placeholder="예: 5"
+                  />
+                  <span className="text-sm font-medium text-[var(--muted)]">회</span>
+                </div>
+              </label>
+
+              <label className="block">
                 <span className="ui-field-label">활동 칼로리</span>
                 <div className="ui-field-shell mt-3">
                   <input
@@ -223,21 +238,6 @@ export default function HomeCoachBriefDetail({ focus, details, onClose, onSave }
                   <option value="steady">보통</option>
                   <option value="low">낮음</option>
                 </select>
-              </label>
-
-              <label className="block">
-                <span className="ui-field-label">걷기 횟수</span>
-                <div className="ui-field-shell mt-3">
-                  <input
-                    type="number"
-                    min="0"
-                    value={draft.exercise.walkSessions}
-                    onChange={(event) => updateExerciseDetail("walkSessions", event.target.value)}
-                    className="w-full bg-transparent text-sm text-[var(--foreground)] outline-none"
-                    placeholder="예: 5"
-                  />
-                  <span className="text-sm font-medium text-[var(--muted)]">회</span>
-                </div>
               </label>
             </>
           ) : null}
