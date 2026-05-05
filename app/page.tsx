@@ -1,4 +1,6 @@
 import { auth } from "@/auth";
+import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
+import { hasCompletedOnboarding } from "@/lib/auth/user-store";
 import LogoutAlert from "./components/common/alert/logout-alert";
 import HomeHeader from "./components/home/home-header";
 import HomeOverviewSection from "./components/home/home-overview-section";
@@ -22,6 +24,11 @@ export default async function Home(props: {
 }) {
   const session = await auth();
   const isLoggedIn = !!session?.user;
+  const localProfile = session?.user?.email ? await getFinalUserProfileByEmail(session.user.email) : null;
+  const onboardingHref =
+    localProfile && hasCompletedOnboarding(localProfile)
+      ? "/coach/onboarding?mode=edit&callbackUrl=/"
+      : "/coach/onboarding?callbackUrl=/";
   const searchParams = await props.searchParams;
   const loggedOutValue = Array.isArray(searchParams.loggedOut) ? searchParams.loggedOut[0] : searchParams.loggedOut;
   const showLoggedOutAlert = loggedOutValue === "true";
@@ -32,7 +39,7 @@ export default async function Home(props: {
 
       <main className="relative mx-auto flex w-full max-w-[108rem] flex-col gap-6 px-5 py-6 sm:px-8 lg:px-12 lg:py-10">
         <section className="panel panel-strong rise-in overflow-hidden rounded-[2rem] px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
-          <HomeHeader isLoggedIn={isLoggedIn} />
+          <HomeHeader isLoggedIn={isLoggedIn} onboardingHref={onboardingHref} />
           <HomeOverviewSection isLoggedIn={isLoggedIn} />
         </section>
 

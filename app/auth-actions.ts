@@ -7,7 +7,7 @@ import { signIn } from "@/auth";
 import { getFinalUserProfileByEmail, savePersistedOnboardingProfile } from "@/lib/auth/onboarding-cookie-store";
 import { DuplicateUserError, hasCompletedOnboarding, registerUser } from "@/lib/auth/user-store";
 
-const defaultCallbackUrl = "/coach";
+const defaultCallbackUrl = "/";
 const socialProviderValues = ["google", "kakao", "naver"] as const;
 
 type SocialProvider = (typeof socialProviderValues)[number];
@@ -32,18 +32,6 @@ function normalizeCallbackUrl(value: string) {
   }
 
   return value;
-}
-
-function buildOnboardingRedirectUrl(callbackUrl: string) {
-  const params = new URLSearchParams();
-
-  if (callbackUrl !== defaultCallbackUrl) {
-    params.set("callbackUrl", callbackUrl);
-  }
-
-  const queryString = params.toString();
-
-  return queryString ? `/coach/onboarding?${queryString}` : "/coach/onboarding";
 }
 
 function buildAuthRedirect(
@@ -107,10 +95,7 @@ export async function loginWithCredentials(formData: FormData) {
       }),
     );
   }
-
   const localProfile = await getFinalUserProfileByEmail(email);
-  const redirectTarget =
-    localProfile && hasCompletedOnboarding(localProfile) ? callbackUrl : buildOnboardingRedirectUrl(callbackUrl);
 
   if (localProfile && hasCompletedOnboarding(localProfile)) {
     await savePersistedOnboardingProfile({
@@ -127,7 +112,7 @@ export async function loginWithCredentials(formData: FormData) {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: redirectTarget,
+      redirectTo: callbackUrl,
     });
   } catch (error) {
     if (error instanceof AuthError) {
@@ -229,7 +214,7 @@ export async function signupWithCredentials(formData: FormData) {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: buildOnboardingRedirectUrl(callbackUrl),
+      redirectTo: callbackUrl,
     });
   } catch (error) {
     if (error instanceof AuthError) {

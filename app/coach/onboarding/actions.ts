@@ -15,7 +15,7 @@ import {
   type SleepPattern,
 } from "@/lib/auth/user-store";
 
-const defaultCallbackUrl = "/coach";
+const defaultCallbackUrl = "/";
 
 const sleepPatternValues = sleepPatternOptions.map((option) => option.value);
 const exerciseExperienceValues = exerciseExperienceOptions.map((option) => option.value);

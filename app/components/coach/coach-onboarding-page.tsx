@@ -12,7 +12,7 @@ import {
   sleepPatternOptions,
 } from "@/lib/auth/user-store";
 
-const defaultCallbackUrl = "/coach";
+const defaultCallbackUrl = "/";
 type OnboardingFieldKey = "goalWeightKg" | "sleepPattern" | "exerciseExperience" | "mealStyle";
 type OnboardingFieldMeta = {
   label: string;

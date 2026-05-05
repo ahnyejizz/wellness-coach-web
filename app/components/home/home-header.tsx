@@ -10,9 +10,10 @@ const homeSectionLinks = [
 
 type HomeHeaderProps = {
   isLoggedIn: boolean;
+  onboardingHref: string;
 };
 
-export default function HomeHeader({ isLoggedIn }: HomeHeaderProps) {
+export default function HomeHeader({ isLoggedIn, onboardingHref }: HomeHeaderProps) {
   return (
     <header className="flex flex-col gap-5 border-b border-[var(--border)] pb-6 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex flex-wrap items-center gap-3">
@@ -28,6 +29,9 @@ export default function HomeHeader({ isLoggedIn }: HomeHeaderProps) {
 
         {isLoggedIn ? (
           <>
+            <Link href={onboardingHref} className="ui-pill">
+              온보딩
+            </Link>
             <Link href="/coach" className="ui-pill">
               AI Chat
             </Link>

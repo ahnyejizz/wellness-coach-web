@@ -4,8 +4,6 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
-import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
-import { hasCompletedOnboarding } from "@/lib/auth/user-store";
 
 /**
  * @description 기존 사용자가 이메일 또는 소셜 계정으로 다시 진입하는 로그인 페이지
@@ -14,7 +12,7 @@ function normalizeCallbackUrl(value: string | string[] | undefined) {
   const normalized = Array.isArray(value) ? value[0] : value;
 
   if (!normalized) {
-    return "/coach";
+    return "/";
   }
 
   if (normalized.startsWith("/")) {
@@ -23,9 +21,9 @@ function normalizeCallbackUrl(value: string | string[] | undefined) {
 
   try {
     const parsed = new URL(normalized);
-    return `${parsed.pathname}${parsed.search}${parsed.hash}` || "/coach";
+    return `${parsed.pathname}${parsed.search}${parsed.hash}` || "/";
   } catch {
-    return "/coach";
+    return "/";
   }
 }
 
@@ -66,10 +64,7 @@ export default async function LoginPage(props: {
   const session = await auth();
 
   if (session?.user?.email) {
-    const localProfile = await getFinalUserProfileByEmail(session.user.email);
-    const redirectTarget =
-      localProfile && hasCompletedOnboarding(localProfile) ? "/coach" : "/coach/onboarding?callbackUrl=/coach";
-    redirect(redirectTarget);
+    redirect("/");
   }
 
   const searchParams = await props.searchParams;

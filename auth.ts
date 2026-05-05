@@ -190,7 +190,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth((request) => {
         }
 
         if (isAuthPage && isLoggedIn) {
-          return NextResponse.redirect(new URL("/coach", request.url));
+          return NextResponse.redirect(new URL("/", request.url));
         }
 
         return true;

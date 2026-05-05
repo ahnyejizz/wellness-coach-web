@@ -91,7 +91,7 @@ export default function AuthCredentialsForm(props: AuthCredentialsFormProps) {
       ) : null}
 
       <button type="submit" className="ui-submit-button">
-        {props.mode === "login" ? "로그인" : "계정 만들고 온보딩 시작하기"}
+        {props.mode === "login" ? "로그인" : "계정 만들기"}
       </button>
     </form>
   );
