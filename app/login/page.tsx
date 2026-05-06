@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
-import { HomeIcon } from "@/app/components/icon/icon";
+import { HomeIcon } from "@/app/icon/icon";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
 

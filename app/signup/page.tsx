@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
-import { HomeIcon } from "@/app/components/icon/icon";
+import { HomeIcon } from "@/app/icon/icon";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
 
@@ -126,7 +126,9 @@ export default async function SignUpPage(props: {
             />
           </div>
 
-          <p className="ui-copy mt-6">가입 후 홈으로 이동하며, 상단 온보딩 버튼에서 웰니스 프로필을 입력할 수 있어요.</p>
+          <p className="ui-copy mt-6">
+            가입 후 홈으로 이동하며, 상단 온보딩 버튼에서 웰니스 프로필을 입력할 수 있어요.
+          </p>
         </section>
       </div>
     </main>
