@@ -1,15 +1,151 @@
 # Motive Care
 
-수면, 운동, 식단을 한 흐름으로 관리하는 개인 웰니스 코치 웹 입니다.  
-현재 저장소는 두가지 배포 경로를 함께 지원하도록 정리되어 있습니다.
+수면, 운동, 식단을 하나의 흐름으로 연결해 관리하는 개인 웰니스 코치 웹 서비스입니다.  
+이 프로젝트는 `Next.js App Router` 기반으로 구성되어 있고, 로그인 상태에 따라 홈, 온보딩, 웰니스 플랜, 코치 대시보드, AI Chat 흐름이 자연스럽게 이어지도록 설계되어 있습니다.
 
-- `Vercel`: 로그인/회원가입이 포함된 전체 Next.js 앱 배포
-- `GitHub Pages`: 소개용 정적 랜딩 페이지 배포
+## 프로젝트 소개
 
-현재 주요 사용자 흐름:
+### 홈 `/`
+- 서비스의 메인 랜딩 화면입니다.
+- 로그인 전에는 서비스 소개와 대표 코칭 영역을 보여줍니다.
+- 로그인 후에는 상단 네비게이션을 통해 `온보딩`, `웰니스 플랜`, `마이페이지`, `AI Chat`으로 이동할 수 있습니다.
+- 홈의 주요 소개 영역은 `HomeLandingSection` 계열 컴포넌트로 관리합니다.
 
-- 회원가입 후 목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 입력하는 온보딩을 거쳐 `/coach` 개인화 화면으로 이어집니다.
-- Google, Kakao, Naver 소셜 로그인과 이메일 기반 계정 로그인을 모두 지원합니다.
+### 온보딩 `/coach/onboarding`
+- 최초 사용자 또는 프로필을 다시 수정하려는 사용자가 진입하는 화면입니다.
+- 입력 항목은 `목표 체중`, `수면 패턴`, `운동 경험`, `식단 스타일`입니다.
+- 온보딩 완료 여부에 따라 일반 진입과 수정 모드를 구분합니다.
+- 온보딩 링크는 공통 route helper를 통해 생성합니다.
+
+### 웰니스 플랜 `/plan`
+- 현재 플랜 우선순위와 세부 지표를 조정하는 화면입니다.
+- `FocusBoard`, `FocusBoardPriority`, `DailySurveyPanel`, `DailySurveyDialog`를 중심으로 동작합니다.
+- 수면/운동/식단 우선순위를 바꾸면 관련 패널과 색상이 함께 반영됩니다.
+- 브리핑 지표 입력 팝업과 연결되는 실질적인 플랜 관리 화면입니다.
+
+### 코치 대시보드 `/coach`
+- 로그인 사용자의 마이페이지 성격을 갖는 화면입니다.
+- 가입 시 입력한 웰니스 프로필 요약, 플랜 요약, 주간 리포트 등을 보여줍니다.
+- 온보딩 수정 진입점과 홈 복귀, 로그아웃 액션을 함께 제공합니다.
+
+### AI Chat `/ai-chat`
+- 웰니스 질문을 입력하고 Gemini 기반 답변을 받는 화면입니다.
+- 추천 질문, 최근 질문, 웰니스 Q&A 요약 카드가 함께 제공됩니다.
+- 서버 호출은 `/api/ai-chat` Route Handler를 통해 처리되며, API 키는 브라우저로 노출되지 않습니다.
+
+## 라우팅 구조
+
+현재 프로젝트는 `route entry`와 `실제 페이지 구현`을 분리하는 패턴을 사용합니다.
+
+### Route Entry
+- URL 엔트리는 `app/(route-entry)` 아래에 둡니다.
+- 이 폴더는 Route Group 이라서 실제 URL에는 노출되지 않습니다.
+- 예:
+  - `app/(route-entry)/login/page.tsx` → `/login`
+  - `app/(route-entry)/signup/page.tsx` → `/signup`
+  - `app/(route-entry)/plan/page.tsx` → `/plan`
+  - `app/(route-entry)/coach/page.tsx` → `/coach`
+  - `app/(route-entry)/ai-chat/page.tsx` → `/ai-chat`
+
+### 실제 구현
+- 실제 UI와 로직은 `app/components/...` 아래에 둡니다.
+- route entry 파일은 얇게 유지하고, 구현체만 연결합니다.
+
+## 폴더 및 파일명 명명 규칙
+
+### 기본 원칙
+- 라우트 엔트리는 `Next.js` 규칙에 맞춰 반드시 `page.tsx`를 사용합니다.
+- 실제 화면 구현 파일은 역할이 드러나도록 suffix를 붙입니다.
+- 한 파일이 하나의 화면 단위 또는 하나의 역할 단위를 담당하도록 유지합니다.
+
+### 라우트 엔트리 규칙
+- route entry 파일은 `app/(route-entry)/.../page.tsx` 형태를 사용합니다.
+- 이 파일은 가능한 한 얇게 유지하고, 실제 구현 컴포넌트를 export 또는 render만 합니다.
+
+### 페이지 단위
+- 실제 페이지 구현 파일은 끝에 `-page`를 붙입니다.
+- 예:
+  - `login-page.tsx`
+  - `signup-page.tsx`
+  - `plan-page.tsx`
+  - `ai-chat-page.tsx`
+  - `onboarding-page.tsx`
+
+### 패널 단위
+- 패널 컴포넌트는 끝에 `-panel`을 붙입니다.
+- 예:
+  - `ai-chat-panel.tsx`
+  - `ai-chat-summary-panel.tsx`
+  - `daily-survey-panel.tsx`
+
+### 다이얼로그 단위
+- 다이얼로그 컴포넌트는 끝에 `-dialog`를 붙입니다.
+- 예:
+  - `daily-survey-dialog.tsx`
+  - `logout-alert.tsx`
+  - `reset-confirm-alert.tsx`
+  - `save-alert.tsx`
+
+### 그 외 권장 규칙
+- wrapper 성격은 `-wrapper`
+- summary 성격은 `-summary`
+- preview 성격은 `-preview`
+- 공통 helper는 `utils/`
+- 인증/도메인 저장소 로직은 `lib/`
+- 공통 색상 상수는 `app/constants/colors.ts`
+
+## 현재 주요 폴더 구조
+
+```txt
+app/
+  (route-entry)/
+    ai-chat/page.tsx
+    coach/page.tsx
+    coach/onboarding/page.tsx
+    login/page.tsx
+    plan/page.tsx
+    signup/page.tsx
+  api/
+    ai-chat/route.ts
+    auth/[...nextauth]/route.ts
+  components/
+    ai-chat/
+    auth/
+    coach/
+    common/
+    home/
+    plan/
+  constants/
+    colors.ts
+  stores/
+    wellness-store.ts
+
+lib/
+  ai-chat/
+  auth/
+
+utils/
+  route-href.ts
+```
+
+## 인증 및 저장 구조
+
+### 인증
+- 이메일/비밀번호 로그인
+- Google 로그인
+- Kakao 로그인
+- Naver 로그인
+
+인증 설정은 [auth.ts](/Users/dreamtree123/my-next-app/auth.ts)에서 관리합니다.
+
+### 사용자 저장
+- 로컬 개발 환경: `data/users.json`
+- 온보딩 보정값 및 계정별 일부 상태: 쿠키 / 서버 저장소 기반
+
+### AI Chat 관련 파일
+- API Route: [app/api/ai-chat/route.ts](/Users/dreamtree123/my-next-app/app/api/ai-chat/route.ts)
+- 서버 로직: [lib/ai-chat/assistant.ts](/Users/dreamtree123/my-next-app/lib/ai-chat/assistant.ts)
+- 정적 요약/문구: [lib/ai-chat/content.ts](/Users/dreamtree123/my-next-app/lib/ai-chat/content.ts)
 
 ## Local Dev
 
@@ -20,18 +156,10 @@ npm run dev
 ```
 
 - 권장 Node 버전: `20.20.2`
-- 로컬 계정 데이터는 `data/users.json`에 저장됩니다.
-- 소셜 로그인으로 처음 들어온 사용자도 같은 저장소에 자동 등록되고, 온보딩 전이라면 `/coach/onboarding`으로 이어집니다.
+- Next.js 16 기준 빌드 환경은 `Node >= 20.9.0` 이 필요합니다.
 - 웰니스 질문 기능을 쓰려면 `.env.local` 또는 배포 환경에 `GEMINI_API_KEY`가 필요합니다.
-- `GEMINI_API_KEY`는 Google AI Studio(`https://aistudio.google.com/app/apikey`)에서 무료로 발급받아 테스트할 수 있습니다.
 
-## Health Q&A Feature
-
-- `/coach` 대시보드에서 로그인 사용자 전용 웰니스 질문 위젯을 사용할 수 있습니다.
-- Gemini 호출은 `app/api/health-chat/route.ts`에서 처리하므로 API 키가 브라우저로 노출되지 않습니다.
-- 추천 웰니스 Q&A 요약 카드는 `lib/health/content.ts`에 정적으로 정의되어 있어, 나중에 DB나 CMS 기반으로 바꾸기 쉽습니다.
-
-필요한 환경 변수:
+## 환경 변수
 
 ```bash
 AUTH_SECRET="replace-with-a-random-secret-before-deploy"
@@ -61,26 +189,12 @@ GEMINI_MODEL="gemini-2.5-flash-lite"
 - Gemini API는 공식 문서 기준 free tier가 있으며, 모델별로 요청 한도가 다릅니다.
 - 무료 키는 Google AI Studio에서 만들 수 있고, 사용량이 늘어나면 나중에 유료 티어로 전환할 수 있습니다.
 - 앱 코드는 별도 SDK 설치 없이 서버 `fetch`로 Gemini REST API를 호출합니다.
-
-## Auth Storage Note
-
-- 로컬 개발 환경: `data/users.json`
-- Vercel 환경: `/tmp/motive-care-users.json`
-
-## Project Structure
-
-- `app/`: Next.js 앱 라우트와 UI
-- `app/coach/onboarding/`: 회원가입 직후 웰니스 온보딩 화면과 저장 액션
-- `auth.ts`: Credentials + Google/Kakao/Naver 인증 설정
-- `lib/auth/user-store.ts`: 로컬 사용자 저장소
-- `github-pages/`: GitHub Pages용 정적 랜딩 페이지
-- `.github/workflows/deploy-pages.yml`: GitHub Pages 배포 워크플로우
-
 ## Useful Commands
 
 ```bash
-npm run lint
-npm run build -- --webpack
+npm run dev
+npm run build
+npx eslint app lib utils auth.ts proxy.ts
 ```
 
 ## References
