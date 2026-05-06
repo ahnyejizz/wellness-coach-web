@@ -153,7 +153,7 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
               type="button"
               aria-pressed={isActive}
               onClick={() => setActiveFocus(key)}
-              className={`w-full rounded-[1.45rem] border px-5 py-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)] ${
+              className={`cursor-pointer w-full rounded-[1.45rem] border px-5 py-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)] ${
                 isActive
                   ? "border-white/18 bg-white/12 text-[#fffaf2] shadow-[0_18px_30px_rgba(14,26,24,0.18)]"
                   : "border-white/10 bg-white/6 text-[#f6f0e6] hover:bg-white/10"

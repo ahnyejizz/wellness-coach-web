@@ -137,11 +137,11 @@ export default function DailySurveyPanel() {
                 key={action.key}
                 type="button"
                 onClick={() => handleActionOpen(action.key)}
-                className="flex w-full items-center justify-between gap-4 rounded-[1.35rem] border border-[var(--border)] bg-white px-4 py-4 text-left transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(21,42,36,0.1)]"
+                className="flex w-full cursor-pointer items-center justify-between gap-4 rounded-[1.35rem] border border-[var(--border)] bg-white px-4 py-4 text-left transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(21,42,36,0.1)]"
               >
                 <div className="flex min-w-0 items-center gap-3">
                   <span
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
+                    className="flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full"
                     style={{
                       backgroundColor: action.softAccent,
                       color: action.accent,
@@ -158,7 +158,7 @@ export default function DailySurveyPanel() {
 
                 <div className="shrink-0 text-right">
                   <span
-                    className="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                    className="inline-flex cursor-pointer rounded-full px-3 py-1 text-xs font-semibold"
                     style={{
                       backgroundColor: action.softAccent,
                       color: action.accent,
