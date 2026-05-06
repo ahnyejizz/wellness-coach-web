@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
 import { auth, signOut } from "@/auth";
 import { getOnboardingHref } from "@/lib/common/route-href";
 import { HomeIcon } from "@/app/components/common/Icon";
@@ -78,9 +77,6 @@ export default async function CoachDashboardPage() {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link href={onboardingHref} className="ui-button-secondary">
-                온보딩
-              </Link>
               <Link
                 href="/"
                 aria-label="홈으로"

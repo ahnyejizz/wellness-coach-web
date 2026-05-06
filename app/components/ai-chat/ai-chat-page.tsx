@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
 import { auth, signOut } from "@/auth";
 import { HomeIcon } from "@/app/components/common/Icon";
-import { getOnboardingHref } from "@/lib/common/route-href";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
 import AiChatPanel from "@/app/components/ai-chat/ai-chat-panel";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
@@ -33,7 +31,6 @@ export default async function AiChatPage() {
   const userName = session.user.name ?? "Motive Care Member";
   const userEmail = session.user.email ?? "Local account";
   const userInitial = resolveInitial(session.user.name, session.user.email);
-  const onboardingHref = getOnboardingHref(localProfile, "/ai-chat");
 
   return (
     <HomeFocusThemeWrapper>
@@ -52,12 +49,6 @@ export default async function AiChatPage() {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link href={onboardingHref} className="ui-button-secondary">
-                온보딩
-              </Link>
-              <Link href="/coach" className="ui-button-secondary">
-                마이페이지
-              </Link>
               <Link
                 href="/"
                 aria-label="홈으로"

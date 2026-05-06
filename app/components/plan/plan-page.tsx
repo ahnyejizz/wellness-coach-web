@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
 import { auth, signOut } from "@/auth";
 import { HomeIcon } from "@/app/components/common/Icon";
 import HomeFocusBoard from "@/app/components/home/home-focus-board";
 import HomePriority from "@/app/components/home/home-priority";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
-import { getOnboardingHref } from "@/lib/common/route-href";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import { hasCompletedOnboarding } from "@/lib/auth/user-store";
 
@@ -34,7 +32,6 @@ export default async function PlanPage() {
   const userName = session.user.name ?? "Motive Care Member";
   const userEmail = session.user.email ?? "Local account";
   const userInitial = resolveInitial(session.user.name, session.user.email);
-  const onboardingHref = getOnboardingHref(localProfile, "/plan");
 
   return (
     <HomeFocusThemeWrapper>
@@ -53,12 +50,6 @@ export default async function PlanPage() {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link href={onboardingHref} className="ui-button-secondary">
-                온보딩
-              </Link>
-              <Link href="/coach" className="ui-button-secondary">
-                마이페이지
-              </Link>
               <Link
                 href="/"
                 aria-label="홈으로"
