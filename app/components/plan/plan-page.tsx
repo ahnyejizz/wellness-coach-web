@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
-import { HomeIcon } from "@/app/components/common/Icon";
+import { HomeIcon } from "@/app/components/icon/icon";
 import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
 import HomeFocusBoard from "@/app/components/home/home-focus-board";
 import HomePriority from "@/app/components/home/home-priority";

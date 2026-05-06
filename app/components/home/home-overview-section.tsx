@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 
 import SaveAlert from "@/app/components/common/alert/save-alert";
-import { MealIcon, SleepIcon, type IconProps, WorkoutIcon } from "@/app/components/common/Icon";
+import { MealIcon, SleepIcon, type IconProps, WorkoutIcon } from "@/app/components/icon/icon";
 import HomeCoachBriefDetail from "@/app/components/home/home-coach-brief-detail";
 import { type BriefDetails, type BriefMetricKey, useWellnessStore } from "@/app/stores/wellness-store";
 

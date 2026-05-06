@@ -2,7 +2,7 @@
 
 import type { ComponentType } from "react";
 
-import { MealIcon, SleepIcon, type IconProps, WorkoutIcon } from "@/app/components/common/Icon";
+import { MealIcon, SleepIcon, type IconProps, WorkoutIcon } from "@/app/components/icon/icon";
 import { useWellnessStore, type FocusKey } from "@/app/stores/wellness-store";
 
 type FocusMetric = {
