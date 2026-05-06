@@ -183,9 +183,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth((request) => {
         const isLoggedIn = !!auth?.user;
         const pathname = request.nextUrl.pathname;
         const isCoachArea = pathname.startsWith("/coach");
+        const isAiChatArea = pathname.startsWith("/ai-chat");
         const isAuthPage = pathname === "/login" || pathname === "/signup";
 
-        if (isCoachArea) {
+        if (isCoachArea || isAiChatArea) {
           return isLoggedIn;
         }
 

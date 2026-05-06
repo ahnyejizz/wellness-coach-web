@@ -1,6 +1,6 @@
 import { healthQuestionSummaries } from "@/lib/health/content";
 
-export default function CoachQuestionSummaryPanel() {
+export default function AiChatSummaryPanel() {
   return (
     <aside className="panel-dark ui-hover-panel-dark rounded-[1.8rem] p-6 text-[#f7f1e8]">
       <p className="ui-kicker text-[#ffb297]">Useful summaries</p>

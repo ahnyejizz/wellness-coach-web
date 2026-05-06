@@ -2,11 +2,11 @@
 
 import { useRef, useState } from "react";
 
-import CoachQuestionSummaryPanel from "./coach-question-summary-panel";
+import AiChatSummaryPanel from "./ai-chat-summary-panel";
 
 import { healthAssistantDisclaimer, healthQuestionSummaries, suggestedHealthQuestions } from "@/lib/health/content";
 
-type CoachQuestionChatProps = {
+type AiChatPanelProps = {
   userName: string;
 };
 
@@ -32,7 +32,7 @@ function normalizeHealthChatErrorMessage(message: string) {
   return normalizedMessage;
 }
 
-export default function CoachQuestionChat({ userName }: CoachQuestionChatProps) {
+export default function AiChatPanel({ userName }: AiChatPanelProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [question, setQuestion] = useState<string>(suggestedHealthQuestions[0]);
   const [submittedQuestion, setSubmittedQuestion] = useState("");
@@ -121,7 +121,7 @@ export default function CoachQuestionChat({ userName }: CoachQuestionChatProps) 
             <div className="h-12 w-12 animate-spin rounded-full border-[3px] border-[rgba(21,42,36,0.18)] border-t-[var(--foreground)]" />
             <p className="mt-5 text-lg font-semibold tracking-tight text-[var(--foreground)]">답변 생성 중...</p>
             <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-              생활 습관과 웰니스 기준으로 답변을 정리하고 있습니다.
+              답변을 정리하고 있습니다.
               <br />
               잠시만 기다려 주세요.
             </p>
@@ -134,9 +134,7 @@ export default function CoachQuestionChat({ userName }: CoachQuestionChatProps) 
           <div className="max-w-3xl">
             <p className="ui-kicker">Health Q&A</p>
             <h2 className="ui-title-3 mt-3">{userName}님을 위한 웰니스 Q&A</h2>
-            <p className="ui-copy mt-4">
-              관련 질문을 입력하면 Next 서버 안에서 안전하게 Gemini AI 응답을 받아옵니다.
-            </p>
+            <p className="ui-copy mt-4">관련 질문을 입력하면 Next 서버 안에서 안전하게 Gemini AI 응답을 받아옵니다.</p>
           </div>
         </div>
 
@@ -226,7 +224,7 @@ export default function CoachQuestionChat({ userName }: CoachQuestionChatProps) 
             </div>
           </div>
 
-          <CoachQuestionSummaryPanel />
+          <AiChatSummaryPanel />
         </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">

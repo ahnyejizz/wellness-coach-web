@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth, signOut } from "@/auth";
-import CoachQuestionChat from "@/app/components/coach/coach-question-chat";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
 import WellnessPlanSummary from "@/app/components/coach/wellness-plan-summary";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
@@ -93,7 +92,6 @@ export default async function CoachDashboardPage() {
           </div>
         </section>
 
-        {/* 
         <section className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
           <article className="panel ui-panel-card ui-hover-panel h-full">
             <div className="flex items-start justify-between gap-4">
@@ -119,10 +117,7 @@ export default async function CoachDashboardPage() {
             </div>
           </article>
           <WellnessPlanSummary />
-        </section> 
-        */}
-
-        <CoachQuestionChat userName={userName} />
+        </section>
       </main>
     </HomeFocusThemeWrapper>
   );
