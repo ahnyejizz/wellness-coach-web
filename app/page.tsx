@@ -5,8 +5,6 @@ import LogoutAlert from "./components/common/alert/logout-alert";
 import HomeHeader from "./components/home/home-header";
 import HomeOverviewSection from "./components/home/home-overview-section";
 import HomeCoachArea from "./components/home/home-coach-area";
-import HomeFocusBoard from "./components/home/home-focus-board";
-import HomePriority from "./components/home/home-priority";
 import HomeFocusThemeWrapper from "./components/home/home-focus-theme-wrapper";
 import HomeCoachPlanStudio from "./components/home/home-coach-plan-studio";
 import HomeCoachPlanPreview from "./components/home/home-coach-plan-preview";
@@ -60,16 +58,6 @@ export default async function Home(props: {
             <HomeWeeklyReport />
           </section>
         ) : null} */}
-
-        {/* 임시 */}
-        <section
-          id="coach-board"
-          className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]"
-          aria-labelledby="coach-board-title"
-        >
-          <HomeFocusBoard isLoggedIn={isLoggedIn} />
-          <HomePriority isLoggedIn={isLoggedIn} />
-        </section>
 
         {/* Day Plan, Personalized Preview */}
         <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">

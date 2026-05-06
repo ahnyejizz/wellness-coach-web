@@ -56,7 +56,7 @@ export default async function AiChatPage() {
                 온보딩
               </Link>
               <Link href="/coach" className="ui-button-secondary">
-                웰니스 코치
+                마이페이지
               </Link>
               <Link
                 href="/"

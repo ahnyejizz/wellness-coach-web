@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import { getOnboardingHref } from "@/lib/common/route-href";
 import { HomeIcon } from "@/app/components/common/Icon";
+import HomeFocusBoard from "@/app/components/home/home-focus-board";
+import HomePriority from "@/app/components/home/home-priority";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
 import WellnessPlanSummary from "@/app/components/coach/wellness-plan-summary";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
@@ -128,6 +130,15 @@ export default async function CoachDashboardPage() {
             </div>
           </article>
           <WellnessPlanSummary />
+        </section>
+
+        <section
+          id="coach-board"
+          className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]"
+          aria-labelledby="coach-board-title"
+        >
+          <HomeFocusBoard isLoggedIn />
+          <HomePriority isLoggedIn />
         </section>
       </main>
     </HomeFocusThemeWrapper>
