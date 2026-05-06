@@ -554,12 +554,6 @@ export default function HomePriority({ isLoggedIn }: HomePriorityProps) {
               <div className="ui-card-raised flex-1">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium text-[var(--muted)]">이번주 패턴</p>
-                  <span
-                    className="rounded-full px-3 py-1 text-xs font-semibold"
-                    style={{ backgroundColor: current.softAccent, color: current.accent }}
-                  >
-                    {currentPriority.hasData ? "live coach" : "empty state"}
-                  </span>
                 </div>
 
                 <div className="mt-5 space-y-4">
