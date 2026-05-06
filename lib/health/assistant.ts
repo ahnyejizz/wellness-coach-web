@@ -264,5 +264,5 @@ export async function askHealthCoach(question: string): Promise<HealthAssistantR
     throw lastError;
   }
 
-  throw new HealthAssistantRequestError("웰니스 코치 응답을 가져오지 못했습니다.", 500);
+  throw new HealthAssistantRequestError("응답을 가져오지 못했습니다.", 500);
 }

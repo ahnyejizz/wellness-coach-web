@@ -89,7 +89,7 @@ export default function AiChatPanel({ userName }: AiChatPanelProps) {
       const payload = (await response.json()) as HealthChatResponse;
 
       if (!response.ok) {
-        throw new Error(normalizeHealthChatErrorMessage(payload.error || "웰니스 코치 응답을 불러오지 못했습니다."));
+        throw new Error(normalizeHealthChatErrorMessage(payload.error || "응답을 불러오지 못했습니다."));
       }
 
       setAnswer(payload.answer?.trim() || "");
@@ -102,7 +102,7 @@ export default function AiChatPanel({ userName }: AiChatPanelProps) {
       setError(
         submitError instanceof Error
           ? normalizeHealthChatErrorMessage(submitError.message)
-          : "웰니스 코치 응답을 불러오지 못했습니다.",
+          : "응답을 불러오지 못했습니다.",
       );
     } finally {
       setIsSubmitting(false);
