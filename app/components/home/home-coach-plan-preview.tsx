@@ -2,13 +2,7 @@
 
 import LockPreview from "../common/lock-preview";
 
-import {
-  type FocusKey,
-  type GoalKey,
-  type MealPatternKey,
-  type PlanProfile,
-  useWellnessStore,
-} from "@/app/stores/wellness-store";
+import { type FocusKey, type GoalKey, type PlanProfile, useWellnessStore } from "@/app/stores/wellness-store";
 
 type PlanCard = {
   label: string;
@@ -34,6 +28,40 @@ type PersonalPlan = {
   actions: PlanAction[];
 };
 
+const previewCardBadgeTone = {
+  bedtime: {
+    accent: "var(--sky)",
+    softAccent: "var(--sky-soft)",
+  },
+  workout: {
+    accent: "var(--mint)",
+    softAccent: "var(--mint-soft)",
+  },
+  protein: {
+    accent: "var(--sun)",
+    softAccent: "var(--sun-soft)",
+  },
+  water: {
+    accent: "var(--sun)",
+    softAccent: "var(--sun-soft)",
+  },
+} as const;
+
+const daySlotBadgeTone = {
+  Morning: {
+    accent: "#D96C4F",
+    softAccent: "#FBE4DD",
+  },
+  Midday: {
+    accent: "#8B68B5",
+    softAccent: "#EEE6F6",
+  },
+  Evening: {
+    accent: "#9A6B46",
+    softAccent: "#F1E3D7",
+  },
+} as const;
+
 const goalMeta = {
   "sleep-reset": {
     label: "수면 리셋",
@@ -56,8 +84,6 @@ const goalMeta = {
 const focusMeta = {
   sleep: {
     label: "수면",
-    accent: "var(--sky)",
-    softAccent: "var(--sky-soft)",
     summary: "잠드는 시간과 회복 질을 가장 먼저 챙기는 주간 플랜",
     morning: "기상 후 10분 햇빛과 물 한 컵으로 생체 리듬 깨우기",
     midday: "오후 카페인 컷오프 시간을 14:00 이전으로 고정하기",
@@ -65,8 +91,6 @@ const focusMeta = {
   },
   exercise: {
     label: "운동",
-    accent: "var(--mint)",
-    softAccent: "var(--mint-soft)",
     summary: "무리 없는 강도로 운동 습관을 이어가는 주간 플랜",
     morning: "아침 6분 모빌리티로 관절과 코어 먼저 깨우기",
     midday: "점심 후 15분 걷기로 활동량과 회복을 함께 유지하기",
@@ -74,8 +98,6 @@ const focusMeta = {
   },
   diet: {
     label: "식단",
-    accent: "var(--sun)",
-    softAccent: "var(--sun-soft)",
     summary: "포만감과 단백질 중심으로 식단 패턴을 안정화하는 주간 플랜",
     morning: "아침 첫 식사에 단백질 25g 이상 배치하기",
     midday: "점심은 탄수화물보다 단백질과 채소를 먼저 먹기",
@@ -85,20 +107,12 @@ const focusMeta = {
   FocusKey,
   {
     label: string;
-    accent: string;
-    softAccent: string;
     summary: string;
     morning: string;
     midday: string;
     evening: string;
   }
 >;
-
-const mealPatternMeta = {
-  balanced: "한 끼의 완성도를 고르게 유지하는 균형 식사",
-  "protein-forward": "단백질 우선 배치로 포만감과 회복을 챙기는 식사",
-  "gentle-balance": "부담 없는 소화와 안정적인 혈당 흐름에 맞춘 식사",
-} satisfies Record<MealPatternKey, string>;
 
 function buildPlan(profile: PlanProfile): PersonalPlan {
   const goal = goalMeta[profile.goal];
@@ -117,8 +131,7 @@ function buildPlan(profile: PlanProfile): PersonalPlan {
   return {
     heading: `${headingSubject}을 위한 ${goal.label} 코칭 플랜`,
     summary: `${goal.summary}
-    지금 주간 우선순위는 ${focus.label}이고, 
-    식사는 ${mealPatternMeta[profile.mealPattern]} 방향으로 맞춥니다.`,
+    지금 주간 우선순위는 ${focus.label}입니다.`,
     coachMessage: `${focus.summary}.
     이번 주는 ${
       profile.goal === "sleep-reset"
@@ -134,29 +147,29 @@ function buildPlan(profile: PlanProfile): PersonalPlan {
         label: "취침 목표",
         value: profile.bedtime,
         detail: "주 5일 이상 유지",
-        accent: "var(--sky)",
-        softAccent: "var(--sky-soft)",
+        accent: previewCardBadgeTone.bedtime.accent,
+        softAccent: previewCardBadgeTone.bedtime.softAccent,
       },
       {
         label: "운동 빈도",
         value: `주 ${profile.workoutDays}회`,
         detail: weeklyLoad,
-        accent: "var(--mint)",
-        softAccent: "var(--mint-soft)",
+        accent: previewCardBadgeTone.workout.accent,
+        softAccent: previewCardBadgeTone.workout.softAccent,
       },
       {
         label: "단백질 목표",
         value: `${profile.proteinTarget}g`,
         detail: "아침 단백질 우선",
-        accent: "var(--sun)",
-        softAccent: "var(--sun-soft)",
+        accent: previewCardBadgeTone.protein.accent,
+        softAccent: previewCardBadgeTone.protein.softAccent,
       },
       {
         label: "수분 목표",
         value: `${profile.waterTarget.toFixed(1)}L`,
         detail: "오후 3시 전 절반 이상",
-        accent: "var(--accent-strong)",
-        softAccent: "var(--accent-soft)",
+        accent: previewCardBadgeTone.water.accent,
+        softAccent: previewCardBadgeTone.water.softAccent,
       },
     ],
     actions: [
@@ -164,22 +177,22 @@ function buildPlan(profile: PlanProfile): PersonalPlan {
         slot: "Morning",
         title: `${focus.label} 루틴 시작`,
         detail: focus.morning,
-        accent: focus.accent,
-        softAccent: focus.softAccent,
+        accent: daySlotBadgeTone.Morning.accent,
+        softAccent: daySlotBadgeTone.Morning.softAccent,
       },
       {
         slot: "Midday",
         title: "오후 흐름 안정화",
         detail: focus.midday,
-        accent: focus.accent,
-        softAccent: focus.softAccent,
+        accent: daySlotBadgeTone.Midday.accent,
+        softAccent: daySlotBadgeTone.Midday.softAccent,
       },
       {
         slot: "Evening",
         title: "밤 루틴 정리",
         detail: focus.evening,
-        accent: focus.accent,
-        softAccent: focus.softAccent,
+        accent: daySlotBadgeTone.Evening.accent,
+        softAccent: daySlotBadgeTone.Evening.softAccent,
       },
     ],
   };
@@ -196,25 +209,22 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
   로그인하면 입력한 루틴과 목표를 바탕으로 개인 맞춤형 플랜이 이어집니다.`;
 
   return (
-    <article className="dark-panel ui-hover-panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] sm:px-8">
+    <article className="panel panel-strong ui-panel-shell ui-hover-panel sm:px-8">
       {isLoggedIn ? (
         <>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-3xl">
-              <p className="dark-panel-kicker">Personalized preview</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">{plan.heading}</h2>
-              <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">{plan.summary}</p>
+              <p className="ui-kicker">Personalized preview</p>
+              <h2 className="ui-title-3 mt-3">{plan.heading}</h2>
+              <p className="ui-copy mt-4 whitespace-pre-line">{plan.summary}</p>
             </div>
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             {plan.cards.map((card) => (
-              <article
-                key={card.label}
-                className="ui-hover-card-dark-soft rounded-[1.4rem] border border-white/10 bg-white/6 p-4"
-              >
-                <p className="dark-panel-label">{card.label}</p>
-                <p className="mt-3 text-3xl font-semibold tracking-tight">{card.value}</p>
+              <article key={card.label} className="ui-card ui-hover-panel">
+                <p className="text-sm text-[var(--muted)]">{card.label}</p>
+                <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--foreground)]">{card.value}</p>
                 <span
                   className="mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
                   style={{
@@ -228,17 +238,14 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
             ))}
           </div>
 
-          <div className="ui-hover-card-dark mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
-            <p className="dark-panel-label">Coach message</p>
-            <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
+          <div className="ui-card-raised mt-8">
+            <p className="text-sm text-[var(--muted)]">Coach message</p>
+            <p className="mt-3 whitespace-pre-line text-lg leading-8 text-[var(--foreground)]">{plan.coachMessage}</p>
           </div>
 
           <div className="mt-6 space-y-4">
             {plan.actions.map((action) => (
-              <article
-                key={action.slot}
-                className="ui-hover-card-dark rounded-[1.5rem] border border-white/10 bg-white/6 p-5"
-              >
+              <article key={action.slot} className="ui-card-raised ui-hover-panel">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <div
                     className="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
@@ -250,8 +257,8 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
                     {action.slot}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold tracking-tight">{action.title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-white/80">{action.detail}</p>
+                    <h3 className="text-xl font-semibold tracking-tight text-[var(--foreground)]">{action.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-[var(--muted)]">{action.detail}</p>
                   </div>
                 </div>
               </article>
@@ -262,59 +269,52 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
         <>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-3xl flex-1">
-              <p className="dark-panel-kicker">Personalized preview</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">{plan.heading}</h2>
-              <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">{guestPlanSummary}</p>
+              <p className="ui-kicker">Personalized preview</p>
+              <h2 className="ui-title-3 mt-3">{plan.heading}</h2>
+              <p className="ui-copy mt-4 whitespace-pre-line">{guestPlanSummary}</p>
             </div>
 
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/6 px-5 py-4 sm:min-w-[12rem]">
+            <div className="ui-card-compact px-5 py-4 sm:min-w-[12rem]">
               <div className="flex items-center justify-between gap-3">
-                <p className="dark-panel-label">이번주 코칭 적합도</p>
+                <p className="text-sm text-[var(--muted)]">이번주 코칭 적합도</p>
               </div>
               <LockPreview
                 className="mt-4"
                 accent="var(--accent-strong)"
-                softAccent="rgba(255,255,255,0.08)"
-                theme="dark"
+                softAccent="var(--accent-soft)"
                 lineWidths={["3.5rem"]}
-                lineColor="rgba(255,255,255,0.2)"
                 boxClassName="flex h-[5.5rem] items-center justify-center"
-                messageClassName="mt-3 text-xs leading-5 text-white/72"
+                messageClassName="mt-3 text-xs leading-5 text-[var(--muted)]"
               />
             </div>
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             {["취침 목표", "운동 빈도", "단백질 목표", "수분 목표"].map((label) => (
-              <article key={label} className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4">
+              <article key={label} className="ui-card">
                 <div className="flex items-center justify-between gap-3">
-                  <p className="dark-panel-label">{label}</p>
+                  <p className="text-sm text-[var(--muted)]">{label}</p>
                 </div>
                 <LockPreview
                   className="mt-4"
                   accent="var(--accent-strong)"
-                  softAccent="rgba(255,255,255,0.08)"
-                  theme="dark"
+                  softAccent="var(--accent-soft)"
                   lineWidths={["6rem"]}
-                  lineColor="rgba(255,255,255,0.2)"
                   boxClassName="flex h-20 items-center justify-center"
-                  messageClassName="mt-3 text-xs leading-5 text-white/72"
+                  messageClassName="mt-3 text-xs leading-5 text-[var(--muted)]"
                 />
               </article>
             ))}
           </div>
 
-          <div className="ui-hover-card-dark mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
-            <p className="dark-panel-label">Coach message</p>
-            <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
+          <div className="ui-card-raised mt-8">
+            <p className="text-sm text-[var(--muted)]">Coach message</p>
+            <p className="mt-3 whitespace-pre-line text-lg leading-8 text-[var(--foreground)]">{plan.coachMessage}</p>
           </div>
 
           <div className="mt-6 space-y-4">
             {plan.actions.map((action) => (
-              <article
-                key={action.slot}
-                className="ui-hover-card-dark rounded-[1.5rem] border border-white/10 bg-white/6 p-5"
-              >
+              <article key={action.slot} className="ui-card-raised ui-hover-panel">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <div
                     className="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
@@ -326,8 +326,8 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
                     {action.slot}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold tracking-tight">{action.title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-white/80">{action.detail}</p>
+                    <h3 className="text-xl font-semibold tracking-tight text-[var(--foreground)]">{action.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-[var(--muted)]">{action.detail}</p>
                   </div>
                 </div>
               </article>
