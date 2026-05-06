@@ -2,12 +2,14 @@ import { auth } from "@/auth";
 import { getOnboardingHref } from "@/lib/common/route-href";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import LogoutAlert from "./components/common/alert/logout-alert";
+import HomeFocusThemeWrapper from "./components/home/home-focus-theme-wrapper";
 import HomeHeader from "./components/home/home-header";
 import HomeOverviewSection from "./components/home/home-overview-section";
 import HomeCoachArea from "./components/home/home-coach-area";
-import HomeFocusThemeWrapper from "./components/home/home-focus-theme-wrapper";
-import HomeCoachPlanPreview from "./components/home/home-coach-plan-preview";
+import HomeFocusBoard from "./components/home/home-focus-board";
+import HomePriority from "./components/home/home-priority";
 import HomeDayPlan from "./components/home/home-day-plan";
+import HomeCoachPlanPreview from "./components/home/home-coach-plan-preview";
 import HomeStartCoach from "./components/home/home-start-coach";
 
 /**
@@ -38,6 +40,16 @@ export default async function Home(props: {
 
         {/* [Sleep / Workout / Nutrition] Coach */}
         <HomeCoachArea />
+
+        {!isLoggedIn ? (
+          <section
+            className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]"
+            aria-labelledby="coach-board-title"
+          >
+            <HomeFocusBoard isLoggedIn={isLoggedIn} />
+            <HomePriority isLoggedIn={isLoggedIn} />
+          </section>
+        ) : null}
 
         {/* Day Plan, Personalized Preview */}
         <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
