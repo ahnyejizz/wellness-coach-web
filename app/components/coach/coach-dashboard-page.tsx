@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import { getOnboardingHref } from "@/lib/common/route-href";
 import { HomeIcon } from "@/app/components/common/Icon";
+import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
 import HomeCoachPlanStudio from "@/app/components/home/home-coach-plan-studio";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
 import HomeWeeklyReport from "@/app/components/home/home-weekly-report";
@@ -71,11 +72,7 @@ export default async function CoachDashboardPage() {
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)] text-2xl font-semibold text-[#fffaf2]">
                 {userInitial}
               </div>
-              <div>
-                <p className="ui-kicker">Coach workspace</p>
-                <h1 className="ui-title-4 mt-3">{heading}</h1>
-                <p className="ui-copy mt-3">현재 로그인된 계정은 {userEmail} 입니다.</p>
-              </div>
+              <WorkspaceHeaderInfo kicker="Coach workspace" heading={heading} userEmail={userEmail} />
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">

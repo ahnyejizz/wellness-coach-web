@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import { HomeIcon } from "@/app/components/common/Icon";
+import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
 import HomeFocusBoard from "@/app/components/home/home-focus-board";
 import HomePriority from "@/app/components/home/home-priority";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
@@ -42,11 +43,11 @@ export default async function PlanPage() {
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)] text-2xl font-semibold text-[#fffaf2]">
                 {userInitial}
               </div>
-              <div>
-                <p className="ui-kicker">Plan workspace</p>
-                <h1 className="ui-title-4 mt-3">{userName}님의 플랜 보드</h1>
-                <p className="ui-copy mt-3">현재 로그인된 계정은 {userEmail} 입니다.</p>
-              </div>
+              <WorkspaceHeaderInfo
+                kicker="Plan workspace"
+                heading={`${userName}님, 환영합니다!`}
+                userEmail={userEmail}
+              />
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
