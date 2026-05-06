@@ -41,7 +41,7 @@ export default function WellnessPlanSummary() {
     <section className="panel ui-panel-shell ui-hover-panel h-full">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-3xl">
-          <p className="ui-kicker">Linked plan</p>
+          <p className="ui-kicker">Plan Priority</p>
           <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <h2 className="ui-title-3">선택하신 플랜 우선순위</h2>
             <span

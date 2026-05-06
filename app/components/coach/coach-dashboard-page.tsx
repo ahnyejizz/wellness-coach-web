@@ -3,7 +3,9 @@ import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import { getOnboardingHref } from "@/lib/common/route-href";
 import { HomeIcon } from "@/app/components/common/Icon";
+import HomeCoachPlanStudio from "@/app/components/home/home-coach-plan-studio";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
+import HomeWeeklyReport from "@/app/components/home/home-weekly-report";
 import WellnessPlanSummary from "@/app/components/coach/wellness-plan-summary";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import {
@@ -14,7 +16,7 @@ import {
 } from "@/lib/auth/user-store";
 
 /**
- * @description 로그인 후 개인 코칭 상태와 온보딩 요약을 보여주는 코치 대시보드 페이지
+ * @description 로그인 후 입력한 웰니스 프로필, 선택된 플랜 우선순위, 주간 리포트를 보여주는 대시보드 페이지
  */
 function resolveInitial(name?: string | null, email?: string | null) {
   const source = name?.trim() || email?.trim() || "M";
@@ -103,7 +105,7 @@ export default async function CoachDashboardPage() {
           <article className="panel ui-panel-card ui-hover-panel h-full">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="ui-kicker">Wellness onboarding</p>
+                <p className="ui-kicker">Wellness Profile</p>
                 <h2 className="ui-title-3 mt-3">가입 직후 입력한 웰니스 프로필</h2>
               </div>
               <Link href={onboardingHref} className="ui-pill ui-pill-strong">
@@ -125,6 +127,9 @@ export default async function CoachDashboardPage() {
           </article>
           <WellnessPlanSummary />
         </section>
+
+        {/* <HomeCoachPlanStudio /> */}
+        <HomeWeeklyReport />
       </main>
     </HomeFocusThemeWrapper>
   );
