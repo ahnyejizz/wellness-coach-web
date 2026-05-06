@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
+import { getOnboardingHref } from "@/lib/common/route-href";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
-import { hasCompletedOnboarding } from "@/lib/auth/user-store";
 import LogoutAlert from "./components/common/alert/logout-alert";
 import HomeHeader from "./components/home/home-header";
 import HomeOverviewSection from "./components/home/home-overview-section";
@@ -25,10 +25,7 @@ export default async function Home(props: {
   const session = await auth();
   const isLoggedIn = !!session?.user;
   const localProfile = session?.user?.email ? await getFinalUserProfileByEmail(session.user.email) : null;
-  const onboardingHref =
-    localProfile && hasCompletedOnboarding(localProfile)
-      ? "/coach/onboarding?mode=edit&callbackUrl=/"
-      : "/coach/onboarding?callbackUrl=/";
+  const onboardingHref = getOnboardingHref(localProfile, "/");
   const searchParams = await props.searchParams;
   const loggedOutValue = Array.isArray(searchParams.loggedOut) ? searchParams.loggedOut[0] : searchParams.loggedOut;
   const showLoggedOutAlert = loggedOutValue === "true";

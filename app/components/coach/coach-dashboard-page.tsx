@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth, signOut } from "@/auth";
+import { getOnboardingHref } from "@/lib/common/route-href";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
 import WellnessPlanSummary from "@/app/components/coach/wellness-plan-summary";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
@@ -39,6 +40,7 @@ export default async function CoachDashboardPage() {
   const userInitial = resolveInitial(session.user.name, session.user.email);
   const isFirstLogin = (completedProfile.loginCount ?? 0) <= 1;
   const heading = isFirstLogin ? `${userName}님, 환영합니다!` : `${userName}님, 환영합니다!`;
+  const onboardingHref = getOnboardingHref(completedProfile, "/coach");
   const onboardingSummary = [
     {
       label: "목표 체중",
@@ -75,6 +77,9 @@ export default async function CoachDashboardPage() {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
+              <Link href={onboardingHref} className="ui-button-secondary">
+                온보딩
+              </Link>
               <Link href="/" className="ui-button-secondary">
                 홈으로
               </Link>
@@ -99,7 +104,7 @@ export default async function CoachDashboardPage() {
                 <p className="ui-kicker">Wellness onboarding</p>
                 <h2 className="ui-title-3 mt-3">가입 직후 입력한 웰니스 프로필</h2>
               </div>
-              <Link href="/coach/onboarding?mode=edit&callbackUrl=/coach" className="ui-pill ui-pill-strong">
+              <Link href={onboardingHref} className="ui-pill ui-pill-strong">
                 수정
               </Link>
             </div>
