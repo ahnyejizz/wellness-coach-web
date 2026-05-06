@@ -2,7 +2,7 @@ import { healthQuestionSummaries } from "@/lib/health/content";
 
 export default function AiChatSummaryPanel() {
   return (
-    <aside className="panel-dark ui-hover-panel-dark rounded-[1.8rem] p-6 text-[#f7f1e8]">
+    <aside className="dark-panel ui-hover-panel-dark rounded-[1.8rem] p-6 text-[#f7f1e8]">
       <p className="ui-kicker text-[#ffb297]">Useful summaries</p>
       <h3 className="mt-3 text-2xl font-semibold tracking-tight">자주 묻는 웰니스 Q&A 요약</h3>
       <p className="mt-4 text-sm leading-7 text-[#d6ddd7]">

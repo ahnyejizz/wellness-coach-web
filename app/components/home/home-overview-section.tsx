@@ -2,6 +2,7 @@
 
 import LockPreview from "../common/lock-preview";
 import HomeCoachBrief from "./home-coach-brief";
+import HomeFocusBoard from "./home-focus-board";
 
 const guestSignalPreviews = [
   {
@@ -44,7 +45,11 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
             </p>
           </div>
 
-          {isLoggedIn ? null : (
+          {isLoggedIn ? (
+            <div className="max-w-[46rem]">
+              <HomeFocusBoard isLoggedIn={isLoggedIn} />
+            </div>
+          ) : (
             <div className="grid gap-3 sm:grid-cols-3">
               {guestSignalPreviews.map((signal) => (
                 <article key={signal.label} className="ui-card-compact ui-hover-card rounded-[1.4rem]">

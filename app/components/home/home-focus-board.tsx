@@ -130,12 +130,12 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
   const setActiveFocus = useWellnessStore((state) => state.setActiveFocus);
 
   return (
-    <article className="panel ui-panel-shell">
-      <p className="ui-kicker">Focus board</p>
-      <h2 id="coach-board-title" className="ui-title-3 mt-3">
+    <article className="dark-panel dark-panel-wrapper ui-hover-panel-dark rise-in-delay">
+      <p className="dark-panel-kicker">Focus board</p>
+      <h2 id="coach-board-title" className="mt-3 text-3xl font-semibold tracking-tight text-[#f6f0e6]">
         플랜 우선순위를 선택하세요.
       </h2>
-      <p className="ui-copy mt-4 max-w-2xl">
+      <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80">
         수면, 운동, 식단 중 현재 우선순위를 바꾸면
         <br />
         해당 플랜에 대한 코치의 제안과 이번주 패턴이 함께 업데이트됩니다.
@@ -153,17 +153,17 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
               type="button"
               aria-pressed={isActive}
               onClick={() => setActiveFocus(key)}
-              className={`w-full rounded-[1.5rem] border p-5 text-left transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(21,42,36,0.12)] ${
+              className={`w-full rounded-[1.45rem] border px-5 py-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(14,26,24,0.18)] ${
                 isActive
-                  ? "border-transparent bg-[var(--foreground)] text-[#fffaf2] shadow-xl"
-                  : "border-[var(--border)] bg-white/65 text-[var(--foreground)] hover:bg-white"
+                  ? "border-white/18 bg-white/12 text-[#fffaf2] shadow-[0_18px_30px_rgba(14,26,24,0.18)]"
+                  : "border-white/10 bg-white/6 text-[#f6f0e6] hover:bg-white/10"
               }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className={`text-sm ${isActive ? "text-white/70" : "text-[var(--muted)]"}`}>{area.kicker}</p>
+                  <p className={`text-sm ${isActive ? "text-white/78" : "text-white/68"}`}>{area.kicker}</p>
                   <h3 className="mt-2 text-xl font-semibold tracking-tight">{area.label}</h3>
-                  <p className={`mt-3 text-sm leading-7 ${isActive ? "text-white/80" : "text-[var(--muted)]"}`}>
+                  <p className={`mt-3 text-sm leading-7 ${isActive ? "text-white/84" : "text-white/74"}`}>
                     {area.summary}
                   </p>
                 </div>
@@ -172,7 +172,7 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
                     className="flex h-14 w-14 items-center justify-center rounded-full border"
                     style={{
                       backgroundColor: isActive ? "rgba(255,255,255,0.12)" : area.softAccent,
-                      borderColor: isActive ? "rgba(255,255,255,0.18)" : "var(--border)",
+                      borderColor: isActive ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.08)",
                       color: isActive ? "#fffaf2" : area.accent,
                     }}
                   >

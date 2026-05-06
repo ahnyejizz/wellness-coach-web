@@ -196,12 +196,12 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
   로그인하면 입력한 루틴과 목표를 바탕으로 개인 맞춤형 플랜이 이어집니다.`;
 
   return (
-    <article className="panel-dark ui-hover-panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] sm:px-8">
+    <article className="dark-panel ui-hover-panel-dark rounded-[2rem] px-6 py-7 text-[#f6f0e6] sm:px-8">
       {isLoggedIn ? (
         <>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-3xl">
-              <p className="text-sm uppercase tracking-[0.24em] text-white/70">Personalized preview</p>
+              <p className="dark-panel-kicker">Personalized preview</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight">{plan.heading}</h2>
               <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">{plan.summary}</p>
             </div>
@@ -213,7 +213,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
                 key={card.label}
                 className="ui-hover-card-dark-soft rounded-[1.4rem] border border-white/10 bg-white/6 p-4"
               >
-                <p className="text-sm text-white/70">{card.label}</p>
+                <p className="dark-panel-label">{card.label}</p>
                 <p className="mt-3 text-3xl font-semibold tracking-tight">{card.value}</p>
                 <span
                   className="mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
@@ -229,7 +229,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
           </div>
 
           <div className="ui-hover-card-dark mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
-            <p className="text-sm text-white/70">Coach message</p>
+            <p className="dark-panel-label">Coach message</p>
             <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
           </div>
 
@@ -262,14 +262,14 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
         <>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-3xl flex-1">
-              <p className="text-sm uppercase tracking-[0.24em] text-white/70">Personalized preview</p>
+              <p className="dark-panel-kicker">Personalized preview</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight">{plan.heading}</h2>
               <p className="mt-4 whitespace-pre-line text-sm leading-7 text-white/80">{guestPlanSummary}</p>
             </div>
 
             <div className="rounded-[1.5rem] border border-white/10 bg-white/6 px-5 py-4 sm:min-w-[12rem]">
               <div className="flex items-center justify-between gap-3">
-                <p className="text-sm text-white/70">이번주 코칭 적합도</p>
+                <p className="dark-panel-label">이번주 코칭 적합도</p>
               </div>
               <LockPreview
                 className="mt-4"
@@ -288,7 +288,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
             {["취침 목표", "운동 빈도", "단백질 목표", "수분 목표"].map((label) => (
               <article key={label} className="rounded-[1.4rem] border border-white/10 bg-white/6 p-4">
                 <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm text-white/70">{label}</p>
+                  <p className="dark-panel-label">{label}</p>
                 </div>
                 <LockPreview
                   className="mt-4"
@@ -305,7 +305,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
           </div>
 
           <div className="ui-hover-card-dark mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
-            <p className="text-sm text-white/70">Coach message</p>
+            <p className="dark-panel-label">Coach message</p>
             <p className="mt-3 whitespace-pre-line text-lg leading-8">{plan.coachMessage}</p>
           </div>
 
