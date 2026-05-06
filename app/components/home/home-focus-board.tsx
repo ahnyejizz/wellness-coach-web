@@ -171,9 +171,9 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
                   <div
                     className="flex h-14 w-14 items-center justify-center rounded-full border"
                     style={{
-                      backgroundColor: isActive ? "rgba(255,255,255,0.12)" : area.softAccent,
+                      backgroundColor: isActive ? area.softAccent : "rgba(255,255,255,0.12)",
                       borderColor: isActive ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.08)",
-                      color: isActive ? "#fffaf2" : area.accent,
+                      color: isActive ? area.accent : "#fffaf2",
                     }}
                   >
                     <Icon className="h-6 w-6" />
