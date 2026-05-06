@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth, signOut } from "@/auth";
+import { HomeIcon } from "@/app/components/common/Icon";
 import { getOnboardingHref } from "@/lib/common/route-href";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
 import AiChatPanel from "@/app/components/ai-chat/ai-chat-panel";
@@ -57,8 +58,13 @@ export default async function AiChatPage() {
               <Link href="/coach" className="ui-button-secondary">
                 웰니스 코치
               </Link>
-              <Link href="/" className="ui-button-secondary">
-                홈으로
+              <Link
+                href="/"
+                aria-label="홈으로"
+                title="홈으로"
+                className="ui-button-secondary inline-flex items-center justify-center px-4"
+              >
+                <HomeIcon />
               </Link>
               <form
                 action={async () => {

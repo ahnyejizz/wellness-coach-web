@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { HomeIcon } from "@/app/components/common/Icon";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
 
@@ -92,8 +93,13 @@ export default async function SignUpPage(props: {
               <h2 className="ui-title-3 mt-3">회원가입</h2>
             </div>
             <div className="flex items-center gap-3 sm:justify-end">
-              <Link href="/" className="ui-pill">
-                홈으로
+              <Link
+                href="/"
+                aria-label="홈으로"
+                title="홈으로"
+                className="ui-pill inline-flex items-center justify-center px-3"
+              >
+                <HomeIcon />
               </Link>
               <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="ui-pill">
                 로그인

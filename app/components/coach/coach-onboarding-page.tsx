@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import type { ComponentType } from "react";
 import { auth } from "@/auth";
 import { saveOnboardingAnswers } from "@/app/coach/onboarding/actions";
-import { WeightIcon, SleepIcon, WorkoutIcon, MealIcon, type IconProps } from "@/app/components/common/Icon";
+import { HomeIcon, WeightIcon, SleepIcon, WorkoutIcon, MealIcon, type IconProps } from "@/app/components/common/Icon";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import {
   exerciseExperienceOptions,
@@ -190,8 +190,13 @@ export default async function CoachOnboardingPage(props: {
               </p>
               <h2 className="ui-title-3 mt-3">{mode === "edit" ? "온보딩 수정" : "온보딩 입력"}</h2>
             </div>
-            <Link href={mode === "edit" ? callbackUrl : "/"} className="ui-pill">
-              {mode === "edit" ? "돌아가기" : "홈으로"}
+            <Link
+              href={mode === "edit" ? callbackUrl : "/"}
+              aria-label={mode === "edit" ? "돌아가기" : "홈으로"}
+              title={mode === "edit" ? "돌아가기" : "홈으로"}
+              className="ui-pill inline-flex items-center justify-center px-3"
+            >
+              {mode === "edit" ? "돌아가기" : <HomeIcon />}
             </Link>
           </div>
 

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { auth, signOut } from "@/auth";
 import { getOnboardingHref } from "@/lib/common/route-href";
+import { HomeIcon } from "@/app/components/common/Icon";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
 import WellnessPlanSummary from "@/app/components/coach/wellness-plan-summary";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
@@ -80,8 +81,13 @@ export default async function CoachDashboardPage() {
               <Link href={onboardingHref} className="ui-button-secondary">
                 온보딩
               </Link>
-              <Link href="/" className="ui-button-secondary">
-                홈으로
+              <Link
+                href="/"
+                aria-label="홈으로"
+                title="홈으로"
+                className="ui-button-secondary inline-flex items-center justify-center px-4"
+              >
+                <HomeIcon />
               </Link>
               <form
                 action={async () => {

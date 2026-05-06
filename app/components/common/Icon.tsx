@@ -80,3 +80,24 @@ export function MealIcon({ className = "h-4 w-4" }: IconProps) {
     </svg>
   );
 }
+
+export function HomeIcon({ className = "h-6 w-6" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true" fill="none">
+      <path
+        d="M4.75 10.25 12 4.75l7.25 5.5"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.75 9.8v8.45c0 .55.45 1 1 1h8.5c.55 0 1-.45 1-1V9.8"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinejoin="round"
+      />
+      <path d="M10 19.25V13.5h4v5.75" stroke="currentColor" strokeWidth="1.9" strokeLinejoin="round" />
+    </svg>
+  );
+}
