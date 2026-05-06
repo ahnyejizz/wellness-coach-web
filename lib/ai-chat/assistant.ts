@@ -1,4 +1,4 @@
-import { healthAssistantDisclaimer } from "@/lib/health/content";
+import { aiChatDisclaimer } from "@/lib/ai-chat/content";
 
 const geminiApiBaseUrl = "https://generativelanguage.googleapis.com/v1beta/models";
 const fallbackModel = "gemini-2.5-flash-lite";
@@ -24,24 +24,24 @@ Format the answer exactly with these section titles:
 주의
 `.trim();
 
-export class HealthAssistantConfigError extends Error {
+export class AiChatConfigError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = "HealthAssistantConfigError";
+    this.name = "AiChatConfigError";
   }
 }
 
-export class HealthAssistantRequestError extends Error {
+export class AiChatRequestError extends Error {
   status: number;
 
   constructor(message: string, status = 500) {
     super(message);
-    this.name = "HealthAssistantRequestError";
+    this.name = "AiChatRequestError";
     this.status = status;
   }
 }
 
-type HealthAssistantResult = {
+type AiChatResult = {
   answer: string;
   disclaimer: string;
   model: string;
@@ -212,30 +212,30 @@ async function requestGeminiAnswer(model: string, apiKey: string, validatedQuest
   };
 }
 
-export function validateHealthQuestion(question: string) {
+export function validateAiChatQuestion(question: string) {
   const normalizedQuestion = question.trim();
 
   if (!normalizedQuestion) {
-    throw new HealthAssistantRequestError("질문을 입력해 주세요.", 400);
+    throw new AiChatRequestError("질문을 입력해 주세요.", 400);
   }
 
   if (normalizedQuestion.length > maxQuestionLength) {
-    throw new HealthAssistantRequestError(`질문은 ${maxQuestionLength}자 이하로 입력해 주세요.`, 400);
+    throw new AiChatRequestError(`질문은 ${maxQuestionLength}자 이하로 입력해 주세요.`, 400);
   }
 
   return normalizedQuestion;
 }
 
-export async function askHealthCoach(question: string): Promise<HealthAssistantResult> {
+export async function askAiChat(question: string): Promise<AiChatResult> {
   const apiKey = process.env.GEMINI_API_KEY?.trim() || process.env.GOOGLE_API_KEY?.trim();
 
   if (!apiKey) {
-    throw new HealthAssistantConfigError("GEMINI_API_KEY 또는 GOOGLE_API_KEY가 설정되지 않았습니다.");
+    throw new AiChatConfigError("GEMINI_API_KEY 또는 GOOGLE_API_KEY가 설정되지 않았습니다.");
   }
 
-  const validatedQuestion = validateHealthQuestion(question);
+  const validatedQuestion = validateAiChatQuestion(question);
   const modelCandidates = Array.from(new Set([resolveModel(), resolveFallbackModel()].filter(Boolean)));
-  let lastError: HealthAssistantRequestError | null = null;
+  let lastError: AiChatRequestError | null = null;
 
   for (const model of modelCandidates) {
     for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -244,12 +244,12 @@ export async function askHealthCoach(question: string): Promise<HealthAssistantR
       if (result.ok) {
         return {
           answer: result.answer,
-          disclaimer: healthAssistantDisclaimer,
+          disclaimer: aiChatDisclaimer,
           model,
         };
       }
 
-      lastError = new HealthAssistantRequestError(result.message, result.status);
+      lastError = new AiChatRequestError(result.message, result.status);
 
       if (attempt === 0 && shouldRetryProviderRequest(result.message, result.status)) {
         await waitForRetry();
@@ -264,5 +264,5 @@ export async function askHealthCoach(question: string): Promise<HealthAssistantR
     throw lastError;
   }
 
-  throw new HealthAssistantRequestError("응답을 가져오지 못했습니다.", 500);
+  throw new AiChatRequestError("응답을 가져오지 못했습니다.", 500);
 }

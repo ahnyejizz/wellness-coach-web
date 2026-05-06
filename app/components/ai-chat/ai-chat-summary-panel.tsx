@@ -1,5 +1,5 @@
 import { HEALTH_SUMMARY_CATEGORY_COLORS, WELLNESS_COLORS } from "@/app/constants/colors";
-import { healthQuestionSummaries } from "@/lib/health/content";
+import { aiChatQuestionSummaries } from "@/lib/ai-chat/content";
 
 export default function AiChatSummaryPanel() {
   return (
@@ -11,7 +11,7 @@ export default function AiChatSummaryPanel() {
       </p>
 
       <div className="mt-5 space-y-3">
-        {healthQuestionSummaries.map((item) => {
+        {aiChatQuestionSummaries.map((item) => {
           const categoryTone =
             HEALTH_SUMMARY_CATEGORY_COLORS[item.category as keyof typeof HEALTH_SUMMARY_CATEGORY_COLORS] ??
             WELLNESS_COLORS.lifestyle;

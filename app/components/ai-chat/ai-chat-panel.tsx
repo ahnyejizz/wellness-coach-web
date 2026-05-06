@@ -5,20 +5,20 @@ import { HEALTH_SUMMARY_CATEGORY_COLORS, WELLNESS_COLORS } from "@/app/constants
 
 import AiChatSummaryPanel from "./ai-chat-summary-panel";
 
-import { healthAssistantDisclaimer, healthQuestionSummaries, suggestedHealthQuestions } from "@/lib/health/content";
+import { aiChatDisclaimer, aiChatQuestionSummaries, suggestedAiChatQuestions } from "@/lib/ai-chat/content";
 
 type AiChatPanelProps = {
   userName: string;
 };
 
-type HealthChatResponse = {
+type AiChatResponse = {
   answer?: string;
   disclaimer?: string;
   error?: string;
   model?: string;
 };
 
-function normalizeHealthChatErrorMessage(message: string) {
+function normalizeAiChatErrorMessage(message: string) {
   const normalizedMessage = message.trim();
   const lowerCaseMessage = normalizedMessage.toLowerCase();
 
@@ -35,10 +35,10 @@ function normalizeHealthChatErrorMessage(message: string) {
 
 export default function AiChatPanel({ userName }: AiChatPanelProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [question, setQuestion] = useState<string>(suggestedHealthQuestions[0]);
+  const [question, setQuestion] = useState<string>(suggestedAiChatQuestions[0]);
   const [submittedQuestion, setSubmittedQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  const [answerDisclaimer, setAnswerDisclaimer] = useState(healthAssistantDisclaimer);
+  const [answerDisclaimer, setAnswerDisclaimer] = useState(aiChatDisclaimer);
   const [model, setModel] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -79,7 +79,7 @@ export default function AiChatPanel({ userName }: AiChatPanelProps) {
     setSubmittedQuestion(normalizedQuestion);
 
     try {
-      const response = await fetch("/api/health-chat", {
+      const response = await fetch("/api/ai-chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,22 +87,22 @@ export default function AiChatPanel({ userName }: AiChatPanelProps) {
         body: JSON.stringify({ question: normalizedQuestion }),
       });
 
-      const payload = (await response.json()) as HealthChatResponse;
+      const payload = (await response.json()) as AiChatResponse;
 
       if (!response.ok) {
-        throw new Error(normalizeHealthChatErrorMessage(payload.error || "응답을 불러오지 못했습니다."));
+        throw new Error(normalizeAiChatErrorMessage(payload.error || "응답을 불러오지 못했습니다."));
       }
 
       setAnswer(payload.answer?.trim() || "");
-      setAnswerDisclaimer(payload.disclaimer?.trim() || healthAssistantDisclaimer);
+      setAnswerDisclaimer(payload.disclaimer?.trim() || aiChatDisclaimer);
       setModel(payload.model?.trim() || "");
     } catch (submitError) {
       setAnswer("");
       setModel("");
-      setAnswerDisclaimer(healthAssistantDisclaimer);
+      setAnswerDisclaimer(aiChatDisclaimer);
       setError(
         submitError instanceof Error
-          ? normalizeHealthChatErrorMessage(submitError.message)
+          ? normalizeAiChatErrorMessage(submitError.message)
           : "응답을 불러오지 못했습니다.",
       );
     } finally {
@@ -142,7 +142,7 @@ export default function AiChatPanel({ userName }: AiChatPanelProps) {
         <div className="mt-6 grid gap-5 xl:grid-cols-[1.12fr_0.88fr]">
           <div className="ui-card-raised">
             <div className="flex flex-wrap gap-2">
-              {suggestedHealthQuestions.map((suggestedQuestion) => {
+              {suggestedAiChatQuestions.map((suggestedQuestion) => {
                 const isActive = question.trim() === suggestedQuestion;
 
                 return (
@@ -229,7 +229,7 @@ export default function AiChatPanel({ userName }: AiChatPanelProps) {
         </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {healthQuestionSummaries.map((item) => {
+          {aiChatQuestionSummaries.map((item) => {
             const isActive = question.trim() === item.question;
             const categoryTone =
               HEALTH_SUMMARY_CATEGORY_COLORS[item.category as keyof typeof HEALTH_SUMMARY_CATEGORY_COLORS] ??

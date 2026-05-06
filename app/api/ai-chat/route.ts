@@ -1,14 +1,14 @@
 import { auth } from "@/auth";
 import {
-  askHealthCoach,
-  HealthAssistantConfigError,
-  HealthAssistantRequestError,
-  validateHealthQuestion,
-} from "@/lib/health/assistant";
+  askAiChat,
+  AiChatConfigError,
+  AiChatRequestError,
+  validateAiChatQuestion,
+} from "@/lib/ai-chat/assistant";
 
 export const runtime = "nodejs";
 
-type HealthChatRequestBody = {
+type AiChatRequestBody = {
   question?: string;
 };
 
@@ -17,7 +17,7 @@ function getQuestionFromBody(body: unknown): string {
     return "";
   }
 
-  const { question } = body as HealthChatRequestBody;
+  const { question } = body as AiChatRequestBody;
 
   return typeof question === "string" ? question : "";
 }
@@ -38,16 +38,16 @@ export async function POST(request: Request) {
   }
 
   try {
-    const question = validateHealthQuestion(getQuestionFromBody(requestBody));
-    const result = await askHealthCoach(question);
+    const question = validateAiChatQuestion(getQuestionFromBody(requestBody));
+    const result = await askAiChat(question);
 
     return Response.json(result);
   } catch (error) {
-    if (error instanceof HealthAssistantConfigError) {
+    if (error instanceof AiChatConfigError) {
       return Response.json({ error: error.message }, { status: 500 });
     }
 
-    if (error instanceof HealthAssistantRequestError) {
+    if (error instanceof AiChatRequestError) {
       return Response.json({ error: error.message }, { status: error.status });
     }
 

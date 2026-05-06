@@ -1,4 +1,4 @@
-export type HealthQuestionSummary = {
+export type AiChatQuestionSummary = {
   id: string;
   category: string;
   question: string;
@@ -7,14 +7,14 @@ export type HealthQuestionSummary = {
   seekCare: string;
 };
 
-export const suggestedHealthQuestions = [
+export const suggestedAiChatQuestions = [
   "최근 잠이 얕고 자주 깨는데, 생활 루틴을 어떻게 조정하면 좋을까요?",
   "운동 후 다음 날 피로가 오래 가요. 강도 조절 기준이 있을까요?",
   "저녁마다 군것질이 늘어나는데 식단을 어떻게 안정화하면 좋을까요?",
   "앉아 있는 시간이 긴데 허리와 어깨 부담을 줄이는 습관이 궁금해요.",
 ] as const;
 
-export const healthQuestionSummaries: HealthQuestionSummary[] = [
+export const aiChatQuestionSummaries: AiChatQuestionSummary[] = [
   {
     id: "sleep-rhythm",
     category: "수면",
@@ -57,5 +57,5 @@ export const healthQuestionSummaries: HealthQuestionSummary[] = [
   },
 ];
 
-export const healthAssistantDisclaimer =
+export const aiChatDisclaimer =
   "이 답변은 일반적인 웰니스 정보이며, 진단이나 처방을 대신하지 않습니다. 흉통, 호흡곤란, 의식 저하, 심한 통증, 급격한 악화가 있으면 즉시 응급 진료를 받으세요.";
