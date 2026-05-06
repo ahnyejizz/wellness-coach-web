@@ -152,11 +152,11 @@ function getEmptyPriorityContent(focus: BriefMetricKey): PriorityContent {
   if (focus === "sleep") {
     return {
       hasData: false,
-      target: "아직 수면 브리핑이 없어요.",
-      summary: "오늘의 코치 브리핑에서 수면 카드를 클릭해 총 수면 시간과 루틴을 입력해보세요.",
+      target: "아직 수면 지표 데이터가 없어요.",
+      summary: "수면 카드를 클릭해 지표 데이터를 입력해보세요.",
       scoreLabel: "총 수면 시간",
       score: "--",
-      coachNote: "브리핑 팝업에서 입력한 수면 지표가 저장되면 이 영역에 맞춤 요약과 패턴이 표시됩니다.",
+      coachNote: "팝업에서 입력한 수면 지표가 저장되면 이 영역에 맞춤 요약과 패턴이 표시됩니다.",
       habits: [
         "총 수면 시간을 입력하면 회복 흐름을 함께 볼 수 있어요.",
         "취침 준비 루틴 여부를 먼저 입력해보세요.",
@@ -180,8 +180,8 @@ function getEmptyPriorityContent(focus: BriefMetricKey): PriorityContent {
   if (focus === "exercise") {
     return {
       hasData: false,
-      target: "아직 운동 브리핑이 없어요.",
-      summary: "오늘의 코치 브리핑에서 운동 카드를 클릭해 주간 운동 지표를 입력해보세요.",
+      target: "아직 운동 지표 데이터가 없어요.",
+      summary: "운동 카드를 클릭해 지표 데이터를 입력해보세요.",
       scoreLabel: "주간 근력 횟수",
       score: "--",
       coachNote: "운동 팝업에서 입력한 근력, 활동 칼로리, 회복 상태가 저장되면 이 영역에 요약이 표시됩니다.",
@@ -207,8 +207,8 @@ function getEmptyPriorityContent(focus: BriefMetricKey): PriorityContent {
 
   return {
     hasData: false,
-    target: "아직 식단 브리핑이 없어요.",
-    summary: "오늘의 코치 브리핑에서 식단 카드를 클릭해 단백질, 수분, 야식 빈도를 입력해보세요.",
+    target: "아직 식단 지표 데이터가 없어요.",
+    summary: "식단 카드를 클릭해 지표 데이터를 입력해보세요.",
     scoreLabel: "단백질 섭취량",
     score: "--",
     coachNote: "식단 팝업에서 입력한 지표가 저장되면 이 영역에 식사 안정도 요약과 이번 주 패턴이 표시됩니다.",

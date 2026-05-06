@@ -149,10 +149,10 @@ export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
   const hasHydrated = useWellnessStore((state) => state.hasHydrated);
   const hasAnyDetails = briefScoreCards.some((card) => hasBriefDetails(card.key, briefDetails));
   const statusLabel = !hasHydrated
-    ? "저장된 브리핑 지표를 불러오는 중이에요."
+    ? "저장된 지표 데이터를 불러오는 중이에요."
     : hasAnyDetails
-      ? "카드를 클릭하면 브리핑 지표를 수정할 수 있어요."
-      : "카드를 클릭해서 브리핑 지표를 입력해보세요.";
+      ? "카드를 클릭하면 지표 데이터를 수정할 수 있어요."
+      : "카드를 클릭해서 지표 데이터를 입력해보세요.";
 
   function handleCardClick(key: BriefMetricKey) {
     setActiveFocus(key);
@@ -180,7 +180,7 @@ export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
       <SaveAlert
         openKey={saveAlertKey}
         onClose={() => setSaveAlertKey(0)}
-        description="브리핑 입력값이 카드와 우선순위 패널에 저장되었어요."
+        description="지표 입력값이 카드와 우선순위 패널에 저장되었어요."
       />
 
       <aside className="dark-panel dark-panel-wrapper ui-hover-panel-dark rise-in-delay">

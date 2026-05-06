@@ -106,7 +106,7 @@ export default function DailySurveyPanel() {
       <SaveAlert
         openKey={saveAlertKey}
         onClose={() => setSaveAlertKey(0)}
-        description="브리핑 입력값이 오늘의 코치 브리핑과 우선순위 패널에 저장되었어요."
+        description="입력값이 오늘의 코치 브리핑과 우선순위 패널에 저장되었어요."
       />
 
       <section className="panel ui-panel-shell-lg">
@@ -115,9 +115,9 @@ export default function DailySurveyPanel() {
             <p className="ui-kicker">Quick Brief Input</p>
             <h2 className="ui-title-3 mt-3">지표를 바로 기록해보세요!</h2>
             <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-              각 버튼을 누르면 해당 브리핑 팝업이 바로 열리고
+              각 버튼을 누르면 해당 지표를 입력할 수 있는 팝업이 열리고,
               <br />
-              오늘의 코치 브리핑 카드와 우선순위 패널에도 함께 반영됩니다.
+              입력하신 지표 데이터들은 각 패널에도 즉각 반영됩니다.
             </p>
           </div>
 

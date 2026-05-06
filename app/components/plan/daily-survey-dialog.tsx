@@ -84,7 +84,7 @@ export default function DailySurveyDialog({ focus, details, onClose, onSave }: D
     onSave(resolvedFocus, draft[resolvedFocus]);
   }
 
-  const title = `${focusLabels[resolvedFocus]} 브리핑 입력`;
+  const title = `${focusLabels[resolvedFocus]} 지표 데이터 입력`;
 
   return createPortal(
     <div
@@ -113,7 +113,7 @@ export default function DailySurveyDialog({ focus, details, onClose, onSave }: D
 
           <button
             type="button"
-            aria-label="브리핑 입력 팝업 닫기"
+            aria-label="지표 데이터 입력 팝업 닫기"
             className="ui-pill h-10 min-w-10 px-0 text-base leading-none"
             onClick={onClose}
           >

@@ -23,7 +23,7 @@ export default function HomeHeader({ isLoggedIn, onboardingHref }: HomeHeaderPro
               웰니스 플랜
             </Link>
             <Link href="/coach" className="ui-pill">
-              마이페이지
+              코치 대시보드
             </Link>
             <Link href="/ai-chat" className="ui-pill">
               AI Chat
