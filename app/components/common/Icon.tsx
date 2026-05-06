@@ -2,7 +2,7 @@ export type IconProps = {
   className?: string;
 };
 
-export function LockGlyph({ className = "h-4 w-4" }: IconProps) {
+export function LockIcon({ className = "h-4 w-4" }: IconProps) {
   return (
     <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
       <path

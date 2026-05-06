@@ -1,4 +1,4 @@
-import { LockGlyph } from "./Icon";
+import { LockIcon } from "./Icon";
 
 type LockPreviewProps = {
   accent: string;
@@ -61,7 +61,7 @@ export default function LockPreview({
           </div>
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <div className={iconBaseClassName} style={iconStyle}>
-              <LockGlyph className="h-4 w-4 text-white" />
+              <LockIcon className="h-4 w-4 text-white" />
             </div>
           </div>
         </div>
