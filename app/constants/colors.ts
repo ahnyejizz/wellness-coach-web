@@ -26,3 +26,10 @@ export const WELLNESS_COLORS = {
     solidSoftAccent: "#fbe4dd",
   },
 } as const satisfies Record<string, WellnessColorTone>;
+
+export const HEALTH_SUMMARY_CATEGORY_COLORS = {
+  수면: WELLNESS_COLORS.sleep,
+  "운동 회복": WELLNESS_COLORS.exercise,
+  식단: WELLNESS_COLORS.diet,
+  "생활 습관": WELLNESS_COLORS.lifestyle,
+} as const;

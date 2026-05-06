@@ -1,12 +1,5 @@
-import { WELLNESS_COLORS } from "@/app/constants/colors";
+import { HEALTH_SUMMARY_CATEGORY_COLORS, WELLNESS_COLORS } from "@/app/constants/colors";
 import { healthQuestionSummaries } from "@/lib/health/content";
-
-const HEALTH_SUMMARY_CATEGORY_COLORS = {
-  수면: WELLNESS_COLORS.sleep,
-  "운동 회복": WELLNESS_COLORS.exercise,
-  식단: WELLNESS_COLORS.diet,
-  "생활 습관": WELLNESS_COLORS.lifestyle,
-} as const;
 
 export default function AiChatSummaryPanel() {
   return (
@@ -20,7 +13,8 @@ export default function AiChatSummaryPanel() {
       <div className="mt-5 space-y-3">
         {healthQuestionSummaries.map((item) => {
           const categoryTone =
-            HEALTH_SUMMARY_CATEGORY_COLORS[item.category as keyof typeof HEALTH_SUMMARY_CATEGORY_COLORS];
+            HEALTH_SUMMARY_CATEGORY_COLORS[item.category as keyof typeof HEALTH_SUMMARY_CATEGORY_COLORS] ??
+            WELLNESS_COLORS.lifestyle;
 
           return (
             <article

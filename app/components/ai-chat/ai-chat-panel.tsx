@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { HEALTH_SUMMARY_CATEGORY_COLORS, WELLNESS_COLORS } from "@/app/constants/colors";
 
 import AiChatSummaryPanel from "./ai-chat-summary-panel";
 
@@ -230,10 +231,24 @@ export default function AiChatPanel({ userName }: AiChatPanelProps) {
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {healthQuestionSummaries.map((item) => {
             const isActive = question.trim() === item.question;
+            const categoryTone =
+              HEALTH_SUMMARY_CATEGORY_COLORS[item.category as keyof typeof HEALTH_SUMMARY_CATEGORY_COLORS] ??
+              WELLNESS_COLORS.lifestyle;
 
             return (
               <article key={`${item.id}-seek-care`} className="ui-card">
-                <p className="text-sm text-[var(--muted)]">{item.category} 체크 포인트</p>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                    style={{
+                      backgroundColor: categoryTone.softAccent,
+                      color: categoryTone.accent,
+                    }}
+                  >
+                    {item.category}
+                  </span>
+                  <p className="text-sm text-[var(--muted)]">체크 포인트</p>
+                </div>
                 <h3 className="mt-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">{item.question}</h3>
                 <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item.seekCare}</p>
                 <button
