@@ -2,64 +2,39 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth, signOut } from "@/auth";
-import { getOnboardingHref } from "@/lib/common/route-href";
 import { HomeIcon } from "@/app/components/common/Icon";
+import HomeFocusBoard from "@/app/components/home/home-focus-board";
+import HomePriority from "@/app/components/home/home-priority";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
-import WellnessPlanSummary from "@/app/components/coach/wellness-plan-summary";
+import { getOnboardingHref } from "@/lib/common/route-href";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
-import {
-  getExerciseExperienceLabel,
-  getMealStyleLabel,
-  getSleepPatternLabel,
-  hasCompletedOnboarding,
-} from "@/lib/auth/user-store";
+import { hasCompletedOnboarding } from "@/lib/auth/user-store";
 
 /**
- * @description 로그인 후 개인 코칭 상태와 온보딩 요약을 보여주는 코치 대시보드 페이지
+ * @description 로그인 후 플랜 우선순위와 주간 패턴을 확인하는 플랜 페이지
  */
 function resolveInitial(name?: string | null, email?: string | null) {
   const source = name?.trim() || email?.trim() || "M";
   return source.charAt(0).toUpperCase();
 }
 
-export default async function CoachDashboardPage() {
+export default async function PlanPage() {
   const session = await auth();
 
   if (!session?.user) {
-    redirect("/login?callbackUrl=/coach");
+    redirect("/login?callbackUrl=/plan");
   }
 
   const localProfile = session.user.email ? await getFinalUserProfileByEmail(session.user.email) : null;
 
   if (!localProfile || !hasCompletedOnboarding(localProfile)) {
-    redirect("/coach/onboarding?callbackUrl=/coach");
+    redirect("/coach/onboarding?callbackUrl=/plan");
   }
 
-  const completedProfile = localProfile;
   const userName = session.user.name ?? "Motive Care Member";
   const userEmail = session.user.email ?? "Local account";
   const userInitial = resolveInitial(session.user.name, session.user.email);
-  const isFirstLogin = (completedProfile.loginCount ?? 0) <= 1;
-  const heading = isFirstLogin ? `${userName}님, 환영합니다!` : `${userName}님, 환영합니다!`;
-  const onboardingHref = getOnboardingHref(completedProfile, "/coach");
-  const onboardingSummary = [
-    {
-      label: "목표 체중",
-      value: `${completedProfile.goalWeightKg}kg`,
-    },
-    {
-      label: "수면 패턴",
-      value: getSleepPatternLabel(completedProfile.sleepPattern),
-    },
-    {
-      label: "운동 경험",
-      value: getExerciseExperienceLabel(completedProfile.exerciseExperience),
-    },
-    {
-      label: "식단 스타일",
-      value: getMealStyleLabel(completedProfile.mealStyle),
-    },
-  ];
+  const onboardingHref = getOnboardingHref(localProfile, "/plan");
 
   return (
     <HomeFocusThemeWrapper>
@@ -71,8 +46,8 @@ export default async function CoachDashboardPage() {
                 {userInitial}
               </div>
               <div>
-                <p className="ui-kicker">Coach workspace</p>
-                <h1 className="ui-title-4 mt-3">{heading}</h1>
+                <p className="ui-kicker">Plan workspace</p>
+                <h1 className="ui-title-4 mt-3">{userName}님의 플랜 보드</h1>
                 <p className="ui-copy mt-3">현재 로그인된 계정은 {userEmail} 입니다.</p>
               </div>
             </div>
@@ -80,6 +55,9 @@ export default async function CoachDashboardPage() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link href={onboardingHref} className="ui-button-secondary">
                 온보딩
+              </Link>
+              <Link href="/coach" className="ui-button-secondary">
+                마이페이지
               </Link>
               <Link
                 href="/"
@@ -103,31 +81,13 @@ export default async function CoachDashboardPage() {
           </div>
         </section>
 
-        <section className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
-          <article className="panel ui-panel-card ui-hover-panel h-full">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="ui-kicker">Wellness onboarding</p>
-                <h2 className="ui-title-3 mt-3">가입 직후 입력한 웰니스 프로필</h2>
-              </div>
-              <Link href={onboardingHref} className="ui-pill ui-pill-strong">
-                수정
-              </Link>
-            </div>
-
-            <div className="mt-4 space-y-3">
-              {onboardingSummary.map((item) => (
-                <div
-                  key={item.label}
-                  className="ui-hover-note flex items-center justify-between gap-4 rounded-[1.2rem] border border-[var(--border)] bg-white/72 px-4 py-3"
-                >
-                  <span className="text-sm text-[var(--muted)]">{item.label}</span>
-                  <span className="text-sm font-semibold text-[var(--foreground)]">{item.value}</span>
-                </div>
-              ))}
-            </div>
-          </article>
-          <WellnessPlanSummary />
+        <section
+          id="coach-board"
+          className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]"
+          aria-labelledby="coach-board-title"
+        >
+          <HomeFocusBoard isLoggedIn />
+          <HomePriority isLoggedIn />
         </section>
       </main>
     </HomeFocusThemeWrapper>

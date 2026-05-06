@@ -43,7 +43,7 @@ export default function WellnessPlanSummary() {
         <div className="max-w-3xl">
           <p className="ui-kicker">Linked plan</p>
           <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-            <h2 className="ui-title-3">홈에서 선택한 플랜 우선순위</h2>
+            <h2 className="ui-title-3">선택하신 플랜 우선순위</h2>
             <span
               className="inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-sm font-semibold"
               style={{
@@ -63,8 +63,8 @@ export default function WellnessPlanSummary() {
         </div>
 
         <div className="flex flex-col items-start gap-3">
-          <Link href="/#coach-board" className="ui-button-primary ui-button-primary-compact">
-            홈에서 플랜 수정하기
+          <Link href="/plan" className="ui-button-primary ui-button-primary-compact">
+            플랜 수정하기
           </Link>
         </div>
       </div>

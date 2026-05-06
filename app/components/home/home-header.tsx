@@ -32,6 +32,9 @@ export default function HomeHeader({ isLoggedIn, onboardingHref }: HomeHeaderPro
             <Link href={onboardingHref} className="ui-pill">
               온보딩
             </Link>
+            <Link href="/plan" className="ui-pill">
+              웰니스 플랜
+            </Link>
             <Link href="/coach" className="ui-pill">
               마이페이지
             </Link>

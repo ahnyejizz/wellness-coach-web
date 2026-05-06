@@ -133,7 +133,7 @@ export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
     <article className="panel ui-panel-shell">
       <p className="ui-kicker">Focus board</p>
       <h2 id="coach-board-title" className="ui-title-3 mt-3">
-        오늘의 플랜 우선순위를 선택하세요.
+        플랜 우선순위를 선택하세요.
       </h2>
       <p className="ui-copy mt-4 max-w-2xl">
         수면, 운동, 식단 중 현재 우선순위를 바꾸면
