@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { getOnboardingHref } from "@/lib/common/route-href";
+import { getOnboardingHref } from "@/utils/route-href";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import LogoutAlert from "./components/common/alert/logout-alert";
 import FocusThemeWrapper from "./components/plan/focus-theme-wrapper";

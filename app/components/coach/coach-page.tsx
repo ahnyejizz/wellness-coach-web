@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
-import { getOnboardingHref } from "@/lib/common/route-href";
+import { getOnboardingHref } from "@/utils/route-href";
 import { HomeIcon } from "@/app/icon/icon";
 import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
 import FocusThemeWrapper from "@/app/components/plan/focus-theme-wrapper";
