@@ -27,7 +27,7 @@ const focusBadgeTone = {
   },
 } satisfies Record<FocusKey, { accent: string; softAccent: string }>;
 
-export default function WellnessPlanSummary() {
+export default function PlanSummary() {
   const profile = useWellnessStore((state) => state.profile);
   const activeFocus = useWellnessStore((state) => state.activeFocus);
   const displayName = getPlanDisplayName(profile.name);

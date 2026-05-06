@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import { HomeIcon } from "@/app/icon/icon";
 import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
-import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
+import FocusThemeWrapper from "@/app/components/plan/focus-theme-wrapper";
 import AiChatPanel from "@/app/components/ai-chat/ai-chat-panel";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import { hasCompletedOnboarding } from "@/lib/auth/user-store";
@@ -34,7 +34,7 @@ export default async function AiChatPage() {
   const userInitial = resolveInitial(session.user.name, session.user.email);
 
   return (
-    <HomeFocusThemeWrapper>
+    <FocusThemeWrapper>
       <main className="relative mx-auto flex min-h-screen w-full max-w-[108rem] flex-col gap-6 px-5 py-8 sm:px-8 lg:px-12">
         <section className="panel panel-strong ui-panel-shell-lg">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -74,6 +74,6 @@ export default async function AiChatPage() {
 
         <AiChatPanel userName={userName} />
       </main>
-    </HomeFocusThemeWrapper>
+    </FocusThemeWrapper>
   );
 }

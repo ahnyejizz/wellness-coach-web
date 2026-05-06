@@ -2,8 +2,8 @@
 
 import { WELLNESS_COLORS } from "@/app/constants/colors";
 import LockPreview from "../common/lock-preview";
-import HomeCoachBrief from "./home-coach-brief";
-import HomeFocusBoard from "./home-focus-board";
+import CoachBrief from "./coach-brief";
+import FocusBoard from "../plan/focus-board";
 
 const guestSignalPreviews = [
   {
@@ -23,11 +23,11 @@ const guestSignalPreviews = [
   },
 ] as const;
 
-type HomeHeroSectionProps = {
+type HomeLandingSectionProps = {
   isLoggedIn: boolean;
 };
 
-export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps) {
+export default function HomeLandingSection({ isLoggedIn }: HomeLandingSectionProps) {
   return (
     <>
       <div className="grid gap-8 pt-8 xl:grid-cols-[1.24fr_0.76fr]">
@@ -48,7 +48,7 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
 
           {isLoggedIn ? (
             <div className="max-w-[46rem]">
-              <HomeFocusBoard isLoggedIn={isLoggedIn} />
+              <FocusBoard isLoggedIn={isLoggedIn} />
             </div>
           ) : (
             <div className="grid gap-3 sm:grid-cols-3">
@@ -70,7 +70,7 @@ export default function HomeOverviewSection({ isLoggedIn }: HomeHeroSectionProps
         </div>
 
         {/* 오늘의 코치 브리핑 */}
-        <HomeCoachBrief isLoggedIn={isLoggedIn} />
+        <CoachBrief isLoggedIn={isLoggedIn} />
       </div>
     </>
   );

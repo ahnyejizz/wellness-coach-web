@@ -199,11 +199,11 @@ function buildPlan(profile: PlanProfile): PersonalPlan {
   };
 }
 
-type HomeCoachPlanPreviewProps = {
+type PlanPreviewProps = {
   isLoggedIn: boolean;
 };
 
-export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPreviewProps) {
+export default function PlanPreview({ isLoggedIn }: PlanPreviewProps) {
   const profile = useWellnessStore((state) => state.profile);
   const plan = buildPlan(profile);
   const guestPlanSummary = `수면, 식사, 움직임 흐름을 함께 보면서 일상에 맞는 코칭 방향을 정리합니다.
@@ -215,7 +215,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
         <>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-3xl">
-              <p className="ui-kicker">Personalized preview</p>
+              <p className="ui-kicker">Plan Preview</p>
               <h2 className="ui-title-3 mt-3">{plan.heading}</h2>
               <p className="ui-copy mt-4 whitespace-pre-line">{plan.summary}</p>
             </div>
@@ -270,7 +270,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
         <>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-3xl flex-1">
-              <p className="ui-kicker">Personalized preview</p>
+              <p className="ui-kicker">Plan Preview</p>
               <h2 className="ui-title-3 mt-3">{plan.heading}</h2>
               <p className="ui-copy mt-4 whitespace-pre-line">{guestPlanSummary}</p>
             </div>

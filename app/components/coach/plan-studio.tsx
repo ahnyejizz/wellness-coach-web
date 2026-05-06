@@ -18,7 +18,7 @@ const planNamePlaceholders = {
   diet: "예: 오후까지 든든한 식사 루틴",
 } satisfies Record<FocusKey, string>;
 
-export default function HomeCoachPlanStudio() {
+export default function PlanStudio() {
   const profile = useWellnessStore((state) => state.profile);
   const hasHydrated = useWellnessStore((state) => state.hasHydrated);
   const lastSavedAt = useWellnessStore((state) => state.lastSavedAt);
@@ -31,7 +31,7 @@ export default function HomeCoachPlanStudio() {
 
   return (
     <article className="panel ui-panel-shell ui-hover-panel">
-      <p className="ui-kicker">Coach Plan Studio</p>
+      <p className="ui-kicker">Plan Studio</p>
       <h2 className="ui-title-3 mt-3">우선순위에 따른 웰니스 코칭 플랜 만들기</h2>
       <p className="ui-copy mt-4 max-w-3xl">
         목표와 루틴을 입력하면, 수면·운동·식단 우선순위에 맞춘 개인 코칭 플랜을 바로 만들어줍니다.

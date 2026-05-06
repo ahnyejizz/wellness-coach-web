@@ -3,9 +3,9 @@ import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import { HomeIcon } from "@/app/icon/icon";
 import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
-import HomeFocusBoard from "@/app/components/home/home-focus-board";
-import HomePriority from "@/app/components/home/home-priority";
-import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
+import FocusBoard from "@/app/components/plan/focus-board";
+import FocusBoardPriority from "@/app/components/plan/focus-board-priority";
+import FocusThemeWrapper from "@/app/components/plan/focus-theme-wrapper";
 import DailySurveyPanel from "@/app/components/plan/daily-survey-panel";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import { hasCompletedOnboarding } from "@/lib/auth/user-store";
@@ -36,7 +36,7 @@ export default async function PlanPage() {
   const userInitial = resolveInitial(session.user.name, session.user.email);
 
   return (
-    <HomeFocusThemeWrapper>
+    <FocusThemeWrapper>
       <main className="relative mx-auto flex min-h-screen w-full max-w-[108rem] flex-col gap-6 px-5 py-8 sm:px-8 lg:px-12">
         <section className="panel panel-strong ui-panel-shell-lg">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -78,11 +78,11 @@ export default async function PlanPage() {
           <DailySurveyPanel />
 
           <div className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
-            <HomeFocusBoard isLoggedIn />
-            <HomePriority isLoggedIn />
+            <FocusBoard isLoggedIn />
+            <FocusBoardPriority isLoggedIn />
           </div>
         </section>
       </main>
-    </HomeFocusThemeWrapper>
+    </FocusThemeWrapper>
   );
 }

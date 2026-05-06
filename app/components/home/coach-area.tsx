@@ -1,6 +1,6 @@
 import { WELLNESS_COLORS } from "@/app/constants/colors";
 
-type HomeCoachAreaItem = {
+type CoachAreaItem = {
   title: string;
   subtitle: string;
   summary: string;
@@ -9,7 +9,7 @@ type HomeCoachAreaItem = {
   bullets: string[];
 };
 
-const coachAreas: HomeCoachAreaItem[] = [
+const coachAreas: CoachAreaItem[] = [
   {
     title: "Sleep Coach",
     subtitle: "깊게 자고 가볍게 깨는 리듬",
@@ -36,7 +36,7 @@ const coachAreas: HomeCoachAreaItem[] = [
   },
 ];
 
-export default function HomeCoachArea() {
+export default function CoachArea() {
   return (
     <section className="grid gap-5 md:grid-cols-3">
       {coachAreas.map((coachArea) => (

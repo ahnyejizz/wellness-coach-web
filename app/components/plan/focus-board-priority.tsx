@@ -10,9 +10,9 @@ import {
 
 import LockPreview from "../common/lock-preview";
 
-import { focusAreas } from "./home-focus-board";
+import { focusAreas } from "./focus-board";
 
-type HomePriorityProps = {
+type FocusBoardPriorityProps = {
   isLoggedIn: boolean;
 };
 
@@ -488,7 +488,7 @@ function getPriorityContent(focus: BriefMetricKey, details: BriefDetails): Prior
   };
 }
 
-export default function HomePriority({ isLoggedIn }: HomePriorityProps) {
+export default function FocusBoardPriority({ isLoggedIn }: FocusBoardPriorityProps) {
   const activeFocus = useWellnessStore((state) => state.activeFocus);
   const briefDetails = useWellnessStore((state) => state.briefDetails);
   const current = focusAreas[activeFocus];

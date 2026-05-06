@@ -121,11 +121,11 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
   },
 };
 
-type HomeFocusBoardProps = {
+type FocusBoardProps = {
   isLoggedIn: boolean;
 };
 
-export default function HomeFocusBoard({ isLoggedIn }: HomeFocusBoardProps) {
+export default function FocusBoard({ isLoggedIn }: FocusBoardProps) {
   const activeFocus = useWellnessStore((state) => state.activeFocus);
   const setActiveFocus = useWellnessStore((state) => state.setActiveFocus);
 

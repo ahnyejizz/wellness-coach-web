@@ -4,10 +4,9 @@ import { auth, signOut } from "@/auth";
 import { getOnboardingHref } from "@/lib/common/route-href";
 import { HomeIcon } from "@/app/icon/icon";
 import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
-import HomeCoachPlanStudio from "@/app/components/home/home-coach-plan-studio";
-import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
-import HomeWeeklyReport from "@/app/components/home/home-weekly-report";
-import WellnessPlanSummary from "@/app/components/coach/wellness-plan-summary";
+import FocusThemeWrapper from "@/app/components/plan/focus-theme-wrapper";
+import WeeklyReport from "@/app/components/coach/weekly-report";
+import PlanSummary from "@/app/components/coach/plan-summary";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import {
   getExerciseExperienceLabel,
@@ -15,6 +14,7 @@ import {
   getSleepPatternLabel,
   hasCompletedOnboarding,
 } from "@/lib/auth/user-store";
+import PlanStudio from "./plan-studio";
 
 /**
  * @description 로그인 후 입력한 웰니스 프로필, 선택된 플랜 우선순위, 주간 리포트를 보여주는 대시보드 페이지
@@ -24,7 +24,7 @@ function resolveInitial(name?: string | null, email?: string | null) {
   return source.charAt(0).toUpperCase();
 }
 
-export default async function CoachDashboardPage() {
+export default async function CoachPage() {
   const session = await auth();
 
   if (!session?.user) {
@@ -64,7 +64,7 @@ export default async function CoachDashboardPage() {
   ];
 
   return (
-    <HomeFocusThemeWrapper>
+    <FocusThemeWrapper>
       <main className="relative mx-auto flex min-h-screen w-full max-w-[108rem] flex-col gap-6 px-5 py-8 sm:px-8 lg:px-12">
         <section className="panel panel-strong ui-panel-shell-lg">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -122,12 +122,12 @@ export default async function CoachDashboardPage() {
               ))}
             </div>
           </article>
-          <WellnessPlanSummary />
+          <PlanSummary />
         </section>
 
-        {/* <HomeCoachPlanStudio /> */}
-        <HomeWeeklyReport />
+        {/* <PlanStudio /> */}
+        <WeeklyReport />
       </main>
-    </HomeFocusThemeWrapper>
+    </FocusThemeWrapper>
   );
 }

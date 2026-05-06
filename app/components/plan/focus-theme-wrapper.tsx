@@ -4,11 +4,11 @@ import type { ReactNode } from "react";
 
 import { useWellnessStore } from "@/app/stores/wellness-store";
 
-type HomeFocusThemeWrapperProps = {
+type FocusThemeWrapperProps = {
   children: ReactNode;
 };
 
-export default function HomeFocusThemeWrapper({ children }: HomeFocusThemeWrapperProps) {
+export default function FocusThemeWrapper({ children }: FocusThemeWrapperProps) {
   const activeFocus = useWellnessStore((state) => state.activeFocus);
 
   return (

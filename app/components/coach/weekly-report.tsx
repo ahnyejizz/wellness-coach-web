@@ -34,7 +34,7 @@ const reportNotes = [
   "이번 주는 강도를 더 올리기보다 취침 시간을 고정하는 편이 전체 점수를 더 끌어올립니다.",
 ];
 
-export default function HomeWeeklyReport() {
+export default function WeeklyReport() {
   return (
     <article className="panel ui-panel-shell ui-hover-panel">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

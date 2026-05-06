@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function HomeStartCoach() {
+export default function StartCoach() {
   return (
     <section className="panel panel-strong ui-panel-shell-lg overflow-hidden">
       <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">

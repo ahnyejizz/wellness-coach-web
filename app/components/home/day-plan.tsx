@@ -1,6 +1,6 @@
 import { WELLNESS_COLORS } from "@/app/constants/colors";
 
-type HomeDayPlanItem = {
+type DayPlanItem = {
   time: string;
   title: string;
   detail: string;
@@ -9,7 +9,7 @@ type HomeDayPlanItem = {
   accent: string;
 };
 
-const dayPlan: HomeDayPlanItem[] = [
+const dayPlan: DayPlanItem[] = [
   {
     time: "07:00",
     title: "Wake + Light",
@@ -52,7 +52,7 @@ const dayPlan: HomeDayPlanItem[] = [
   },
 ];
 
-export default function HomeDayPlan() {
+export default function DayPlan() {
   return (
     <article className="panel ui-panel-shell">
       <p className="ui-kicker">Day plan</p>

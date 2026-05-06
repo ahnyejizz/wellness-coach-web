@@ -85,7 +85,7 @@ function OnboardingFieldHeading({
 }
 
 /**
- * @description 웰니스 프로필을 받아 이후 코칭 개인화 기준으로 저장하는 코치 온보딩 페이지
+ * @description 웰니스 프로필을 받아 이후 코칭 개인화 기준으로 저장하는 온보딩 페이지
  */
 function getQueryValue(value: string | string[] | undefined) {
   return typeof value === "string" ? value : Array.isArray(value) ? (value[0] ?? "") : "";
@@ -115,7 +115,7 @@ function resolveErrorMessage(value: string) {
   return messageMap[value] ?? "";
 }
 
-export default async function CoachOnboardingPage(props: {
+export default async function OnboardingPage(props: {
   searchParams: Promise<{
     callbackUrl?: string | string[];
     error?: string | string[];

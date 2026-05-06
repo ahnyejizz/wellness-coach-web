@@ -39,7 +39,7 @@ const briefScoreCards = [
   emptyHint: string;
 }>;
 
-type HomeCoachBriefProps = {
+type CoachBriefProps = {
   isLoggedIn: boolean;
 };
 
@@ -140,7 +140,7 @@ function getCardContent(key: BriefMetricKey, details: BriefDetails) {
   };
 }
 
-export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
+export default function CoachBrief({ isLoggedIn }: CoachBriefProps) {
   const [saveAlertKey, setSaveAlertKey] = useState(0);
   const [activeModalFocus, setActiveModalFocus] = useState<BriefMetricKey | null>(null);
   const briefDetails = useWellnessStore((state) => state.briefDetails);
