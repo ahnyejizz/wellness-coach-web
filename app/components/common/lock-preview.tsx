@@ -1,4 +1,4 @@
-import { LockIcon } from "../../icon/icon";
+import { LockIcon } from "./icons";
 
 type LockPreviewProps = {
   accent: string;

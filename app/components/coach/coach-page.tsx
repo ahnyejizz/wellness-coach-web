@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import { getOnboardingHref } from "@/utils/route-href";
-import { HomeIcon } from "@/app/icon/icon";
+import { HomeIcon } from "@/app/components/common/icons";
 import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
 import FocusThemeWrapper from "@/app/components/plan/focus-theme-wrapper";
 import WeeklyReport from "@/app/components/coach/weekly-report";

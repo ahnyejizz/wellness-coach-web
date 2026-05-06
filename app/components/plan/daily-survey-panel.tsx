@@ -4,7 +4,7 @@ import type { ComponentType } from "react";
 import { useMemo, useState } from "react";
 import { WELLNESS_COLORS } from "@/app/constants/colors";
 import SaveAlert from "@/app/components/common/alert/save-alert";
-import { MealIcon, SleepIcon, type IconProps, WorkoutIcon } from "@/app/icon/icon";
+import { MealIcon, SleepIcon, type IconProps, WorkoutIcon } from "@/app/components/common/icons";
 import DailySurveyDialog from "@/app/components/plan/daily-survey-dialog";
 import { type BriefDetails, type BriefMetricKey, useWellnessStore } from "@/app/stores/wellness-store";
 
