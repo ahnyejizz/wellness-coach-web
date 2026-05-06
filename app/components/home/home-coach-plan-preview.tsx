@@ -209,7 +209,7 @@ export default function HomeCoachPlanPreview({ isLoggedIn }: HomeCoachPlanPrevie
   로그인하면 입력한 루틴과 목표를 바탕으로 개인 맞춤형 플랜이 이어집니다.`;
 
   return (
-    <article className="panel panel-strong ui-panel-shell ui-hover-panel sm:px-8">
+    <article className="panel ui-panel-shell ui-hover-panel sm:px-8">
       {isLoggedIn ? (
         <>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
