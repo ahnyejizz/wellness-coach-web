@@ -36,7 +36,7 @@ const coachAreas: HomeCoachAreaItem[] = [
 
 export default function HomeCoachArea() {
   return (
-    <section id="coach-areas" className="grid gap-5 md:grid-cols-3">
+    <section className="grid gap-5 md:grid-cols-3">
       {coachAreas.map((coachArea) => (
         <article
           key={coachArea.title}

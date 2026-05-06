@@ -74,7 +74,7 @@ export default async function PlanPage() {
           </div>
         </section>
 
-        <section id="coach-board" className="grid gap-6" aria-labelledby="coach-board-title">
+        <section className="grid gap-6" aria-labelledby="coach-board-title">
           <DailySurveyPanel />
 
           <div className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
