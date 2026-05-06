@@ -495,7 +495,7 @@ export default function HomePriority({ isLoggedIn }: HomePriorityProps) {
   const currentPriority = getPriorityContent(activeFocus, briefDetails);
 
   return (
-    <article className="panel panel-strong ui-panel-shell">
+    <article className="panel ui-panel-shell ui-hover-panel">
       {isLoggedIn ? (
         <>
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">

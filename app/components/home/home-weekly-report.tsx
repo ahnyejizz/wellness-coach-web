@@ -34,7 +34,7 @@ const reportNotes = [
 
 export default function HomeWeeklyReport() {
   return (
-    <article className="panel panel-strong ui-panel-shell">
+    <article className="panel ui-panel-shell ui-hover-panel">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="ui-kicker">Weekly report</p>
