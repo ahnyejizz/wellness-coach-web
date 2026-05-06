@@ -2,6 +2,7 @@
 
 import type { ComponentType } from "react";
 import { useMemo, useState } from "react";
+import { WELLNESS_COLORS } from "@/app/constants/colors";
 import SaveAlert from "@/app/components/common/alert/save-alert";
 import { MealIcon, SleepIcon, type IconProps, WorkoutIcon } from "@/app/components/icon/icon";
 import DailySurveyDialog from "@/app/components/plan/daily-survey-dialog";
@@ -12,24 +13,24 @@ const quickBriefActions = [
     key: "sleep",
     label: "수면 지표 입력",
     description: "총 수면 시간, 스크린 오프, 취침 준비 루틴, 기상 후 햇빛 노출",
-    accent: "var(--sky)",
-    softAccent: "var(--sky-soft)",
+    accent: WELLNESS_COLORS.sleep.accent,
+    softAccent: WELLNESS_COLORS.sleep.softAccent,
     icon: SleepIcon,
   },
   {
     key: "exercise",
     label: "운동 지표 입력",
     description: "주간 근력 횟수, 주간 유산소 횟수, 활동 칼로리, 회복 상태",
-    accent: "var(--mint)",
-    softAccent: "var(--mint-soft)",
+    accent: WELLNESS_COLORS.exercise.accent,
+    softAccent: WELLNESS_COLORS.exercise.softAccent,
     icon: WorkoutIcon,
   },
   {
     key: "diet",
     label: "식단 지표 입력",
     description: "단백질 섭취량, 수분 섭취량, 군것질 횟수, 야식 빈도",
-    accent: "var(--sun)",
-    softAccent: "var(--sun-soft)",
+    accent: WELLNESS_COLORS.diet.accent,
+    softAccent: WELLNESS_COLORS.diet.softAccent,
     icon: MealIcon,
   },
 ] as const satisfies ReadonlyArray<{

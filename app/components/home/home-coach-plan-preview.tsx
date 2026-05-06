@@ -1,5 +1,6 @@
 "use client";
 
+import { WELLNESS_COLORS } from "@/app/constants/colors";
 import LockPreview from "../common/lock-preview";
 
 import { type FocusKey, type GoalKey, type PlanProfile, useWellnessStore } from "@/app/stores/wellness-store";
@@ -30,20 +31,20 @@ type PersonalPlan = {
 
 const previewCardBadgeTone = {
   bedtime: {
-    accent: "var(--sky)",
-    softAccent: "var(--sky-soft)",
+    accent: WELLNESS_COLORS.sleep.accent,
+    softAccent: WELLNESS_COLORS.sleep.softAccent,
   },
   workout: {
-    accent: "var(--mint)",
-    softAccent: "var(--mint-soft)",
+    accent: WELLNESS_COLORS.exercise.accent,
+    softAccent: WELLNESS_COLORS.exercise.softAccent,
   },
   protein: {
-    accent: "var(--sun)",
-    softAccent: "var(--sun-soft)",
+    accent: WELLNESS_COLORS.diet.accent,
+    softAccent: WELLNESS_COLORS.diet.softAccent,
   },
   water: {
-    accent: "var(--sun)",
-    softAccent: "var(--sun-soft)",
+    accent: WELLNESS_COLORS.diet.accent,
+    softAccent: WELLNESS_COLORS.diet.softAccent,
   },
 } as const;
 

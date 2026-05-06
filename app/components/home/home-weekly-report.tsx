@@ -1,3 +1,5 @@
+import { WELLNESS_COLORS } from "@/app/constants/colors";
+
 type HomeReportMetric = {
   label: string;
   value: string;
@@ -11,9 +13,9 @@ type HomeWeeklyBalanceItem = {
 };
 
 const reportMetrics: HomeReportMetric[] = [
-  { label: "평균 수면", value: "7h 28m", delta: "+42m", accent: "var(--sky)" },
-  { label: "운동 완수", value: "4/5", delta: "+1 session", accent: "var(--mint)" },
-  { label: "단백질 달성", value: "106g", delta: "+14g", accent: "var(--sun)" },
+  { label: "평균 수면", value: "7h 28m", delta: "+42m", accent: WELLNESS_COLORS.sleep.accent },
+  { label: "운동 완수", value: "4/5", delta: "+1 session", accent: WELLNESS_COLORS.exercise.accent },
+  { label: "단백질 달성", value: "106g", delta: "+14g", accent: WELLNESS_COLORS.diet.accent },
 ];
 
 const weeklyBalance: HomeWeeklyBalanceItem[] = [

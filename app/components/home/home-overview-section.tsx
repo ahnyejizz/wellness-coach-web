@@ -1,5 +1,6 @@
 "use client";
 
+import { WELLNESS_COLORS } from "@/app/constants/colors";
 import LockPreview from "../common/lock-preview";
 import HomeCoachBrief from "./home-coach-brief";
 import HomeFocusBoard from "./home-focus-board";
@@ -7,18 +8,18 @@ import HomeFocusBoard from "./home-focus-board";
 const guestSignalPreviews = [
   {
     label: "수면",
-    accent: "var(--sky)",
-    softAccent: "var(--sky-soft)",
+    accent: WELLNESS_COLORS.sleep.accent,
+    softAccent: WELLNESS_COLORS.sleep.softAccent,
   },
   {
     label: "운동",
-    accent: "var(--mint)",
-    softAccent: "var(--mint-soft)",
+    accent: WELLNESS_COLORS.exercise.accent,
+    softAccent: WELLNESS_COLORS.exercise.softAccent,
   },
   {
     label: "식단",
-    accent: "var(--sun)",
-    softAccent: "var(--sun-soft)",
+    accent: WELLNESS_COLORS.diet.accent,
+    softAccent: WELLNESS_COLORS.diet.softAccent,
   },
 ] as const;
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { WELLNESS_COLORS } from "@/app/constants/colors";
 
 import {
   getFocusLabel,
@@ -13,16 +14,16 @@ import {
 
 const focusBadgeTone = {
   sleep: {
-    accent: "var(--sky)",
-    softAccent: "var(--sky-soft)",
+    accent: WELLNESS_COLORS.sleep.accent,
+    softAccent: WELLNESS_COLORS.sleep.softAccent,
   },
   exercise: {
-    accent: "var(--mint)",
-    softAccent: "var(--mint-soft)",
+    accent: WELLNESS_COLORS.exercise.accent,
+    softAccent: WELLNESS_COLORS.exercise.softAccent,
   },
   diet: {
-    accent: "var(--sun)",
-    softAccent: "var(--sun-soft)",
+    accent: WELLNESS_COLORS.diet.accent,
+    softAccent: WELLNESS_COLORS.diet.softAccent,
   },
 } satisfies Record<FocusKey, { accent: string; softAccent: string }>;
 

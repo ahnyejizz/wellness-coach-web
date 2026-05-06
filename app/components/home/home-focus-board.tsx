@@ -1,7 +1,7 @@
 "use client";
 
 import type { ComponentType } from "react";
-
+import { WELLNESS_COLORS } from "@/app/constants/colors";
 import { MealIcon, SleepIcon, type IconProps, WorkoutIcon } from "@/app/components/icon/icon";
 import { useWellnessStore, type FocusKey } from "@/app/stores/wellness-store";
 
@@ -60,8 +60,8 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
       { label: "기상 후 햇빛 노출", value: 74, caption: "주 5회 달성" },
     ],
     icon: SleepIcon,
-    accent: "var(--sky)",
-    softAccent: "var(--sky-soft)",
+    accent: WELLNESS_COLORS.sleep.accent,
+    softAccent: WELLNESS_COLORS.sleep.softAccent,
   },
   exercise: {
     label: "운동 코칭",
@@ -88,8 +88,8 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
       { label: "회복일 준수", value: 79, caption: "주 2회 확보" },
     ],
     icon: WorkoutIcon,
-    accent: "var(--mint)",
-    softAccent: "var(--mint-soft)",
+    accent: WELLNESS_COLORS.exercise.accent,
+    softAccent: WELLNESS_COLORS.exercise.softAccent,
   },
   diet: {
     label: "식단 코칭",
@@ -116,8 +116,8 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
       { label: "야식 빈도", value: 91, caption: "주중 거의 유지" },
     ],
     icon: MealIcon,
-    accent: "var(--sun)",
-    softAccent: "var(--sun-soft)",
+    accent: WELLNESS_COLORS.diet.accent,
+    softAccent: WELLNESS_COLORS.diet.softAccent,
   },
 };
 

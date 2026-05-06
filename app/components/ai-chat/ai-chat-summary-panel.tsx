@@ -1,4 +1,12 @@
+import { WELLNESS_COLORS } from "@/app/constants/colors";
 import { healthQuestionSummaries } from "@/lib/health/content";
+
+const HEALTH_SUMMARY_CATEGORY_COLORS = {
+  수면: WELLNESS_COLORS.sleep,
+  "운동 회복": WELLNESS_COLORS.exercise,
+  식단: WELLNESS_COLORS.diet,
+  "생활 습관": WELLNESS_COLORS.lifestyle,
+} as const;
 
 export default function AiChatSummaryPanel() {
   return (
@@ -10,18 +18,32 @@ export default function AiChatSummaryPanel() {
       </p>
 
       <div className="mt-5 space-y-3">
-        {healthQuestionSummaries.map((item) => (
-          <article key={item.id} className="ui-hover-card-dark-soft rounded-[1.4rem] border border-white/12 bg-white/8 p-4">
-            <div className="flex items-start justify-between gap-3">
-              <span className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold tracking-[0.16em] text-[#ffd6c8]">
-                {item.category}
-              </span>
-            </div>
-            <h4 className="mt-3 text-lg font-semibold leading-7">{item.question}</h4>
-            <p className="mt-3 text-sm leading-7 text-[#e7ece8]">{item.summary}</p>
-            <p className="mt-3 text-sm leading-6 text-[#b9c9c2]">바로 적용: {item.actionTip}</p>
-          </article>
-        ))}
+        {healthQuestionSummaries.map((item) => {
+          const categoryTone =
+            HEALTH_SUMMARY_CATEGORY_COLORS[item.category as keyof typeof HEALTH_SUMMARY_CATEGORY_COLORS];
+
+          return (
+            <article
+              key={item.id}
+              className="ui-hover-card-dark-soft rounded-[1.4rem] border border-white/12 bg-white/8 p-4"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <span
+                  className="rounded-full px-3 py-1 text-xs font-semibold tracking-[0.16em]"
+                  style={{
+                    backgroundColor: categoryTone.softAccent,
+                    color: categoryTone.accent,
+                  }}
+                >
+                  {item.category}
+                </span>
+              </div>
+              <h4 className="mt-3 text-lg font-semibold leading-7">{item.question}</h4>
+              <p className="mt-3 text-sm leading-7 text-[#e7ece8]">{item.summary}</p>
+              <p className="mt-3 text-sm leading-6 text-[#b9c9c2]">바로 적용: {item.actionTip}</p>
+            </article>
+          );
+        })}
       </div>
     </aside>
   );

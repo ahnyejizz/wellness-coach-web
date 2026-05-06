@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { ComponentType } from "react";
 import { auth } from "@/auth";
+import { WELLNESS_COLORS } from "@/app/constants/colors";
 import { saveOnboardingAnswers } from "@/app/coach/onboarding/actions";
 import { HomeIcon, WeightIcon, SleepIcon, WorkoutIcon, MealIcon, type IconProps } from "@/app/components/icon/icon";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
@@ -35,22 +36,22 @@ const onboardingFieldMeta = {
   sleepPattern: {
     label: "수면 패턴",
     summary: "루틴 설계와 회복 우선순위 반영",
-    accent: "var(--sky)",
-    softAccent: "var(--sky-soft)",
+    accent: WELLNESS_COLORS.sleep.accent,
+    softAccent: WELLNESS_COLORS.sleep.softAccent,
     icon: SleepIcon,
   },
   exerciseExperience: {
     label: "운동 경험",
     summary: "강도와 빈도를 무리 없이 시작",
-    accent: "var(--mint)",
-    softAccent: "var(--mint-soft)",
+    accent: WELLNESS_COLORS.exercise.accent,
+    softAccent: WELLNESS_COLORS.exercise.softAccent,
     icon: WorkoutIcon,
   },
   mealStyle: {
     label: "식단 스타일",
     summary: "식사 제안의 톤과 현실성 맞춤",
-    accent: "var(--sun)",
-    softAccent: "var(--sun-soft)",
+    accent: WELLNESS_COLORS.diet.accent,
+    softAccent: WELLNESS_COLORS.diet.softAccent,
     icon: MealIcon,
   },
 } satisfies Record<OnboardingFieldKey, OnboardingFieldMeta>;
