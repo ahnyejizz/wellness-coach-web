@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import HomeCoachBriefDetail from "@/app/components/home/home-coach-brief-detail";
+import DailySurveyDialog from "@/app/components/plan/daily-survey-dialog";
 import SaveAlert from "@/app/components/common/alert/save-alert";
 import { type BriefDetails, type BriefMetricKey, useWellnessStore } from "@/app/stores/wellness-store";
 
@@ -168,7 +168,7 @@ export default function HomeCoachBrief({ isLoggedIn }: HomeCoachBriefProps) {
   return (
     <>
       {activeModalFocus ? (
-        <HomeCoachBriefDetail
+        <DailySurveyDialog
           key={activeModalFocus}
           focus={activeModalFocus}
           details={briefDetails}

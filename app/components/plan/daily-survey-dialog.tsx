@@ -17,14 +17,14 @@ const focusLabels = {
   diet: "식단",
 } satisfies Record<BriefMetricKey, string>;
 
-type HomeCoachBriefDetailProps = {
+type DailySurveyDialogProps = {
   focus: BriefMetricKey | null;
   details: BriefDetails;
   onClose: () => void;
   onSave: (focus: BriefMetricKey, value: BriefDetails[BriefMetricKey]) => void;
 };
 
-export default function HomeCoachBriefDetail({ focus, details, onClose, onSave }: HomeCoachBriefDetailProps) {
+export default function DailySurveyDialog({ focus, details, onClose, onSave }: DailySurveyDialogProps) {
   const [draft, setDraft] = useState<BriefDetails>(details);
 
   useEffect(() => {

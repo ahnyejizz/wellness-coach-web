@@ -6,6 +6,7 @@ import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
 import HomeFocusBoard from "@/app/components/home/home-focus-board";
 import HomePriority from "@/app/components/home/home-priority";
 import HomeFocusThemeWrapper from "@/app/components/home/home-focus-theme-wrapper";
+import DailySurveyPanel from "@/app/components/plan/daily-survey-panel";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import { hasCompletedOnboarding } from "@/lib/auth/user-store";
 
@@ -73,13 +74,13 @@ export default async function PlanPage() {
           </div>
         </section>
 
-        <section
-          id="coach-board"
-          className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]"
-          aria-labelledby="coach-board-title"
-        >
-          <HomeFocusBoard isLoggedIn />
-          <HomePriority isLoggedIn />
+        <section id="coach-board" className="grid gap-6" aria-labelledby="coach-board-title">
+          <DailySurveyPanel />
+
+          <div className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
+            <HomeFocusBoard isLoggedIn />
+            <HomePriority isLoggedIn />
+          </div>
         </section>
       </main>
     </HomeFocusThemeWrapper>
