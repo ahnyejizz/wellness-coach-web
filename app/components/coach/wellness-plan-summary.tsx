@@ -7,7 +7,6 @@ import {
   getGoalLabel,
   getMealPatternLabel,
   getPlanDisplayName,
-  getSavedPlanLabel,
   type FocusKey,
   useWellnessStore,
 } from "@/app/stores/wellness-store";
@@ -30,9 +29,6 @@ const focusBadgeTone = {
 export default function WellnessPlanSummary() {
   const profile = useWellnessStore((state) => state.profile);
   const activeFocus = useWellnessStore((state) => state.activeFocus);
-  const lastSavedAt = useWellnessStore((state) => state.lastSavedAt);
-  const hasHydrated = useWellnessStore((state) => state.hasHydrated);
-  const summaryLabel = getSavedPlanLabel(lastSavedAt, hasHydrated);
   const displayName = getPlanDisplayName(profile.name);
   const planTitle = displayName || getGoalLabel(profile.goal);
   const activeFocusTone = focusBadgeTone[activeFocus];
@@ -59,7 +55,6 @@ export default function WellnessPlanSummary() {
               {getFocusLabel(activeFocus)}
             </span>
           </div>
-          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{summaryLabel}</p>
         </div>
 
         <div className="flex flex-col items-start gap-3">
