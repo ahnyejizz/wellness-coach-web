@@ -30,7 +30,7 @@ function normalizeCallbackUrl(value: string) {
     return defaultCallbackUrl;
   }
 
-  if (value.startsWith("/login") || value.startsWith("/signup") || value.startsWith("/coach/onboarding")) {
+  if (value.startsWith("/login") || value.startsWith("/signup") || value.startsWith("/onboarding")) {
     return defaultCallbackUrl;
   }
 
@@ -59,7 +59,7 @@ function buildOnboardingRedirect(options: {
     }
   }
 
-  return `/coach/onboarding?${params.toString()}`;
+  return `/onboarding?${params.toString()}`;
 }
 
 function isSleepPattern(value: string): value is SleepPattern {
@@ -78,7 +78,7 @@ export async function saveOnboardingAnswers(formData: FormData) {
   const session = await auth();
 
   if (!session?.user?.email) {
-    return redirect("/login?callbackUrl=/coach/onboarding");
+    return redirect("/login?callbackUrl=/onboarding");
   }
 
   const callbackUrl = normalizeCallbackUrl(getFieldValue(formData, "callbackUrl") || defaultCallbackUrl);

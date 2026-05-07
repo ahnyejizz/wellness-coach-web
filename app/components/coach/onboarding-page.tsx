@@ -96,7 +96,7 @@ function normalizeCallbackUrl(value: string) {
     return defaultCallbackUrl;
   }
 
-  if (value.startsWith("/login") || value.startsWith("/signup") || value.startsWith("/coach/onboarding")) {
+  if (value.startsWith("/login") || value.startsWith("/signup") || value.startsWith("/onboarding")) {
     return defaultCallbackUrl;
   }
 
@@ -129,7 +129,7 @@ export default async function OnboardingPage(props: {
   const session = await auth();
 
   if (!session?.user?.email) {
-    redirect("/login?callbackUrl=/coach/onboarding");
+    redirect("/login?callbackUrl=/onboarding");
   }
 
   const localProfile = await getFinalUserProfileByEmail(session.user.email);

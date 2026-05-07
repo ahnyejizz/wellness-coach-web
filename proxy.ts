@@ -1,5 +1,5 @@
 export { auth as proxy } from "@/auth";
 
 export const config = {
-  matcher: ["/coach/:path*", "/ai-chat/:path*", "/plan/:path*", "/login", "/signup"],
+  matcher: ["/onboarding/:path*", "/plan/:path*", "/coach/:path*", "/ai-chat/:path*", "/login", "/signup"],
 };

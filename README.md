@@ -22,7 +22,7 @@
 - 로그인 전에는 서비스 소개와 대표 코칭 영역을 보여줍니다.
 - 로그인 후에는 상단 네비게이션을 통해 `온보딩`, `웰니스 플랜`, `마이페이지`, `AI Chat`으로 이동할 수 있습니다.
 
-### 온보딩 `/coach/onboarding`
+### 온보딩 `/onboarding`
 
 - 최초 사용자 또는 프로필을 다시 수정하려는 사용자가 진입하는 화면입니다.
 - 입력 항목은 `목표 체중`, `수면 패턴`, `운동 경험`, `식단 스타일`입니다.
@@ -60,6 +60,7 @@
   - `app/(route-entry)/signup/page.tsx` → `/signup`
   - `app/(route-entry)/plan/page.tsx` → `/plan`
   - `app/(route-entry)/coach/page.tsx` → `/coach`
+  - `app/(route-entry)/onboarding/page.tsx` → `/onboarding`
   - `app/(route-entry)/ai-chat/page.tsx` → `/ai-chat`
 
 ### 실제 구현
@@ -128,8 +129,8 @@ app/
   (route-entry)/
     ai-chat/page.tsx
     coach/page.tsx
-    coach/onboarding/page.tsx
     login/page.tsx
+    onboarding/page.tsx
     plan/page.tsx
     signup/page.tsx
   api/

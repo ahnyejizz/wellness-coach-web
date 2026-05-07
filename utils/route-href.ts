@@ -17,5 +17,5 @@ export function getOnboardingHref(
     params.set("mode", "edit");
   }
 
-  return `/coach/onboarding?${params.toString()}`;
+  return `/onboarding?${params.toString()}`;
 }
