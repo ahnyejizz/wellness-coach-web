@@ -129,6 +129,7 @@
 - preview 성격은 `-preview`
 - 공통 helper는 `utils/`
 - 인증/도메인 저장소 로직은 `lib/`
+- 서버 액션은 `app/actions/`
 - 공통 색상 상수는 `app/constants/colors.ts`
 
 ## 4. 현재 주요 폴더 구조
@@ -142,16 +143,32 @@ app/
     onboarding/page.tsx
     plan/page.tsx
     signup/page.tsx
+  actions/
+    auth-actions.ts
+    onboarding-actions.ts
   api/
     ai-chat/route.ts
     auth/[...nextauth]/route.ts
   components/
     ai-chat/
+      ai-chat-page.tsx
+      ai-chat-panel.tsx
+      ai-chat-summary-panel.tsx
     auth/
+      login-page.tsx
+      signup-page.tsx
     coach/
+      coach-page.tsx
     common/
     home/
+    onboarding/
+      onboarding-page.tsx
     plan/
+      plan-page.tsx
+      focus-board.tsx
+      focus-board-priority.tsx
+      daily-survey-panel.tsx
+      daily-survey-dialog.tsx
   constants/
     colors.ts
   stores/

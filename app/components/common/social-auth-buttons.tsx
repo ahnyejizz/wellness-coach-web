@@ -1,4 +1,4 @@
-import { signInWithSocial } from "@/app/auth-actions";
+import { signInWithSocial } from "@/app/actions/auth-actions";
 
 type SocialAuthButtonsProps = {
   callbackUrl: string;

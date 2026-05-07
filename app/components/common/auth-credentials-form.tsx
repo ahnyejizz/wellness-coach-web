@@ -1,4 +1,4 @@
-import { loginWithCredentials, signupWithCredentials } from "@/app/auth-actions";
+import { loginWithCredentials, signupWithCredentials } from "@/app/actions/auth-actions";
 
 type LoginValues = {
   email: string;
