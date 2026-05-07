@@ -143,36 +143,20 @@ app/
     onboarding/page.tsx
     plan/page.tsx
     signup/page.tsx
-  actions/
-    auth-actions.ts
-    onboarding-actions.ts
-  api/
-    ai-chat/route.ts
-    auth/[...nextauth]/route.ts
+  actions/...
+  api/...
   components/
-    ai-chat/
-      ai-chat-page.tsx
-      ai-chat-panel.tsx
-      ai-chat-summary-panel.tsx
-    auth/
-      login-page.tsx
-      signup-page.tsx
-    coach/
-      coach-page.tsx
+    ai-chat/...
+    auth/...
+    coach/...
     common/
-    home/
-    onboarding/
-      onboarding-page.tsx
-    plan/
-      plan-page.tsx
-      focus-board.tsx
-      focus-board-priority.tsx
-      daily-survey-panel.tsx
-      daily-survey-dialog.tsx
-  constants/
-    colors.ts
-  stores/
-    wellness-store.ts
+      alert/...
+      ...
+    home/...
+    onboarding/...
+    plan/...
+  constants/...
+  stores/...
 
 lib/
   ai-chat/
