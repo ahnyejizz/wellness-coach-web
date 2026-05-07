@@ -528,8 +528,11 @@ export default function FocusBoardPriority({ isLoggedIn }: FocusBoardPriorityPro
 
               <div className="mt-6 space-y-3">
                 {currentPriority.habits.map((habit) => (
-                  <div key={habit} className="ui-card-note flex items-start gap-3">
-                    <span className="mt-1 h-2.5 w-2.5 rounded-full" style={{ backgroundColor: current.accent }} />
+                  <div key={habit} className="ui-card-note flex items-center gap-3">
+                    <span
+                      className="block h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: current.accent }}
+                    />
                     <p className="text-sm leading-7 text-[var(--foreground)]">{habit}</p>
                   </div>
                 ))}
@@ -632,8 +635,11 @@ export default function FocusBoardPriority({ isLoggedIn }: FocusBoardPriorityPro
 
               <div className="mt-6 space-y-3">
                 {current.habits.map((habit) => (
-                  <div key={habit} className="ui-card-note flex items-start gap-3 opacity-70">
-                    <span className="mt-1 h-2.5 w-2.5 rounded-full" style={{ backgroundColor: current.accent }} />
+                  <div key={habit} className="ui-card-note flex items-center gap-3 opacity-70">
+                    <span
+                      className="block h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: current.accent }}
+                    />
                     <div className="flex-1 space-y-2">
                       <div className="h-3 rounded-full" style={{ width: "82%", backgroundColor: current.softAccent }} />
                       <div className="h-3 rounded-full" style={{ width: "58%", backgroundColor: current.softAccent }} />
