@@ -11,10 +11,19 @@
 4. 현재 주요 폴더 구조
 5. 인증 및 저장 구조
 6. Local Dev
-7. 환경 변수
-8. Useful Commands
+7. 필요 환경 변수
 
 ## 1. 프로젝트 소개
+
+### 기술 스택
+
+- `프론트엔드` : Next.js 16, React 19, TypeScript
+- `스타일링` : Tailwind CSS
+- `인증` : NextAuth.js, Google, Kakao, Naver
+- `상태관리` : Zustand
+- `저장 방식` : JSON File, Cookie
+- `AI` : Gemini API
+- `배포` : Vercel
 
 ### 홈 `/`
 
@@ -188,9 +197,9 @@ npm run dev
 
 - 권장 Node 버전: `20.20.2`
 - Next.js 16 기준 빌드 환경은 `Node >= 20.9.0` 이 필요합니다.
-- 웰니스 질문 기능을 쓰려면 `.env.local` 또는 배포 환경에 `GEMINI_API_KEY`가 필요합니다.
+- AI Chat 개발을 위해선 `.env.local` 또는 배포 환경에 `GEMINI_API_KEY`가 필요합니다.
 
-## 7. 환경 변수
+## 7. 필요 환경 변수
 
 ```bash
 AUTH_SECRET="replace-with-a-random-secret-before-deploy"
@@ -223,11 +232,3 @@ GEMINI_MODEL="gemini-2.5-flash-lite"
 - Gemini API는 공식 문서 기준 free tier가 있으며, 모델별로 요청 한도가 다릅니다.
 - 무료 키는 Google AI Studio에서 만들 수 있고, 사용량이 늘어나면 나중에 유료 티어로 전환할 수 있습니다.
 - 앱 코드는 별도 SDK 설치 없이 서버 `fetch`로 Gemini REST API를 호출합니다.
-
-## 8. Useful Commands
-
-```bash
-npm run dev
-npm run build
-npx eslint app lib utils auth.ts proxy.ts
-```
