@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import type { ComponentType } from "react";
 import { auth } from "@/auth";
 import { WELLNESS_COLORS } from "@/app/constants/colors";
-import { saveOnboardingAnswers } from "@/app/coach/onboarding/actions";
+import { saveOnboardingAnswers } from "@/app/onboarding/actions";
 import { HomeIcon, WeightIcon, SleepIcon, WorkoutIcon, MealIcon, type IconProps } from "@/app/components/common/icons";
 import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
 import {
