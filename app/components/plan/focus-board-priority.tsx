@@ -553,7 +553,7 @@ export default function FocusBoardPriority({ isLoggedIn }: FocusBoardPriorityPro
 
               <div className="ui-card-raised flex-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-[var(--muted)]">이번주 패턴</p>
+                  <p className="text-sm font-bold text-[var(--foreground)]">주간 리듬</p>
                 </div>
 
                 <div className="mt-5 space-y-4">
@@ -561,7 +561,7 @@ export default function FocusBoardPriority({ isLoggedIn }: FocusBoardPriorityPro
                     <div key={pattern.label}>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-[var(--foreground)]">{pattern.label}</span>
-                        <span className="text-[var(--muted)]">{pattern.caption}</span>
+                        <span style={{ color: current.accent }}>{pattern.caption}</span>
                       </div>
                       <div className="mt-2 h-2 rounded-full bg-[rgba(22,48,43,0.08)]">
                         <div
@@ -664,7 +664,7 @@ export default function FocusBoardPriority({ isLoggedIn }: FocusBoardPriorityPro
 
               <div className="ui-card-raised min-h-[18rem]">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-[var(--muted)]">이번주 패턴</p>
+                  <p className="text-sm font-medium text-[var(--muted)]">주간 리듬</p>
                 </div>
 
                 <div className="mt-5 space-y-4">
