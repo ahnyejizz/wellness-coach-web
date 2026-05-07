@@ -1,7 +1,8 @@
 # Motive Care
 
 수면, 운동, 식단을 하나의 흐름으로 연결해 관리하는 개인 웰니스 코치 웹 서비스입니다.  
-이 프로젝트는 `Next.js App Router` 기반으로 구성되어 있고, 로그인 상태에 따라 홈, 온보딩, 웰니스 플랜, 코치 대시보드, AI Chat 흐름이 자연스럽게 이어지도록 설계되어 있습니다.
+이 프로젝트는 `Next.js App Router` 기반으로 구성되어 있고
+로그인 상태에 따라 홈, 온보딩, 웰니스 플랜, 코치 대시보드, AI Chat 흐름이 자연스럽게 이어지도록 설계되어 있습니다.
 
 ## 목차
 
@@ -10,10 +11,10 @@
 3. 폴더 및 파일명 명명 규칙
 4. 현재 주요 폴더 구조
 5. 인증 및 저장 구조
-6. Local Dev
-7. 필요 환경 변수
+6. Local 환경 실행 스크립트
+7. 개발 시 필요 환경 변수
 
-## 1. 프로젝트 소개
+## ----- 1. 프로젝트 소개 -----
 
 ### 기술 스택
 
@@ -24,6 +25,27 @@
 - `저장 방식` : JSON File, Cookie
 - `AI` : Gemini API
 - `배포` : Vercel
+
+## ----- 2. 라우팅 구조 -----
+
+현재 프로젝트는 `route entry`와 `실제 페이지 구현`을 분리하는 패턴을 사용합니다.
+
+### Route Entry
+
+- URL 엔트리는 `app/(route-entry)` 아래에 둡니다.
+- 이 폴더는 Route Group 이라서 실제 URL에는 노출되지 않습니다.
+- 예:
+  - `app/(route-entry)/login/page.tsx` → `/login`
+  - `app/(route-entry)/signup/page.tsx` → `/signup`
+  - `app/(route-entry)/plan/page.tsx` → `/plan`
+  - `app/(route-entry)/coach/page.tsx` → `/coach`
+  - `app/(route-entry)/onboarding/page.tsx` → `/onboarding`
+  - `app/(route-entry)/ai-chat/page.tsx` → `/ai-chat`
+
+### 실제 구현
+
+- 실제 UI와 로직은 `app/components/...` 아래에 둡니다.
+- route entry 파일은 얇게 유지하고, 구현체만 연결합니다.
 
 ### 홈 `/`
 
@@ -56,28 +78,7 @@
 - 추천 질문, 최근 질문, 웰니스 Q&A 요약 카드가 함께 제공됩니다.
 - 서버 호출은 `/api/ai-chat` Route Handler를 통해 처리되며, API 키는 브라우저로 노출되지 않습니다.
 
-## 2. 라우팅 구조
-
-현재 프로젝트는 `route entry`와 `실제 페이지 구현`을 분리하는 패턴을 사용합니다.
-
-### Route Entry
-
-- URL 엔트리는 `app/(route-entry)` 아래에 둡니다.
-- 이 폴더는 Route Group 이라서 실제 URL에는 노출되지 않습니다.
-- 예:
-  - `app/(route-entry)/login/page.tsx` → `/login`
-  - `app/(route-entry)/signup/page.tsx` → `/signup`
-  - `app/(route-entry)/plan/page.tsx` → `/plan`
-  - `app/(route-entry)/coach/page.tsx` → `/coach`
-  - `app/(route-entry)/onboarding/page.tsx` → `/onboarding`
-  - `app/(route-entry)/ai-chat/page.tsx` → `/ai-chat`
-
-### 실제 구현
-
-- 실제 UI와 로직은 `app/components/...` 아래에 둡니다.
-- route entry 파일은 얇게 유지하고, 구현체만 연결합니다.
-
-## 3. 폴더 및 파일명 명명 규칙
+## ----- 3. 폴더 및 파일명 명명 규칙 -----
 
 ### 기본 원칙
 
@@ -132,7 +133,7 @@
 - 서버 액션은 `app/actions/`
 - 공통 색상 상수는 `app/constants/colors.ts`
 
-## 4. 현재 주요 폴더 구조
+## ----- 4. 현재 주요 폴더 구조 -----
 
 ```txt
 app/
@@ -166,7 +167,7 @@ utils/
   route-href.ts
 ```
 
-## 5. 인증 및 저장 구조
+## ----- 5. 인증 및 저장 구조 -----
 
 ### 인증
 
@@ -188,7 +189,7 @@ utils/
 - 서버 로직: [lib/ai-chat/assistant.ts](/Users/dreamtree123/my-next-app/lib/ai-chat/assistant.ts)
 - 정적 요약/문구: [lib/ai-chat/content.ts](/Users/dreamtree123/my-next-app/lib/ai-chat/content.ts)
 
-## 6. Local Dev
+## ----- 6. Local 환경 실행 스크립트 -----
 
 ```bash
 nvm use
@@ -200,7 +201,7 @@ npm run dev
 - Next.js 16 기준 빌드 환경은 `Node >= 20.9.0` 이 필요합니다.
 - AI Chat 개발을 위해선 `.env.local` 또는 배포 환경에 `GEMINI_API_KEY`가 필요합니다.
 
-## 7. 필요 환경 변수
+## ----- 7. 개발 시 필요 환경 변수 -----
 
 ```bash
 AUTH_SECRET="replace-with-a-random-secret-before-deploy"
