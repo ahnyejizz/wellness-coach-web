@@ -12,7 +12,6 @@ import {
   getExerciseExperienceLabel,
   getMealStyleLabel,
   getSleepPatternLabel,
-  hasCompletedOnboarding,
 } from "@/lib/auth/user-store";
 import PlanStudio from "./plan-studio";
 
@@ -32,34 +31,29 @@ export default async function CoachPage() {
   }
 
   const localProfile = session.user.email ? await getFinalUserProfileByEmail(session.user.email) : null;
-
-  if (!localProfile || !hasCompletedOnboarding(localProfile)) {
-    redirect("/coach/onboarding?callbackUrl=/coach");
-  }
-
-  const completedProfile = localProfile;
   const userName = session.user.name ?? "Motive Care Member";
   const userEmail = session.user.email ?? "Local account";
   const userInitial = resolveInitial(session.user.name, session.user.email);
-  const isFirstLogin = (completedProfile.loginCount ?? 0) <= 1;
-  const heading = isFirstLogin ? `${userName}님, 환영합니다!` : `${userName}님, 환영합니다!`;
-  const onboardingHref = getOnboardingHref(completedProfile, "/coach");
+  const heading = `${userName}님, 환영합니다!`;
+  const onboardingHref = getOnboardingHref(localProfile, "/coach");
   const onboardingSummary = [
     {
       label: "목표 체중",
-      value: `${completedProfile.goalWeightKg}kg`,
+      value: typeof localProfile?.goalWeightKg === "number" ? `${localProfile.goalWeightKg}kg` : "아직 미입력",
     },
     {
       label: "수면 패턴",
-      value: getSleepPatternLabel(completedProfile.sleepPattern),
+      value: localProfile?.sleepPattern ? getSleepPatternLabel(localProfile.sleepPattern) : "아직 미입력",
     },
     {
       label: "운동 경험",
-      value: getExerciseExperienceLabel(completedProfile.exerciseExperience),
+      value: localProfile?.exerciseExperience
+        ? getExerciseExperienceLabel(localProfile.exerciseExperience)
+        : "아직 미입력",
     },
     {
       label: "식단 스타일",
-      value: getMealStyleLabel(completedProfile.mealStyle),
+      value: localProfile?.mealStyle ? getMealStyleLabel(localProfile.mealStyle) : "아직 미입력",
     },
   ];
 

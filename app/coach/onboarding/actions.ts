@@ -9,7 +9,6 @@ import {
   mealStyleOptions,
   sleepPatternOptions,
   updateUserOnboarding,
-  UserNotFoundError,
   type ExerciseExperience,
   type MealStyle,
   type SleepPattern,
@@ -155,6 +154,7 @@ export async function saveOnboardingAnswers(formData: FormData) {
   try {
     const updatedProfile = await updateUserOnboarding({
       email: session.user.email,
+      name: session.user.name,
       goalWeightKg: Math.round(parsedGoalWeight * 10) / 10,
       sleepPattern,
       exerciseExperience,
@@ -170,10 +170,6 @@ export async function saveOnboardingAnswers(formData: FormData) {
       completedOnboardingAt: updatedProfile.completedOnboardingAt,
     });
   } catch (error) {
-    if (error instanceof UserNotFoundError) {
-      return redirect("/signup");
-    }
-
     throw error;
   }
 

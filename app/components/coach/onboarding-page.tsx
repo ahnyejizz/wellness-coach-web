@@ -134,10 +134,6 @@ export default async function OnboardingPage(props: {
 
   const localProfile = await getFinalUserProfileByEmail(session.user.email);
 
-  if (!localProfile) {
-    redirect("/signup");
-  }
-
   const searchParams = await props.searchParams;
   const callbackUrl = normalizeCallbackUrl(getQueryValue(searchParams.callbackUrl) || defaultCallbackUrl);
   const mode = getQueryValue(searchParams.mode) === "edit" ? "edit" : "setup";
@@ -149,11 +145,11 @@ export default async function OnboardingPage(props: {
   const errorMessage = resolveErrorMessage(getQueryValue(searchParams.error));
   const goalWeightValue =
     getQueryValue(searchParams.goalWeightKg) ||
-    (typeof localProfile.goalWeightKg === "number" ? localProfile.goalWeightKg.toString() : "");
-  const sleepPatternValue = getQueryValue(searchParams.sleepPattern) || localProfile.sleepPattern || "";
+    (typeof localProfile?.goalWeightKg === "number" ? localProfile.goalWeightKg.toString() : "");
+  const sleepPatternValue = getQueryValue(searchParams.sleepPattern) || localProfile?.sleepPattern || "";
   const exerciseExperienceValue =
-    getQueryValue(searchParams.exerciseExperience) || localProfile.exerciseExperience || "";
-  const mealStyleValue = getQueryValue(searchParams.mealStyle) || localProfile.mealStyle || "";
+    getQueryValue(searchParams.exerciseExperience) || localProfile?.exerciseExperience || "";
+  const mealStyleValue = getQueryValue(searchParams.mealStyle) || localProfile?.mealStyle || "";
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
@@ -163,7 +159,7 @@ export default async function OnboardingPage(props: {
           <h1 className="ui-title-4 mt-3">
             {mode === "edit"
               ? "웰니스 프로필을 다시 조정해볼까요?"
-              : `${localProfile.name}님에게 맞는 시작점을 알려주세요.`}
+              : `${localProfile?.name ?? session.user.name ?? "회원"}님에게 맞는 시작점을 알려주세요.`}
           </h1>
           <p className="ui-copy mt-4 max-w-3xl sm:text-base">
             목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 먼저 확인하면 코칭 플로우를 더 개인화할 수 있습니다.

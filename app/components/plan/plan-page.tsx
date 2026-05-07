@@ -7,8 +7,6 @@ import FocusBoard from "@/app/components/plan/focus-board";
 import FocusBoardPriority from "@/app/components/plan/focus-board-priority";
 import FocusThemeWrapper from "@/app/components/plan/focus-theme-wrapper";
 import DailySurveyPanel from "@/app/components/plan/daily-survey-panel";
-import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
-import { hasCompletedOnboarding } from "@/lib/auth/user-store";
 
 /**
  * @description 로그인 후 플랜 우선순위와 주간 패턴을 확인하는 플랜 페이지
@@ -23,12 +21,6 @@ export default async function PlanPage() {
 
   if (!session?.user) {
     redirect("/login?callbackUrl=/plan");
-  }
-
-  const localProfile = session.user.email ? await getFinalUserProfileByEmail(session.user.email) : null;
-
-  if (!localProfile || !hasCompletedOnboarding(localProfile)) {
-    redirect("/coach/onboarding?callbackUrl=/plan");
   }
 
   const userName = session.user.name ?? "Motive Care Member";

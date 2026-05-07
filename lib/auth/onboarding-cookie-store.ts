@@ -27,6 +27,10 @@ function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
 }
 
+function resolveDisplayNameFromEmail(email: string) {
+  return normalizeEmail(email).split("@")[0] || "Motive Care Member";
+}
+
 /*
 파싱한 값이 우리가 기대하는 온보딩 저장 형태인지 검증
 */
@@ -101,6 +105,23 @@ function mergeUserProfile(
   };
 }
 
+function buildCookieOnlyUserProfile(email: string, persistedProfile: PersistedOnboardingProfile): LocalUserProfile {
+  const normalizedEmail = normalizeEmail(email);
+
+  return {
+    id: `cookie-profile:${normalizedEmail}`,
+    name: resolveDisplayNameFromEmail(normalizedEmail),
+    email: normalizedEmail,
+    goalWeightKg: persistedProfile.goalWeightKg,
+    sleepPattern: persistedProfile.sleepPattern,
+    exerciseExperience: persistedProfile.exerciseExperience,
+    mealStyle: persistedProfile.mealStyle,
+    completedOnboardingAt: persistedProfile.completedOnboardingAt,
+    createdAt: persistedProfile.completedOnboardingAt,
+    loginCount: 0,
+  };
+}
+
 /*
 쿠키 전체에서 현재 이메일에 해당하는 온보딩 값만 찾아서 꺼내고,
 저장된 값이 없으면 null 반환
@@ -156,16 +177,11 @@ export async function savePersistedOnboardingProfile(input: {
 */
 export async function getFinalUserProfileByEmail(email: string) {
   const localProfile = await getUserProfileByEmail(email);
-
-  if (!localProfile) {
-    return null;
-  }
-
   const persistedProfile = await getPersistedOnboardingProfile(email);
 
-  if (!persistedProfile) {
-    return localProfile;
+  if (!localProfile) {
+    return persistedProfile ? buildCookieOnlyUserProfile(email, persistedProfile) : null;
   }
 
-  return mergeUserProfile(localProfile, persistedProfile);
+  return persistedProfile ? mergeUserProfile(localProfile, persistedProfile) : localProfile;
 }

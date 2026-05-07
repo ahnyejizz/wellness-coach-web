@@ -5,8 +5,6 @@ import { HomeIcon } from "@/app/components/common/icons";
 import WorkspaceHeaderInfo from "@/app/components/common/workspace-header-info";
 import FocusThemeWrapper from "@/app/components/plan/focus-theme-wrapper";
 import AiChatPanel from "@/app/components/ai-chat/ai-chat-panel";
-import { getFinalUserProfileByEmail } from "@/lib/auth/onboarding-cookie-store";
-import { hasCompletedOnboarding } from "@/lib/auth/user-store";
 
 /**
  * @description 로그인 후 웰니스 AI 채팅을 전용으로 사용하는 페이지
@@ -21,12 +19,6 @@ export default async function AiChatPage() {
 
   if (!session?.user) {
     redirect("/login?callbackUrl=/ai-chat");
-  }
-
-  const localProfile = session.user.email ? await getFinalUserProfileByEmail(session.user.email) : null;
-
-  if (!localProfile || !hasCompletedOnboarding(localProfile)) {
-    redirect("/coach/onboarding?callbackUrl=/ai-chat");
   }
 
   const userName = session.user.name ?? "Motive Care Member";

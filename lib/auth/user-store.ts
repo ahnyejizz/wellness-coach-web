@@ -288,6 +288,7 @@ export async function ensureSocialUser(input: { name?: string | null; email: str
 
 export async function updateUserOnboarding(input: {
   email: string;
+  name?: string | null;
   goalWeightKg: number;
   sleepPattern: SleepPattern;
   exerciseExperience: ExerciseExperience;
@@ -297,20 +298,37 @@ export async function updateUserOnboarding(input: {
   const users = await readUsers();
   const userIndex = users.findIndex((candidate) => candidate.email === normalizedEmail);
 
-  if (userIndex < 0) {
-    throw new UserNotFoundError();
+  const nextUser: StoredUser =
+    userIndex >= 0
+      ? {
+          ...users[userIndex],
+          goalWeightKg: input.goalWeightKg,
+          sleepPattern: input.sleepPattern,
+          exerciseExperience: input.exerciseExperience,
+          mealStyle: input.mealStyle,
+          completedOnboardingAt: new Date().toISOString(),
+        }
+      : {
+          id: randomUUID(),
+          name: resolveDisplayName(input.name, normalizedEmail),
+          email: normalizedEmail,
+          passwordHash: "",
+          goalWeightKg: input.goalWeightKg,
+          sleepPattern: input.sleepPattern,
+          exerciseExperience: input.exerciseExperience,
+          mealStyle: input.mealStyle,
+          completedOnboardingAt: new Date().toISOString(),
+          createdAt: new Date().toISOString(),
+          loginCount: 1,
+          lastLoginAt: new Date().toISOString(),
+        };
+
+  if (userIndex >= 0) {
+    users[userIndex] = nextUser;
+  } else {
+    users.push(nextUser);
   }
 
-  const nextUser: StoredUser = {
-    ...users[userIndex],
-    goalWeightKg: input.goalWeightKg,
-    sleepPattern: input.sleepPattern,
-    exerciseExperience: input.exerciseExperience,
-    mealStyle: input.mealStyle,
-    completedOnboardingAt: new Date().toISOString(),
-  };
-
-  users[userIndex] = nextUser;
   await writeUsers(users);
 
   return sanitizeUser(nextUser);
