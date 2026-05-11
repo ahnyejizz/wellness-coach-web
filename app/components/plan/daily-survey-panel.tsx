@@ -12,7 +12,7 @@ const quickBriefActions = [
   {
     key: "sleep",
     label: "수면 지표 입력",
-    description: "총 수면 시간, 스크린 오프, 취침 준비 루틴, 기상 후 햇빛 노출",
+    descriptionItems: ["총 수면 시간", "스크린 오프", "취침 준비 루틴", "기상 후 햇빛 노출"],
     accent: WELLNESS_COLORS.sleep.accent,
     softAccent: WELLNESS_COLORS.sleep.softAccent,
     icon: SleepIcon,
@@ -20,7 +20,7 @@ const quickBriefActions = [
   {
     key: "exercise",
     label: "운동 지표 입력",
-    description: "주간 근력 횟수, 주간 유산소 횟수, 활동 칼로리, 회복 상태",
+    descriptionItems: ["주간 근력 횟수", "주간 유산소 횟수", "활동 칼로리", "회복 상태"],
     accent: WELLNESS_COLORS.exercise.accent,
     softAccent: WELLNESS_COLORS.exercise.softAccent,
     icon: WorkoutIcon,
@@ -28,7 +28,7 @@ const quickBriefActions = [
   {
     key: "diet",
     label: "식단 지표 입력",
-    description: "단백질 섭취량, 수분 섭취량, 군것질 횟수, 야식 빈도",
+    descriptionItems: ["단백질 섭취량", "수분 섭취량", "군것질 횟수", "야식 빈도"],
     accent: WELLNESS_COLORS.diet.accent,
     softAccent: WELLNESS_COLORS.diet.softAccent,
     icon: MealIcon,
@@ -36,7 +36,7 @@ const quickBriefActions = [
 ] as const satisfies ReadonlyArray<{
   key: BriefMetricKey;
   label: string;
-  description: string;
+  descriptionItems: readonly string[];
   accent: string;
   softAccent: string;
   icon: ComponentType<IconProps>;
@@ -152,7 +152,14 @@ export default function DailySurveyPanel() {
 
                   <div className="min-w-0">
                     <p className="text-base font-semibold tracking-tight text-[var(--foreground)]">{action.label}</p>
-                    <p className="mt-1 text-xs leading-5 text-[var(--muted)]">{action.description}</p>
+                    <ul className="mt-1 space-y-0.5 text-xs leading-5 text-[var(--muted)]">
+                      {action.descriptionItems.map((item) => (
+                        <li key={item} className="flex items-start gap-1">
+                          <span aria-hidden="true">-</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
