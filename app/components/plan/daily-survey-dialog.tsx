@@ -181,7 +181,7 @@ export default function DailySurveyDialog({ focus, details, onClose, onSave }: D
             <>
               <label className="block">
                 <span className="ui-field-label">주간 근력 횟수</span>
-                <div className="ui-field-shell mt-3">
+                <div className="ui-field-wrapper mt-3">
                   <input
                     type="number"
                     min="0"
@@ -196,7 +196,7 @@ export default function DailySurveyDialog({ focus, details, onClose, onSave }: D
 
               <label className="block">
                 <span className="ui-field-label">주간 유산소 횟수</span>
-                <div className="ui-field-shell mt-3">
+                <div className="ui-field-wrapper mt-3">
                   <input
                     type="number"
                     min="0"
@@ -211,7 +211,7 @@ export default function DailySurveyDialog({ focus, details, onClose, onSave }: D
 
               <label className="block">
                 <span className="ui-field-label">활동 칼로리</span>
-                <div className="ui-field-shell mt-3">
+                <div className="ui-field-wrapper mt-3">
                   <input
                     type="number"
                     min="0"
@@ -246,7 +246,7 @@ export default function DailySurveyDialog({ focus, details, onClose, onSave }: D
             <>
               <label className="block">
                 <span className="ui-field-label">단백질 섭취량</span>
-                <div className="ui-field-shell mt-3">
+                <div className="ui-field-wrapper mt-3">
                   <input
                     type="number"
                     min="0"
@@ -261,7 +261,7 @@ export default function DailySurveyDialog({ focus, details, onClose, onSave }: D
 
               <label className="block">
                 <span className="ui-field-label">수분 섭취량</span>
-                <div className="ui-field-shell mt-3">
+                <div className="ui-field-wrapper mt-3">
                   <input
                     type="number"
                     min="0"
@@ -277,7 +277,7 @@ export default function DailySurveyDialog({ focus, details, onClose, onSave }: D
 
               <label className="block">
                 <span className="ui-field-label">군것질 횟수</span>
-                <div className="ui-field-shell mt-3">
+                <div className="ui-field-wrapper mt-3">
                   <input
                     type="number"
                     min="0"
@@ -292,7 +292,7 @@ export default function DailySurveyDialog({ focus, details, onClose, onSave }: D
 
               <label className="block">
                 <span className="ui-field-label">야식 빈도</span>
-                <div className="ui-field-shell mt-3">
+                <div className="ui-field-wrapper mt-3">
                   <input
                     type="number"
                     min="0"

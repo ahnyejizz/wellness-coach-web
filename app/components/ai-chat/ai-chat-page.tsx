@@ -28,7 +28,7 @@ export default async function AiChatPage() {
   return (
     <FocusThemeWrapper>
       <main className="relative mx-auto flex min-h-screen w-full max-w-[108rem] flex-col gap-6 px-5 py-8 sm:px-8 lg:px-12">
-        <section className="panel panel-strong ui-panel-shell-lg">
+        <section className="panel panel-strong ui-panel-wrapper-lg">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div className="flex items-start gap-4">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)] text-2xl font-semibold text-[#fffaf2]">

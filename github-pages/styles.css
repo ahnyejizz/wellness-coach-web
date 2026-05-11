@@ -37,7 +37,7 @@ a {
   text-decoration: none;
 }
 
-.shell {
+.wrapper {
   position: relative;
   z-index: 1;
   width: min(1120px, calc(100% - 40px));
@@ -326,7 +326,7 @@ h1 {
 }
 
 @media (max-width: 640px) {
-  .shell {
+  .wrapper {
     width: min(100% - 24px, 1120px);
     padding: 20px 0 40px;
   }

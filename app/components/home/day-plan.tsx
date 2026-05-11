@@ -60,7 +60,7 @@ const dayPlan: DayPlanItem[] = [
 
 export default function DayPlan() {
   return (
-    <article className="panel ui-panel-shell">
+    <article className="panel ui-panel-wrapper">
       <p className="ui-kicker">Day plan</p>
       <h2 className="ui-title-3 mt-3">하루를 코칭 단위로 쪼갠 플로우</h2>
       <p className="ui-copy mt-4 max-w-2xl">

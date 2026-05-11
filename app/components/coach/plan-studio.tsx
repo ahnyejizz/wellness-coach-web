@@ -30,7 +30,7 @@ export default function PlanStudio() {
   const planNamePlaceholder = planNamePlaceholders[profile.focus];
 
   return (
-    <article className="panel ui-panel-shell ui-hover-panel">
+    <article className="panel ui-panel-wrapper ui-hover-panel">
       <p className="ui-kicker">Plan Studio</p>
       <h2 className="ui-title-3 mt-3">우선순위에 따른 웰니스 코칭 플랜 만들기</h2>
       <p className="ui-copy mt-4 max-w-3xl">

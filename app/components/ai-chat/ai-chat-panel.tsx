@@ -101,9 +101,7 @@ export default function AiChatPanel({ userName }: AiChatPanelProps) {
       setModel("");
       setAnswerDisclaimer(aiChatDisclaimer);
       setError(
-        submitError instanceof Error
-          ? normalizeAiChatErrorMessage(submitError.message)
-          : "응답을 불러오지 못했습니다.",
+        submitError instanceof Error ? normalizeAiChatErrorMessage(submitError.message) : "응답을 불러오지 못했습니다.",
       );
     } finally {
       setIsSubmitting(false);
@@ -130,7 +128,7 @@ export default function AiChatPanel({ userName }: AiChatPanelProps) {
         </div>
       ) : null}
 
-      <section className="panel ui-panel-shell">
+      <section className="panel ui-panel-wrapper">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <p className="ui-kicker">Health Q&A</p>

@@ -167,12 +167,12 @@ select {
   color: var(--muted);
 }
 
-.ui-panel-shell {
+.ui-panel-wrapper {
   border-radius: 2rem;
   padding: 1.75rem 1.5rem;
 }
 
-.ui-panel-shell-lg {
+.ui-panel-wrapper-lg {
   border-radius: 2rem;
   padding: 2rem 1.5rem;
 }
@@ -495,7 +495,7 @@ button.ui-pill:hover,
   border-color: var(--foreground);
 }
 
-.ui-field-shell {
+.ui-field-wrapper {
   margin-top: 0.5rem;
   display: flex;
   align-items: center;
@@ -506,13 +506,13 @@ button.ui-pill:hover,
   padding: 0.75rem 1rem;
 }
 
-.ui-field-shell:focus-within {
+.ui-field-wrapper:focus-within {
   box-shadow: 0 0 0 2px var(--accent-soft);
 }
 
 @media (min-width: 640px) {
-  .ui-panel-shell,
-  .ui-panel-shell-lg {
+  .ui-panel-wrapper,
+  .ui-panel-wrapper-lg {
     padding-inline: 2rem;
   }
 

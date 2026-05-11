@@ -35,7 +35,7 @@ export default function PlanSummary() {
   const activeFocusTone = focusBadgeTone[activeFocus];
 
   return (
-    <section className="panel ui-panel-shell ui-hover-panel h-full">
+    <section className="panel ui-panel-wrapper ui-hover-panel h-full">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-3xl">
           <p className="ui-kicker">Plan Priority</p>

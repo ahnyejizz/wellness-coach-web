@@ -81,7 +81,7 @@ export default async function LoginPage(props: {
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
       <div className="flex w-full justify-center">
-        <section className="panel ui-panel-shell-lg w-full max-w-[42rem]">
+        <section className="panel ui-panel-wrapper-lg w-full max-w-[42rem]">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="ui-kicker tracking-[0.24em]">Sign in</p>

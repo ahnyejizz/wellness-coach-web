@@ -110,7 +110,7 @@ export default function DailySurveyPanel() {
         description="입력값이 오늘의 코치 브리핑과 우선순위 패널에 저장되었어요."
       />
 
-      <section className="panel ui-panel-shell-lg">
+      <section className="panel ui-panel-wrapper-lg">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-2xl">
             <p className="ui-kicker">Quick Brief Input</p>

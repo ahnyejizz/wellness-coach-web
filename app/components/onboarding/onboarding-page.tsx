@@ -154,7 +154,7 @@ export default async function OnboardingPage(props: {
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
       <div className="grid w-full gap-6 xl:grid-cols-[1.04fr_0.96fr]">
-        <section className="panel panel-strong ui-panel-shell-lg">
+        <section className="panel panel-strong ui-panel-wrapper-lg">
           <p className="ui-kicker">{mode === "edit" ? "Edit Wellness Profile" : "Welcome Wellness Profile"}</p>
           <h1 className="ui-title-4 mt-3">
             {mode === "edit"
@@ -179,7 +179,7 @@ export default async function OnboardingPage(props: {
           </div>
         </section>
 
-        <section className="panel ui-panel-shell-lg">
+        <section className="panel ui-panel-wrapper-lg">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="ui-kicker tracking-[0.24em]">
@@ -205,7 +205,7 @@ export default async function OnboardingPage(props: {
 
             <label className="block">
               <OnboardingFieldHeading field="goalWeightKg" />
-              <div className="ui-field-shell">
+              <div className="ui-field-wrapper">
                 <input
                   required
                   name="goalWeightKg"
