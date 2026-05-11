@@ -60,10 +60,10 @@ export default function CoachArea() {
             {coachArea.bullets.map((bullet) => (
               <div
                 key={bullet}
-                className="flex items-start gap-3 rounded-[1.25rem] border border-[var(--border)] bg-white/72 px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_28px_rgba(21,42,36,0.1)]"
+                className="flex items-center gap-3 rounded-[1.25rem] border border-[var(--border)] bg-white/72 px-4 py-3 transition duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_14px_28px_rgba(21,42,36,0.1)]"
               >
                 <span
-                  className="block h-2.5 w-2.5 shrink-0 rounded-full"
+                  className="block h-2.5 w-2.5 shrink-0 self-center rounded-full"
                   style={{ backgroundColor: coachArea.accent }}
                 />
                 <p className="text-sm leading-7 text-[var(--foreground)]">{bullet}</p>
