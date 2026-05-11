@@ -50,6 +50,12 @@ export default async function AiChatPage() {
               >
                 <HomeIcon />
               </Link>
+              <Link href="/plan" className="ui-pill">
+                웰니스 플랜
+              </Link>
+              <Link href="/coach" className="ui-pill">
+                코치 대시보드
+              </Link>
               <form
                 action={async () => {
                   "use server";

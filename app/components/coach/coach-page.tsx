@@ -74,6 +74,12 @@ export default async function CoachPage() {
               >
                 <HomeIcon />
               </Link>
+              <Link href="/plan" className="ui-pill">
+                웰니스 플랜
+              </Link>
+              <Link href="/ai-chat" className="ui-pill">
+                AI Chat
+              </Link>
               <form
                 action={async () => {
                   "use server";

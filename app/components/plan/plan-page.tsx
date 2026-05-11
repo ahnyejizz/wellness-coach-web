@@ -52,6 +52,12 @@ export default async function PlanPage() {
               >
                 <HomeIcon />
               </Link>
+              <Link href="/coach" className="ui-pill">
+                코치 대시보드
+              </Link>
+              <Link href="/ai-chat" className="ui-pill">
+                AI Chat
+              </Link>
               <form
                 action={async () => {
                   "use server";
