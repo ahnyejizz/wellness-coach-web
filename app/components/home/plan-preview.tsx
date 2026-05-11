@@ -161,7 +161,7 @@ function buildPlan(profile: PlanProfile): PersonalPlan {
     actions: [
       {
         slot: "Morning",
-        title: `${focus.label} 루틴 시작`,
+        title: `오전 루틴 시작`,
         detail: focus.morning,
         accent: TIME_SLOT_BADGE_COLORS.Morning.accent,
         softAccent: TIME_SLOT_BADGE_COLORS.Morning.softAccent,
@@ -175,7 +175,7 @@ function buildPlan(profile: PlanProfile): PersonalPlan {
       },
       {
         slot: "Evening",
-        title: "밤 루틴 정리",
+        title: "저녁 루틴 정리",
         detail: focus.evening,
         accent: TIME_SLOT_BADGE_COLORS.Evening.accent,
         softAccent: TIME_SLOT_BADGE_COLORS.Evening.softAccent,
