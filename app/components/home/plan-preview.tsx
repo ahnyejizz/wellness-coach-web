@@ -1,6 +1,6 @@
 "use client";
 
-import { WELLNESS_COLORS } from "@/app/constants/colors";
+import { TIME_SLOT_BADGE_COLORS, WELLNESS_COLORS } from "@/app/constants/colors";
 import LockPreview from "../common/lock-preview";
 
 import { type FocusKey, type GoalKey, type PlanProfile, useWellnessStore } from "@/app/stores/wellness-store";
@@ -45,21 +45,6 @@ const previewCardBadgeTone = {
   water: {
     accent: WELLNESS_COLORS.diet.accent,
     softAccent: WELLNESS_COLORS.diet.softAccent,
-  },
-} as const;
-
-const daySlotBadgeTone = {
-  Morning: {
-    accent: "#D96C4F",
-    softAccent: "#FBE4DD",
-  },
-  Midday: {
-    accent: "#8B68B5",
-    softAccent: "#EEE6F6",
-  },
-  Evening: {
-    accent: "#9A6B46",
-    softAccent: "#F1E3D7",
   },
 } as const;
 
@@ -178,22 +163,22 @@ function buildPlan(profile: PlanProfile): PersonalPlan {
         slot: "Morning",
         title: `${focus.label} 루틴 시작`,
         detail: focus.morning,
-        accent: daySlotBadgeTone.Morning.accent,
-        softAccent: daySlotBadgeTone.Morning.softAccent,
+        accent: TIME_SLOT_BADGE_COLORS.Morning.accent,
+        softAccent: TIME_SLOT_BADGE_COLORS.Morning.softAccent,
       },
       {
         slot: "Midday",
         title: "오후 흐름 안정화",
         detail: focus.midday,
-        accent: daySlotBadgeTone.Midday.accent,
-        softAccent: daySlotBadgeTone.Midday.softAccent,
+        accent: TIME_SLOT_BADGE_COLORS.Midday.accent,
+        softAccent: TIME_SLOT_BADGE_COLORS.Midday.softAccent,
       },
       {
         slot: "Evening",
         title: "밤 루틴 정리",
         detail: focus.evening,
-        accent: daySlotBadgeTone.Evening.accent,
-        softAccent: daySlotBadgeTone.Evening.softAccent,
+        accent: TIME_SLOT_BADGE_COLORS.Evening.accent,
+        softAccent: TIME_SLOT_BADGE_COLORS.Evening.softAccent,
       },
     ],
   };

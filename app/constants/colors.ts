@@ -33,3 +33,18 @@ export const HEALTH_SUMMARY_CATEGORY_COLORS = {
   식단: WELLNESS_COLORS.diet,
   "생활 습관": WELLNESS_COLORS.lifestyle,
 } as const;
+
+export const TIME_SLOT_BADGE_COLORS = {
+  Morning: {
+    accent: "#D96C4F",
+    softAccent: "#FBE4DD",
+  },
+  Midday: {
+    accent: "#8B68B5",
+    softAccent: "#EEE6F6",
+  },
+  Evening: {
+    accent: "#9A6B46",
+    softAccent: "#F1E3D7",
+  },
+} as const;

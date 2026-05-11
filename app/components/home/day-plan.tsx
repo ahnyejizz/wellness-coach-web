@@ -1,4 +1,4 @@
-import { WELLNESS_COLORS } from "@/app/constants/colors";
+import { TIME_SLOT_BADGE_COLORS, WELLNESS_COLORS } from "@/app/constants/colors";
 
 type DayPlanItem = {
   time: string;
@@ -7,6 +7,7 @@ type DayPlanItem = {
   domain: string;
   tint: string;
   accent: string;
+  timeSlot: keyof typeof TIME_SLOT_BADGE_COLORS;
 };
 
 const dayPlan: DayPlanItem[] = [
@@ -17,6 +18,7 @@ const dayPlan: DayPlanItem[] = [
     domain: "수면",
     tint: WELLNESS_COLORS.sleep.solidSoftAccent,
     accent: WELLNESS_COLORS.sleep.accent,
+    timeSlot: "Morning",
   },
   {
     time: "08:00",
@@ -25,6 +27,7 @@ const dayPlan: DayPlanItem[] = [
     domain: "식단",
     tint: WELLNESS_COLORS.diet.solidSoftAccent,
     accent: WELLNESS_COLORS.diet.accent,
+    timeSlot: "Morning",
   },
   {
     time: "12:40",
@@ -33,6 +36,7 @@ const dayPlan: DayPlanItem[] = [
     domain: "운동",
     tint: WELLNESS_COLORS.exercise.solidSoftAccent,
     accent: WELLNESS_COLORS.exercise.accent,
+    timeSlot: "Midday",
   },
   {
     time: "18:30",
@@ -41,6 +45,7 @@ const dayPlan: DayPlanItem[] = [
     domain: "운동",
     tint: WELLNESS_COLORS.exercise.solidSoftAccent,
     accent: WELLNESS_COLORS.exercise.accent,
+    timeSlot: "Evening",
   },
   {
     time: "22:20",
@@ -49,6 +54,7 @@ const dayPlan: DayPlanItem[] = [
     domain: "수면",
     tint: WELLNESS_COLORS.sleep.solidSoftAccent,
     accent: WELLNESS_COLORS.sleep.accent,
+    timeSlot: "Evening",
   },
 ];
 
@@ -73,7 +79,10 @@ export default function DayPlan() {
               <div className="flex items-start gap-4">
                 <div
                   className="flex h-12 w-12 items-center justify-center rounded-full text-sm font-semibold"
-                  style={{ backgroundColor: item.tint, color: item.accent }}
+                  style={{
+                    backgroundColor: TIME_SLOT_BADGE_COLORS[item.timeSlot].softAccent,
+                    color: TIME_SLOT_BADGE_COLORS[item.timeSlot].accent,
+                  }}
                 >
                   {item.time}
                 </div>
