@@ -121,11 +121,7 @@ export const focusAreas: Record<FocusKey, FocusArea> = {
   },
 };
 
-type FocusBoardProps = {
-  isLoggedIn: boolean;
-};
-
-export default function FocusBoard({ isLoggedIn }: FocusBoardProps) {
+export default function FocusBoard() {
   const activeFocus = useWellnessStore((state) => state.activeFocus);
   const setActiveFocus = useWellnessStore((state) => state.setActiveFocus);
 
@@ -167,18 +163,16 @@ export default function FocusBoard({ isLoggedIn }: FocusBoardProps) {
                     {area.summary}
                   </p>
                 </div>
-                {isLoggedIn ? (
-                  <div
-                    className="flex h-14 w-14 items-center justify-center rounded-full border"
-                    style={{
-                      backgroundColor: isActive ? area.softAccent : "rgba(255,255,255,0.12)",
-                      borderColor: isActive ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.08)",
-                      color: isActive ? area.accent : "#fffaf2",
-                    }}
-                  >
-                    <Icon className="h-6 w-6" />
-                  </div>
-                ) : null}
+                <div
+                  className="flex h-14 w-14 items-center justify-center rounded-full border"
+                  style={{
+                    backgroundColor: isActive ? area.softAccent : "rgba(255,255,255,0.12)",
+                    borderColor: isActive ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.08)",
+                    color: isActive ? area.accent : "#fffaf2",
+                  }}
+                >
+                  <Icon className="h-6 w-6" />
+                </div>
               </div>
             </button>
           );

@@ -43,7 +43,7 @@ export default async function Home(props: {
 
         {!isLoggedIn ? (
           <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]" aria-labelledby="coach-board-title">
-            <FocusBoard isLoggedIn={isLoggedIn} />
+            <FocusBoard />
             <FocusBoardPriority isLoggedIn={isLoggedIn} />
           </section>
         ) : null}

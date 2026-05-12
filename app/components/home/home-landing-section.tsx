@@ -48,7 +48,7 @@ export default function HomeLandingSection({ isLoggedIn }: HomeLandingSectionPro
 
           {isLoggedIn ? (
             <div className="max-w-[46rem]">
-              <FocusBoard isLoggedIn={isLoggedIn} />
+              <FocusBoard />
             </div>
           ) : (
             <div className="grid gap-3 sm:grid-cols-3">

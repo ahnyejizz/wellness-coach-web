@@ -76,7 +76,7 @@ export default async function PlanPage() {
           <DailySurveyPanel />
 
           <div className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
-            <FocusBoard isLoggedIn />
+            <FocusBoard />
             <FocusBoardPriority isLoggedIn />
           </div>
         </section>
