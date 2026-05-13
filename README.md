@@ -16,15 +16,36 @@
 
 ## ----- 1. 프로젝트 소개 -----
 
-### 기술 스택
+### 프로젝트 목표
 
-- `프론트엔드` : Next.js 16, React 19, TypeScript
-- `스타일링` : Tailwind CSS
-- `인증` : NextAuth.js, Google, Kakao, Naver
-- `상태관리` : Zustand
-- `저장 방식` : JSON File, Cookie
-- `AI` : Gemini API
-- `배포` : Vercel
+기존 React 중심 개발 경험을 확장해, Next.js 기반의 서버 중심 웹앱 구조를 실제 사용자 흐름에 적용하는 것을 목표로 진행한 프로젝트입니다.
+
+- `Next.js 16 App Router` 기반의 라우팅, 서버 컴포넌트, Route Handler, Server Action 흐름을 실무형 구조로 익히기
+- `Tailwind CSS 4`를 활용해 반응형 UI와 커스텀 디자인 시스템을 빠르게 구성하기
+- `Zustand persist` 기반으로 웰니스 플랜 상태를 로컬에 안정적으로 유지하는 구조 설계하기
+- `Gemini API`를 서버에서 안전하게 호출해 AI Q&A 기능을 실제 서비스 플로우에 연결하기
+
+### 프로젝트 설명
+
+- 수면, 운동, 식단을 하나의 흐름으로 관리하는 개인 맞춤형 웰니스 코치 웹 앱입니다.
+- 로그인 이후 `온보딩 → 웰니스 플랜 → 코치 대시보드 → AI Chat`으로 이어지는 사용자 흐름을 제공합니다.
+- 메인 앱은 `Vercel`에 배포합니다.
+
+### 프로젝트 기능
+
+- 이메일/비밀번호 기반 회원가입·로그인과 Google, Kakao, Naver 소셜 로그인을 함께 지원합니다.
+- `/onboarding`, `/plan`, `/coach`, `/ai-chat` 영역은 인증 상태를 기준으로 보호됩니다.
+- 회원가입 직후, 온보딩 페이지에서 목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 입력받아 개인화 기준으로 저장합니다.
+- 온보딩 완료 여부에 따라 진입 경로를 분기하고, 수정 모드에서는 기존 값을 다시 불러와 편집할 수 있습니다.
+- 웰니스 플랜 페이지에서 수면, 운동, 식단 우선순위를 전환하고 일일 브리핑 입력값과 함께 코칭 정보를 확인할 수 있습니다.
+- 코치 대시보드 페이지에서 가입 시 입력한 프로필, 플랜 요약, 주간 리포트를 한 화면에서 확인할 수 있습니다.
+- AI Chat 페이지에서 추천 질문, Q&A 요약 카드와 함께 Gemini 기반 웰니스 답변을 받을 수 있습니다.
+- AI 응답은 `app/api/ai-chat/route.ts`를 통해 서버에서 처리되어 API 키가 브라우저에 노출되지 않습니다. |
+
+### 서비스 링크
+
+- 배포 URL: https://wellness-coach-web.vercel.app/
+- GitHub: https://github.com/ahnyejizz/wellness-coach-web
 
 ## ----- 2. 라우팅 구조 -----
 
@@ -181,7 +202,10 @@ utils/
 ### 사용자 저장
 
 - 로컬 개발 환경: `data/users.json`
-- 온보딩 보정값 및 계정별 일부 상태: 쿠키 / 서버 저장소 기반
+- Vercel 배포 환경: `/tmp/motive-care-users.json`
+- 온보딩 보정값: `httpOnly` 쿠키 기반 저장
+- 플랜/브리핑 UI 상태: `Zustand persist` 기반 브라우저 저장소 사용
+- 비밀번호는 평문 저장하지 않고 `node:crypto` 기반 해시로 저장
 
 ### AI Chat 관련 파일
 
@@ -199,6 +223,7 @@ npm run dev
 
 - 권장 Node 버전: `20.20.2`
 - Next.js 16 기준 빌드 환경은 `Node >= 20.9.0` 이 필요합니다.
+- `npm run dev`는 Webpack 기반 개발 서버이고, `npm run dev:turbo`로 Turbopack 개발 서버도 실행할 수 있습니다.
 - AI Chat 개발을 위해선 `.env.local` 또는 배포 환경에 `GEMINI_API_KEY`가 필요합니다.
 
 ## ----- 7. 개발 시 필요 환경 변수 -----
