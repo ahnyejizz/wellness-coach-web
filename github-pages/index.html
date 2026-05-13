@@ -4,102 +4,175 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Motive Care | Wellness Coach Preview</title>
-    <meta
-      name="description"
-      content="수면, 운동, 식단을 하나의 흐름으로 관리하는 Motive Care의 GitHub Pages 프리뷰입니다."
-    />
+    <meta name="description" content="수면, 운동, 식단을 하나의 흐름으로 관리하는 Motive Care의 GitHub Pages 프리뷰" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="orb orb-coral"></div>
-    <div class="orb orb-blue"></div>
-    <div class="orb orb-gold"></div>
+    <div class="page-wrapper">
+      <div class="orb orb-coral"></div>
+      <div class="orb orb-blue"></div>
+      <div class="orb orb-gold"></div>
 
-    <main class="wrapper">
-      <section class="hero card">
-        <div class="hero-top">
+      <header class="topbar">
+        <a class="brand-lockup" href="#top">
           <span class="brand-pill">Motive Care</span>
-          <span class="hero-note">GitHub Pages Static Preview</span>
+        </a>
+
+        <div class="topbar-actions">
+          <a class="mini-cta" href="https://wellness-coach-web.vercel.app/" target="_blank" rel="noreferrer">
+            Open App
+          </a>
+          <a
+            class="button button-light"
+            href="https://github.com/ahnyejizz/wellness-coach-web"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Repository
+          </a>
         </div>
+      </header>
 
-        <div class="hero-grid">
-          <div>
+      <main class="wrapper" id="top">
+        <section class="card-wrapper hero">
+          <div class="hero-copy">
             <p class="eyebrow">Sleep, Workout, Diet in One Flow</p>
-            <h1>개인 웰니스 코치를 GitHub Pages에서도 가볍게 소개합니다</h1>
+            <h1>개인 맞춤형 웰니스 코치 웹 앱</h1>
             <p class="lead">
-              이 페이지는 정적 소개 버전입니다. 수면, 운동, 식단 코칭의 핵심 방향을 빠르게 보여주고, 전체 로그인 기능이
-              포함된 앱은 Vercel 배포 버전에서 이어집니다.
+              수면, 운동, 식단을 하나의 흐름으로 연결해 관리하는 웰니스 코치 웹 앱입니다.
+              <br />
+              이 페이지는 GitHub Pages용 정적 소개 버전이며,
+              <br />
+              인증과 AI Chat이 포함된 전체 앱은 Vercel 배포 버전에서 이어집니다.
             </p>
-
-            <div class="actions">
-              <a class="button button-dark" href="https://github.com/ahnyejizz/wellness-coach-web">
-                GitHub 저장소 보기
-              </a>
-              <a class="button button-light" href="#pillars">코칭 영역 보기</a>
-            </div>
           </div>
 
-          <aside class="brief">
-            <p class="brief-label">Today&apos;s preview</p>
-            <h2>Recovery First</h2>
-            <p>늦은 취침을 줄이고, 식사 타이밍과 운동 강도를 함께 조절하는 웰니스 코칭 흐름을 한 화면에 정리합니다.</p>
-
-            <div class="metric-row">
-              <div class="metric metric-sky">
-                <span>수면</span>
-                <strong>89</strong>
+          <div class="hero-stage" aria-label="서비스 프리뷰">
+            <article class="preview-window">
+              <div class="preview-grid">
+                <div class="focus-block tone-sky">
+                  <strong>Onboarding</strong>
+                  <span>목표 체중, 수면, 운동, 식단</span>
+                </div>
+                <div class="focus-block tone-mint">
+                  <strong>Authentication</strong>
+                  <span>Credentials + 3 Social Providers</span>
+                </div>
+                <div class="focus-block tone-gold">
+                  <strong>Plan Focus</strong>
+                  <span>Sleep, Workout, Diet</span>
+                </div>
+                <div class="focus-block tone-coral">
+                  <strong>AI Chat</strong>
+                  <span>서버 기반 Q&amp;A 응답</span>
+                </div>
               </div>
-              <div class="metric metric-mint">
-                <span>운동</span>
-                <strong>4/5</strong>
-              </div>
-              <div class="metric metric-gold">
-                <span>식단</span>
-                <strong>91%</strong>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
+            </article>
+          </div>
+        </section>
 
-      <section class="stack" id="pillars">
-        <article class="card feature">
-          <span class="tag sky">Sleep Coach</span>
-          <h3>깊게 자고 가볍게 깨는 리듬</h3>
-          <p>취침 시간, 회복 점수, 아침 각성 리듬을 함께 보며 수면 루틴을 코칭합니다.</p>
-        </article>
+        <section class="card-wrapper section-wrapper" id="flow">
+          <div class="section-head">
+            <p class="eyebrow">Project Flow</p>
+            <h2>현재 구현된 핵심 사용자 흐름</h2>
+            <p class="section-lead">
+              로그인 이후 온보딩, 플랜 워크스페이스, 코치 대시보드, AI Chat으로 이어지는 구조를 중심으로 기능을
+              설계했습니다.
+            </p>
+          </div>
 
-        <article class="card feature">
-          <span class="tag mint">Workout Coach</span>
-          <h3>무리 없이 쌓이는 운동 습관</h3>
-          <p>컨디션과 피로도를 반영해 강도와 회복일의 균형을 맞춘 주간 플랜을 제안합니다.</p>
-        </article>
+          <div class="flow-grid">
+            <article class="flow-card">
+              <span class="flow-step">Step 1</span>
+              <h3>Onboarding</h3>
+              <p>목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 입력받아 이후 개인화 기준으로 저장합니다.</p>
+            </article>
+            <article class="flow-card">
+              <span class="flow-step">Step 2</span>
+              <h3>Plan Workspace</h3>
+              <p>수면, 운동, 식단 우선순위를 전환하고 브리핑 입력과 함께 현재 플랜 방향을 확인합니다.</p>
+            </article>
+            <article class="flow-card">
+              <span class="flow-step">Step 3</span>
+              <h3>Coach Dashboard</h3>
+              <p>가입 시 입력한 프로필, 플랜 요약, 주간 리포트를 묶어 개인 대시보드 형태로 보여줍니다.</p>
+            </article>
+            <article class="flow-card">
+              <span class="flow-step">Step 4</span>
+              <h3>AI Chat</h3>
+              <p>추천 질문과 요약 카드, 최근 질문 흐름과 함께 일반 웰니스 정보형 AI 답변을 제공합니다.</p>
+            </article>
+          </div>
+        </section>
 
-        <article class="card feature">
-          <span class="tag gold">Nutrition Coach</span>
-          <h3>에너지가 오래 가는 식사 설계</h3>
-          <p>단백질, 수분, 식사 간격을 정리해 헛배고픔과 오후 집중력 저하를 줄입니다.</p>
-        </article>
-      </section>
+        <section class="card-wrapper section-wrapper" id="stack">
+          <div class="section-head">
+            <p class="eyebrow">Tech Stack</p>
+            <h2>현재 프로젝트 구현 기준 기술 스택</h2>
+            <p class="section-lead">
+              프론트엔드 UI부터 인증, 상태 관리, AI 연동, 정적 소개 페이지 운영까지 현재 코드 기준으로 정리했습니다.
+            </p>
+          </div>
 
-      <section class="card deploy">
-        <div>
-          <p class="eyebrow">Deployment Split</p>
-          <h2>배포는 두 갈래로 운영합니다</h2>
-        </div>
-
-        <div class="deploy-grid">
-          <article>
-            <h3>Vercel</h3>
-            <p>로그인, 회원가입, 세션, 보호 페이지가 포함된 전체 Next.js 앱 배포용입니다.</p>
-          </article>
-
-          <article>
-            <h3>GitHub Pages</h3>
-            <p>인증 없는 정적 소개 페이지를 빠르게 공개하는 용도입니다.</p>
-          </article>
-        </div>
-      </section>
-    </main>
+          <div class="tech-grid">
+            <article class="stack-card">
+              <span class="stack-label">Framework</span>
+              <h3>Next.js 16.2.3</h3>
+              <p>App Router, 서버 컴포넌트, Route Handler, Server Action 활용</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">UI</span>
+              <h3>React 19.2.4</h3>
+              <p>인터랙티브 코칭 UI와 클라이언트 컴포넌트 구현</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">Language</span>
+              <h3>TypeScript 5</h3>
+              <p>프론트엔드와 서버 로직 전반의 타입 안정성 확보</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">Styling</span>
+              <h3>Tailwind CSS 4</h3>
+              <p>반응형 레이아웃과 커스텀 UI 스타일링 구성</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">Authentication</span>
+              <h3>NextAuth v5 beta</h3>
+              <p>Google, Kakao, Naver 로그인과 보호 라우트 구성</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">Security</span>
+              <h3>Node.js crypto</h3>
+              <p>scrypt 기반 비밀번호 해시 및 인증 정보 보호 처리</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">State</span>
+              <h3>Zustand</h3>
+              <p>웰니스 플랜과 브리핑 입력 상태를 브라우저 저장소와 동기화</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">AI Integration</span>
+              <h3>Gemini REST API</h3>
+              <p>서버 Route Handler를 통한 웰니스 Q&amp;A 응답 생성</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">Data Storage</span>
+              <h3>JSON + Cookie</h3>
+              <p>fs/promises 기반 로컬 사용자 데이터와 httpOnly 쿠키 기반 온보딩 보정값 저장</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">Static Preview</span>
+              <h3>GitHub Pages</h3>
+              <p>프로젝트 소개용 정적 랜딩 페이지를 별도로 운영</p>
+            </article>
+            <article class="stack-card">
+              <span class="stack-label">Deployment</span>
+              <h3>Vercel</h3>
+              <p>로그인과 AI Chat이 포함된 메인 Next.js 앱 배포</p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
