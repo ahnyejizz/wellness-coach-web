@@ -75,20 +75,22 @@
 
 ---
 
-**2. 로그인 상태**
-<table>
-  <tr>
-    <td align="center" width="33.33%">
-      <img src="./public/readme/home/home-sleep.png" alt="홈 로그인 수면 화면" width="100%" />
-    </td>
-    <td align="center" width="33.33%">
-      <img src="./public/readme/home/home-exercise.png" alt="홈 로그인 운동 화면" width="100%" />
-    </td>
-    <td align="center" width="33.33%">
-      <img src="./public/readme/home/home-meal.png" alt="홈 로그인 식단 화면" width="100%" />
-    </td>
-  </tr>
-</table>
+**2-1. 로그인 상태 - 수면 플랜**
+![홈 화면](./public/readme/home/sleep/home-sleep.png)
+![홈 화면](./public/readme/home/sleep/home-sleep-brief.png)
+
+---
+
+**2-2. 로그인 상태 - 운동 플랜**
+![홈 화면](./public/readme/home/exercise/home-exercise.png)
+![홈 화면](./public/readme/home/exercise/home-exercise-brief.png)
+![홈 화면](./public/readme/home/exercise/home-exercise2.png)
+
+---
+
+**2-3. 로그인 상태 - 식단 플랜**
+![홈 화면](./public/readme/home/meal/home-meal-brief.png)
+![홈 화면](./public/readme/home/meal/home-meal.png)
 
 ---
 
@@ -115,7 +117,7 @@
 **1. 수면 플랜**
 
 ![수면 플랜 1](./public/readme/plan/plan-sleep.png)
-수면을 현재 최우선 플랜으로 선택했을 때의 보드 상태입니다.
+수면을 최우선 플랜으로 선택했을 때의 보드 상태입니다.
 
 ![수면 플랜 2](./public/readme/plan/plan-sleep2.png)
 총 수면 시간, 스크린 오프, 취침 준비 루틴 등 수면 브리핑 지표를 입력하는 브리핑 다이얼로그 입니다.
@@ -128,7 +130,7 @@
 **2. 운동 플랜**
 
 ![운동 플랜 1](./public/readme/plan/plan-exercise.png)
-운동을 우선순위로 전환했을 때 카드 색상과 코칭 내용이 함께 바뀐 상태입니다.
+운동을 최우선 플랜으로 선택했을 때의 보드 상태입니다.
 
 ![운동 플랜 2](./public/readme/plan/plan-exercise2.png)
 주간 근력 횟수, 유산소 횟수, 활동 칼로리, 회복 상태 등을 입력하는 브리핑 다이얼로그 입니다.
@@ -141,7 +143,7 @@
 **3. 식단 플랜**
 
 ![식단 플랜 1](./public/readme/plan/plan-meal.png)
-식단을 우선순위로 전환했을 때 카드 색상과 코칭 내용이 함께 바뀐 상태입니다.
+식단을 최우선 플랜으로 선택했을 때의 보드 상태입니다.
 
 ![식단 플랜 2](./public/readme/plan/plan-meal2.png)
 단백질, 수분, 군것질 횟수, 야식 빈도 등을 입력하는 브리핑 다이얼로그 입니다.
@@ -156,21 +158,18 @@
 **1. 수면 플랜**
 
 ![코치 대시보드 수면](./public/readme/coach/coach-sleep.png)
-가입 시 입력한 프로필과 수면 중심 요약 정보를 함께 보여주는 대시보드 상태입니다.
 
 ---
 
 **2. 운동 플랜**
 
 ![코치 대시보드 운동](./public/readme/coach/coach-exercise.png)
-운동 관련 플랜 요약과 주간 리포트가 반영된 개인 코치 대시보드 화면입니다.
 
 ---
 
 **3. 식단 플랜**
 
 ![코치 대시보드 식단](./public/readme/coach/coach-meal.png)
-식단 중심의 웰니스 요약과 개인화된 코치 정보를 확인할 수 있는 대시보드 상태입니다.
 
 ---
 
@@ -179,6 +178,7 @@
 추천 질문, 대화 입력, 응답 결과 흐름입니다.
 
 ![AI Chat 1](./public/readme/ai-chat/ai-chat.png)
+![AI Chat 1](./public/readme/ai-chat/ai-chat4.png)
 ![AI Chat 2](./public/readme/ai-chat/ai-chat2.png)
 ![AI Chat 3](./public/readme/ai-chat/ai-chat3.png)
 - 추천 질문과 최근 흐름을 바탕으로 웰니스 상담을 시작할 수 있는 AI Chat 초기 화면입니다.
