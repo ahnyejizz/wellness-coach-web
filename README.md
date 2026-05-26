@@ -4,6 +4,8 @@
 이 프로젝트는 `Next.js App Router` 기반으로 구성되어 있고
 로그인 상태에 따라 홈, 온보딩, 웰니스 플랜, 코치 대시보드, AI Chat 흐름이 자연스럽게 이어지도록 설계되어 있습니다.
 
+---
+
 ## 목차
 
 1. 프로젝트 소개
@@ -15,7 +17,9 @@
 7. Local 환경 실행 스크립트
 8. 개발 시 필요 환경 변수
 
-## ----- 1. 프로젝트 소개 -----
+---
+
+## 1. 프로젝트 소개
 
 ### 프로젝트 목표
 
@@ -48,9 +52,11 @@
 - 배포 URL: https://wellness-coach-web.vercel.app/
 - GitHub: https://github.com/ahnyejizz/wellness-coach-web
 
-## ----- 2. 실행 화면 -----
-
 ---
+
+## 2. 실행 화면
+
+<br />
 
 ### 회원가입 `/signup`
 
@@ -89,8 +95,8 @@
 ---
 
 **2-3. 로그인 상태 - 식단 플랜**
-![홈 화면](./public/readme/home/meal/home-meal-brief.png)
 ![홈 화면](./public/readme/home/meal/home-meal.png)
+![홈 화면](./public/readme/home/meal/home-meal-brief.png)
 
 ---
 
@@ -112,15 +118,19 @@
 
 수면, 운동, 식단 우선순위에 따라 상세 패널이 바뀌는 구조입니다.
 
----
+<br />
 
 **1. 수면 플랜**
 
 ![수면 플랜 1](./public/readme/plan/plan-sleep.png)
 수면을 최우선 플랜으로 선택했을 때의 보드 상태입니다.
 
+<br />
+
 ![수면 플랜 2](./public/readme/plan/plan-sleep2.png)
 총 수면 시간, 스크린 오프, 취침 준비 루틴 등 수면 브리핑 지표를 입력하는 브리핑 다이얼로그 입니다.
+
+<br />
 
 ![수면 플랜 3](./public/readme/plan/plan-sleep3.png)
 입력된 데이터를 바탕으로 주간 패턴과 코치 노트가 반영된 보드 상태입니다.
@@ -132,8 +142,12 @@
 ![운동 플랜 1](./public/readme/plan/plan-exercise.png)
 운동을 최우선 플랜으로 선택했을 때의 보드 상태입니다.
 
+<br />
+
 ![운동 플랜 2](./public/readme/plan/plan-exercise2.png)
 주간 근력 횟수, 유산소 횟수, 활동 칼로리, 회복 상태 등을 입력하는 브리핑 다이얼로그 입니다.
+
+<br />
 
 ![운동 플랜 3](./public/readme/plan/plan-exercise3.png)
 입력된 데이터를 바탕으로 주간 패턴과 코치 노트가 반영된 보드 상태입니다.
@@ -145,8 +159,12 @@
 ![식단 플랜 1](./public/readme/plan/plan-meal.png)
 식단을 최우선 플랜으로 선택했을 때의 보드 상태입니다.
 
+<br />
+
 ![식단 플랜 2](./public/readme/plan/plan-meal2.png)
 단백질, 수분, 군것질 횟수, 야식 빈도 등을 입력하는 브리핑 다이얼로그 입니다.
+
+<br />
 
 ![식단 플랜 3](./public/readme/plan/plan-meal3.png)
 입력된 데이터를 바탕으로 주간 패턴과 코치 노트가 반영된 보드 상태입니다.
@@ -156,19 +174,16 @@
 ### 코치 대시보드 `/coach`
 
 **1. 수면 플랜**
-
 ![코치 대시보드 수면](./public/readme/coach/coach-sleep.png)
 
 ---
 
 **2. 운동 플랜**
-
 ![코치 대시보드 운동](./public/readme/coach/coach-exercise.png)
 
 ---
 
 **3. 식단 플랜**
-
 ![코치 대시보드 식단](./public/readme/coach/coach-meal.png)
 
 ---
@@ -176,18 +191,18 @@
 ### AI Chat `/ai-chat`
 
 추천 질문, 대화 입력, 응답 결과 흐름입니다.
-
 ![AI Chat 1](./public/readme/ai-chat/ai-chat.png)
 ![AI Chat 1](./public/readme/ai-chat/ai-chat4.png)
 ![AI Chat 2](./public/readme/ai-chat/ai-chat2.png)
 ![AI Chat 3](./public/readme/ai-chat/ai-chat3.png)
+
 - 추천 질문과 최근 흐름을 바탕으로 웰니스 상담을 시작할 수 있는 AI Chat 초기 화면입니다.
 - 사용자가 질문을 입력하고 서버 Route Handler를 통해 AI 응답을 요청하는 대화 진행 화면입니다.
 - Gemini 기반 답변과 요약 카드가 함께 표시되는 AI 웰니스 코칭 결과 화면입니다.
 
 ---
 
-## ----- 3. 라우팅 구조 -----
+## 3. 라우팅 구조
 
 현재 프로젝트는 `route entry`와 `실제 페이지 구현`을 분리하는 패턴을 사용합니다.
 
@@ -239,7 +254,9 @@
 - 추천 질문, 최근 질문, 웰니스 Q&A 요약 카드가 함께 제공됩니다.
 - 서버 호출은 `/api/ai-chat` Route Handler를 통해 처리되며, API 키는 브라우저로 노출되지 않습니다.
 
-## ----- 4. 폴더 및 파일명 명명 규칙 -----
+---
+
+## 4. 폴더 및 파일명 명명 규칙
 
 ### 기본 원칙
 
@@ -294,7 +311,9 @@
 - 서버 액션은 `app/actions/`
 - 공통 색상 상수는 `app/constants/colors.ts`
 
-## ----- 5. 현재 주요 폴더 구조 -----
+---
+
+## 5. 현재 주요 폴더 구조
 
 ```txt
 app/
@@ -328,7 +347,9 @@ utils/
   route-href.ts
 ```
 
-## ----- 6. 인증 및 저장 구조 -----
+---
+
+## 6. 인증 및 저장 구조
 
 ### 인증
 
@@ -353,7 +374,9 @@ utils/
 - 서버 로직: [lib/ai-chat/assistant.ts](/Users/dreamtree123/my-next-app/lib/ai-chat/assistant.ts)
 - 정적 요약/문구: [lib/ai-chat/content.ts](/Users/dreamtree123/my-next-app/lib/ai-chat/content.ts)
 
-## ----- 7. Local 환경 실행 스크립트 -----
+---
+
+## 7. Local 환경 실행 스크립트
 
 ```bash
 nvm use
@@ -366,7 +389,9 @@ npm run dev
 - `npm run dev`는 Webpack 기반 개발 서버이고, `npm run dev:turbo`로 Turbopack 개발 서버도 실행할 수 있습니다.
 - AI Chat 개발을 위해선 `.env.local` 또는 배포 환경에 `GEMINI_API_KEY`가 필요합니다.
 
-## ----- 8. 개발 시 필요 환경 변수 -----
+---
+
+## 8. 개발 시 필요 환경 변수
 
 ```bash
 AUTH_SECRET="replace-with-a-random-secret-before-deploy"
