@@ -7,12 +7,13 @@
 ## 목차
 
 1. 프로젝트 소개
-2. 라우팅 구조
-3. 폴더 및 파일명 명명 규칙
-4. 현재 주요 폴더 구조
-5. 인증 및 저장 구조
-6. Local 환경 실행 스크립트
-7. 개발 시 필요 환경 변수
+2. 실행 화면
+3. 라우팅 구조
+4. 폴더 및 파일명 명명 규칙
+5. 현재 주요 폴더 구조
+6. 인증 및 저장 구조
+7. Local 환경 실행 스크립트
+8. 개발 시 필요 환경 변수
 
 ## ----- 1. 프로젝트 소개 -----
 
@@ -47,7 +48,136 @@
 - 배포 URL: https://wellness-coach-web.vercel.app/
 - GitHub: https://github.com/ahnyejizz/wellness-coach-web
 
-## ----- 2. 라우팅 구조 -----
+## ----- 2. 실행 화면 -----
+
+---
+
+### 회원가입 `/signup`
+
+![회원가입 화면](./public/readme/join/join.png)
+기본 계정 정보를 입력한 뒤 온보딩 플로우로 넘어가도록 설계한 회원가입 화면입니다.
+
+---
+
+### 로그인 `/login`
+
+![로그인 화면](./public/readme/login/login.png)
+이메일 로그인과 소셜 로그인 진입을 함께 제공하는 인증 시작 화면입니다.
+
+---
+
+### 홈 `/`
+
+**1. 비 로그인 상태**
+![홈 화면](./public/readme/home/unauthenticated/home-unauthenticated.png)
+![홈 화면](./public/readme/home/unauthenticated/home-unauthenticated2.png)
+![홈 화면](./public/readme/home/unauthenticated/home-unauthenticated5.png)
+
+---
+
+**2. 로그인 상태**
+![홈 화면](./public/readme/home/home.png)
+![홈 화면](./public/readme/home/home2.png)
+![홈 화면](./public/readme/home/home3.png)
+
+---
+
+### 온보딩 `/onboarding`
+
+**1. 온보딩 생성 화면**
+![온보딩 생성 화면](./public/readme/onboarding/onboarding-create.png)
+목표 체중, 수면 패턴, 운동 경험, 식단 스타일을 처음 저장하는 신규 온보딩 화면입니다.
+
+---
+
+**2. 온보딩 수정 화면**
+![온보딩 수정 화면](./public/readme/onboarding/onboarding-update.png)
+기존 사용자 데이터를 다시 불러와 개인화 기준을 수정할 수 있는 온보딩 편집 화면입니다.
+
+---
+
+### 웰니스 플랜 `/plan`
+
+수면, 운동, 식단 우선순위에 따라 상세 패널이 바뀌는 구조입니다.
+
+---
+
+**1. 수면 플랜**
+
+![수면 플랜 1](./public/readme/plan/plan-sleep.png)
+수면을 현재 최우선 플랜으로 선택했을 때의 보드 상태입니다.
+
+![수면 플랜 2](./public/readme/plan/plan-sleep2.png)
+총 수면 시간, 스크린 오프, 취침 준비 루틴 등 수면 브리핑 지표를 입력하는 브리핑 화면입니다.
+
+![수면 플랜 3](./public/readme/plan/plan-sleep3.png)
+입력된 데이터를 바탕으로 주간 패턴과 코치 노트가 반영된 보드 상태입니다.
+
+---
+
+**2. 운동 플랜**
+
+![운동 플랜 1](./public/readme/plan/plan-exercise.png)
+운동을 우선순위로 전환했을 때 카드 색상과 코칭 내용이 함께 바뀐 상태입니다.
+
+![운동 플랜 2](./public/readme/plan/plan-exercise2.png)
+주간 근력 횟수, 유산소 횟수, 활동 칼로리, 회복 상태 등을 입력하는 브리핑 화면입니다.
+
+![운동 플랜 3](./public/readme/plan/plan-exercise3.png)
+입력된 데이터를 바탕으로 주간 패턴과 코치 노트가 반영된 보드 상태입니다.
+
+---
+
+**3. 식단 플랜**
+
+![식단 플랜 1](./public/readme/plan/plan-meal.png)
+식단을 우선순위로 전환했을 때 카드 색상과 코칭 내용이 함께 바뀐 상태입니다.
+
+![식단 플랜 2](./public/readme/plan/plan-meal2.png)
+단백질, 수분, 군것질 횟수, 야식 빈도 등을 입력하는 브리핑 화면입니다.
+
+![식단 플랜 3](./public/readme/plan/plan-meal3.png)
+입력된 데이터를 바탕으로 주간 패턴과 코치 노트가 반영된 보드 상태입니다.
+
+---
+
+### 코치 대시보드 `/coach`
+
+**1. 수면 플랜**
+
+![코치 대시보드 수면](./public/readme/coach/coach-sleep.png)
+가입 시 입력한 프로필과 수면 중심 요약 정보를 함께 보여주는 대시보드 상태입니다.
+
+---
+
+**2. 운동 플랜**
+
+![코치 대시보드 운동](./public/readme/coach/coach-exercise.png)
+운동 관련 플랜 요약과 주간 리포트가 반영된 개인 코치 대시보드 화면입니다.
+
+---
+
+**3. 식단 플랜**
+
+![코치 대시보드 식단](./public/readme/coach/coach-meal.png)
+식단 중심의 웰니스 요약과 개인화된 코치 정보를 확인할 수 있는 대시보드 상태입니다.
+
+---
+
+### AI Chat `/ai-chat`
+
+추천 질문, 대화 입력, 응답 결과 흐름입니다.
+
+![AI Chat 1](./public/readme/ai-chat/ai-chat.png)
+추천 질문과 최근 흐름을 바탕으로 웰니스 상담을 시작할 수 있는 AI Chat 초기 화면입니다.
+
+![AI Chat 2](./public/readme/ai-chat/ai-chat2.png)
+사용자가 질문을 입력하고 서버 Route Handler를 통해 AI 응답을 요청하는 대화 진행 화면입니다.
+
+![AI Chat 3](./public/readme/ai-chat/ai-chat3.png)
+Gemini 기반 답변과 요약 카드가 함께 표시되는 AI 웰니스 코칭 결과 화면입니다.
+
+## ----- 3. 라우팅 구조 -----
 
 현재 프로젝트는 `route entry`와 `실제 페이지 구현`을 분리하는 패턴을 사용합니다.
 
@@ -99,7 +229,7 @@
 - 추천 질문, 최근 질문, 웰니스 Q&A 요약 카드가 함께 제공됩니다.
 - 서버 호출은 `/api/ai-chat` Route Handler를 통해 처리되며, API 키는 브라우저로 노출되지 않습니다.
 
-## ----- 3. 폴더 및 파일명 명명 규칙 -----
+## ----- 4. 폴더 및 파일명 명명 규칙 -----
 
 ### 기본 원칙
 
@@ -154,7 +284,7 @@
 - 서버 액션은 `app/actions/`
 - 공통 색상 상수는 `app/constants/colors.ts`
 
-## ----- 4. 현재 주요 폴더 구조 -----
+## ----- 5. 현재 주요 폴더 구조 -----
 
 ```txt
 app/
@@ -188,7 +318,7 @@ utils/
   route-href.ts
 ```
 
-## ----- 5. 인증 및 저장 구조 -----
+## ----- 6. 인증 및 저장 구조 -----
 
 ### 인증
 
@@ -213,7 +343,7 @@ utils/
 - 서버 로직: [lib/ai-chat/assistant.ts](/Users/dreamtree123/my-next-app/lib/ai-chat/assistant.ts)
 - 정적 요약/문구: [lib/ai-chat/content.ts](/Users/dreamtree123/my-next-app/lib/ai-chat/content.ts)
 
-## ----- 6. Local 환경 실행 스크립트 -----
+## ----- 7. Local 환경 실행 스크립트 -----
 
 ```bash
 nvm use
@@ -226,7 +356,7 @@ npm run dev
 - `npm run dev`는 Webpack 기반 개발 서버이고, `npm run dev:turbo`로 Turbopack 개발 서버도 실행할 수 있습니다.
 - AI Chat 개발을 위해선 `.env.local` 또는 배포 환경에 `GEMINI_API_KEY`가 필요합니다.
 
-## ----- 7. 개발 시 필요 환경 변수 -----
+## ----- 8. 개발 시 필요 환경 변수 -----
 
 ```bash
 AUTH_SECRET="replace-with-a-random-secret-before-deploy"
