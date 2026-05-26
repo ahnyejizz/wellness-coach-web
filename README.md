@@ -76,9 +76,19 @@
 ---
 
 **2. 로그인 상태**
-![홈 화면](./public/readme/home/home.png)
-![홈 화면](./public/readme/home/home2.png)
-![홈 화면](./public/readme/home/home3.png)
+<table>
+  <tr>
+    <td align="center" width="33.33%">
+      <img src="./public/readme/home/home-sleep.png" alt="홈 로그인 수면 화면" width="100%" />
+    </td>
+    <td align="center" width="33.33%">
+      <img src="./public/readme/home/home-exercise.png" alt="홈 로그인 운동 화면" width="100%" />
+    </td>
+    <td align="center" width="33.33%">
+      <img src="./public/readme/home/home-meal.png" alt="홈 로그인 식단 화면" width="100%" />
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -108,7 +118,7 @@
 수면을 현재 최우선 플랜으로 선택했을 때의 보드 상태입니다.
 
 ![수면 플랜 2](./public/readme/plan/plan-sleep2.png)
-총 수면 시간, 스크린 오프, 취침 준비 루틴 등 수면 브리핑 지표를 입력하는 브리핑 화면입니다.
+총 수면 시간, 스크린 오프, 취침 준비 루틴 등 수면 브리핑 지표를 입력하는 브리핑 다이얼로그 입니다.
 
 ![수면 플랜 3](./public/readme/plan/plan-sleep3.png)
 입력된 데이터를 바탕으로 주간 패턴과 코치 노트가 반영된 보드 상태입니다.
@@ -121,7 +131,7 @@
 운동을 우선순위로 전환했을 때 카드 색상과 코칭 내용이 함께 바뀐 상태입니다.
 
 ![운동 플랜 2](./public/readme/plan/plan-exercise2.png)
-주간 근력 횟수, 유산소 횟수, 활동 칼로리, 회복 상태 등을 입력하는 브리핑 화면입니다.
+주간 근력 횟수, 유산소 횟수, 활동 칼로리, 회복 상태 등을 입력하는 브리핑 다이얼로그 입니다.
 
 ![운동 플랜 3](./public/readme/plan/plan-exercise3.png)
 입력된 데이터를 바탕으로 주간 패턴과 코치 노트가 반영된 보드 상태입니다.
@@ -134,7 +144,7 @@
 식단을 우선순위로 전환했을 때 카드 색상과 코칭 내용이 함께 바뀐 상태입니다.
 
 ![식단 플랜 2](./public/readme/plan/plan-meal2.png)
-단백질, 수분, 군것질 횟수, 야식 빈도 등을 입력하는 브리핑 화면입니다.
+단백질, 수분, 군것질 횟수, 야식 빈도 등을 입력하는 브리핑 다이얼로그 입니다.
 
 ![식단 플랜 3](./public/readme/plan/plan-meal3.png)
 입력된 데이터를 바탕으로 주간 패턴과 코치 노트가 반영된 보드 상태입니다.
@@ -169,13 +179,13 @@
 추천 질문, 대화 입력, 응답 결과 흐름입니다.
 
 ![AI Chat 1](./public/readme/ai-chat/ai-chat.png)
-추천 질문과 최근 흐름을 바탕으로 웰니스 상담을 시작할 수 있는 AI Chat 초기 화면입니다.
-
 ![AI Chat 2](./public/readme/ai-chat/ai-chat2.png)
-사용자가 질문을 입력하고 서버 Route Handler를 통해 AI 응답을 요청하는 대화 진행 화면입니다.
-
 ![AI Chat 3](./public/readme/ai-chat/ai-chat3.png)
-Gemini 기반 답변과 요약 카드가 함께 표시되는 AI 웰니스 코칭 결과 화면입니다.
+- 추천 질문과 최근 흐름을 바탕으로 웰니스 상담을 시작할 수 있는 AI Chat 초기 화면입니다.
+- 사용자가 질문을 입력하고 서버 Route Handler를 통해 AI 응답을 요청하는 대화 진행 화면입니다.
+- Gemini 기반 답변과 요약 카드가 함께 표시되는 AI 웰니스 코칭 결과 화면입니다.
+
+---
 
 ## ----- 3. 라우팅 구조 -----
 
