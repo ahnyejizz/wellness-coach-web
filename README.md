@@ -73,10 +73,22 @@
 <br />
 
 **SNS 로그인**
-![SNS 로그인 화면](./public/readme/login/login-google.png)
-![SNS 로그인 화면](./public/readme/login/login-kakao.png)
-![SNS 로그인 화면](./public/readme/login/login-naver.png)
 Google, Kakao, Naver 소셜 로그인 버튼을 통해 동일한 인증 플로우로 진입할 수 있습니다.
+
+<br />
+
+**1. Google**
+![SNS 로그인 화면](./public/readme/login/login-google.png)
+
+<br />
+
+**2. Kakao**
+![SNS 로그인 화면](./public/readme/login/login-kakao.png)
+
+<br />
+
+**3. Naver**
+![SNS 로그인 화면](./public/readme/login/login-naver.png)
 
 ---
 
