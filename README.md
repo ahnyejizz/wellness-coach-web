@@ -70,6 +70,14 @@
 ![로그인 화면](./public/readme/login/login.png)
 이메일 로그인과 소셜 로그인 진입을 함께 제공하는 인증 시작 화면입니다.
 
+<br />
+
+**SNS 로그인**
+![SNS 로그인 화면](./public/readme/login/login-google.png)
+![SNS 로그인 화면](./public/readme/login/login-kakao.png)
+![SNS 로그인 화면](./public/readme/login/login-naver.png)
+Google, Kakao, Naver 소셜 로그인 버튼을 통해 동일한 인증 플로우로 진입할 수 있습니다.
+
 ---
 
 ### 홈 `/`
@@ -199,6 +207,13 @@
 - 추천 질문과 최근 흐름을 바탕으로 웰니스 상담을 시작할 수 있는 AI Chat 초기 화면입니다.
 - 사용자가 질문을 입력하고 서버 Route Handler를 통해 AI 응답을 요청하는 대화 진행 화면입니다.
 - Gemini 기반 답변과 요약 카드가 함께 표시되는 AI 웰니스 코칭 결과 화면입니다.
+
+---
+
+### 로그아웃
+
+![로그아웃 화면](./public/readme/logout/logout.png)
+로그아웃 액션 이후 현재 세션을 종료하고 다시 인증 화면으로 돌아갈 수 있는 상태입니다.
 
 ---
 
