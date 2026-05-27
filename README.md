@@ -62,6 +62,28 @@
 
 ![회원가입 화면](./public/readme/join/join.png)
 기본 계정 정보를 입력한 뒤 온보딩 플로우로 넘어가도록 설계한 회원가입 화면입니다.
+이름, 이메일, 비밀번호, 비밀번호 확인을 검증하며,
+이메일 형식 오류나 비밀번호 조건 불일치 같은 유효성 검사 결과는 커스텀 알럿으로 안내합니다.
+
+<br />
+
+**유효성 검사 예시 1**
+![회원가입 유효성 검사 화면](./public/readme/join/join-check.png)
+
+<br />
+
+**유효성 검사 예시 2**
+![회원가입 유효성 검사 화면](./public/readme/join/join-check2.png)
+
+<br />
+
+**유효성 검사 예시 3**
+![회원가입 유효성 검사 화면](./public/readme/join/join-check3.png)
+
+<br />
+
+**커스텀 알럿 안내**
+![회원가입 커스텀 알럿 화면](./public/readme/join/join-check-alert.png)
 
 ---
 
@@ -69,12 +91,8 @@
 
 ![로그인 화면](./public/readme/login/login.png)
 이메일 로그인과 소셜 로그인 진입을 함께 제공하는 인증 시작 화면입니다.
-
-<br />
-
-**SNS 로그인**
 Google, Kakao, Naver 소셜 로그인 버튼을 통해 동일한 인증 플로우로 진입할 수 있습니다.
-
+마찬가지로 유효성 검사 결과는 커스텀 알럿으로 안내합니다.
 <br />
 
 **1. Google**
@@ -89,6 +107,11 @@ Google, Kakao, Naver 소셜 로그인 버튼을 통해 동일한 인증 플로�
 
 **3. Naver**
 ![SNS 로그인 화면](./public/readme/login/login-naver.png)
+
+<br />
+
+**커스텀 알럿 안내**
+![로그인 커스텀 알럿 화면](./public/readme/join/join-check-alert.png)
 
 ---
 
