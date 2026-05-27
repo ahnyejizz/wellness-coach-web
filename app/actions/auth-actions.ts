@@ -150,16 +150,6 @@ export async function signupWithCredentials(formData: FormData) {
     );
   }
 
-  if (name.length < 2) {
-    return redirect(
-      buildAuthRedirect("/signup", {
-        callbackUrl,
-        error: "name_too_short",
-        values: persistedValues,
-      }),
-    );
-  }
-
   if (!isValidEmail(email)) {
     return redirect(
       buildAuthRedirect("/signup", {

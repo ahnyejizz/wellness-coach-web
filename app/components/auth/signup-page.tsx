@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { HomeIcon } from "@/app/components/common/icons";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
+import SignupErrorAlert from "@/app/components/auth/signup-error-alert";
 
 /**
  * @description 계정을 만든 뒤 온보딩으로 이어지는 회원가입 페이지
@@ -37,10 +38,9 @@ function resolveErrorMessage(value: string | string[] | undefined) {
 
   const messageMap: Record<string, string> = {
     missing_fields: "이름, 이메일, 비밀번호를 모두 입력해주세요.",
-    name_too_short: "이름은 2글자 이상 입력해주세요.",
     invalid_email: "올바른 이메일 형식으로 입력해주세요.",
     weak_password: "비밀번호는 영문과 숫자를 포함해 8자 이상이어야 해요.",
-    password_mismatch: "비밀번호 확인이 일치하지 않아요.",
+    password_mismatch: "비밀번호 확인 입력값이 일치하지 않아요.",
     email_in_use: "이미 가입된 이메일이에요. 로그인하거나 다른 이메일을 사용해주세요.",
     invalid_provider: "지원하지 않는 회원가입 방식이에요. 다시 시도해주세요.",
     AccessDenied: "소셜 회원가입 권한이 거부되었어요. 다시 시도해주세요.",
@@ -82,9 +82,33 @@ export default async function SignUpPage(props: {
       : Array.isArray(searchParams.email)
         ? (searchParams.email[0] ?? "")
         : "";
+  const nextSearchParams = new URLSearchParams();
+
+  if (callbackUrl !== "/") {
+    nextSearchParams.set("callbackUrl", callbackUrl);
+  }
+
+  if (name) {
+    nextSearchParams.set("name", name);
+  }
+
+  if (email) {
+    nextSearchParams.set("email", email);
+  }
+
+  const nextUrl = nextSearchParams.size ? `/signup?${nextSearchParams.toString()}` : "/signup";
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
+      {errorMessage ? (
+        <SignupErrorAlert
+          message={errorMessage}
+          nextUrl={nextUrl}
+          kicker="Sign up"
+          title="입력 내용을 확인해주세요"
+          closeLabel="회원가입 오류 알림 닫기"
+        />
+      ) : null}
       <div className="flex w-full justify-center">
         <section className="panel ui-panel-wrapper-lg w-full max-w-[42rem]">
           <div className="flex flex-wrap items-start justify-between gap-4 sm:items-center">
@@ -121,8 +145,9 @@ export default async function SignUpPage(props: {
             <AuthCredentialsForm
               mode="signup"
               callbackUrl={callbackUrl}
-              errorMessage={errorMessage}
+              errorMessage=""
               initialValues={{ name, email }}
+              preservePasswordsOnError={Boolean(errorMessage)}
             />
           </div>
 

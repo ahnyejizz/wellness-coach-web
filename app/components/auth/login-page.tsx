@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { HomeIcon } from "@/app/components/common/icons";
 import AuthCredentialsForm from "@/app/components/common/auth-credentials-form";
 import SocialAuthButtons from "@/app/components/common/social-auth-buttons";
+import SignupErrorAlert from "@/app/components/auth/signup-error-alert";
 
 /**
  * @description 기존 사용자가 이메일 또는 소셜 계정으로 다시 진입하는 로그인 페이지
@@ -77,9 +78,29 @@ export default async function LoginPage(props: {
       : Array.isArray(searchParams.email)
         ? (searchParams.email[0] ?? "")
         : "";
+  const nextSearchParams = new URLSearchParams();
+
+  if (callbackUrl !== "/") {
+    nextSearchParams.set("callbackUrl", callbackUrl);
+  }
+
+  if (email) {
+    nextSearchParams.set("email", email);
+  }
+
+  const nextUrl = nextSearchParams.size ? `/login?${nextSearchParams.toString()}` : "/login";
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-5 py-8 sm:px-8 lg:px-10">
+      {errorMessage ? (
+        <SignupErrorAlert
+          message={errorMessage}
+          nextUrl={nextUrl}
+          kicker="Sign in"
+          title="로그인 정보를 확인해주세요"
+          closeLabel="로그인 오류 알림 닫기"
+        />
+      ) : null}
       <div className="flex w-full justify-center">
         <section className="panel ui-panel-wrapper-lg w-full max-w-[42rem]">
           <div className="flex items-center justify-between gap-4">
@@ -111,7 +132,7 @@ export default async function LoginPage(props: {
             <AuthCredentialsForm
               mode="login"
               callbackUrl={callbackUrl}
-              errorMessage={errorMessage}
+              errorMessage=""
               initialValues={{ email }}
             />
           </div>
